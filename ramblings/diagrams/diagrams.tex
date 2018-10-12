@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{amsmath}
+\usepackage{physics}
+
+
+\usetikzlibrary{arrows}
+
+% Arrow in the middle
+\usetikzlibrary{decorations.markings}
+%\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+
+\title{Drawings That We Use in Many-Body Physics}
+\author{Greg Winther}
+\date{\today}
+
+\begin{document}
+
+	\maketitle
+
+	\section{Slater determinants}
+	
+	Drawing the reference state will result in a drawing of nothing. A single-excited reference
+	state is two vertical arrows
+	
+	\begin{align}	
+		\Phi_i^a =
+		\begin{tikzpicture}[baseline=0]
+		\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
+			\draw[postaction={decorate}] (1, -1) --  (1, 1) node [anchor=east,pos=0.5] {i};
+			\draw[postaction={decorate}](1.5, 1) -- (1.5, -1) node [anchor=west,pos=0.5] {a};
+		\end{scope}
+		\end{tikzpicture},
+	\end{align}
+	
+	while the double-excited Slater determinant consists of four vertical arrows,
+	
+	\begin{align}	
+		\Phi_{ij}^{ab} =
+		\begin{tikzpicture}[baseline=0]
+		\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
+			\draw[postaction={decorate}] (1, -1) --  (1, 1) node [anchor=east,pos=0.5] {i};
+			\draw[postaction={decorate}](1.5, 1) -- (1.5, -1) node [anchor=west,pos=0.5] {a};
+			\draw[postaction={decorate}] (2.5, -1) --  (2.5, 1) node [anchor=east,pos=0.5] {j};
+			\draw[postaction={decorate}](3, 1) -- (3, -1) node [anchor=west,pos=0.5] {b};
+		\end{scope}
+		\end{tikzpicture}.
+	\end{align}
+	
+	The horizontal positions of the lines have no significance. If we want to indicate a bra or ket form 
+	we draw a couple of horizontal lines,
+	
+	\begin{align}
+		\ket{\Phi_i^a} = \{ \hat{a}^\dagger \hat i\} \ket{0} = 
+		\begin{tikzpicture}[baseline=0]
+		\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
+			\draw[postaction={decorate}] (1, -1) --  (1, 1) node [anchor=east,pos=0.5] {i};
+			\draw[postaction={decorate}](1.5, 1) -- (1.5, -1) node [anchor=west,pos=0.5] {a};
+			\draw(0.75, -1) -- (1.75, -1);
+			\draw(0.75, -1.1) -- (1.75, -1.1);
+		\end{scope}
+		\end{tikzpicture}, \quad
+		\bra{\Phi_i^a} = \bra{0} \{ \hat{i}^\dagger \hat a\} = 
+		\begin{tikzpicture}[baseline=0]
+		\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
+			\draw[postaction={decorate}] (1, -1) --  (1, 1) node [anchor=east,pos=0.5] {i};
+			\draw[postaction={decorate}](1.5, 1) -- (1.5, -1) node [anchor=west,pos=0.5] {a};
+			\draw(0.75, 1) -- (1.75, 1);
+			\draw(0.75, 1.1) -- (1.75, 1.1);
+		\end{scope}
+		\end{tikzpicture},
+	\end{align}
+
+\end{document}
