@@ -1,3 +1,9 @@
 # Tex
 *.log
 *.aux
+
+# Stupid mac folder file
+.DS_Store
+
+# jupyter checkpoint
+*checkpoint.ipynb
