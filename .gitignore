@@ -2,6 +2,11 @@
 *.log
 *.aux
 *.toc
+*.fls
+
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
 
 # Stupid mac folder file
 .DS_Store
