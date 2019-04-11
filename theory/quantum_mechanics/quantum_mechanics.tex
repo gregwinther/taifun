@@ -1,0 +1,56 @@
+\chapter{Quantum Mechanics}
+    \epigraph{Hierzu ist es notwendig, die Energy nicht als eine stetige
+    unbeschränkt teilbare, sondern als eine discrete, ause einer ganzen
+    Zahl von endlichen gleichen Teilen zusammengesetzte Grösse 
+    aufzufassen.}
+    {--- Max Planck}
+
+
+\section{The Dirac-von Neumann Postulates}
+
+    This is the TL;DR version of Quantum Mechanics.
+
+    \paragraph{Hilbert Space}
+    A quantum state of an isolated physical system is described by a vector
+    with unit norm in a Hilbert space, a complex vector space quipped with a
+    scalar product. 
+
+    \paragraph{Observables}
+    Each physical observable of a system is accociated with a \emph{hermitian}
+    operator acting on the Hilbert space. The eigenstates of each such
+    operator define a \emph{complete}, \emph{orthonormal} set of vectors.
+
+    With $\hat{O}$ an operator, hermiticity means,
+    \begin{equation}
+        \bra{\phi}\hat{O}\psi\rangle = \langle\hat{O}\phi\ket{\psi} \equiv \bra{\phi} \hat{O} \ket{\psi}.
+    \end{equation}
+
+    Completness means,
+    \begin{equation}
+        \sum_i \ket{i}\bra{i} = \mathds{1}.
+    \end{equation}
+
+    Orthonormal means,
+    \begin{equation}
+        \braket{i}{j} = \delta_{ij}.
+    \end{equation}
+
+    \paragraph{Time Evolution}
+    The time evolution of the state vector, $\ket{\psi} = \ket{\psi (t)}$, is given by the Schrödinger
+    equation\footnote{In the Schrödinger picture.}.
+    \begin{equation}
+        i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
+    \end{equation}
+
+    \paragraph{Measurments}
+    Physically measurable values, associated with an obeservable $\hat{O}$ are defined by the 
+    eigenvalues $o_n$ of the observable,
+    \begin{equation}
+        \hat{O}\ket{n} = o_n\ket{n}.
+    \end{equation}
+    The probability for finding a particular eigenvalue in the measurement is
+    \begin{equation}
+        p_n = \abs{\braket{n}{\psi}}^2,
+    \end{equation}
+    with the system in state $\ket{\psi}$ before the measurement, and $\ket{n}$ as the 
+    eigenstate corresponding to the eigenvalue $o_n$.
