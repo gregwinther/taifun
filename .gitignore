@@ -1,6 +1,7 @@
 # Tex
 *.log
 *.aux
+*.toc
 
 # Stupid mac folder file
 .DS_Store
