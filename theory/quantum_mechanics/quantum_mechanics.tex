@@ -6,6 +6,55 @@
     {--- Max Planck}
 
 
+\section{Classical Mechanics}
+
+    The formalism used in quantum mechanics largely stems from William Rowan Hamilton's 
+    formulation of classical mechanics. Through the process of canonical
+    quantisation any classical model of a physical system is turned into
+    a quantum mechanical model.
+
+    In Hamilton's formulation of classical mechanics, a complete description of a system
+    of N particles is described by a set of canonical coordinates 
+    $q = (\vec{q}_1, \dots, \vec{p}_N)$ and corresponding conjugate momenta
+    $p = (\vec{p}_1, \dots \vec{p}_N)$. Together, each pair of coordinate and momentum
+    form a point $\xi = (q, p)$ in phase space, which is a space of all possible states
+    of the system. Moreover, pairs of generalised coordinates and conjugate
+    momenta are canonical if they satisfy the Poisson brackets so that 
+    $\{q_i, p_k\} = \delta_{ij}$. The Poisson bracket of two functions is defined as 
+
+    \begin{equation}
+        \{f, g\} = \frac{\partial f}{\partial q} \frac{\partial g}{\partial g}
+        - \frac{\partial f}{\partial p} \frac{\partial g}{\partial q}.
+    \end{equation}
+
+    The governing equations of motion in a classical system is Hamilton's equations,
+
+    \begin{align}
+        \dot{q} &= \frac{\partial}{\partial p} \mathscr{H}(q, p) \\
+        \dot{p} &= -\frac{\partial}{\partial q} \mathscr{H}(q, p)
+    \end{align}
+
+    where $\mathscr{H}(q, p)$ is the Hamiltonian, a function for the total energy of the
+    system. Hamilton's equations may also be stated in terms of the Poisson brackets,
+
+    \begin{equation}
+        \frac{dp_i}{dt} = \{p_i, \mathscr{H}\}, \ \frac{dq_i}{dt} = \{q_i, \mathscr{H}\}.
+    \end{equation}
+
+    A system consisting of $N$ of equal mass $m$, subject forces caused by an external
+    potential, as well as acting on each other with forces stemming from a central
+    potetntial $w(q_ij)$ has the following Hamiltonian,
+
+    \begin{equation}
+        \mathscr{H}(q, p) = \mathscr{T}(q) + \mathscr{V}(p) + \mathscr{W}(p) 
+            = \frac{1}{2m}\sum_{i} \abs{\vec{p}_i}^2 + \sum_{i} v(\vec{r}_i)
+                + \frac{1}{2}\sum_{i<j} w(\vec{r_{ij}}).
+    \end{equation}
+
+    This Hamiltonian conveniently contains several parts - the kinetic energy, the
+    external potential energy and the interaction energy; denoted by $\mathscr{T}$,
+    $\mathscr{V}$ and $\mathscr{W}$ respectively,
+
 \section{The Dirac-von Neumann Postulates}
 
     This is the TL;DR version of Quantum Mechanics.
@@ -42,7 +91,7 @@
         i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
     \end{equation}
 
-    \paragraph{Measurments}
+    \paragraph{Measurements}
     Physically measurable values, associated with an obeservable $\hat{O}$ are defined by the 
     eigenvalues $o_n$ of the observable,
     \begin{equation}
