@@ -53,11 +53,60 @@
 
     This Hamiltonian conveniently contains several parts - the kinetic energy, the
     external potential energy and the interaction energy; denoted by $\mathscr{T}$,
-    $\mathscr{V}$ and $\mathscr{W}$ respectively,
+    $\mathscr{V}$ and $\mathscr{W}$ respectively.
 
-\section{The Dirac-von Neumann Postulates}
+\section{Canonical Quantisation}
 
-    This is the TL;DR version of Quantum Mechanics.
+    In order to transition from a classical system to a quantum system, we move from 
+    the classucal phase space to the Hilbert space, through the procedure known as 
+    canonical, or first\footnote{Second quantisation comes later.}-, quantisation.
+    Whilst the state of a classical system is a point in phase space, a quantum state
+    is a complex-valued state vector in discrete, infinite dimensional, Hilbert space,
+    that is a complete vector space equipped with an inner product. This space
+    is most commonly chosen to be the space of square-integrable functions $\Psi$,
+    dependent on all coordinates
+    
+    \begin{equation}
+        \Psi = \Psi(x_1, x_2, \dots, x_N).
+    \end{equation}
+    
+    These functions
+    are dubbed wavefunctions and are maps from a point $(x_1, \dots, x_N)$ in
+    configuration space to the complex vector space,
+
+    \begin{equation}
+        \Psi: X^N \to \mathds{C}.
+    \end{equation}
+
+    It has been widely discussed how such an object can represent the state of a 
+    particle. The answer is provided by Max Born's probabilistic interpretation,
+    which says that $\abs{\Psi(x_1, \dots, x_N)}^2$, gives the probability of finding
+    the particle at a certain position. For a situation with one particle in one
+    dimension we have,
+
+    \begin{equation}
+        \int_a^b \abs{\Psi(x)}^2 dx = 
+        \left\{\begin{aligned}
+            \text{probability of finding the} \\
+            \text{particle between $a$ and $b$}
+        \end{aligned}\right\}
+    \end{equation}
+
+    while $\abs{\Psi(x_1, x_2, \dots, x_N)}^2$ is the probability density for locating
+    all particles at the point $(x_1, \dots x_N) \in X^N$. Since the total probability
+    must be 1, we are provided with a normalisation condition for the wavefunction,
+    
+    \begin{equation}
+        \int_{X^N} \abs{\Psi(x_1, x_2, \dots, x_N)}^2 dx_1 dx_2\dots dx_N = \mathds{1}.
+    \end{equation}
+    
+\subsection{The Dirac-von Neumann Postulates}
+
+    The following postulates, or axioms, provide a precise and concise description 
+    of quantum mechanics in terms of operators on the Hilbert space. There are
+    many variations of these postulates, introduced both by their namesakes 
+    Paul Adriene Maurice Dirac\cite{dirac1930principles} and John von 
+    Neumann\cite{vonNeumann1932foundations}.
 
     \paragraph{Hilbert Space}
     A quantum state of an isolated physical system is described by a vector
@@ -74,7 +123,7 @@
         \bra{\phi}\hat{O}\psi\rangle = \langle\hat{O}\phi\ket{\psi} \equiv \bra{\phi} \hat{O} \ket{\psi}.
     \end{equation}
 
-    Completness means,
+    Completeness means,
     \begin{equation}
         \sum_i \ket{i}\bra{i} = \mathds{1}.
     \end{equation}
