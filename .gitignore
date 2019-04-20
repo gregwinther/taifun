@@ -3,6 +3,11 @@
 *.aux
 *.toc
 *.fls
+*.bbl
+*.bcf
+*.blg
+*.out
+*.run.xml
 
 *.fdb_latexmk
 *.synctex
