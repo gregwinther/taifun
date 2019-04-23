@@ -152,3 +152,60 @@
     \end{equation}
     with the system in state $\ket{\psi}$ before the measurement, and $\ket{n}$ as the 
     eigenstate corresponding to the eigenvalue $o_n$.
+
+\section{The Many-Body Quantum Hamiltonian}
+
+    The full Hamiltionian for a quantum many-body system can be a large 
+    and unwieldy thing.
+
+    Free particle in one dimension,
+    \begin{equation}
+        \hat{H} = -\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2}
+    \end{equation}
+
+    Introduce potential.
+
+    Many particles in many dimenions.
+
+    Interaction.
+
+    Nuclear interaction (molecule).
+
+    There is other stuff as well.
+
+    \subsection{Born-Oppenheimer}
+
+
+\section{Indistinguishable Particles}
+
+    In a quantum system the particles are identical and impossible to tell
+    apart, as indicated by several studies (KILDE!!). The probability density
+    for the location of particles in a system must therefore be permutation
+    invariant,
+
+    \begin{equation}
+        \abs{\Psi(x_1, x_2, \dots, x_i, x_j x_N)}^2 
+        = 
+        \abs{\Psi(x_1, x_2, \dots, x_j, x_i x_N)}^2.
+    \end{equation}
+
+    For any arbitrary permutation, this is equivalent to 
+    
+    \begin{equation}
+        \Psi(x_1, \dots x_N) 
+        =
+        e^{i\alpha(\sigma)}\Psi(x_{\sigma(1)}, x_{\sigma(2)}, \dots, x_{\sigma(N)}),
+    \end{equation}
+
+    where $\sigma \in S_N$ is some permutation of $N$ indices and $\alpha$ is 
+    some real number that may be dependent on $\sigma$.
+
+    The same relation can be written by way of a linear permutation operator,
+
+    \begin{equation}
+        (\hat{P_\sigma}\Psi)(x_1, \dots, x_N)
+        =
+        \Psi(x_{\sigma(1)}, x_{\sigma(2)}, \dots, x_{\sigma(N)}).
+    \end{equation}
+    
+    \subsection{Slater Determinants}
