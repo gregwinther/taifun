@@ -156,7 +156,8 @@
 \section{The Many-Body Quantum Hamiltonian}
 
     The full Hamiltionian for a quantum many-body system can be a large 
-    and unwieldy thing.
+    and unwieldy thing. In this study we will constrain ourselves to the study of
+    electronic systems. Electronic systems are 
 
     Free particle in one dimension,
     \begin{equation}
@@ -173,13 +174,97 @@
 
     There is other stuff as well.
 
-    \subsection{Born-Oppenheimer}
+    In atomic units, the Hamiltonian for $N$ electrons and $M$ nuclei is
+    \footnote{Often referred to as the electronic Hamiltonian},
+
+    \begin{equation}
+        \label{eq:electronic_hamiltonian}
+        \hat{H} = 
+            - \sum_{i=1}^N \frac{1}{2} \nabla _i^2 
+            - \sum_{A=1}^M \frac{1}{2M_A} \nabla_A^2
+            - \sum_{i=1}^N\sum_{A=1}^M \frac{Z_A}{r_iA}
+            + \sum_{i=1}^N\sum_{j>i}^N \frac{1}{r_{ij}}
+            + \sum_{A=1}^M\sum_{B>A}^M \frac{Z_A Z_B}{R_{AB}},
+    \end{equation}
+
+    where $M_A$ si the ratio of the mass of nucleus $A$ to the mass of an electron,
+    and $Z_A$ is the atomic number of nuclus $A$. The first term in 
+    \autoref{eq:electronic_hamiltonian} is the operator for the kinetic energy of 
+    the electrons, the second term is the operator for the kinetic energi of the 
+    nuclei, the third term represents the Coulomb attraction between the electrons
+    and the nuclei, the fourth term is the Coulomb repulsion between electrons 
+    and the fifth and last term is the Coulomb repulsion between nuclei.
+
+    PERHAPS FIGURE OF GENERAL SYSTEM HERE?
+
+    \subsection{Atomic Units}
+
+        In the Hamiltionian above (\autoref{eq:electronic_hamiltonian}), we have grown up
+        and set $\hbar = m_e = e = \dots = 1$. This is a result of using atomic units, a
+        form of commonly used dimensionless units. To see how these units arise, consider
+        the time-independent Schrödinger equation for a Hydrogen atom,
+
+        \begin{equation}
+            \left(-\frac{\hbar^2}{2m_e}\nabla^2 - \frac{e^2}{4\pi\epsilon_0 r} \right)
+            \phi = E\phi,
+        \end{equation}
+
+        where $\hbar$ is the reduced Planck constant, equal to Planck's constant divided by 
+        $2\pi$; $m_e$ is the mass of the electron, $-e$ is the charge of the electron and 
+        $\epsilon_0$ is the permitivity of free space. We make this equation dimensionless by 
+        letting $r \to \lambda r'$,
+
+        \begin{equation}
+            \left(-\frac{\hbar^2}{2m_e\lambda^2}\nabla'^2 - \frac{e^2}{4\pi\epsilon_0\lambda r'} \right)
+            \phi' = E\phi'.
+        \end{equation}
+
+        We can factor out the constants in front of the operators, if we choose $\lambda$ so that,
+
+        \begin{equation}
+            \frac{\hbar^2}{m_e\lambda^2} = \frac{e^2}{4\pi \epsilon_0 \lambda} = E_a
+            \to \lambda \frac{4\pi\epsilon_0\hbar^2}{m_e e^2} = a_0
+        \end{equation}
+
+        where $E_a$ is the atomic unit of energy that chemists call Hartree. Incidently,
+        we see that $\lambda$ is just the Bohr radius, $a_0$. If we let $E' = E/E_a$, we 
+        obtain the dimensionless Schrödinger equation,
+
+        \begin{equation}
+            \left(-\frac{1}{2}\nabla'^2 - \frac{1}{r'} \right) \phi' = E'\phi'.
+        \end{equation}
+
+        Some conversion factors between atomic units and SI units can be found in
+        \autoref{tab:atomic_units_conversion}.
+
+        \begin{table}
+            \centering
+            \caption{Conversion of atomic units to SI units THIS IS FROM SZABO AND OSTLUND.}
+            \begin{tabular}{ccc} \hline
+                Physical quantity & Conversion factor & Value \\ \hline
+                Length  & $a_0$ & $5.2918 \times 10^{-11} m$ \\
+                Mass    & $m_e$ & $9.1095 \times 10^{-31} kg$ \\
+                Charge  & $e$   & $1.6022 \times 10^{-19} C$ \\
+                Energy  & $E_a$ & $4.3598 \times 10^{-18} J$ \\
+                Angular momentum & $\hbar$ &  $1.0546 \times 10^{-34} Js$ \\
+                Electric dipole moment & $ea_0$& $8.4784 \times 10^{-30} Cm$ \\
+                Electric polarizability & $e^2a_0^2/E_a$ & $1.6488 \times 10^{-41} C^2m^2J^{-1}$ \\
+                Electric field & $E_a/(ea_0)$ & $5.1423 \times 10^{11} Vm^{-1} $ \\
+                Wave function & $a_0^{-3/2}$ & $2.5978 \times 10^{15} m^{-3/2}$ \\ \hline
+            \end{tabular}
+            \label{tab:atomic_units_conversion}
+        \end{table}
+
+    \subsection{The Born-Oppenheimer Approximation}
+
 
 
 \section{Indistinguishable Particles}
 
     In a quantum system the particles are identical and impossible to tell
-    apart, as indicated by several studies (KILDE!!). The probability density
+    apart, as indicated by several studies (KILDE!!). 
+    Feynman: In fact, all electrons are one and the same.
+    The probability density
     for the location of particles in a system must therefore be permutation
     invariant,
 
