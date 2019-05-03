@@ -1,0 +1,177 @@
+\chapter{Second Quantisation}
+
+Some Slater determinant is written,
+\begin{equation}
+    \ket{\Phi} = \ket{\phi_i \phi_j \phi_k \dots \phi_z} = \ket{ijk \dots z}.
+\end{equation}
+
+\section{Creation and Annihilation Operators}
+
+    I SHOULD PROBABLY CHANGE TO Qs HERE...?
+
+    The notation of creation and annihilation operators vary,
+    \begin{align*}
+        \text{creation operator for spinorbital } \phi_i, &\ 
+        \hat{X}_i^\dagger, \hat{a}^\dagger_i, \hat{c}_i^\dagger, \hat{i}^\dagger; \\
+        \text{annihilation operator for spinorbital } \phi_i, &\ 
+        \hat{X}_i, \hat{a}_i, \hat{c}_i, \hat{i}.       
+    \end{align*}
+    Herein, $\hat{a}_i^\dagger$, $\hat{a}_i$ is used and, if there is no change of 
+    confusion, $\hat{i}^\dagger$, $\hat{i}$.
+
+    \paragraph{The Creation Operator}. For every single-particle index $q$,
+    we define the creation operator
+    $c_q^\dagger$ acting on the vacuum state by
+    \begin{equation}
+        \hat{a}_i^\dagger \ket{0} = \ket{q}.
+    \end{equation}
+
+    For any slater determinant with $N > 0$, the action is defined by
+    \begin{align}
+        \hat{a}_i^\dagger\ket{jk \dots z} &= \ket{ijk \dots z}, \\
+        \hat{a}_i^\dagger\ket{ijk \dots z} &= 0
+    \end{align}
+
+    \paragraph{The Annihilation Operator}. It i sufficient to state that the 
+    annihilation $c_i$ operator is the hermitian adjoint of the creation operator
+    $\hat{c}_i$, but to specify we have
+    \begin{equation}
+        \hat{a}_i\ket{0} = 0,
+    \end{equation}
+    as there is no particle in the vacuum state to annihilate. 
+
+    For any arbitrary Slater determinant, we have 
+    \begin{align}
+        \hat{a}_i \ket{ijk \dots z} &= \ket{ij \dots z}, \\
+        \hat{a}_i \ket{jk \dots z} &= 0       
+    \end{align}
+
+    SOMETHING MORE ABOUT THE DIFFERENT PERMUTATIONS.
+
+    We can now build a Slater determinant as the result of successive operation of
+    several creation operators $\hat{a}_q^\dagger$ on the vacuum state,
+    \begin{equation}
+        \label{eq:creation_annihilation_slater}
+        \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}^\dagger_k \dots \hat{a}^\dagger_z
+        \ket{0} = \ket{ijk \dots z}.
+    \end{equation}
+
+    It is convenient to arrange the spinorbitals in a Slater determinant in
+    alphabetical order, as in \autoref{eq:creation_annihilation_slater}. This 
+    makes it necessary to ascertain the effects a creation or annihilation
+    operator will have on a Slater determinant when the affected orbital is
+    not at the beginning of the string of orbitals in the Slater determinant.
+    Generally we have,
+    \begin{equation}
+        \hat{P} \ket{ijk \dots z} = (-1)^{\sigma(\hat{P})} \ket{ijk \dots z},
+    \end{equation}
+    where $\hat{P}$ permutes the string of orbitals and $\sigma(\hat{P})$ is the
+    parity of the permutation $\hat{P}$. we have
+    \begin{align}
+        \hat{a}_p^\dagger \ket{ijk \dots z} &= 
+            (-1)^{\eta_p} \ket{ijk \dots p \dots z}, \\
+        \hat{a}_p \ket{ijk \dots p \dots z} &=
+            (-1)^{\eta_p} \ket{ijk \dots z},
+    \end{align}
+    where $\eta_p$ is the number of orbitals preceeding the orbital $\phi_p$, pertaining
+    to the creation (annihilation) operator, in the Slater determinant.
+
+\section{Anticommutator Relations}
+
+    Consider some creation operators acting on a Slater determinant,
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p^\dagger \hat{a}_q^\dagger \ket{ijk \dots} &= \ket{pqijk \dots} \\
+            \hat{a}_q^\dagger \hat{a}_p^\dagger \ket{ijk \dots} &= \ket{qpijk \dots}
+                = - \ket{pqijk \dots}.
+        \end{aligned}
+    \end{equation}
+    We demand that these two opartions be equivalent, or that 
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p^\dagger \hat{a}_q^\dagger &= 
+                -\hat{a}_q^\dagger \hat{a}_p^\dagger \\
+            \{\hat{a}_p^\dagger, \hat{a}_q^\dagger\} &\equiv 
+                \hat{a}_p^\dagger \hat{a}_q^\dagger + 
+                \hat{a}_q^\dagger \hat{a}_p^\dagger = \hat{0}.
+        \end{aligned}
+    \end{equation}
+    This is one of several important anti-commutator relations for creation and
+    annihilation operators.
+
+    Similarly, for annihilation operators we have
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p \hat{a}_q \ket{qpijk \dots} &= 
+                \hat{a}_p\ket{pijk \dots} = \ket{ijk \dots} \\
+            \hat{a}_q \hat{a}_p \ket{qpijk \dots} &= 
+                - \hat{a}_q \hat{a}_p \ket{pqijk \dots} = 
+                - \hat{a}_q \ket{qijk \dots} = - \ket{ijk \dots}.
+        \end{aligned}
+    \end{equation}
+    These two operations must also be equivalent, 
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p \hat{a}_q &= 
+                -\hat{a}_q \hat{a}_p \\
+            \{\hat{a}_p, \hat{a}_q\} &\equiv 
+                \hat{a}_p \hat{a}_q + 
+                \hat{a}_q \hat{a}_p = \hat{0}.
+        \end{aligned}
+    \end{equation}
+
+    One case remains, when a creation operator and an annihilation operator is
+    applied together on a Slater determinant,
+    \begin{equation}
+        \hat{a}_p^\dagger \hat{a}_q \ket{qijk \dots} 
+            = \hat{a}_p^\dagger \ket{ijk \dots}
+            = \ket{pijk \dots}.
+    \end{equation}
+    This operation will replace $\phi_q$ by $\phi_p$ even if $\phi_p$ would have
+    been somewhere else in the interior of the Slater determinant. Any sign change
+    as an effect of moving the orbital to the front of the string would be negated
+    when the orbital is moved back to the original position. Exchanging the order
+    of the operators however,
+    \begin{equation}
+        \hat{a}_q \hat{a}_p^\dagger \ket{qijk \dots} 
+            = \hat{a}_q \ket{pqijk \dots} 
+            = -\hat{a}_q \ket{qpijk \dots}
+            = -\ket{pijk \dots}.
+    \end{equation}
+    We again see a sign change and have,
+    \begin{equation}
+        \{\hat{a}_p^\dagger, \hat{a}_q\} = \hat{0} \quad (p \neq q).
+    \end{equation}
+    If, on the other hand, $p=q$ we have 
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p^\dagger \hat{a}_p \ket{pijk \dots} &= \ket{pijk \dots}, \\
+            \hat{a}_p \hat{a}_p^\dagger \ket{pijk \dots} &= 0,
+        \end{aligned}
+    \end{equation}
+    and if the orbital $\phi_p$ in question does not appear in the Slater 
+    determinant,
+    \begin{equation}
+        \begin{aligned}
+            \hat{a}_p^\dagger \hat{a}_p \ket{ijk \dots} &= 0, \\
+            \hat{a}_p \hat{a}_p^\dagger \ket{ijk \dots} &= 
+                \hat{a}_p\ket{pijk \dots} = \ket{ijk \dots}.           
+        \end{aligned}
+    \end{equation} 
+    For all cases we have that,
+    \begin{equation}
+        \left(\hat{a}_p^\dagger \hat{a}_p + \hat{a}_p \hat{a}_p^\dagger \right)
+        \ket{\dots} = \ket{\dots},
+    \end{equation}
+    or
+    \begin{equation}
+        \{\hat{a}_p^\dagger, \hat{a}_p\} = \{\hat{a}_p, \hat{a}_p^\dagger\} = \hat{1}.
+    \end{equation}
+    In conclusion, the anti-commutator relations of the creation and annihilation
+    operators are,
+    \begin{align}
+        \{\hat{a}_p, \hat{a}_q\} &= \hat{0}, \\
+        \{\hat{a}_p^\dagger, \hat{a}_q^\dagger\} &= \hat{0}, \\
+        \{\hat{a}_p^\dagger, \hat{a}_q\} &= \{\hat{a}_p, \hat{a}_q^\dagger\} 
+         = \hat{\delta}_{pq}.
+    \end{align}
