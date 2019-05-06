@@ -215,6 +215,7 @@ Some Slater determinant is written,
 
     The second-quantised Hamiltonian can therefore be written,
     \begin{equation}
+        \label{eq:second_quant_hamiltionian}
         \hat{H} = \hat{h} + \hat{u} 
         = \sum_{ij} \hat{h}_{ij}\hat{a}^\dagger_i \hat{a}_j
             + \frac{1}{4} \bra{ij}\ket{kl} 
@@ -223,3 +224,93 @@ Some Slater determinant is written,
 
 \section{Normal Order and Wick's Theorem}
 
+    We have built the foundations necessary to describe wavefunctions in terms
+    of creation- and annihilation operators as well as a simple way of writing
+    a general electronic Hamiltionian in the second-quantised manner. The following
+    is a necessety to be able to compute vacuum expectation values 
+    ($\bra{-} \hat{A} \hat{B} \dots \ket{-}$) of products of creation- 
+    and annihilation operators. Such expectation values are very important for 
+    several computational methods, see Harris, Monkhorst and Freeman 
+    (1992)\cite{harris1992algebraic}.
+
+        \subsection{Normal ordering and contractions}
+
+        The normal-ordered product of a string of operators $\hat{A_1}$, $\hat{A_2}$,
+        $\hat{A_3}$, $\dots$, is defined as the rearranged product of operators such 
+        that all the creation operators are the left of all the annihilation
+        operators, including a phase factor corresponding to the parity of the
+        permutation producing the rearrangent
+        \begin{equation} 
+            \begin{aligned}
+            \{\hat{A}_1\hat{A}_2 \dots \hat{A}_n \} 
+            &\equiv (-1)^{\abs{\sigma}}
+                \hat{A}_{\sigma(1)}\hat{A}_{\sigma(2)} \dots \hat{A}_{\sigma(n)} \\
+            &= (-1)^{\sigma(\hat{P})}\hat{P}(\hat{A}_1\hat{A}_2 \dots \hat{A}_n) \\
+            &= (-1)^{\abs{\sigma}}
+            [\text{creation operators}] \cdot [\text{annihilation operators}] \\
+            &= (-1)^{\abs{\sigma}}\hat{a}^\dagger \hat{b}^\dagger \dots \hat{u} \hat{v},
+            \end{aligned}
+        \end{equation}
+        where $\hat{P}$ is a permutation operator actiing on the product of operators, 
+        and $\sigma$ is the parity of the permutation. One should bear in mind that this 
+        definition is by no means unique. Here are some examples,
+        \begin{gather*}
+            \{\hat{a}^\dagger \hat{b}\} = \hat{a}^\dagger \hat{b} \quad
+            \{\hat{b} \hat{a}^\dagger\} = -\hat{a}^\dagger \hat{b} \\
+            \{\hat{a} \hat{b} \} = \hat{a} \hat{b} = - \hat{b} \hat{a} \\
+            \{\hat{a}^\dagger\hat{b}^\dagger \} 
+                = \hat{a}^\dagger \hat{b}^\dagger 
+                = -\hat{b}^\dagger \hat{a}^\dagger \\
+            \{\hat{a}^\dagger \hat{b} \hat{c}^\dagger \hat{d}\}
+                = -\hat{a}^\dagger \hat{c}^\dagger\hat{b} \hat{d} 
+                = \hat{c}^\dagger \hat{a}^\dagger\hat{b} \hat{d} 
+                = \hat{a}^\dagger \hat{c}^\dagger\hat{d} \hat{b} 
+                = -\hat{c}^\dagger \hat{a}^\dagger\hat{d} \hat{b}.
+        \end{gather*}
+        Note that the second quantised Hamiltonian in \autoref{eq:second_quant_hamiltionian}
+        is already on normal-ordered form.
+
+        For two arbitrary creation and annihilation operators, we define their contraction
+        as 
+        \begin{equation}
+            \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \bra{-} \hat{A} \hat{B}\ket{-},
+        \end{equation}
+        equivalently,
+        \begin{equation}
+            \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \hat{A}\hat{B} - \{\hat{A} \hat{B}\}.
+        \end{equation}
+        For a creation- and annihilation operator there are four possible contractions,
+        \begin{equation}
+            \begin{aligned}
+            \wick{\c{\hat{a}^\dagger} \c{\hat{b}^\dagger}} 
+            &= \bra{-}\hat{a}^\dagger \hat{b}^\dagger \ket{-}
+            = \hat{a}^\dagger \hat{b}^\dagger - \{\hat{a}^\dagger \hat{b}^\dagger\}
+            = 0 \\
+            \wick{\c{\hat{a}} \c{\hat{b}}} 
+            &= \bra{-}\hat{a} \hat{b} \ket{-}
+            = \hat{a} \hat{b} - \{\hat{a} \hat{b}\}
+            = 0 \\
+            \wick{\c{\hat{a}^\dagger} \c{\hat{b}}} 
+            &= \bra{-}\hat{a}^\dagger \hat{b} \ket{-}
+            = \hat{a}^\dagger \hat{b} - \{\hat{a}^\dagger \hat{b}\}
+            = 0 \\
+            \wick{\c{\hat{a}} \c{\hat{b}^\dagger}} 
+            &= \bra{-}\hat{a} \hat{b}^\dagger \ket{-}
+            = \hat{a} \hat{b}^\dagger - \{\hat{a} \hat{b}^\dagger\}
+            = \hat{a} \hat{b}^\dagger - (- \hat{b}^\dagger\hat{a})
+            = \{\hat{a}, \hat{b}^\dagger \} = \delta_{ab}.
+            \end{aligned}
+        \end{equation}
+        We see that all contractions between creation- and annihilation operators
+        are a number, most of them are zero and only those with a annihilation operator
+        to the left and a creation operator to the right can be one.
+       
+        CONTRACTIONS INSIDE A NORMAL ORDERED PRODUCT HERE.
+
+        \subsection{Wick's Theorem}
+
+        \subsection{Generalized Wick's Theorem}
+
+        \subsection{Particle-Hole Formalism}
+
+\section{Diagrammatic Notation}
