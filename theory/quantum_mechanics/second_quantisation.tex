@@ -175,3 +175,51 @@ Some Slater determinant is written,
         \{\hat{a}_p^\dagger, \hat{a}_q\} &= \{\hat{a}_p, \hat{a}_q^\dagger\} 
          = \hat{\delta}_{pq}.
     \end{align}
+
+\section{Representation of Operators}
+    
+    A second-qunatised one-body operator is written like
+    \begin{equation}
+        \label{eq:one_body_operator}
+        \hat{h} = \sum_{i=1}^N \hat{h}(i) 
+        = \sum_{ij} \bra{i} \hat{h} \ket{j}\hat{a}_i^\dagger \hat{a}_j,
+    \end{equation}
+    where in general, $\bra{p} \hat{h} \ket{q}$ is the matrix element of the single-particle
+    operator $\hat{h}$ in a given one-particle basis,
+    \begin{equation}
+        \bra{p} \hat{h} \ket{q} = \int dx \phi_p(x)^* \hat{h} \phi_q(x).
+    \end{equation}
+    More accurately, we see from \autoref{eq:one_body_operator}, that $\hat{h}$
+    weighs each occupied orbital of a Slater determinant with the appropriate 
+    matrix element. 
+
+    A second-quantised two-body operator is written like
+    \begin{equation}
+        \hat{u} = \sum_{i, j}^N\hat{u}(i,j) 
+        = \frac{1}{2} \sum_{ijkl} \bra{ij}\hat{u}\ket{kl} 
+            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k
+        = \frac{1}{4} \sum_{ijkl} \bra{ij}  \ket{kl} 
+            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k,
+    \end{equation}
+    where 
+    \begin{equation}
+        \bra{ij}\hat{u} \ket{kl} \equiv \bra{i(1)j(2)} \hat{u_{12}} \ket{k(1)l(2)}
+    \end{equation} 
+    and the antisymmetric two-eletron integral for $\hat{u}$ is abreviated,
+    \begin{equation}
+        \bra{ij} \hat{u}\ket{kl} - \bra{ij}\hat{u} \ket{kl} 
+        = \bra{ij}\hat{u} \ket{kl} \equiv \bra{ij} \ket{kl}.
+    \end{equation}
+    Similarly to the one-particle operator, the two-particle operator assigns
+    the correct matrix element to pairs of single particle functions.
+
+    The second-quantised Hamiltonian can therefore be written,
+    \begin{equation}
+        \hat{H} = \hat{h} + \hat{u} 
+        = \sum_{ij} \hat{h}_{ij}\hat{a}^\dagger_i \hat{a}_j
+            + \frac{1}{4} \bra{ij}\ket{kl} 
+            \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k.
+    \end{equation}
+
+\section{Normal Order and Wick's Theorem}
+
