@@ -2,7 +2,18 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{physics}
-\usepackage{simpler-wick}
+\usepackage[offset=1.2em]{simpler-wick}
+
+\usepackage{tikz}
+\usepackage{pgf}
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.misc}
+
+\tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={2pt}}
+
+% Arrow in the middle
+\usetikzlibrary{decorations.markings}
 
 \usepackage{biblatex}
 \usepackage[breaklinks=true]{hyperref}
