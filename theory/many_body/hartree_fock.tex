@@ -18,5 +18,31 @@
     principle. Later, Hartree reformulated the method for 
     calculation\cite{hartree1935self}.
 
+    The Hartree-Fock methods makes the following simplications to the multi-electron 
+    atomic (molecular) problem,
+    \begin{itemize}
+        \item The full molecular wavefunction is contrained to a function of the
+            coordinates of only the electrons in the molecule. In not so many words,
+            the Born-Oppernheimer approximation is inerent in the method.
+        \item Any relativistic effects are completely ignored, i.e. the momentum
+            operator is assumet to be completely non-relativistic.
+        \item A variational solution is assumed to be a linear combination of a basis
+            set, which is assumed to be approximately complete. This set of basis
+            functions is usually orthogonal, but may not be. 
+        \item Some electron correlation effects are ignored, as the methods implies
+            a mean-field approximation. Coulomb correlation is fully incorporated 
+            in the Hartree-Fock method, but it ignores Fermi Correlation and is
+            therefore inable to describe some effects, like London 
+            dispersion\footnote{Named after Fritz London; London dispersion
+            forces (LDF) are a type of force between atoms and 
+            molecules\cite{heitler1927wechselwirkung}}.
+        \item Any energy eigen function is assumed to be describable by a single 
+            Slater determinant. 
+    \end{itemize}
+
+    Relaxation of the last two simplifications give rise to the large group of
+    many-body methods commonly referred to as post-Hartree-Fock methods. 
+
     \section{Deriving the Hartree-Fock Equations}
 
+        Consider a Hamiltionian for some system
