@@ -1,0 +1,198 @@
+\chapter{Slater-Condon Rules}
+
+% This stuff is mostly from page 60 and onwards in Shavitt and Bartlett
+
+The Slater-Condon rules are ways to express integrals over operators in
+terms of single-particle orbitals. Here is an outline of a proof for these
+rules.
+
+Consider first some Slater determinants,
+\begin{gather}
+    \ket{I} = \ket{i_1 i_2 \dots i_N} = 
+        \hat{i}^\dagger_1 \hat{i}^\dagger_2 \dots \hat{i}^\dagger_N \ket{ } \\
+    \ket{J} = \ket{j_1 j_2 \dots j_N} = 
+        \hat{j}^\dagger_1 \hat{j}^\dagger_2 \dots \hat{j}^\dagger_N \ket{ }.
+\end{gather}
+To get started, we want to compute the inner product $\braket{I}{J}$ of these two Slater
+determinants,
+\begin{equation}
+    \braket{I}{J} = \bra{ }\hat{i}_N \dots \hat{i}_2 \hat{i}_1 
+    \hat{j}^\dagger_1 \hat{j}^\dagger_2 \dots \hat{j}^\dagger_N\ket{ }.
+\end{equation}
+In order to evaluate this expression, we move every annihilation operater $\hat{i}_p$
+to the right. Starting with $\hat{i}_1$, for instance, we have two possible outcomes.
+If there is no $\hat{j}_q$ that is the same as $\hat{i}_1$ we get
+\begin{equation}
+    \braket{I}{J} = \bra{ }\hat{i}_N \dots \hat{i}_2  
+    \hat{j}^\dagger_1 \hat{j}^\dagger_2 \dots \hat{j}^\dagger_N
+    \hat{i}_1 \ket{ }(-1)^N = 0,
+\end{equation}
+because $\hat{i}_1\ket{ } = 0$. The other possibility that may arise is that
+$\hat{i}_1 = \hat{j}_q$, so that
+\begin{equation}
+    \hat{i}_1 \hat{j}^\dagger_q 
+    = \{ \hat{i}_1, \hat{j}^\dagger_q \} - \hat{j}^\dagger_q \hat{i}_1
+    = \hat{\delta}_{i_1k_q} - \hat{j}^\dagger_p\hat{i}_1 
+    = \hat{1} - \hat{j}^\dagger_q \hat{i}_1,
+\end{equation}
+and
+\begin{equation}
+    \braket{I}{J} = \bra{ }\hat{i}_N \dots \hat{i}_2  
+    \hat{j}^\dagger_1 \hat{j}^\dagger_2 \dots 
+    \hat{j}^\dagger_{p-1} \hat{j}^\dagger_{p+1} \dots
+    \hat{j}^\dagger_N
+    \hat{i}_1 \ket{ }(-1)^{p-1} - 0.
+\end{equation}
+We continue in this manner, moving all $\hat{i}$ to the right and the final result
+will be zero if there are any $\hat{i}_p$ without a matching $\hat{j}_q$ or $(-1)^\tau$
+if the two operator strings are identical to a permutation $\tau$.
+
+Next, consider a symmetric one-body operator
+\begin{equation}
+    \hat{F} = \sum_{\mu = 1}^N \hat{f}_\mu,
+\end{equation}
+where $\mu$ is the identity of the electron on which the identical $\hat{f}_\mu$ operate.
+Computing a matrix element of this one-body operator between two Slater determinants
+will yield three possible results,
+\begin{equation}
+    \begin{aligned}
+        \bra{I} \hat{F}& \ket{J} 
+            = \bra{i_1 i_2 \dots i_N} \hat{F} \ket{j_1 j_2 \dots j_N} \\
+        =& \sum_\mu \bra{i_1 i_2 \dots i_N} \hat{f}_\mu \ket{j_1 j_2 \dots j_N} \\
+        =& \sum_\mu \bra{\phi_{i_1} \phi_{i_2} \dots \phi_{i_N}}
+            \hat{f}_\mu \sum_{\hat{P}} (-1)^{\sigma(\hat{P})}
+            \ket{\hat{P} \phi_{j_1} \phi_{j_2} \dots \phi_{j_N}}
+        =
+        \begin{cases}
+           \sum_k \bra{i_k} \hat{f} \ket{i_k}(-1)^{\sigma(\hat{P})} &\ \text{I} \\
+           \bra{i_k} \hat{f} \ket{i'_k}(-1)^{\sigma(\hat{P})} &\ \text{II} \\
+           0 &\ \text{III}
+        \end{cases}
+    \end{aligned}
+\end{equation}
+In the last line, the integral is written with spinorbitals instead of Slater determinants.
+The result will be the first case (I), if the operators needed to construct the Slater 
+determinants are the same, up to a permutation with permutation parity $\sigma$ associated
+with the permutation operator $\hat{P}$ needed to permute the product of spinorbitals. If there exists
+excactly one noncoincidence in the string of operators so that 
+$\hat{P} j_1 j_2 \dots j_N = i_1 i_2 \dots i'_k \dots i_N$ where $i_k \neq i'_k$, we get
+the result in the second case (II). If there are two or more noncoincidences, the result
+is zero (III).
+
+With second quantisation we might write a one-electron operators differently,
+\begin{equation}
+    \sum_{kl} \bra{k} \hat{f} \ket{l} \hat{a}^\dagger_k \hat{a}_l
+    = \sum_{kl} f_{kl} \hat{a}^\dagger_k \hat{a}_l.
+\end{equation}
+It is possible to show that the results are the same in this representation. First,
+consider the case where the two Slater determinants are equal,
+\begin{equation}
+    \begin{aligned}
+        \bra{I}& \sum_{kl} f_{kl} \hat{a}^\dagger_k \hat{a}_l \ket{I}
+        = \sum_{kl} f_{kl} \bra{I} \hat{a}^\dagger_k \hat{a}_l \ket{I} \\
+        =& \sum_{kl} f_{kl} \delta_{kl} n_l(I) = \sum_{k \in I} f_{kk}
+        = \sum_{k=1}^N \bra{i_k} \hat{f} \ket{i_k}.
+    \end{aligned}
+\end{equation}
+Second, we look at the case where we have one noncoincidence, $i_p \neq j_p$,
+\begin{equation}
+    \begin{aligned}
+        \bra{I}& \sum_{kl}f_{kl} \bra{I} \hat{a}^\dagger_k \hat{a}_l \ket{J}
+        = \sum_{kl} f_{kl} \bra{I} \hat{a}^\dagger_k \hat{a}_l\ket{J} \\
+        =& \sum_{kl \neq p} f_{kl} \bra{I} \hat{a}^\dagger_k \hat{a}_l \ket{J}
+        + f_{i_p j_p} \bra{I} \hat{i}^\dagger_p \hat{j}_p \ket{J} \\
+        =& 0 + f_{i_p j_p} \braket{I'} = \bra{\hat{i}_p}\hat{f}\ket{\hat{i}_p}.
+    \end{aligned}
+\end{equation}
+Lastly, there is no pair of operators $\hat{a}^\dagger_k \hat{a}_l$ that will give
+a non-zero result. Consequently, we see that the second-quantised form of the
+one-body operator gives the same result.
+
+Similarly, consider a symmetric two-body operator,
+\begin{equation}
+    \hat{G} = \sum_{\mu < \nu}^N \hat{g}_{\mu\nu} 
+        = \frac{1}{2} \sum_{\mu \neq \nu}^N \hat{g}_{\mu\nu} \\
+        = \frac{1}{2} \sum_{ijkl} \bra{ij} \hat{g} \ket{kl} 
+        \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k.
+\end{equation}
+
+We would like to show that the second-quantized form is correct, and therefore
+firstly consider the case where the two Slater determinants are equal, i.e. zero
+noncoincidences;
+\begin{equation}
+    \bra{I} \hat{G} \ket{I} 
+    = \frac{1}{2}\sum_{ijkl} \bra{ij}\hat{G} \ket{kl} 
+        \bra{I} \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k \ket{I}.
+\end{equation}
+We must have $k = i_p$ and $l = i_q$ appear in $\ket{I}$, so that
+\begin{equation}
+    \begin{aligned}
+    \bra{I} \hat{G} \ket{I}
+    =& \frac{1}{2}\sum_{ij} \bra{ij}\hat{g}\ket{i_p i_q} 
+        \bra{I} \hat{a}^\dagger \hat{a}^\dagger \hat{a}_{i_p} \hat{a}_{i_q}
+        \ket{i_1 i_2 \dots i_p \dots i_q \dots} \\
+    =& \frac{1}{2}\sum_{ij} \bra{ij} \hat{g}\ket{i_p i_q} 
+        \bra{I} \hat{a}^\dagger_i \hat{a}^\dagger_j
+        \ket{i_1 i_2 \dots} (-1)^{(p-1) + (q-2)}.
+    \end{aligned}
+\end{equation}
+From this point we have two possibilities for the values of $i$ and $j$, because
+the creation operators must put the same values back into the ket,
+\begin{align}
+    &\begin{aligned}
+    \bra{i_p i_q} \hat{g} \ket{i_p i_q} 
+        &\braket{I}{i_1 i_2 \dots i_p \dots i_q \dots}
+        (-1)^{(p-1) + (q-2)}(-1)^{(p-1) + (q-2)} \\
+    &= \bra{i_p i_q} \hat{g} \ket{i_p i_q}
+    \end{aligned}
+    \quad (i = i_p,\ j = i_q); \\
+    &\begin{aligned}
+    \bra{i_q i_p} \hat{g} \ket{i_p i_q} 
+        &\braket{I}{i_1 i_2 \dots i_p \dots i_q \dots}
+        (-1)^{(p-1) + (q-2)}(-1)^{(p-1) + (q-1)} \\
+    &= -\bra{i_q i_p} \hat{g} \ket{i_p i_q}
+        = -\bra{i_p i_q} \hat{g} \ket{i_q i_p}
+    \end{aligned}
+    \quad (i = i_q,\ j = i_p).
+\end{align}
+By starting in the reverse order, we obtain the same contributions. The total matrix
+element is therefore,
+\begin{equation}
+    \bra{I} \hat{G} \ket{I} 
+    = \frac{1}{2}\sum_{i \in I} \sum_{j \in J}
+        (\bra{ij} \hat{g} \ket{ij} - \bra{ij} \hat{g} \ket{ji})
+    = \sum_{\substack{i < j \\ i,j \in I}} \bra{ij} \hat{g} \ket{ij}_{\text{AS}}.
+\end{equation}
+
+Next, we consider a single noncoincidence in $\ket{I}$, $i_p \neq i'_p$,
+\begin{align}
+    \ket{I} &= \ket{i_1 i_2 \dots i_p \dots}, \\
+    \ket{I'} &= \ket{i_1 i_2 \dots i'_p \dots}.
+\end{align}
+We get contributions to $\bra{I} \hat{G} \ket{I'}$ from the operator string
+$\hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k$ in the following
+cases,
+\begin{align}
+   i &= i'_p, \ k = i_p, \ j = l = i_q \to \braket{i'_p i_q}{i_p i_q} \\  
+   i &= i'_p, \ l = i_p, \ j = k = i_q \to -\braket{i'_p i_q}{i_q i_p} \\
+   j &= i'_p, \ l = i_p, \ i = k = i_q \to \braket{i_q i'_p}{i_q i_q} \\
+   j &= i'_p, \ k = i_p, \ i = l = i_q \to -\braket{i_q i'_p}{i_p i_q},
+\end{align}
+where the two first terms are egual to the last terms, respectively. This leaves
+us with,
+\begin{equation}
+    \bra{I'}\hat{G}\ket{I} 
+    = 2 \times \frac{1}{2} 
+    (\bra{i'_p j}\hat{g}\ket{i_p j} - \bra{i'_p j}\hat{g}\ket{j i_p})
+    = \sum_{j\in I} \bra{i'_p j} \hat{g} \ket{i_p j}_{\text{AS}}.
+\end{equation}
+
+After a while we see a pattern emerges. For two noncoincidences 
+($i_p \neq i'_p$, $i_q \neq i'_q)$ we have,
+\begin{equation}
+    \bra{I'} \hat{G} \ket{I} = \bra{i'_p i'_q} \hat{g} \ket{i_p i_q},
+\end{equation}
+while for three or more noncoincidences,
+\begin{equation}
+    \bra{I'} \hat{G} \ket{I} = 0. 
+\end{equation}
