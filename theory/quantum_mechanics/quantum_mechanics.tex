@@ -157,49 +157,178 @@
 
     The full Hamiltionian for a quantum many-body system can be a large 
     and unwieldy thing. In this study we will constrain ourselves to the study of
-    electronic systems. Electronic systems are 
-
-    Free particle in one dimension,
+    electronic systems. Purely on a phenomenological basis, one would include nuclear
+    terms in the Hamiltonian as well. In this study however, we will stay within the
+    Born-Oppenheimer approximation and treat the nuclei as stationary particles, thereby
+    refraining from introducing terms that involve the motion of nuclei. Here we
+    introduce the molecular electronic Breit-Pauli Hamiltionian, throrougly described in 
+    Helgaker et al.\cite{helgaker2012recent},
     \begin{equation}
-        \hat{H} = -\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2}
+        \label{eq:breit_pauli_hamiltonian}
+        \hat{H}^{\text{BP}}_{\text{mol}}
+        = \begin{cases}
+            \hat{H}_{\text{kin}} \quad &\leftarrow \text{kinetic energy} \\
+            + \hat{H}_{\text{cou}} \quad &\leftarrow \text{Coulomb interactions} \\
+            + \hat{H}_{\text{ee}} \quad &\leftarrow \text{external electric field interaction} \\
+            + \hat{H}_Z \quad &\leftarrow \text{Zeeman intercations} \\
+            + \hat{H}_{\text{so}} &\leftarrow \text{spin-orbit interactions} \\
+            + \hat{H}_{\text{ss}} &\leftarrow \text{spin-spin interactions} \\
+            + \hat{H}_{\text{oo}} &\leftarrow \text{spin-spin interactions} \\
+            + \hat{H}_{\text{dia}} &\leftarrow \alpha^4 \text{diamagnetic interactions}
+        \end{cases}
+    \end{equation}
+    
+    \paragraph{Kinetic energy}
+    The Breit-Pauli kinetic energy term in \autoref{eq:breit_pauli_hamiltonian} is
+    \begin{equation}
+        \hat{H}_{\text{kin}}
+            = - \frac{1}{2}\sum_i \nabla^2_i - \frac{\alpha^2}{8}\sum_{i} \nabla^4_i,
+    \end{equation}
+    where the first term is the common classical kinetic energy operator and the second
+    term is the relativistic mass-velocity term. This term arises because of the
+    dependence of mass on velocity. This is one of the larger relativistic corrections
+    for slow electrons. The mass-velocity term is unbounded from below and should not
+    be included in variational calculations\cite{kutzelnigg1990perturbation}.
+
+
+    \paragraph{Coulomb interactions}
+
+    Coulomb interaction terms in the Breit-Pauli Hamiltonian (\autoref{eq:breit_pauli_hamiltonian})
+    are the following,
+    \begin{equation}
+        \begin{aligned}
+            \hat{H}_{\text{cou}} 
+                =& -\sum_{iK}\frac{Z_K}{r_{iK}} 
+                    + \frac{1}{2}\sum_{i \neq j} \frac{1}{r_{ij}} 
+                    + \frac{1}{2}\sum_{K \neq L} \frac{Z_k Z_L}{R_{KL}} \\
+                &+ \frac{\alpha^2\pi}{2} \sum_{iK} Z_{K}\delta (\vb{r}_{iK})
+                - \frac{\alpha^2\pi}{2} \sum_{i \neq j} \delta (\vb{r}_{ij}) \\
+                &+ \frac{2\pi}{3} \sum_{iK}Z_K R^2_K \delta (\vb{r}_{iK})
+                    - \frac{1}{3} \sum_{iK}
+                        \frac{\tr \Theta_K (3\vb{r}_{iK} \vb{r}^T_{iK} - r^2_{iK}I_3)}
+                        {r^5_{ik}}.
+        \end{aligned}
+    \end{equation}
+    The first three terms are the nonrelativistic Coulomb point-charge interactions between
+    nucles and electron, electron and electron and nucleus and nucleus, respectively.
+    The fourth and fifth terms are the Darwin corrections caused by the Zitterbewegung
+    of the electrons. Because the nuclear point-charge model is not always adequate, the
+    second-to-last and last term correct errors from this approximation. Here, $R_K$ is 
+    the nuclear extent and $\Theta_K$ is the nuclear quadropole moment. These terms are
+    important in nuclear resonance studies\cite{kutzelnigg1990perturbation} and nucllear quadropole resonance
+    studies\cite{abragam1961principles}.
+
+    \paragraph{External electric field interactions}
+    The Breit-Pauli Hamiltonian includes terms that model the effects of an externally
+    applied scalar potential $\phi(\vb{r})$,
+    \begin{equation}
+        \label{eq:ef_hamiltonian}
+        \hat{H}_{\text{ef}}
+            = - \sum_i \phi_i
+              + \sum_K Z_K\phi_K
+              + \frac{\alpha^2}{\phi_K} \sum_i (\nabla_i \cdot \vb{E}_i).
+    \end{equation}
+    It is often safe to assume that the applied field are quite uniform on the
+    molecular scale, and one therefore often expands \autoref{eq:ef_hamiltonian}
+    in multipoles,
+    \begin{equation}
+        \hat{H}_{\text{ef}}
+            = Q_{\text{tot}}\phi_0 
+            - \vb{\mu}_{\text{tot}} \cdot \vb{E}_0
+            - \frac{1}{2}\tr \vb{Q}_{\text{tot}}\vb{V}_0
+            + \dots,
+    \end{equation}
+    where $q_{\text{tot}}$ is the total charge of the molecule, $\vb{\mu}_0$ is the 
+    dipole moment, $\vb{Q}_{\text{tot}}$ is the second moment, and $\vb{V}_0$ is the
+    electric field gradient. Higher-order terms are only necessary for fields that vary
+    greatly in time.
+
+    \paragraph{Zeeman interactions}
+    Paramagnetic interactions of the molecule with an externally applied magnetic field
+    $\vb{B}$ are described by the Zeeman term in the Breit-Pauli Hamiltonian
+    (\autoref{eq:breit_pauli_hamiltonian}),
+    \begin{equation}
+        \label{eq:zeeman_hamiltonian}
+        \hat{H}_Z
+            = - \vb{B} \cdot \sum_i \left(
+                - \frac{1}{2}\vb{l}_{iO} - \vb{s}_i
+                + \frac{1}{2}\alpha^2\vb{s}_i\nabla_i^2
+            \right)
+            - \vb{B} \cdot \sum_K \vb{M}_K.
+    \end{equation} 
+    The nuclear part, here represented by the last term in \autoref{eq:zeeman_hamiltonian},
+    are on the order of $10^{-3}$ in atomic units. This is much smaller than the electronic
+    part, given by the first sum in \autoref{eq:zeeman_hamiltonian}, but the nuclear part is 
+    very important in nuclear magnetic resonance (NMR) computations, where it determines the
+    unshielded resonance lines in the spectra. 
+
+    The first term inside the parenthesis in \autoref{eq:zeeman_hamiltonian} corresponds to
+    Zeeman interaction with the magnetic moment generated by the orbital angular momentum of
+    the electrons, $\vb{l}_{iO} = \vb{r}_{iO} \times \vb{p}_i$. The second and third terms 
+    in the paranthesis are electronic contributions to Zeeman effect from the spin of the 
+    electrons. The relativistic correction constituted in the third term is important in
+    electron paramegnetic resonance (EPR) spectroscopy.
+
+    \paragraph{Spin-orbit interactions}
+    Up to second order in the fine-structure constant, the terms that couple motion of eletrons 
+    to particle spins in \autoref{eq:breit_pauli_hamiltonian} are
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:spin_orbit_hamiltonian}
+            \hat{H}_{\text{so}}
+                =& \frac{\alpha^2}{2} \sum_{iK} \frac{Z_K\vb{s}_i \cdot \vb{l}_{iK}}
+                        {r^3_{iK}}
+                    - \frac{\alpha^2}{2}\sum_{i \neq j} \frac{\vb{s}_i \vb{l}_{ij}}
+                        {r^3_{ij}}
+                    - \alpha^2 \sum_{i \neq j} \frac{\vb{s}_j \vb{l}_{ij}}
+                        {r^3_{ij}} \\
+                &+ \alpha^2 \sum_{iK} \frac{\vb{M}_K \cdot \vb{l}_{iK}}{r^3_{iK}}
+                    + \frac{\alpha^2}{4} \sum_i (\vb{E}_i \times \vb{p}_i - \vb{p}_i\times\vb{E}_i)
+        \end{aligned}
+    \end{equation}
+    When electron spin coupled to magnetic filed induced by other charges i motion we have spin-orbit 
+    interaction. The first term in \autoref{eq:spin_orbit_hamiltonian} models nuclear spin-orbit effect, 
+    the second term models interaction between the spin of a particle with its own orbit, 
+    the third is interaction with other orbits. The fourth term is known as the orbital hyperfin
+    operator and couples magnetic moments to the 
+    orbital motion of electrons, while the fifth and last term is modles coupling of electric fields 
+    and orbits.
+
+    \paragraph{Spin-psin interaction}
+    All terms that arises in the Breit-Pauli Hamiltionian (\autoref{eq:breit_pauli_hamiltonian}) due to 
+    coupling between magnetic momenta or spin of two particles are
+    \begin{equation}
+        \begin{aligned}
+            \hat{H}_{\text{ss}}
+                &= \frac{\alpha^2}{2} \sum_{i \neq j}
+                \left[ 
+                    \frac{r^2_{ij}\vb{s}_i \cdot \vb{s}_j - 3\vb{s}_i \cdot \vb{r}_{ij}\vb{r}_{ij} \cdot \vb{s}_j}
+                            {r^5_{ij}}
+                    - \frac{8\pi}{3} \delta(\vb{r}_{ij}) \vb{s}_i \cdot \vb{s}_j
+                \right] \\
+                &= \alpha^2 \sum_{iK}
+                \left[ 
+                    \frac{r^2_{iK}\vb{s}_i \cdot \vb{M}_K - 3\vb{s}_i \cdot \vb{r}_{iK}\vb{r}_{iK} \cdot \vb{M}_K}
+                            {r^5_{iK}}
+                    - \frac{8\pi}{3} \delta(\vb{r}_{iK}) \vb{s}_i \cdot \vb{M}_k
+                \right] \\
+                &= \frac{\alpha^2}{2} \sum_{K \neq L}
+                \left[ 
+                    \frac{r^2_{KL} (\vb{M}_K \vb{M}_L - 3(\vb{M}_K \cdot \vb{R}_{KL}) (\vb{R}_{KL} \cdot \vb{M}_L)}
+                            {R^5_{KL}}
+                \right]
+        \end{aligned}
     \end{equation}
 
-    Introduce potential.
-
-    Many particles in many dimenions.
-
-    Interaction.
-
-    Nuclear interaction (molecule).
-
-    There is other stuff as well.
-
-    In atomic units, the Hamiltonian for $N$ electrons and $M$ nuclei is
-    \footnote{Often referred to as the electronic Hamiltonian},
-
-    \begin{equation}
-        \label{eq:electronic_hamiltonian}
-        \hat{H} = 
-            - \sum_{i=1}^N \frac{1}{2} \nabla _i^2 
-            - \sum_{A=1}^M \frac{1}{2M_A} \nabla_A^2
-            - \sum_{i=1}^N\sum_{A=1}^M \frac{Z_A}{r_iA}
-            + \sum_{i=1}^N\sum_{j>i}^N \frac{1}{r_{ij}}
-            + \sum_{A=1}^M\sum_{B>A}^M \frac{Z_A Z_B}{R_{AB}},
-    \end{equation}
-
-    where $M_A$ si the ratio of the mass of nucleus $A$ to the mass of an electron,
-    and $Z_A$ is the atomic number of nuclus $A$. The first term in 
-    \autoref{eq:electronic_hamiltonian} is the operator for the kinetic energy of 
-    the electrons, the second term is the operator for the kinetic energi of the 
-    nuclei, the third term represents the Coulomb attraction between the electrons
-    and the nuclei, the fourth term is the Coulomb repulsion between electrons 
-    and the fifth and last term is the Coulomb repulsion between nuclei.
-
-    PERHAPS FIGURE OF GENERAL SYSTEM HERE?
+    \paragraph{Diamagnetic Interactions}
+    The magnitude of effects from diamagnetic interaction in the Breit-Pauli Hamiltonian 
+    (\autoref{eq:breit_pauli_hamiltonian}) are terms of order $\alpha^4$ or smaller.
+    Most of these effects are only important in some cases where strong external magnetic
+    fields are applied (NMR, EPR).
 
     \subsection{Atomic Units}
 
-        In the Hamiltionian above (\autoref{eq:electronic_hamiltonian}), we have grown up
+        In the Hamiltionian above (\autoref{eq:breit_pauli_hamiltonian}), we have grown up
         and set $\hbar = m_e = e = \dots = 1$. This is a result of using atomic units, a
         form of commonly used dimensionless units. To see how these units arise, consider
         the time-independent Schrödinger equation for a Hydrogen atom,
@@ -255,7 +384,6 @@
             \label{tab:atomic_units_conversion}
         \end{table}
 
-    \subsection{The Born-Oppenheimer Approximation}
 
 
 
