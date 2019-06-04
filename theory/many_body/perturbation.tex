@@ -1,0 +1,195 @@
+\chapter{Perturbation Theory}
+
+\section{Formal perturbation theory}
+
+We split the Hamiltonian into a known part and a perubed part,
+\begin{equation}
+    \hat{H} = \hat{H}_0 + \hat{V}.
+\end{equation}
+Sometimes it is convenient to write
+\begin{equation}
+     \hat{H} = \hat{H}_0 + \lambda\hat{V},
+\end{equation}
+where we have included an "order parameter" $\lambda$. This parameter is used to categorise
+the contributions of different order. 
+The exact solution is given by
+\begin{equation}
+    \label{eq:perturbation_schrodinger}
+    \begin{gathered}
+        \hat{H} \Psi_n = E_n \Psi_n \\
+        (\hat{H}_0 + \hat{V}) \Psi_n = E_n \Psi_n, \quad \Psi_n = \Phi_n + \chi_n
+    \end{gathered}
+\end{equation}
+while the solvable and simple zero order problem is given by
+\begin{equation}
+    \label{eq:zero_order_perturbed_schrodinger}
+    \hat{H}_0 \Phi_n = E_n^{(0)} \Phi_n
+\end{equation}
+
+By projecting \autoref{eq:perturbation_schrodinger} with $\bra{\Phi_0}$ we get
+\begin{equation}
+    \begin{gathered}
+    \bra{\Phi_0} \hat{H} \ket{\Psi_n} + \bra{\Phi_0} \hat{V} \ket{\Psi_n}
+        = E_n \braket{\phi_0}{\Psi_n} \\
+    \to E_n - E_n^{0} = \Delta E_n = \bra{\Phi_0} \hat{V} \ket{\Psi_n},
+    \end{gathered}
+\end{equation}
+where we have used that $\braket{\Phi_m}{\Phi_n} = \delta_{mn}$, 
+$\braket{\Phi_0}{\chi_n} = 0 \to \braket{\Phi_0}{\Phi_n} = 1$. This is called the
+intermediate normalisation assumption.
+
+The Schrödinger equation in \autoref{eq:perturbation_schrodinger} can be rewritten to
+\begin{equation}
+    \begin{aligned}
+        \hat{H}(\Phi_n + \chi_n) &= E_n(\Phi_n + \chi_n) \\
+        \hat{H}_0\Phi_n + \hat{V}\Phi_n + \hat{H}\chi_n 
+            &= E_n^{(0)}\Phi_n + \Delta E_n \Phi_n + E_n \chi_n \\
+        (\hat{H} - E_n)\chi_n &= (\Delta E_n - \hat{V})\Phi_n.
+    \end{aligned}
+\end{equation}
+
+ENERGY EXPRESSIONS, ORDER-BY-ORDER EXPANSIONS and WIGNER RULE can be inserted here.
+
+\subsection{Projection Operators}
+We define the projection operators in terms of the zero-order wave functions,
+\begin{equation}
+    \begin{aligned}
+        \hat{P} &= \ket{\Phi_0} \bra{\Phi_0} \\
+        \hat{Q} &= \hat{1} - \hat{P} = \sum_{i=1}^N \ket{\Phi_i} \bra{\Phi_i}.
+    \end{aligned}
+\end{equation}
+The projecton operators have the following conventient properties,
+\begin{equation}
+    \begin{gathered}
+    \hat{P}^2 =  \ket{\Phi_0}\bra{\Phi_0}\ket{\Phi_0}\bra{\Phi_0} 
+        = \ket{\Phi_0}\bra{\Phi_0} = \hat{P} \\
+    \hat{Q}^2 = (1 - \hat{P})^2 = \hat{1} - \hat{P} - \hat{P} + \hat{P}
+        = \hat{1} - \hat{P} = \hat{Q} \\
+    \hat{P}\hat{Q} = \hat{Q} \hat{P} = 0 \\
+    [ \hat{P}, \hat{H}_0 ] = [ \hat{Q}, \hat{H}_0 ] = 0
+    \end{gathered}
+\end{equation}
+
+If we write the wavefunction as a linear expansion in terms of $\Phi_i$,
+\begin{equation}
+    \Phi = \sum_i a_i \Phi_i,
+\end{equation}
+acting on it with the projection operators will yield
+\begin{equation}
+    \hat{P} \Psi = \sum_i a_i \ket{\Phi_0}\bra{\Phi_0}\ket{\Phi_i}
+        = \sum_i a_i\ket{\Phi_0}\delta_{0i} = a_0\Phi_0.
+\end{equation}
+In not so many greek letters, the operator $\hat{P}$ will extract $\Phi_0$ from 
+$\Psi$, while $\hat{Q}$ annihilates $\hat{Q}$,
+\begin{equation}
+    \hat{Q}\Psi = (\hat{1} - \hat{P}) = \Psi - a_0\Phi_0 
+        = \sum_{i=1}^N a_i\Phi_i,
+\end{equation}
+meaning we can write
+\begin{equation}
+    \Psi = \hat{P} \Psi + \hat{Q} \Psi.
+\end{equation}
+
+\subsection{The Resolvent}
+Now follows what some considers a more elegant derivation of the perturbation equations,
+including the introduction of the \emph{resolvent} of the unperturbed part of the Hamiltonian
+$\hat{H}_0$.
+
+Starting from a rearrangment of the Schrödinger equation,
+\begin{equation}
+    \begin{gathered}
+        (\hat{H}_0 + \hat{V})\Psi = E\Psi, \\
+        \to -\hat{H}_0 \Phi = (\hat{V} - E)\Psi,
+    \end{gathered}
+\end{equation}
+we introduce a seemingline arbirary parameter $\zeta$ by adding $\zeta\Phi$ to both sides,
+\begin{equation}
+    (\xi - \hat{H}_0)\Phi = (\hat{V} - E + \xi)\Phi.
+\end{equation}
+Next, we apply $\hat{Q}$ to both sides,
+\begin{equation}
+    \label{eq:q_space_schrodinger_1} 
+    \hat{Q}(\zeta - \hat{H}_0)\Psi = \hat{Q}(\hat{V} - E + \zeta)\Psi.
+\end{equation}
+The right-hand side of this expression can be rewritten as,
+\begin{equation}
+    \begin{aligned}
+    \hat{Q}(\zeta - \hat{H}_0)\Psi &= \hat{Q}^2(\zeta - \hat{H}_0)
+        = \hat{Q}(\zeta - \hat{H}_0)\hat{Q}\Psi \\
+        &= \sum_{i \neq 0} \sum_{j \neq 0} \ket{\Phi_i} \bra{\Phi_i}
+            \zeta - \hat{H}_0 \ket{\Phi_j} \bra{\Phi_j},
+    \end{aligned}
+\end{equation}
+\autoref{eq:q_space_schrodinger_1} is now 
+\begin{equation}
+    \label{eq:q_space_schrodinger_2}
+    \hat{Q}(\zeta - \hat{H}_0)\hat{Q}\Psi = \hat{Q}(\hat{V} - E + \zeta)\Psi.
+\end{equation}
+
+By restricting to choice of $\zeta$, so they do not coincide with the eigenvalues
+of $\hat{H}_0$ in $\hat{Q}$-space, we ensure that the inverse of 
+$\hat{Q}(\zeta - \hat{H}_0)\hat{Q}$ exists. This inverse is the \emph{resolvent} of
+$\hat{H}_0$,
+\begin{equation}
+    \hat{R}_0(\zeta) = \frac{\hat{Q}}{\zeta - \hat{H}_0}
+        \equiv \sum_{i \neq 0} \sum_{j \neq 0}
+            \ket{\phi_i}\bra{\Phi_i} 
+            (\zeta - \hat{H}_0)^{-1}
+            \ket{\Phi_j}\bra{\Phi_j}.
+\end{equation}
+The resolvent simplifies in the diagonal case to
+\begin{equation}
+    \hat{R}_0(\zeta)
+        = \sum_{i \neq 0} \ket{\Phi_i} \bra{\Phi_i}
+            (\zeta - E_j^{(0)})^{-1} \ket{\Phi_j}\bra{\Phi_j}
+        = \sum_{i \neq 0} \frac{\ket{\Phi_i} \bra{\Phi_i}}{(\zeta - E_i^{(0)})}. 
+\end{equation}
+
+It is somewhat straightforward to prove that $\hat{R}_0(\zeta)$ is the inverse of
+$\hat{Q}(\zeta - \hat{H}_0)\hat{Q}$ in $\hat{Q}$-space,
+\begin{equation}
+    \begin{aligned}
+        \frac{\hat{Q}}{\zeta - \hat{H}_0} &\hat{Q}(\zeta - \hat{H}_0)\hat{Q} \\
+            &= \left(
+                \sum_{i,j \neq 0} \ket{\Phi_i}\bra{\Phi_i}
+                    (\zeta - \hat{H}_0)^{-1} \ket{\Phi_j}\bra{\Phi_j}
+            \right) \left(
+                \sum_{k,l \neq 0} \ket{\Phi_k}\bra{\Phi_k}
+                    (\zeta - \hat{H}_0) \ket{\Phi_l}\bra{\Phi_l}
+            \right) \\
+            &= \sum_{i,l \neq 0} \ket{\Phi_i}
+                \bra{\Phi_i}
+                    (\zeta - \hat{H}_0)^{-1}
+                    \left(\sum_{j \neq 0} \ket{\Phi_j} \bra{\Phi_j} \right)
+                    (\zeta - \hat{H}_0)
+                \ket{\Phi_l}
+            \bra{\Phi_l} \\
+            &= \sum_{i, l \neq 0} \ket{\Phi_i}
+                \bra{\Phi_i} (\zeta - \hat{H}_0)^{-1}
+                (1 - \ket{\Phi_0}\bra{\Phi_0})
+                (\zeta - \hat{H}_0) \ket{\Phi_l}
+            \bra{\Phi_l} \\
+            &= \sum_{i \neq 0} \ket{\Phi_i}\bra{\Phi_i} = \hat{Q}.
+    \end{aligned}
+\end{equation}
+
+Applying the resolvent to both sides of \autoref{eq:q_space_schrodinger_2},
+\begin{equation}
+    \begin{gathered}
+    \hat{Q}\Psi = \hat{R}_0(\zeta)(\hat{V} - E + + \zeta)\Psi \\
+    \to \Psi = \Phi_0 + \hat{R}_0(\zeta)(\hat{V} - E + \zeta)\Psi,
+    \end{gathered}
+\end{equation}
+which can be interpreted as a recursive relation for $\Psi$. Substituting the
+right-hand side into $\Psi$ on the right-hand side repeatedly yields,
+\begin{equation}
+    \Psi = \sum_{m=0}^\infty \{\hat{R}_0(\zeta)(\hat{V}) - E + \zeta \}^m \Phi_0.
+\end{equation}
+The problem with this equation is that $E$, which is unknown, appears on the right-hand
+side. A question also arises regarding what to do with $\zeta$. There are two common 
+choices for $\zeta$ that give rise to two important theories,
+\begin{align*}
+    \zeta = E &\leftarrow \text{Brillouin-Wigner Perturbation} \\
+    \zeta = E^{(0)}_0 \to -E + \zeta = -\Delta E 
+        &\leftarrow \text{Rayleigh-Schrödinger Perturbation}
+\end{align*}
