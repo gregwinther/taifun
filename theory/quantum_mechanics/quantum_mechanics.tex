@@ -385,48 +385,127 @@
         \end{table}
 
 
+    \section{Indistinguishable Particles}
 
+        In classical mechanics, although particles are indistinguishable, one typically
+        regards particles as individuals because a permutation of particles is counted as
+        a new arrangement and something different than the initial configuration. 
+        This was called ``Transcedental
+        Individuality'' by Heinz Post\cite{post1963individuality}. In quantum mechanics, on 
+        the other hand, a permutation is not regarded as giving rise to a new 
+        arrangement. It follows that quantum objects are very different from anything else we
+        know from everyday life, and must be considered ``non-individual''. By taken this idea
+        to it's extreme one may postulate that all particles of a given type are one and the
+        same. Here from a telephone call betwwen John Wheeler and Richard
+        Feynman\cite{feynman1965nobel},
+        \begin{displayquote}
+             I received a telephone call one day at the graduate college at Princeton from 
+            Professor Wheeler, in which he said, ``Feynman, I know why all electrons have
+            the same charge and the same mass'' ``Why?'' ``Because, they are all the same 
+            electron!''           
+        \end{displayquote}
 
-    \section{Indistinguishable Particles and Pauli}
-
-        In a quantum system the particles are identical and impossible to tell
-        apart, as indicated by several studies (KILDE!!). 
-        Feynman: In fact, all electrons are one and the same.
-        The probability density
-        for the location of particles in a system must therefore be permutation
-        invariant,
-
+        Following the brief discussion above one may conclude that, the probability density
+        for the location of particles in a system must be permutation invariant,
         \begin{equation}
-            \abs{\Psi(x_1, x_2, \dots, x_i, x_j x_N)}^2 
+            \label{eq:square_wavefunction_pauli}
+            \abs{\Psi(x_1, x_2, \dots, x_i, x_j, \dots, x_N)}^2 
             = 
-            \abs{\Psi(x_1, x_2, \dots, x_j, x_i x_N)}^2.
+            \abs{\Psi(x_1, x_2, \dots, x_j, x_i, \dots, x_N)}^2.
         \end{equation}
-
         For any arbitrary permutation, this is equivalent to 
-
         \begin{equation}
             \Psi(x_1, \dots x_N) 
             =
             e^{i\alpha(\sigma)}\Psi(x_{\sigma(1)}, x_{\sigma(2)}, \dots, x_{\sigma(N)}),
         \end{equation}
-
         where $\sigma \in S_N$ is some permutation of $N$ indices and $\alpha$ is 
         some real number that may be dependent on $\sigma$.
-
         The same relation can be written by way of a linear permutation operator,
-
         \begin{equation}
             (\hat{P_\sigma}\Psi)(x_1, \dots, x_N)
             =
             \Psi(x_{\sigma(1)}, x_{\sigma(2)}, \dots, x_{\sigma(N)}).
         \end{equation}
-    
-\section{Representation of the Wavefunction}
+        The `indistinguishability postulate'' states that if a permutation $P$ is applied 
+        to a state representing an assembly of particles, there is no way of distinguishing
+        between the permuted state and the original, by means of an observation at any time.
+   
+        One can show (Difficult to show? exercise 2.2 in FYS-KJM4480) that 
+        \begin{equation}
+            \hat{P}_\sigma\Psi = 
+            \begin{cases}
+                \Psi &\\
+                (-1)^{\abs{\sigma}}\Psi& 
+            \end{cases} \forall \sigma \in S_N
+        \end{equation}
+        where $\abs{\sigma}$ is the number of transpositions in $\sigma$ and the sign 
+        will be $(-1)^{\abs{\sigma}} = \pm 1$. In the former case, when the sign is $+$,
+        the wavefunction is ``totally symmetric with respect to permutations''; while in 
+        the latter case, when the sign is $-$, the wavefunction is ``totally anti-symmetric.''
 
-    \section{Orbitals}
+        This leads us to another postulate in quantum theory that we have only two types of 
+        basic particles, \emph{bosons} have totally symmetric wavefunctions only, while 
+        \emph{fermions} have totally anti-symmetric wavefunctions only. ``The physical 
+        consequences of this postulate seems to be in good agreement with experimental data''
+        \cite{leinaas1977theory}. Moreover, all particles with integer spin are bosons, 
+        and all particles with half-integer spin are fermions
+        \cite{fierz1939relativistische,pauli1940connection}. This can be proved in relativistic
+        quantum mechanics, but must be accepted as an axiom in nonrelativistic 
+        theory\cite{hilborn1995atoms}. Boson follow Bose-Einsten statistics and fermions
+        follow Fermi-Dirac statistics.
 
-    \subsection{Hartree Products}
+        To this day, particles with no other spin has been found, but norwegian physicists
+        Jon Magne Leinaas and Jan Myrheim discovered that in one- and two dimensions, more 
+        general permutations symmetries are possible. The dubbed this third class of
+        fundamental particles "anyons"\cite{leinaas1977theory}.
+        
+    \section{Representation of the Wavefunction}
 
-    \subsection{Slater Determinants}
+        We have already invested some time in what the wave-function is, but some more time 
+        is necessary in order to build a nomenclature for writing down wavefunctions that
+        actually describe many-electron systems with which we are concerned. For some smaller
+        systems it can be satisfactory or even provident to use a single, special function 
+        to describe the entire system. Here however, we introduce the Slater determinant as 
+        we will only consider many-electron wavefunctions that can be written as a single 
+        Slater determinant or as a linear combination of several Slater determinants.
 
-\section{The Harmonic Oscillator System}
+        We define an \emph{orbital}\footnote{Sometimes also called a single-particle function,
+        a single-particle orbital, a single-electron orbital or similar. There is a chance that 
+        these terms will be used interchangably throughout this text without warning.} which is the
+        wavefunction for a single particle, or more precicely a single electron. The wavefunction
+        a larger group of electrons, for instance those electrons surround an atom or molecule,
+        we call the \emph{molecular orbital}. We also discriminate between 
+        spatial orbitals which are functions of spatial coordinates; and spinorbitals, which 
+        are functions of the space and spin coordinates (typically a product of a spatial orbital
+        and a spin function). A very complete description and thorough discussion of all things 
+        concerning electronic sructure wavefunctions is given by Szabo and Ostlund\cite{szabo2012modern}. 
+
+        \subsection{Slater Determinants}
+
+        The best description for a multiple-electron wavefunction, given by the independent-particle
+        approximation is the Slater determinant,
+        \begin{equation}
+            \label{eq:general_slater_determinant}
+            \Phi = \frac{1}{\sqrt{N!}} \begin{vmatrix}
+                \psi_1(1) & \psi_2(1) & \dots & \psi_N(1) \\
+                \psi_1(2) & \psi_2(2) & \dots & \psi_N(2) \\
+                \vdots & \vdots & \ddots & \vdots \\
+                \psi_1(N) & \psi_2(N) & \dots & \psi_N(N)
+            \end{vmatrix}
+            = \mathscr{A}\psi_1 \psi_2 \dots \psi_N,
+        \end{equation}
+        where $\psi_i(\mu)$ is a spinorbital and $\mathscr{A}$ is the antisymmetriser. The
+        spinorbitals, are single-particle functions in $L^2(X)$, not necessarily orthonormal.
+
+        To illustrate why this is a good approximation of the electronic wave function,
+        condiser first the two-electron case,
+        \begin{equation}
+            \Phi_{N=2} = \frac{1}{\sqrt(2)}(\psi_1(1)\psi_2(2) - \psi_1(2)\psi_2(1)).
+        \end{equation}
+        We see from this relatively simple expression that if the electrons where to occupy
+        the same state. This ensures that the Pauli exclusion principle for 
+        fermions\cite{pauli1925zusammenhang}. Moreover, if we switch coordinates of any two 
+        single-particle functions (spinorbitals), corresponding to the interchange of rows in
+        \autoref{eq:general_slater_determinant}, the result is a change of sign. This attribute
+        accomodates the total anti-symmetry necessary for a fermionic wavefunction.       
