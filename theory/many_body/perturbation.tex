@@ -1,5 +1,14 @@
 \chapter{Perturbation Theory}
 
+Perturbation theory is a very powerful method and a generic method applicable to all 
+matrix problems. Additionally, perturbation theory is relatively cheap in terms of computing
+time especially compared with coupled cluster theory. As the method provides a different 
+route to the solution of the Schrödinger equation, by approaching the exact solution 
+systematically, based on an order-by-order expansion of the energy and wave function. 
+Therefore, perturbation theory is often used to improve the results from other computation 
+schemes. What is more, the exponential form of the wave function in coupled cluster theory 
+stems from the non-degenerate Rayleigh-Schrödinger perturbation theory (RSPT) expansion.
+
 \section{Formal perturbation theory}
 
 We split the Hamiltonian into a known part and a perubed part,
@@ -8,7 +17,8 @@ We split the Hamiltonian into a known part and a perubed part,
 \end{equation}
 Sometimes it is convenient to write
 \begin{equation}
-     \hat{H} = \hat{H}_0 + \lambda\hat{V},
+    \label{eq:schrodinger_w_order_param}
+    \hat{H} = \hat{H}_0 + \lambda\hat{V},
 \end{equation}
 where we have included an "order parameter" $\lambda$. This parameter is used to categorise
 the contributions of different order. 
@@ -29,26 +39,92 @@ while the solvable and simple zero order problem is given by
 By projecting \autoref{eq:perturbation_schrodinger} with $\bra{\Phi_0}$ we get
 \begin{equation}
     \begin{gathered}
-    \bra{\Phi_0} \hat{H} \ket{\Psi_n} + \bra{\Phi_0} \hat{V} \ket{\Psi_n}
-        = E_n \braket{\phi_0}{\Psi_n} \\
-    \to E_n - E_n^{0} = \Delta E_n = \bra{\Phi_0} \hat{V} \ket{\Psi_n},
+    \bra{\Phi_n} \hat{H}_0 \ket{\Psi_n} + \bra{\Phi_n} \hat{V} \ket{\Psi_n}
+        = E_n \braket{\Phi_n}{\Psi_n} \\
+    \to E_n = \bra{\Phi_n} \hat{H} \ket{\Psi_n} \\
+    \to \Delta E_n = E_n - E_n^{0} = \bra{\Phi_n} \hat{V} \ket{\Psi_n}
     \end{gathered}
 \end{equation}
-where we have used that $\braket{\Phi_m}{\Phi_n} = \delta_{mn}$, 
-$\braket{\Phi_0}{\chi_n} = 0 \to \braket{\Phi_0}{\Phi_n} = 1$. This is called the
-intermediate normalisation assumption.
+where we have used that 
+\begin{gather}
+    \label{eq:intermediate_normalisation}
+    \braket{\Phi_m}{\Phi_n} = \delta_{mn} \\
+    \braket{\Psi_n}{\Phi_n} = \braket{\Phi_n + \chi_n}{\Phi_n} = 1 \\
+    \braket{\Psi_n} = 1 + \braket{\chi_n}.
+\end{gather}
+This is called the intermediate normalisation assumption.
 
-The Schrödinger equation in \autoref{eq:perturbation_schrodinger} can be rewritten to
+\subsection{Energy- and Wavefunction Expansion}
+
+We now have need for the order parameter from $\lambda$ \autoref{eq:schrodinger_w_order_param}
+as we expand the wavefunction and energy,
 \begin{equation}
     \begin{aligned}
-        \hat{H}(\Phi_n + \chi_n) &= E_n(\Phi_n + \chi_n) \\
-        \hat{H}_0\Phi_n + \hat{V}\Phi_n + \hat{H}\chi_n 
-            &= E_n^{(0)}\Phi_n + \Delta E_n \Phi_n + E_n \chi_n \\
-        (\hat{H} - E_n)\chi_n &= (\Delta E_n - \hat{V})\Phi_n.
+        \Psi_n &= \Phi_n + \chi_n = \Psi_n^{(0)} + \lambda\Psi_n^{(1)} 
+            + \lambda^2\Psi_n^{(2)} + \dots \quad (\Psi_n^{(0)} \equiv \Phi_n) \\
+        E_n &= E_n^{(0)} + \Delta E_n = E_n^{(0)} + \lambda E_n^{(1)} 
+            + \lambda^2 E_n^{(2)} + \dots 
     \end{aligned}
 \end{equation}
+We insert these expansions into the Schrödinger equation,
+\begin{equation}
+    \begin{aligned}
+        (\hat{H} - E_n) \Psi_n = 0 \\
+        (\hat{H}_0 + \lambda \hat{V})\Psi_n = 0,
+    \end{aligned}
+\end{equation}
+resulting in 
+\begin{equation}
+    (\hat{H}_0 + \lambda \hat{V} - E_n^{(0)} - \lambda E_n^{(1)} 
+        -\lambda^2 E_n^{(2)} - \dots)
+    (\Psi_n^{(0)} + \lambda \Psi_n^{(1)} + \lambda \Psi_n^{(2)} + \dots) = 0.
+\end{equation}
+Now we gather the coefficients of different powers of $\lambda$,
+\begin{align}
+    (\hat{H}_0 - E_n^{(0)})\Psi_n^{(0)} &= 0 \\
+    \label{eq:perturbation_lambda_power_first}
+    (\hat{H}_0 - E_n^{(0)})\Psi_n^{(1)} &= (E_n^{(1)} - \hat{V})\Psi_n^{(0)}  \\
+    (\hat{H}_0 - E_n^{(0)})\Psi_n^{(2)} &= (E_n^{(1)} - \hat{V})\Psi_n^{(1)}
+        + E_n^{(2)}\Psi_n^{(0)} \\
+        &\dots \nonumber \\
+    \label{eq:perturbation_lambda_power_mth}
+    (\hat{H}_0 - E_n^{(0)})\Psi_n^{(m)} &= (E_n^{(1)} - \hat{V})\Psi_n^{(m-1)}
+        + \sum_{l=0}^{m-2} E_n^{(m-l)}\Psi_n^{(l)}.
+\end{align}
+Where the last line gives a general $m$th-order equation. This equation can be 
+simplified somewhat,
+\begin{equation}
+    (E_n^{(0)} - \hat{H}_0)\Psi_n^{(m)} = \hat{V}\Psi_n^{(m-1)} 
+        - \sum_{l=0}^{m-1}E_n^{(m-l)}\Psi_n^{(l)}.
+\end{equation}
+By applying $\bra{\Phi_n}$ to each of the equations, we get expressions 
+for $E_n^{(m)}$. 
+For $\lambda^1$ (\autoref{eq:perturbation_lambda_power_first}) we get,
+\begin{equation}
+    \begin{gathered}
+    \bra{\Phi_n} \hat{H}_0 - E_n^{(0)}\ket{\Psi_n^{(1)}}
+        = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
+    \bra{(\hat{H}_0 - E_n^{(0)})\Phi_n} \ket{\Psi_n^{(1)}}
+        = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
+    \to E_n^{(1)} = \bra{\Phi_n} \hat{V} \ket{\Phi_n} = \hat{V}_{nn}
+    \end{gathered}
+\end{equation}
+Since we have an expression for $E_n^{(1)}$, we can solve the inhomogeneous 
+differential equation for $\Psi_n^{(1)}$, by also requiring the intermediate
+normalisation condition $\braket{\Phi_n}{\Psi_n^{(1)}} = \delta_{l0}$. For 
+the general $m$th-order expression (\autoref{eq:perturbation_lambda_power_mth}),
+\begin{equation}
+    \begin{gathered}
+        \bra{\Phi_n} E_n^{0} - \hat{H}_0\ket{\Psi_n^{(m)}}
+            = \bra{\Phi_n} \hat{V} \ket{\Psi_n^{(m-1)}}
+            - \sum_{l=0}^{m-1}E_n^{(m-l)}\braket{\Phi_n}{\Psi_n^{(l)}} \\
+        E_n^{(m)} = \bra{\Phi_n^{(m)}} = \bra{\Phi_n} \hat{V} \ket{\Psi_n^{(m-1)}}.
+    \end{gathered}
+\end{equation} 
+In principle, we can obtain every next-order energy contribution $E_n^{(m)}$ from 
+the previous-order wavefunctions $\Psi_n^{(m-1)}$ and then solve for $\Psi_n^{(m)}$.
 
-ENERGY EXPRESSIONS, ORDER-BY-ORDER EXPANSIONS and WIGNER RULE can be inserted here.
+\subsection{The $2n+1$ Wigner Rule}
 
 \subsection{Projection Operators}
 We define the projection operators in terms of the zero-order wave functions,
@@ -193,3 +269,11 @@ choices for $\zeta$ that give rise to two important theories,
     \zeta = E^{(0)}_0 \to -E + \zeta = -\Delta E 
         &\leftarrow \text{Rayleigh-Schrödinger Perturbation}
 \end{align*}
+
+\section{Brillouin-Wigner Perturbation Theory}
+
+Set $\zeta = E$ and get BWPT\cite{brillouin1932problemes,wigner1935modification}.
+
+\section{Rayleigh-Schrödinger Perturbation Theory}
+
+set $\zeta = E_n^{(0)}$ and get RSPT\cite{rayleigh1894theory,schrodinger1926quantisierung}.
