@@ -25,7 +25,7 @@
             coordinates of only the electrons in the molecule. In not so many words,
             the Born-Oppernheimer approximation is inerent in the method.
         \item Any relativistic effects are completely ignored, i.e. the momentum
-            operator is assumet to be completely non-relativistic.
+            operator is assumed to be completely non-relativistic.
         \item A variational solution is assumed to be a linear combination of a basis
             set, which is assumed to be approximately complete. This set of basis
             functions is usually orthogonal, but may not be. 
@@ -36,7 +36,7 @@
             dispersion\footnote{Named after Fritz London; London dispersion
             forces (LDF) are a type of force between atoms and 
             molecules\cite{heitler1927wechselwirkung}}.
-        \item Any energy eigen function is assumed to be describable by a single 
+        \item Any energy eigenfunction is assumed to be describable by a single 
             Slater determinant. 
     \end{itemize}
 
@@ -45,4 +45,176 @@
 
     \section{Deriving the Hartree-Fock Equations}
 
-        Consider a Hamiltionian for some system
+    Consider a Hamiltionian for some system
+    \begin{equation}
+        \label{eq:hf_hamiltonian}
+        \hat{H} = \hat{H}_0 + \hat{W}, \quad \hat{H}_0 = \sum_i^N \hat{h}(i),
+    \end{equation}
+    where the ground state of $\hat{H}_0$ is a Slater determinant consisting 
+    of $N$ single-particle functions,
+    \begin{equation}
+        \Phi = \mathscr{A}\phi_1 \phi_2 \dots \phi_N, \quad 
+            \braket{\phi_i}{\phi_j} = \delta_{ij}.
+    \end{equation} 
+    If $\hat{W}$ is 
+    only a limited perturbation to the system, it is reasonable to assume that the 
+    actual ground state of the full system can also be represented by a Slater 
+    determinant. Because the Hartree-Fock theory includes a mean-field approximation,
+    each particle moves independently of the others interacting with the remainding
+    electrons only idirectly through an average potential $\hat{v}^{\text{HF}}$.
+
+    The expectation value of the Hamiltionian in \autoref{eq:hf_hamiltonian} is 
+    \begin{equation}
+        \label{eq:hf_energy}
+        \bra{\Phi} \hat{H} \ket{\Phi} 
+            = \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
+            + \frac{1}{2} \sum_{ij} \bra{\phi_i \phi_k} \hat{w} 
+                \ket{\phi_i \phi_j - \phi_j \phi_i},
+    \end{equation}
+    where 
+    \begin{equation*}
+        \bra{\phi_i \phi_j} \hat{w} \ket{\phi_k \phi_l}
+         = \int \int \bar{\phi}_i(1) \bar{\phi}_j(2) 
+            \hat{w}(1, 2) \phi_k(1) \phi_l(2) d1 d2
+    \end{equation*}
+
+    Now we want to minimise the energy (\autoref{eq:hf_hamiltonian}) under the
+    contraint of orthonormal single-particle functions, id est
+    $\braket{\phi_i}{\phi_k} = \delta_{ij}$. The minimum solution is called the 
+    Hatree-Fock state, $\ket{\Phi_{\text{HF}}}$. An optimisation problem with a 
+    constraint begs the formualtion of a Lagrangian functional with a Lagrange
+    multiplier for each constraint,
+    \begin{equation}
+        \label{eq:hf_lagrangian}
+        \begin{aligned}
+        \mathscr{L}(\phi_1, &\dots, \phi_n, \lambda)
+            = \bra{\Phi} \hat{H} \ket{\Phi} 
+                - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
+            &= \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
+                + \frac{1}{2}\sum_{ij} \bra{\phi_i \phi_j} 
+                    \hat{w} \ket{\phi_i \phi_j -  \phi_j \phi_i}
+                - \sum_{ij} \lambda_{ij} (\braket{\phi_i}{\phi_j - \delta_{ij}}).
+        \end{aligned}
+    \end{equation}
+
+    The constraints can always be treated separately, 
+    $\partial \mathscr{L}/\partial \lambda_{ij} \braket{\phi_i}{\phi_j} - \delta_{ij}$,
+    as this demand will be fullfilled by finding that the solutions $\phi_i$ are 
+    orthonormal.
+
+    In order to find the optimum of the Lagrangian in (\autoref{eq:hf_lagrangian}),
+    we choose a $k \in \{1, \dots, N \}$ and compute the directional derivative of
+    $\phi_k^*$, by varying this single particle function and leaving all others fixed,
+    \begin{equation}
+        \delta \phi_k = \epsilon \eta, \quad \delta \phi_l = 0, k \neq l,
+    \end{equation}
+    where $\epsilon$ is some small number, and $\eta$ is a normalized single-particle 
+    function. We define a function representing this variation,
+    \begin{equation}
+        \label{eq:variation_hf_lagrangian}
+        f(\epsilon) = \mathscr{L} (\phi_1, \dots, \phi_k + \epsilon \eta,
+            \dots, \phi_N, \lambda),
+    \end{equation}
+    expanded to first order in $\epsilon$,
+    \begin{equation}
+        f(\epsilon) = f(0) + \epsilon f'(0) + \mathscr{O}(\epsilon^2).
+    \end{equation}
+    For an optimum we must have 
+    \begin{equation}
+        f'(0) = 0, \quad \forall \eta,
+    \end{equation}
+    which means that the directional derivative of $\mathscr{L}$ at 
+    $\{\phi_i\}_{i=1}^N$, in the direction $\eta$ vanishes.
+
+    We compute the Taylor expansion of the varied Lagrangian
+    (\autoref{eq:variation_hf_lagrangian}),
+    \begin{gather}
+        \begin{gathered}
+            f(\epsilon) =
+            \sum_i \bra{\phi_i + \delta_{ki}\epsilon\eta} \hat{h} \ket{\phi_i}
+            + \frac{1}{2} \sum_{ij} 
+            \bra{(\phi_i + \delta_{ki}\epsilon\eta)(\phi_j + \delta_{kj}\epsilon\eta)}
+            \hat{w} \ket{\phi_i\phi_j - \phi_j\phi_i} \\
+            - \sum_{ij} \lambda_{ij} (\bra{\phi_i + \delta_{ik} \epsilon\eta}
+                \ket{\phi_j} - \delta_{ij}) + \mathscr{O}(\epsilon^2)
+        \end{gathered} \\
+        \quad 
+        \begin{gathered}
+            =
+            \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
+                + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+                    \ket{\phi_i \phi_j - \phi_j \phi_i}
+                + \epsilon\bra{\eta} \hat{h} \ket{\phi_k} \\
+            + \frac{1}{2} \sum_{ij}\bra{\phi_i\delta_{kj}\epsilon\eta}\hat{w}
+                \ket{\phi_i\phi_j - \phi_j\phi_i} \\
+            + \frac{1}{2} \sum_{ij}\bra{\delta_{ki}\epsilon\eta\phi_j}\hat{w} 
+                \ket{\phi_i\phi_j - \phi_j\phi_i} \\
+            - \sum_{ij} \lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij})
+            - \sum_{ij} \lambda_{ij}(\braket{\delta_{ik}\epsilon\eta}{\phi_j} - \delta_{ij})
+                + \mathscr{O}(\epsilon^2)
+        \end{gathered} \\
+        \quad
+        \begin{gathered}
+            =
+            \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
+            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+                    \ket{\phi_i \phi_j - \phi_j \phi_i}
+            + \epsilon\bra{\eta} \hat{h} \ket{\phi_k}
+            - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
+            + \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{w}
+                \ket{\phi_i \phi_k}
+            - \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{w}
+                \ket{\phi_k \phi_i} \\
+            + \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{w}
+                \ket{\phi_k \phi_j}
+            - \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{w}
+                \ket{\phi_j \phi_k} \\
+            - \epsilon \sum_j \lambda_{jk}\braket{\eta}{\phi_j}
+            + \mathscr{O}(\epsilon^2) 
+        \end{gathered} \\
+        \quad
+        \begin{gathered}
+            \label{eq:hf_taylor_exp}
+            =
+            \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
+            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+                    \ket{\phi_i \phi_j - \phi_j \phi_i}
+            - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
+            + \epsilon\bra{\eta} \hat{h} \ket{\phi_k}
+            + \epsilon \sum_i \bra{\eta\phi_i} \hat{w} \ket{\phi_k \phi_i}
+            - \epsilon \sum_i \bra{\eta\phi_i} \hat{w} \ket{\phi_i \phi_k} \\
+            - \epsilon \sum_j \lambda_{jk}\braket{\eta}{\phi_j}
+            + \mathscr{O}(\epsilon^2) 
+        \end{gathered}
+    \end{gather}
+
+Notice that the zeroth term, represented by the first line in \autoref{eq:hf_taylor_exp},
+is simply the original Lagrangian in \autoref{eq:hf_lagrangian}. We equate all the 
+first-order terms to zero,
+\begin{equation}
+    \bra{\eta} \hat{h} \ket{\phi_k} 
+    + \sum_i \bra{\eta \phi_i} \hat{w} \ket{\phi_k\phi_i}
+    - \sum_i \bra{\eta \phi_i} \hat{w} \ket{\phi_i\phi_k}
+    - \sum_i \lambda_{ik} \braket{\eta}{\phi_i} = 0.
+\end{equation}
+This must be valid for any choice $\eta$, meaning
+\begin{equation}
+    \label{eq:unfinished_hf_eqn}
+    \hat{h} \ket{\phi_k} 
+    + \sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_k\phi_i}
+    - \sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_i\phi_k}
+    - \sum_i \lambda_{ik} \ket{\phi_i} = 0,
+\end{equation}
+where $\bra{\cdot\ \phi_1} \hat{w} \ket{\phi_2 \phi_3} \in L_1^2$ is interpreted
+as an integral over only the second particle in the matrix element. We define,
+\begin{gather}
+    \hat{v}_{\text{HF}} = \hat{v}_{\text{direct}} + \hat{v}_{\text{exchange}}
+        =\sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_k\phi_i}
+        -\sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_i\phi_k} \\
+    \hat{f} = \hat{h} + \hat{v}_{\text{HF}},
+\end{gather}
+and can then rewrite \autoref{eq:unfinished_hf_eqn} to 
+\begin{equation}
+    \hat{f}\ket{\phi_i} = \sum_j \lambda_{ij}\ket{\phi_j},
+\end{equation} 
+which are the non-canonical Hartree-Fock equations.
