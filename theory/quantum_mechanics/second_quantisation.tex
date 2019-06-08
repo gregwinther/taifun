@@ -7,8 +7,6 @@ Some Slater determinant is written,
 
 \section{Creation and Annihilation Operators}
 
-    I SHOULD PROBABLY CHANGE TO Qs HERE...?
-
     The notation of creation and annihilation operators vary,
     \begin{align*}
         \text{creation operator for spinorbital } \phi_i, &\ 
@@ -318,9 +316,73 @@ Some Slater determinant is written,
 		The result will be zero, or plus or minus the normal ordred product without the
 		contracted operator pairs.
 
-    \subsection{Wick's Theorem}
+	\subsection{Wick's Theorem}
+		Wick's theorem states that every string of creation and annihilation operators can
+		be written as a sum of normal-ordered products with all possible contractions,
+	
+		\begin{equation}
+			\begin{aligned}
+			\hat{A}\hat{B}\hat{C}\hat{D}\dots
+			=&n[\hat{A}\hat{B}\hat{C}\hat{D}\dots]
+			+ n[\wick{\c{\hat{A}}\c{\hat{B}}\hat{C}\hat{D}}\dots]
+			+ n[\wick{\c{\hat{A}}\hat{B}\c{\hat{C}}\hat{D}}\dots]
+			+ n[\wick{\c{\hat{A}}\hat{B}\hat{C}\c{\hat{D}}}\dots] \\
+			&+ \dots
+			+ n[\wick{{\hat{A}}\c{\hat{B}}\c{\hat{C}}\hat{D}}\dots]
+			+ n[\wick{{\hat{A}}\c{\hat{B}}{\hat{C}}\c{\hat{D}}}\dots]
+			+ \dots 
+			+ n[\wick{{\hat{A}}{\hat{B}}\c{\hat{C}}\c{\hat{D}}}\dots]
+			+ \dots + \\
+			&+ n[\wick{\c1{\hat{A}}\c1{\hat{B}}\c2{\hat{C}}\c2{\hat{D}}}\dots]
+			+ n[\wick{\c1{\hat{A}}\c2{\hat{B}}\c1{\hat{C}}\c2{\hat{D}}}\dots]
+			+ n[\wick{\c2{\hat{A}}\c1{\hat{B}}\c1{\hat{C}}\c2{\hat{D}}}\dots]
+			+ \dots,
+		\end{aligned}
+		\end{equation}
 
-    \subsection{Generalized Wick's Theorem}
+		where eventually all possible contractions of one, two pairs etc, are included.
+
+		Especially when computing vacuum expectation values of normal-ordred products is 
+		Wick's theorem very important. The reason for this is that each contraction will 
+		not contribute to the result, unless it is a fully contracted operator string,
+		\begin{equation} 
+			\bra{}\hat{A} \dots \hat{B} \dots \hat{C} \dots \hat{D} \dots \ket{}
+				= \sum_{\substack{\text{all possible} \\ \text{contractions}}}
+				\wick{
+				\bra{} n[\c1{\hat{A}} \dots \c2{\hat{B}} \dots 
+				\c1{\hat{C}} \dots \c2{\hat{D}} \dots] \ket{}
+				}.
+		\end{equation}
+
+		Most vacuum expectation values contain operators strings already have substrings
+		that are already normal-ordered. This warrants a very useful generalisation of
+		Wick's theorem for such strings,
+		\begin{equation}
+			\begin{aligned}
+			n[\hat{A}_1\hat{A}_2 \dots ]
+			n[\hat{B}_1\hat{B}_2 \dots ] \dots
+			n[\hat{Z}_1\hat{Z}_2 \dots ]
+			= n[\hat{A}_1\hat{A}_2\dots:
+				\hat{B}_1\hat{B_2}\dots:
+				\dots:
+				\hat{Z}_1\hat{Z}_2\dots] \\
+			+ \sum_{(1)}
+				\wick{n[
+				\c{\hat{A}}_1\hat{A}_2\dots:
+				\c{\hat{B}}_1\hat{B_2}\dots:
+				\dots:
+				\hat{Z}_1\hat{Z}_2\dots]}
+			+ \dots 
+			+ \sum_{(n)}
+				\wick{n[		
+				\hat{A}_1 \c1{\dots} \c2{\dots} \c3{\dots} 
+					\c1{\dots} \c2{\ } \c3{\ } \hat{Z}_N
+				]},
+			\end{aligned}
+		\end{equation}
+		where we sum over all combinations of contractions that each involce operators 
+		from different substrings, starting with one contractions and up to when all
+		opertors, or as many as possible, are contracted.
 
     \subsection{Particle-Hole Formalism}
 
