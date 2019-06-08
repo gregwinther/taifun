@@ -195,20 +195,20 @@ Some Slater determinant is written,
 
     A second-quantised two-body operator is written like
     \begin{equation}
-        \hat{u} = \sum_{i, j}^N\hat{u}(i,j) 
-        = \frac{1}{2} \sum_{ijkl} \bra{ij}\hat{u}\ket{kl} 
+        \hat{w} = \sum_{i, j}^N\hat{w}(i,j) 
+        = \frac{1}{2} \sum_{ijkl} \bra{ij}\hat{w}\ket{kl} 
             \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k
         = \frac{1}{4} \sum_{ijkl} \bra{ij}  \ket{kl} 
             \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k,
     \end{equation}
     where 
     \begin{equation}
-        \bra{ij}\hat{u} \ket{kl} \equiv \bra{i(1)j(2)} \hat{u_{12}} \ket{k(1)l(2)}
+        \bra{ij}\hat{w} \ket{kl} \equiv \bra{i(1)j(2)} \hat{w}_{12} \ket{k(1)l(2)}
     \end{equation} 
     and the antisymmetric two-eletron integral for $\hat{u}$ is abreviated,
     \begin{equation}
-        \bra{ij} \hat{u}\ket{kl} - \bra{ij}\hat{u} \ket{kl} 
-        = \bra{ij}\hat{u} \ket{kl} \equiv \bra{ij} \ket{kl}.
+        \bra{ij} \hat{w}\ket{kl} - \bra{ij}\hat{w} \ket{kl} 
+        = \bra{ij}\hat{w} \ket{kl} \equiv \bra{ij} \ket{kl}.
     \end{equation}
     Similarly to the one-particle operator, the two-particle operator assigns
     the correct matrix element to pairs of single particle functions.
@@ -216,7 +216,7 @@ Some Slater determinant is written,
     The second-quantised Hamiltonian can therefore be written,
     \begin{equation}
         \label{eq:second_quant_hamiltionian}
-        \hat{H} = \hat{h} + \hat{u} 
+        \hat{H} = \hat{h} + \hat{w} 
         = \sum_{ij} \hat{h}_{ij}\hat{a}^\dagger_i \hat{a}_j
             + \frac{1}{4} \bra{ij}\ket{kl} 
             \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k.
@@ -242,7 +242,7 @@ Some Slater determinant is written,
         permutation producing the rearrangent
         \begin{equation} 
             \begin{aligned}
-            \{\hat{A}_1\hat{A}_2 \dots \hat{A}_n \} 
+            n[\hat{A}_1\hat{A}_2 \dots \hat{A}_n ]
             &\equiv (-1)^{\abs{\sigma}}
                 \hat{A}_{\sigma(1)}\hat{A}_{\sigma(2)} \dots \hat{A}_{\sigma(n)} \\
             &= (-1)^{\sigma(\hat{P})}\hat{P}(\hat{A}_1\hat{A}_2 \dots \hat{A}_n) \\
@@ -255,13 +255,13 @@ Some Slater determinant is written,
         and $\sigma$ is the parity of the permutation. One should bear in mind that this 
         definition is by no means unique. Here are some examples,
         \begin{gather*}
-            \{\hat{a}^\dagger \hat{b}\} = \hat{a}^\dagger \hat{b} \quad
-            \{\hat{b} \hat{a}^\dagger\} = -\hat{a}^\dagger \hat{b} \\
-            \{\hat{a} \hat{b} \} = \hat{a} \hat{b} = - \hat{b} \hat{a} \\
-            \{\hat{a}^\dagger\hat{b}^\dagger \} 
+            n[\hat{a}^\dagger \hat{b}] = \hat{a}^\dagger \hat{b} \quad
+            n[\hat{b} \hat{a}^\dagger] = -\hat{a}^\dagger \hat{b} \\
+            n[\hat{a} \hat{b} ] = \hat{a} \hat{b} = - \hat{b} \hat{a} \\
+            n[\hat{a}^\dagger\hat{b}^\dagger ]
                 = \hat{a}^\dagger \hat{b}^\dagger 
                 = -\hat{b}^\dagger \hat{a}^\dagger \\
-            \{\hat{a}^\dagger \hat{b} \hat{c}^\dagger \hat{d}\}
+            n[\hat{a}^\dagger \hat{b} \hat{c}^\dagger \hat{d}]
                 = -\hat{a}^\dagger \hat{c}^\dagger\hat{b} \hat{d} 
                 = \hat{c}^\dagger \hat{a}^\dagger\hat{b} \hat{d} 
                 = \hat{a}^\dagger \hat{c}^\dagger\hat{d} \hat{b} 
@@ -277,26 +277,26 @@ Some Slater determinant is written,
         \end{equation}
         equivalently,
         \begin{equation}
-            \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \hat{A}\hat{B} - \{\hat{A} \hat{B}\}.
+            \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \hat{A}\hat{B} - n[\hat{A} \hat{B}].
         \end{equation}
         For a creation- and annihilation operator there are four possible contractions,
         \begin{equation}
             \begin{aligned}
             \wick{\c{\hat{a}^\dagger} \c{\hat{b}^\dagger}} 
             &= \bra{-}\hat{a}^\dagger \hat{b}^\dagger \ket{-}
-            = \hat{a}^\dagger \hat{b}^\dagger - \{\hat{a}^\dagger \hat{b}^\dagger\}
+            = \hat{a}^\dagger \hat{b}^\dagger - n[\hat{a}^\dagger \hat{b}^\dagger]
             = 0 \\
             \wick{\c{\hat{a}} \c{\hat{b}}} 
             &= \bra{-}\hat{a} \hat{b} \ket{-}
-            = \hat{a} \hat{b} - \{\hat{a} \hat{b}\}
+            = \hat{a} \hat{b} - n[\hat{a} \hat{b}]
             = 0 \\
             \wick{\c{\hat{a}^\dagger} \c{\hat{b}}} 
             &= \bra{-}\hat{a}^\dagger \hat{b} \ket{-}
-            = \hat{a}^\dagger \hat{b} - \{\hat{a}^\dagger \hat{b}\}
+            = \hat{a}^\dagger \hat{b} - n[\hat{a}^\dagger \hat{b}]
             = 0 \\
             \wick{\c{\hat{a}} \c{\hat{b}^\dagger}} 
             &= \bra{-}\hat{a} \hat{b}^\dagger \ket{-}
-            = \hat{a} \hat{b}^\dagger - \{\hat{a} \hat{b}^\dagger\}
+            = \hat{a} \hat{b}^\dagger - n[\hat{a} \hat{b}^\dagger]
             = \hat{a} \hat{b}^\dagger - (- \hat{b}^\dagger\hat{a})
             = \{\hat{a}, \hat{b}^\dagger \} = \delta_{ab}.
             \end{aligned}
@@ -305,7 +305,18 @@ Some Slater determinant is written,
         are a number, most of them are zero and only those with a annihilation operator
         to the left and a creation operator to the right can be one.
        
-        CONTRACTIONS INSIDE A NORMAL ORDERED PRODUCT HERE.
+		Contrations inside a normal ordered product is definded as follows,
+		\begin{equation}
+			n[\hat{A}\hat{B}\hat{C} \dots 
+			\wick{\c1{\hat{R}} \dots \c2{\hat{S}} \dots 
+					\c1{\hat{T}} \dots \c2{\hat{U}} \dots}]
+			= (-1)^{\sigma} \wick{\c1{\hat{R}} \c1{\hat{T}} \c2{\hat{S}} \c2{\hat{U}}}
+				\dots n[\hat{A}\hat{B}\hat{C}\dots],
+		\end{equation}
+		where all contracted operator pairs are moved to the front of the normal ordered 
+		product, and $\sigma$ is the parity of the permutations required for this relocation.
+		The result will be zero, or plus or minus the normal ordred product without the
+		contracted operator pairs.
 
     \subsection{Wick's Theorem}
 
