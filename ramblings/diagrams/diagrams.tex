@@ -1,33 +1,8 @@
-\documentclass[11pt]{article}
-
-\usepackage{tikz}
-\usepackage{pgf}
-\usepackage{amsmath}
-\usepackage{physics}
-\usepackage[offset=1.2em]{simpler-wick}
-
-\usetikzlibrary{arrows}
-\usetikzlibrary{shapes.misc}
-
-\tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={2pt}}
-
-% Arrow in the middle
-\usetikzlibrary{decorations.markings}
-%\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
-
-\title{Drawings That We Use in Many-Body Physics}
-\author{Greg Winther}
-\date{\today}
-
-\begin{document}
-
-	\maketitle
-
-	\section{Slater determinants}
+\chapter{Diagrammatic Notation}
+    \section{Slater determinants}
 	
 	Drawing the reference state will result in a drawing of nothing. A single-excited reference
 	state is two vertical arrows
-	
 	\begin{align}	
 		\Phi_i^a =
 		\begin{tikzpicture}[baseline=0]
@@ -37,9 +12,7 @@
 		\end{scope}
 		\end{tikzpicture},
 	\end{align}
-	
 	while the double-excited Slater determinant consists of four vertical arrows,
-	
 	\begin{align}	
 		\Phi_{ij}^{ab} =
 		\begin{tikzpicture}[baseline=0]
@@ -51,10 +24,8 @@
 		\end{scope}
 		\end{tikzpicture}.
 	\end{align}
-	
 	The horizontal positions of the lines have no significance. If we want to indicate a bra or ket form 
 	we draw a couple of horizontal lines,
-	
 	\begin{align}
 		\ket{\Phi_i^a} = \{ \hat{a}^\dagger \hat i\} \ket{0} = 
 		\begin{tikzpicture}[baseline=0]
@@ -75,10 +46,8 @@
 		\end{scope}
 		\end{tikzpicture},
 	\end{align}
-	
 	where  $\{ABC\dots\}$ is a normal ordered product relative to the Fermi vacuum.
 	A double-excited ket state could be drawn like
-	
 	\begin{align}
 		\ket{\phi_{ij}^{ab}} = \{\hat{a}^\dagger \hat{b}^\dagger \hat{j} \hat{i} \} \ket{0}
 			= \{ (\hat{a}^\dagger \hat{i}) (\hat{b}^\dagger \hat{j})\} \ket{0} =
@@ -93,11 +62,9 @@
 			\end{scope}
 			\end{tikzpicture}
 	\end{align}
-	
 	This drawing could, however, also mean $\ket{\phi_{ij}^{ba}}$. The use of diagrams will 
 	be independent of this ambiguity, as long as one remains consistent. To be precise one can
 	introduce dotted/dashed lines,
-	
 	\begin{align}
 		\ket{\phi_{ij}^{ab}} = \{\hat{a}^\dagger \hat{b}^\dagger \hat{j} \hat{i} \} \ket{0}
 			= \{ (\hat{a}^\dagger \hat{i}) (\hat{b}^\dagger \hat{j})\} \ket{0} =
@@ -114,32 +81,25 @@
 			\end{scope}
 			\end{tikzpicture}.
 	\end{align}
-	
-	These indicate what index letters should be above and below one another.
-	
-	\section{One-Particle Operators}
-	
-	The one-electron operator on normal-ordered from is given by
-	
+    These indicate what index letters should be above and below one another.
+    
+    \section{One-Body Operator}
+
+    The one-electron operator on normal-ordered from is given by
 	\begin{equation}
 		\hat{U}_N = \sum_{pq} \bra{p} \hat{u} \ket{q} \{\hat{p}^\dagger \hat{q} \},
 	\end{equation}
-	
 	acting on a singly excited Slater determinant
-	
 	\begin{equation}
 		\ket{\Phi^a_i} = \{ \hat{a}^\dagger \hat{i} \}\ket{0},
 	\end{equation}
-	
 	id est
-	
 	\begin{equation}
 		\sum_{pq} \bra{p} \hat{u} \ket{q} \{\hat{p}^\dagger \hat{q} \}\{ \hat{a}^\dagger \hat{i} \}\ket{0}.
 	\end{equation}
 	
 	There are four different terms arising from this expression, depending on whether $p$ and $q$
 	represents particles or holes. Beginning with a \emph{particle}-\emph{particle} term,
-	
 	\begin{equation}
 		\begin{aligned}
 			\bra{b} \hat{u} \ket{c} \{ \hat{b}^\dagger \hat{c} \} \{ \hat{a}^\dagger \hat{i} \} \ket{0} 
@@ -150,7 +110,6 @@
 				&= 0 + \bra{b} \hat{u} \ket{c} \delta_{ac}\ket{\Phi_i^a},
 		\end{aligned}
 	\end{equation}
-	
 	giving non-zero contributions of the type
 	\begin{equation}
 		\bra{b} \hat{u} \ket{a} \{ \hat{b}^\dagger \hat{a} \} \ket{\Phi_i^a} 
@@ -158,7 +117,6 @@
 	\end{equation}
 	
 	We can draw a graphical representation of this contraction process,
-	
 	\begin{equation}
 		\begin{split}
 			\begin{aligned}
@@ -216,7 +174,6 @@
 	\end{equation}
 	
 	Now, let's consider a \emph{hole}-\emph{hole} term acting on the same single-excited Slater determinant,
-	
 	\begin{equation}
 		\begin{aligned}
 		\bra{j} \hat{u} \ket{k}\{ \hat{j}^\dagger \hat{k} \} \{ \hat{a}^\dagger \hat{i} \} \ket{0}
@@ -228,15 +185,11 @@
 			&= - \delta_{ij} \bra{i} \hat{u} \ket{j} \ket{\Phi_k^a},
 		\end{aligned}
 	\end{equation}
-	
 	meaning we are only left with non-zero contributions of the type,
-	
 	\begin{equation}
 		\bra{i} \hat{u} \ket{j}\{ \hat{i}^\dagger \hat{k} \} \ket{\Phi_i^a} = - \bra{i}\hat{u}\ket{k} \ket{\Phi_k^a}.
 	\end{equation}
-
 	One can make a diagrammatic representation of this contraction as well,
-	
 	\begin{equation}
 		\begin{split}
 			\begin{aligned}
@@ -294,7 +247,6 @@
 	\end{equation}
 
 	Next, we look at the \emph{particle}-\emph{hole} term,
-
 	\begin{equation}
 		\begin{aligned}
 			\bra{b}\hat{u}\ket{j}\{\hat{b}^\dagger \hat{j} \}\{\hat{a}^\dagger \hat{i} \}\ket{0}
@@ -303,9 +255,7 @@
 			&= \bra{b}\hat{u}\ket{j}\ket{\Phi^{ab}_{ij}},
 		\end{aligned}	
 	\end{equation}
-
 	with no contraction in this case. This expression is represented by
-
 	\begin{equation}
 		\begin{tikzpicture}
 			\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
@@ -320,15 +270,14 @@
 			\end{scope}	
 		\end{tikzpicture}	
 	\end{equation}
-
 	showing the resulting determinant is $\ket{\Phi_{ij}^{ab}}$. Holes and particles joined
 	at the same vertex, on the same path, are in the same vertical position in the excited
 	Slater determinant. This representation may appear to leave out the cases where $i=j$
 	and/or $a=b$, but these diagrams will give a vanishing Slater determinant.
 
 	The \emph{hole}-\emph{particle} term is
-
 	\begin{equation}
+		\hat{U}_N = 
 		\begin{aligned}
 		\bra{j}\hat{u}\ket{b}\{\hat{j}^\dagger \hat{b}\}\{\hat{a}^\dagger \hat{i}\}\ket{0}
 		&= \bra{j}\hat{u}\ket{b}\{\hat{j}^\dagger\hat{b}\hat{a}^\dagger\hat{i}\}\ket{0}
@@ -338,9 +287,7 @@
 		&= \delta_{ij} \delta_{ab}\bra{j}\hat{u}\ket{b}\ket{0} = \bra{i}\hat{u}\ket{a}\ket{0},
 		\end{aligned}
 	\end{equation}
-
 	which is represented by 
-
 	\begin{equation}
 		\begin{tikzpicture}
 		\begin{scope}[decoration={markings, mark=at position 0.52 with {\arrow{>}}}]
@@ -353,9 +300,9 @@
 		\end{scope}	
 		\end{tikzpicture}	
 	\end{equation}
-
 	which shows that the result of the operation involved the vacuum state.
 
+	The full one-body operator becomes,
 	\begin{equation}
 		\begin{split}
 			\sum_b
@@ -429,5 +376,3 @@
 			\bra{i} \hat{u} \ket{a} \ket{0}		
 		\end{split}
 	\end{equation}
-
-\end{document}
