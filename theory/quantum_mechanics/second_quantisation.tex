@@ -386,4 +386,104 @@ Some Slater determinant is written,
 
     \subsection{Particle-Hole Formalism}
 
+		We see that a Slater determinant can be built recursively with creation operators,
+		\begin{equation}
+			\hat{I} = \hat{i_1i_2\dots i_N} 
+				= \hat{i}_1^\dagger \hat{i}_2^\dagger \dots \hat{i}_N^\dagger\ket{}.
+		\end{equation}
+		Instead of rewriting Slater determinants with operators applied to the vacuum 
+		state in this manner we will introduce the convenient reference state, or 
+		Fermi vacuum, Slater determinant,
+		\begin{equation}
+			\ket{0} = \ket{\Phi_0} = \ket{ijk\dots n}. 
+		\end{equation}
+		We will define other Slater determinants relative to this reference state.
+		For instance,
+		\begin{align}
+		\label{eq:single_excitation}
+		\ket{\Phi^a_i} \equiv \hat{a}^\dagger \hat{i}\ket{\Phi_0} &= \ket{ajk\dots n} \\
+		\label{eq:double_excitation}
+		\ket{\Phi^{ab}_{ij}} \equiv \hat{a}^\dagger\hat{b}^\dagger \hat{j} \hat{i}\ket{\Phi_0}
+			&= \ket{abk\dots n} \\
+		\label{eq:electron_removal}
+		\ket{\Phi_i} \equiv \hat{i}\ket{\Phi_0} &= \ket{jk\dots n} \\
+		\label{eq:electron_attachment}
+		\ket{\Phi^a} \equiv \hat{a}^\dagger \ket{\Phi_0} &= \ket{aijk\dots n}
+		\end{align}
+		where equations \ref{eq:single_excitation}, \ref{eq:double_excitation}
+		\ref{eq:electron_removal} and \ref{eq:electron_attachment}
+		constitues a single excitation, a double excitation, an electorn removal and an
+		electron attachment, respectively. Note that these reference relative Slater 
+		determinants have the following properties,
+		\begin{equation}
+			\ket{\Phi^{ab}_{ij}} = \ket{\Phi^{ba}_{ji}}
+				= - \ket{\Phi^{ba}_{ij}} = - \ket{\Phi^{ab}_{ji}}.
+		\end{equation}
+		Take note of the specific letters used for creating and annihilating electrons 
+		in the example above. $i,j,k,l,\dots$ are letters restricted to indices of 
+		\emph{hole} states, $a,b,c,d,\dots$ are letters restriced to indices of
+		\emph{particle} states and the $p,q,r,\dots$ are for general use, indicating 
+		any state. Notice that
+		\begin{equation}
+			\begin{aligned}
+				\hat{i}^\dagger\ket{0} = 0 &\quad \hat{a}\ket{0} = 0, \\
+				\bra{0}\hat{i} = 0 &\quad \bra{0}\hat{a}^\dagger = 0.
+			\end{aligned}	
+		\end{equation}
+		Whenever we try to insert an electron where there already is one, or when we 
+		try to remove an electron that is not there, we get zero as result.
+
+
+	\subsection{Wick's theorem relative to the Fermi vacuum}
+
+		Now we will modify the concepts of normal-ordering, contractions and Wick's 
+		theoreom so that the work better in conjunction with the Fermi vacuum, instead 
+		of the physical vacuum.
+
+		First we introduce pseudo-operators,
+		\begin{equation}
+			\begin{aligned}
+				\hat{b}_i = \hat{i}^\dagger, &\quad \hat{b}_i^\dagger = \hat{i} \\
+				\hat{b}_a = \hat{a}^\dagger, &\quad \hat{b}_i^\dagger = \hat{a}^\dagger,
+			\end{aligned}
+		\end{equation}
+		where $\hat{b}_i^\dagger$ is a hole creation operator and $\hat{b}_i$ is a particle
+		creation operator, but only for vacant spaces below the fermi level. The reasoning 
+		for introducing such operators is to be able to work with the fermi vacuum in the 
+		same manner as regular operators work with the physical vacuum.
+
+		We introduce a new type of normal ordering for the pseudo-operators (and for the
+		actual operators that the represent),
+		\begin{equation}
+			\{\hat{A}\hat{B}\hat{C} \} 
+				= (-1)\hat{b}_p^\dagger\hat{b}_q^\dagger \dots \hat{b}_u \hat{b}_v.
+		\end{equation}
+		We write a contraction in the same manner,
+		\begin{equation}
+			\wick{\c{\hat{A}}\c{\hat{B}}} = \hat{A}\hat{B} - \{\hat{A}\hat{B}\}.
+		\end{equation}
+		A normal-ordered product with contractions inside is also definede the same 
+		way.
+			
+		For contractions we see that the only non-zero contractions are
+		\begin{equation}
+			\wick{\c{\hat{b}_i}\c{\hat{b}_j^\dagger}} =	
+			\wick{\c{\hat{i}^\dagger}\c{\hat{j}}} = \delta_{ij}, \quad
+			\wick{\c{\hat{b}_a}\c{\hat{b}_b^\dagger}} =
+			\wick{\c{\hat{a}}\c{\hat{b}^\dagger}} = \delta_{ab}.
+		\end{equation}
+		Here we are also made aware the first benefit of pseudo-operators. More generally 
+		we have the anticommutator relations
+		\begin{equation}
+			\{\hat{b}_p, \hat{b}_q^\dagger\} = \delta_{pq}, \quad
+			\{\hat{b}_p, b_q\} = 0
+		\end{equation}
+
+		Excited Slater determinants can be written using pseudo-operators,
+		\begin{align}
+			\ket{\Phi_i^a} &\equiv \hat{b}_a^\dagger\hat{b}_i^\dagger \ket{\Phi_0} \\
+			\ket{\Phi_{ij}^{ab}} &\equiv 
+				\hat{b}_b^\dagger \hat{b}_j^\dagger \hat{b}_a^\dagger \hat{b}_i^\dagger 
+				\ket{\Phi_0}
+		\end{align}
 
