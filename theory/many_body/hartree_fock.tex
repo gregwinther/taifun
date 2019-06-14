@@ -215,6 +215,109 @@ as an integral over only the second particle in the matrix element. We define,
 \end{gather}
 and can then rewrite \autoref{eq:unfinished_hf_eqn} to 
 \begin{equation}
+    \label{eq:noncanonical_hf_eqns}
     \hat{f}\ket{\phi_i} = \sum_j \lambda_{ij}\ket{\phi_j},
 \end{equation} 
 which are the non-canonical Hartree-Fock equations.
+
+It so happends that the Slater dertminant $\ket{\Phi}$ is invariant under unitary
+transformation of the single particle functions. Consider
+\begin{equation}
+    \tilde{\phi}_k = \sum_j \phi_j U_{jk},
+\end{equation}
+where $U$ is a unitary matrix. This implies that $\ket{\tilde{\Phi}} = \det(U)\ket{\Phi}$,
+is the same state and the energy must be the same as well. We choose a particular
+unitary transformation $U$, rotating the single particle functions in a certain 
+manner so that $\lambda = UEU^H$, where $E_{jk} = \delta_{jk}\epsilon_k$ are the 
+elemnets of a diagonal matrix (the eigenvalues of $\lambda$). This provides us with 
+a new set of eigenvalue equations,
+\begin{equation}
+    \label{eq:canonical_hf_eqns}
+    \hat{f}(\tilde{\phi}_1, \dots, \tilde{\phi}_N)\ket{\tilde{\phi}_i}
+        = \epsilon_i \ket{\tilde{\phi}_i},
+\end{equation}
+which are the canonical Hartree-Fock equations. From now on we will stick with these 
+equations and suppress the tilde notations.
+
+\section{The Roothan-Hall Equations}
+
+In order to solve the Hartree-Fock equations (\autoref{eq:canonical_hf_eqns}) we 
+render the equations in a finite, fixed basis $\{\chi_p \}_{p=1}^L$ of a finite 
+size $L$. It is not a necessity for this basis to be orthonormal, and we therefore 
+define the overlap matrix,
+\begin{equation}
+    S_{pq} \equiv \braket{\chi_p}{\chi_q}.
+\end{equation}
+
+The Hartree-Fock single-particle functions are expanded in this basis,
+\begin{equation}
+    \label{eq:roothan_hall_exp}
+    \ket{\phi_p} = \sum_q \ket{\chi_q} U_{qp},
+\end{equation}
+where $U$ is not necessarily unitary, because the basis is not necessarily 
+orthongonal. However, we do have $U^HSU = \hat{1}$.
+
+We insert the expansion from \autoref{eq:roothan_hall_exp} into the expression 
+for the canonical Hatree-Fock equations from \autoref{eq:canonical_hf_eqns},
+\begin{equation}
+    \hat{f}\sum_r \ket{\chi_r} U_{rp} = \epsilon_p \sum_r \ket{\chi_r} U_{rp}.
+\end{equation}
+Then we left project with an arbitrary function from our new basis,
+\begin{equation}
+    \begin{gathered}
+        \bra{\chi_q} \hat{f} \sum_r \ket{\chi_r} U_{rp}
+            = \epsilon_r \braket{\chi_q}{\chi_r} \sum_r U_{rp}\ \forall q,p \\
+        \sum_r F_{qr} U_{rp} = \epsilon_r \sum_r S_{qr} U_{rp}\ \forall q,p \\
+        F(D) U = S U \epsilon.
+    \end{gathered}
+\end{equation}
+where the last line is the Roothan-Hall equations.
+
+Elaborating on the computation of the Fock matrix element,
+\begin{equation}
+    F_{qp} = \bra{\chi_q} \hat{f} \ket{\chi_p}
+        = \bra{\chi_q} \hat{h} \ket{\chi_p} 
+        + \bra{\chi_q} \hat{v}_{\text{direct}} \ket{\chi_p}
+        - \bra{\chi_q} \hat{v}_{\text{exchange}} \ket{\chi_p},
+\end{equation}
+where
+\begin{align}
+    &\begin{gathered}
+    \bra{\chi_q} \hat{v}_{\text{direct}} \ket{\chi_p}
+        = \sum_j \bra{\chi_q \phi_j} \hat{w} \ket{\chi_p \phi_j} 
+        = \sum_{p'q'j} U_{jq'} U^*_{jp'} 
+            \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_p \chi_{p'}} \\
+        = \sum_{p'q'} D_{p'q'} \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_p \chi_{p'}}
+    \end{gathered} \\
+    &\begin{gathered}
+    \bra{\chi_q} \hat{v}_{\text{exchange}} \ket{\chi_p}
+        = \sum_j \bra{\chi_q \phi_j} \hat{w} \ket{\phi_j \chi_p} 
+        = \sum_{p'q'j} U_{jq'} U^*_{jp'} 
+            \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_{p'} \chi_p} \\
+        = \sum_{p'q'} D_{p'q'} \bra{\chi_q \chi_q'} \hat{w} \ket{\chi_p' \chi_p},  
+    \end{gathered}
+\end{align}
+giving us,
+\begin{equation}
+    F_{qp} = \bra{\chi_q}\hat{h} \ket{\chi_p} 
+        + \sum_{p'q'}D_{p'q'}(
+            \ket{\chi_q\chi_{q'}}\hat{w} \ket{\chi_p\chi_{p'}}
+            - \ket{\chi_q\chi_{q'}}\hat{w} \ket{\chi_{p'}\chi_p}
+        ),
+\end{equation}
+where $D = UU^H$, is the density matrix.
+
+The benefit of the Roothan-Hall equations (\autoref{eq:roothan_hall_exp}), is that they 
+are represented by matrices, and therefore easy to implement on a computer. The
+Roothan-Hall equations are solved iterably, starting from an initial guess for $U$. 
+This guess can be used to compute the density matrix, 
+$D^(k) = \sum_i u_i^{(k)}(u_i^{(k)})^*$, where $k$ denotes the iteration. The density 
+matrix is used to compute the Fock matrix. This provides us with a general eigenvalue 
+problem, from which a new $U$ and $\epsilon$ can be found. This formula is then repeated
+until the the iterations converge. At this point we say that we have self-consitency 
+in the mean field, and this method is usually called the method of self-constistent
+field (SCF) iterations.
+
+\section{[UNFINISHED] Restricted Hartree-Fock Theory}
+
+\section{[UNFINISHED] Unrestricted Hartree-Fock Theory}
