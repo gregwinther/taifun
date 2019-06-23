@@ -185,6 +185,7 @@ can contribute. After some algebraic acrobatics we'll find that this becomes
 \end{equation}
 From \autoref{eq:ccd_energy} we see that
 \begin{equation}
+    \label{eq:ccd_energy2}
     \Delta E_{\text{CCD}} = \sum_{\substack{i>j \\ a>b}} \bra{ij} \ket{ab} t^{ab}_{ij},
 \end{equation}
 and because the indices in \autoref{eq:quad_term} are dummy variables we see that
@@ -561,7 +562,177 @@ After long last, we have only the quadratic term to deal with,
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
             \{\hat{e}^\dagger \hat{f}^\dagger \hat{n} \hat{m} \}
-        \ket{0} t^{dc}_{kl} t^{ef}_{mn}
+        \ket{0} t^{dc}_{kl} t^{ef}_{mn}.
 \end{equation}
+In this expression there are no non-zero contractions between the third and 
+fourth normal ordered operator string. We therefore need to contract operators 
+in the first normal-ordered string with operators either in the third or four 
+string, and the operator in the second string with the rest. 
 
-NOT FINISHED!
+We start by contracting all operators in the first normal-ordered string 
+with all the operators in the fourth normal-ordered string,
+
+\begin{equation}
+    \begin{gathered}
+    \frac{1}{8}\sum_{pqrs}\sum_{\substack{k>l \\ c>d}} \sum_{\substack{m>n \\ e>f}}
+    \bra{pq} \ket{rs} \bra{0}
+      \wick{ 
+            \{\c4{\hat{i}}^\dagger \c3{\hat{j}}^\dagger \c2{\hat{b}} \c1{\hat{a}} \}
+            \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
+            \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
+            \{\c1{\hat{e}}^\dagger \c2{\hat{f}}^\dagger \c3{\hat{n}} \c4{\hat{m}} \}
+        \ket{0} t^{cd}_{kl} t^{ef}_{mn}
+        } \\
+    =
+    \frac{1}{8}\sum_{pqrs}\sum_{\substack{k>l \\ c>d}}
+    \bra{pq} \ket{rs} \bra{0}
+        \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
+        \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
+    \ket{0} t^{cd}_{kl} t^{ab}_{ij}.
+    \end{gathered}
+\end{equation}
+There are four possible ways to contract this last term, resulting in
+\begin{equation}
+    \frac{1}{2}\sum_{\substack {k>l \\ c >d }}
+        \bra{kl} \ket{cd} t^{cd}_{kl} t^{ab}_{ij}.
+\end{equation}
+We get the same result by contracting the four operators in the first 
+string with the four operators in the third string, cancelling the
+factor $\frac{1}{2}$, eventually yielding a result equal to
+$\Delta E_{\text{CCD}} t^{ab}_{ij}$, which we see by 
+comparing this result to \autoref{eq:ccd_energy2}.
+
+There are four remaining reasonable classes in which to sort the
+permutations of contractions that remain;
+\begin{itemize}
+    \item[a] the two hole operators in the first string are
+    contracted with the third or fourth operator string, yielding 
+    equal results;
+    \item[b] one hole and one particle operators in the first string
+    are contracted with operators in the third string, the rest of
+    the operators in the first string are contracted with operators 
+    in the fourth string;
+    \item[c] two particle operators and one hole operator from the 
+    first string are contracted with operators in the third string,
+    the last hole operator is contracted with an operator in the 
+    fourth string;
+   \item[d] one particle operator and two hole operators are contracted 
+    with operators in the third string and the last particle operator 
+    with an operator in the fourth string.
+\end{itemize}
+The results for class a and class b are somewhat straight-forward to 
+compute, giving the following,
+\begin{align}
+    &\begin{gathered}
+        Q_a = \frac{1}{16}\sum_{pqrs}\sum_{klcd} 
+        \bra{pq} \ket{rs}\bra{0}
+            \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
+            \{\hat{l} \hat{k} \}
+            \{\hat{c}^\dagger \hat{d}^\dagger \}
+        \ket{0} t^{cd}_{ij} t^{ab}_{kl} \\
+        = \frac{1}{4} \sum_{klcd}
+        \bra{kl} \ket{rs} t^{cd}_{ij} t^{ab}_{kl}
+    \end{gathered} \\
+    &\begin{gathered}
+        Q_b = \frac{1}{4}\sum_{pqrs} \sum_{klcd}
+        \bra{pq} \ket{rs} \bra{0}
+            \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
+            \{\hat{c}^\dagger \hat{k} \}
+            \{\hat{d}^\dagger \hat{l} \}
+            \ket{0}
+            (t^{ac}_{ik}t^{bd}_{jl} - t^{bc}_{ik}t^{ad}_{jl}) \\
+        = \sum_{klcd} \bra{kl} \ket{cd}
+            (t^{ac}_{ik}t^{bd}_{jl} - t^{bc}_{ik}t^{ad}_{jl})
+        = \sum_{klcd} \bra{kl} \ket{cd}
+            (t^{ac}_{ik}t^{bd}_{jl} - t^{bd}_{ik}t^{ac}_{jl})
+    \end{gathered}
+\end{align}
+
+The sets of terms for class c and d can each be generated in two distinct
+ways, dependent on the choice of the tree operators from the first operator
+string ($\hat{i}^\dagger \hat{a} \hat{b}$ or 
+$\hat{j}^\dagger \hat{a} \hat{b}$ for c and 
+$\hat{i}^\dagger \hat{j}^\dagger \hat{a}$ or 
+$\hat{i}^\dagger \hat{j}^\dagger \hat{b}$ for d). In each case there 
+are 16 possibilities; the three operators from the first string can be 
+contracted with operators in both the third or fourth string in four ways and
+the remainding operators can be then be contracted in two ways. All these 
+possibilities lead to equivalent results. For example, here is the first 
+$Q_c$ term,
+\begin{equation}
+    \begin{gathered}
+    \frac{1}{8} \sum_{pqrs} \sum_{klcd} \sum_{mnef}
+    \bra{pq} \ket{rs} \bra{0}
+        \wick{
+        \{\c4{\hat{i}}^\dagger \c3{\hat{j}}^\dagger \c2{\hat{b}} \c1{\hat{a}} \}
+        \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \} 
+        \{\hat{c}^\dagger \hat{d}^\dagger \c3{\hat{l}} \hat{k} \}
+        \{\c1{\hat{e}}^\dagger \c2{\hat{f}}^\dagger \c4{\hat{n}} \hat{m} \}
+        }
+    \ket{0} t^{cd}_{kl} t^{ef}_{mn} \\
+    = - \frac{1}{8} \sum_{pqrs} \sum_{klcd}
+    \bra{pq} \ket{rs} \bra{0} 
+        \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
+        \{\hat{c}^\dagger \hat{d}^\dagger \hat{k} \}
+        \{\hat{l} \}
+    \ket{0} t^{cd}_{kj} t^{ab}_{li}
+    \ket{0}
+    \end{gathered}
+\end{equation}
+The remainding operators in this expression can be contracted in four ways,
+\begin{align}
+    \begin{aligned}
+        \bra{0}&
+        \wick{
+        \{\c4{\hat{p}}^\dagger \c3{\hat{q}}^\dagger \c2{\hat{s}} \c1{\hat{r}}\}
+        \{\c1{\hat{c}}^\dagger \c2{\hat{d}}^\dagger \c3{\hat{k}} \}
+        \{\c4{\hat{l}} \}
+        }
+        +
+        \wick{
+        \{\c4{\hat{p}}^\dagger \c3{\hat{q}}^\dagger \c2{\hat{s}} \c1{\hat{r}}\}
+        \{\c1{\hat{c}}^\dagger \c2{\hat{d}}^\dagger \c4{\hat{k}} \}
+        \{\c3{\hat{l}} \}
+        } \\
+        &+
+        \wick{
+        \{\c4{\hat{p}}^\dagger \c3{\hat{q}}^\dagger \c2{\hat{s}} \c1{\hat{r}}\}
+        \{\c2{\hat{c}}^\dagger \c1{\hat{d}}^\dagger \c3{\hat{k}} \}
+        \{\c4{\hat{l}} \}
+        }
+        +
+        \wick{
+        \{\c4{\hat{p}}^\dagger \c3{\hat{q}}^\dagger \c2{\hat{s}} \c1{\hat{r}}\}
+        \{\c2{\hat{c}}^\dagger \c1{\hat{d}}^\dagger \c4{\hat{k}} \}
+        \{\c3{\hat{l}} \}
+        } \ket{0}
+    \end{aligned} \\
+    = \delta_{pl} \delta_{qk} \delta_{rd} \delta_{sc}
+    - \delta_{pk} \delta_{ql} \delta_{rd} \delta_{sc}
+    - \delta_{pl} \delta_{qk} \delta_{rc} \delta_{sd}
+    + \delta_{pk} \delta_{ql} \delta_{rc} \delta_{sd}
+\end{align}
+Algbra eventually leads to,
+\begin{equation}
+    - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+        t^{ab}_{ik} t^{cd}_{jl}.
+\end{equation}
+A similar computations provides the second $Q_c$ term,
+\begin{equation}
+    - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+        t^{cd}_{ik} t^{ab}_{jl}
+\end{equation}
+These two terms give us,
+\begin{equation}
+    Q_c = - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+        (t^{ab}_{ik}t^{cd}_{jl} - t^{cd}_{ik}t^{ab}_{jl})
+\end{equation}
+Treating the class d terms gives,
+\begin{equation}
+    Q_d - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+        (t^{ac}_{ij}t^{bd}_{kl} - t^{bd}_{ij}t^{ac}_{kl}).
+\end{equation}
+Combining all the quadratic terms will now yield the same as in 
+\autoref{eq:quad_term}, and we can conclude that an algebraic 
+derivation of the coupled cluster method is equivalent to the 
+configuration space derivation.
