@@ -1,0 +1,69 @@
+
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} quantum\_systems.\textbf{OneDimensionalHarmonicOscillator}
+
+    \hspace{1em}(\emph{n}, \emph{l}, \emph{grid\_length}, \emph{num\_grid\_points}, 
+    \emph{omega=$0.25$}, \emph{mass=1}, \emph{a=$0.25$}, \emph{alpha=$1.0$})
+
+    \vspace{1em}
+    Create One-Dimensional Quantum Dot basis set.
+    \vspace{1em}
+
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{n}(\emph{int}) Number of electrons
+    
+    \hspace{2em}\textbf{l}(\emph{int}) Number of spinorbitals
+    
+    \hspace{2em}\textbf{grid\_length}(\emph{int or float}) Space over which to 
+        construct wavefunction.
+    
+    \hspace{2em}\textbf{num\_grid\_points}(\emph{int of float}) Number of 
+        points for construction of wavefunction.
+
+    \hspace{2em}\textbf{omega}(\emph{float, default $0.25$}) Angular frequency of
+        harmonic oscillator potential.
+    
+    \hspace{2em}\textbf{mass}(\emph{int or float, default $1.0$}) Mass of electrons.
+        Atomic units is used as default.
+    
+    \hspace{2em}\textbf{a}(\emph{float, default $0.25$}) Necessary in Coulomb 
+        integral computation.
+    
+    \hspace{2em}\textbf{alpha}(\emph{float, default $1.0$}) Necessary in Coulomb 
+        integral computation.
+
+    \vspace{1em}
+    \textbf{Attributes}
+
+    \hspace{2em} \textbf{h}
+    One-body matrix 
+    \textbf{Type} np.array
+    
+    \hspace{2em} \textbf{f}
+    Fock matrix
+    \textbf{Type} np.array
+
+    \hspace{2em} \textbf{u}
+    Two-body matrix
+    \textbf{Type} np.array
+
+    \vspace{1em}
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{setup\_system}(\emph{Potential=None})
+        \begin{adjustwidth}{4em}{}
+        Must be called in order to compute basis functions. The method will 
+        revert to regular harmonic oscillator potential if no potential has been 
+        provided. Optional potentials include one-dimensional double well potentials.           
+        \end{adjustwidth}
+   
+    \hspace{2em} \textbf{contruct\_dipole\_moment}()
+        \begin{adjustwidth}{4em}{}
+        Constructs dipole moment. This method is called by
+        \textbf{setup\_system}(). Necessary when constructing custom systems with 
+        time development.
+        \end{adjustwidth}
+    }
+\end{tcolorbox}
