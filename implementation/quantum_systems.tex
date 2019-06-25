@@ -62,6 +62,110 @@ infinite quantum wells.
 
 \subsection{One Dimension}
 
+This is perhaps one of the simplest of all quantum mechanical 
+models, being studied ad nauseum in everyones introductory quantum 
+mechanics course. The one-body part of the Hamiltonian for the one-dimensional quantum 
+harmonic oscillator is,
+\begin{equation}
+    \label{eq:1d_ho_hamiltonian}
+    \hat{h} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m \omega^2\hat{x}^2.
+\end{equation}
+The potential, $\hat{v} = \frac{1}{2}m \omega^2\hat{x}^2$, forms the well known 
+parabolig curve. In a general one-dimensional system, this potenation could 
+readily be exchanged for something else. For instance that of the 
+\emph{double well},
+\begin{equation}
+    \hat{v} = \frac{1}{2} m \omega^2
+        \left(\hat{x}^2 + \frac{1}{4}l^2 - l |\hat{x}|\right),
+\end{equation}
+where $l$ is the width of a barrier in the middle of the parabolic 
+potential.
+
+In atomic units we can set $\hbar = m = 1$. Substituting for the 
+momentum operator, $\hat{p} = \hat{-i\hbar (\partial / \partial x)}$, gives us 
+\begin{equation}
+    \label{eq:1d_hamiltonian}
+    \hat{h} = - \frac{1}{2} \frac{\partial^2}{\partial x^2} + \hat{v}.
+\end{equation}
+The second-order derivate can be approximated by the central difference 
+formula for some function $f(x)$, yielding
+\begin{equation}
+    f''(x) = \frac{f(x + dx) - 2f(x) +f(x - dx)}{dx^2},
+\end{equation}
+for some small $dx$. This means that we approximate the Hamilton 
+operator of the system (\autoref{eq:1d_hamiltonian}) by a matrix,
+\begin{equation}
+    h^p_q =  \begin{pmatrix}
+    1/dx^2 + v_1 & -1/2dx^2 & \ddots & & & \\
+    -1/2dx^2 & 1/dx^2 + v_2 & -1/2dx^2 & \ddots & & \\
+    \ddots & -1/2dx^2 & 1/dx^2 + v_3 & -1/2dx^2 & \ddots & \\
+    & \ddots & \ddots & \ddots & \ddots & \ddots \\
+    & & \ddots & -1/2dx^2 & 1/dx^2 + v_{n-1} & -1/2dx^2 \\
+    & & & \ddots & -1/2dx^2 & 1/dx^2 + v_n
+    \end{pmatrix},
+\end{equation}
+and we have thus transformed the time-independent Schrödinger equation
+\begin{equation}
+    \hat{h} \ket{n} = \epsilon \ket{n},
+\end{equation}
+into a matrix equation which is easily representable and solvable on a computer, where $n$ is 
+the number of points used to numerically represent the wavefunciton 
+and Hamiltonian mateix representation. This is done with some generic 
+eigenvalue solver, for instance \lstinline{numpy.linalg.eigh}.
+The eigen functions provide the foundations for the single-particle functions.
+
+Since we would like to model interaction between particles we need something more,
+
+\begin{python}
+def _trapz(f, x):
+    n = len(x)
+    delta_x = x[1] - x[0]
+    val = 0
+
+    for i in range(1, n):
+        val += f[i - 1] + f[i]
+
+    return 0.5 * val * delta_x
+    
+\end{python}
+
+\begin{python}
+def _shielded_coulomb(x_1, x_2, alpha, a):
+    return alpha / np.sqrt((x_1 - x_2) ** 2 + a ** 2)
+\end{python}
+
+\begin{python}
+def _compute_inner_integral(spf, l, num_grid_points, grid, alpha, a):
+    inner_integral = np.zeros((l, l, num_grid_points), dtype=np.complex128)
+
+    for q in range(l):
+        for s in range(l):
+            for i in range(num_grid_points):
+                inner_integral[q, s, i] = _trapz(
+                    spf[q]
+                    * _shielded_coulomb(grid[i], grid, alpha, a)
+                    * spf[s],
+                    grid,
+                )
+
+    return inner_integral
+\end{python}
+
+\begin{python}
+def _compute_orbital_integrals(spf, l, inner_integral, grid):
+    u = np.zeros((l, l, l, l), dtype=np.complex128)
+
+    for p in range(l):
+        for q in range(l):
+            for r in range(l):
+                for s in range(l):
+                    u[p, q, r, s] = _trapz(
+                        spf[p] * inner_integral[q, s] * spf[r], grid
+                    )
+
+    return u
+\end{python}
+
 \input{implementation/doc/one_dim_quantom_dot.tex}
 
 \subsection{Two Dimensions}
