@@ -115,26 +115,20 @@ eigenvalue solver, for instance \lstinline{numpy.linalg.eigh}.
 The eigen functions provide the foundations for the single-particle functions.
 
 Since we would like to model interaction between particles we need something more,
-
-\begin{python}
-def _trapz(f, x):
-    n = len(x)
-    delta_x = x[1] - x[0]
-    val = 0
-
-    for i in range(1, n):
-        val += f[i - 1] + f[i]
-
-    return 0.5 * val * delta_x
-    
-\end{python}
-
+than just a numerical representation of the one-body operator. We therefore need to 
+compute coulomb interaction, in the form of an integral. This is done in
+several steps, starting with an ``inner intergral'' over all all space 
+and two and two single-particle functions,
+\begin{equation}
+   u^q_s = \int \phi_q(x_1) \frac{\alpha}{(x_1-x_2)^2 + 2a^2}  \phi_s(x_2) dx,
+\end{equation}
+where $a$ and $\alpha$ are parameters that are necessary to include for this integral 
+to be calculable.
+Numerically, this part is divided into two functions in our python implementation,
 \begin{python}
 def _shielded_coulomb(x_1, x_2, alpha, a):
-    return alpha / np.sqrt((x_1 - x_2) ** 2 + a ** 2)
-\end{python}
+    return alpha / np.sqrt((x_1 - x_2) ** + a ** 2)
 
-\begin{python}
 def _compute_inner_integral(spf, l, num_grid_points, grid, alpha, a):
     inner_integral = np.zeros((l, l, num_grid_points), dtype=np.complex128)
 
@@ -150,7 +144,11 @@ def _compute_inner_integral(spf, l, num_grid_points, grid, alpha, a):
 
     return inner_integral
 \end{python}
-
+The inner orbital is then used in the computation in the orbial integral,
+\begin{equation}
+    w^{pq}_{rs} = \int \phi_p u^q_s \phi_r dx,
+\end{equation}
+which numerically is implemented as follows,
 \begin{python}
 def _compute_orbital_integrals(spf, l, inner_integral, grid):
     u = np.zeros((l, l, l, l), dtype=np.complex128)
@@ -166,6 +164,26 @@ def _compute_orbital_integrals(spf, l, inner_integral, grid):
     return u
 \end{python}
 
+Each integral is solved by the trapezoidal scheme,
+\begin{python}
+def _trapz(f, x):
+   n = len(x)
+   delta_x = x[1] - x[0]
+   val = 0
+
+   for i in range(1, n):
+       val += f[i - 1] + f[i]
+
+   return 0.5 * val * delta_
+  
+\end{python}
+
+Needless to say, computing the coulomb integrals is one of the more compute-heave tasks,
+and we therefore make great use of just-in-time compulation from the \lstinline{numba} 
+module for python.
+
+A full representation of the one-dimensional quantum dot (oscillator) class i provided 
+below,
 \input{implementation/doc/one_dim_quantom_dot.tex}
 
 \subsection{Two Dimensions}
