@@ -188,6 +188,22 @@ below,
 
 \subsection{Two Dimensions}
 
+The one-body part of the Hamiltonian for a two-dimensional quantum dots is almost
+identical to the one-body part for a one-dimensional quantum dot. In cartesian
+coordinates we simple include a $y$ in the potential as well as an $x$, but mostly 
+because we have analytical expressions for the Coulomb integrals in polar
+coordinates\cite{anisimovas1998energy}, we write the one-body operators in 
+polar coordinates as well with $\hat{r}^2 = \hat{x}^2 + \hat{y}^2$,
+\begin{equation}
+    \hat{h} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{r}^2
+        = - \frac{\hbar^2}{2m}\left(
+            \frac{\partial^2}{\partial r^2}
+            + \frac{1}{r} \frac{\partial}{\partial r}
+            + \frac{1}{r^2} \frac{\partial^2}{\partial \theta^2}
+        \right)
+        + \frac{1}{2}m\omega^2\hat{r}^2.
+\end{equation}
+
 \subsubsection{Double well}
 
 \subsubsection{Magnetic field}
