@@ -1,0 +1,60 @@
+
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} quantum\_systems.\textbf{TwoDimensionalHarmonicOscillator}
+
+    \hspace{1em}(\emph{n}, \emph{l}, \emph{radius\_length}, \emph{num\_grid\_points}, 
+    \emph{omega=$0.25$}, \emph{mass=1})
+
+    \vspace{1em}
+    Create Two-Dimensional Quantum Dot basis set.
+    \vspace{1em}
+
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{n}(\emph{int}) Number of electrons
+    
+    \hspace{2em}\textbf{l}(\emph{int}) Number of spinorbitals
+    
+    \hspace{2em}\textbf{grid\_length}(\emph{int or float}) Space over which to 
+        construct wavefunction.
+    
+    \hspace{2em}\textbf{num\_grid\_points}(\emph{int of float}) Number of 
+        points for construction of wavefunction.
+
+    \hspace{2em}\textbf{omega}(\emph{float, default $0.25$}) Angular frequency of
+        harmonic oscillator potential.
+    
+    \hspace{2em}\textbf{mass}(\emph{int or float, default $1.0$}) Mass of electrons.
+        Atomic units is used as default.
+
+    \vspace{1em}
+    \textbf{Attributes}
+
+    \hspace{2em} \textbf{h}
+    One-body matrix 
+    \textbf{Type} np.array
+    
+    \hspace{2em} \textbf{f}
+    Fock matrix
+    \textbf{Type} np.array
+
+    \hspace{2em} \textbf{u}
+    Two-body matrix
+    \textbf{Type} np.array
+
+    \vspace{1em}
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{setup\_system}()
+        \begin{adjustwidth}{4em}{}
+        Must be called in order to compute basis functions.           
+        \end{adjustwidth}
+   
+    \hspace{2em} \textbf{contruct\_dipole\_moment}()
+        \begin{adjustwidth}{4em}{}
+        Constructs dipole moment. This method is called by
+        \textbf{setup\_system}().
+        \end{adjustwidth}
+    }
+\end{tcolorbox}

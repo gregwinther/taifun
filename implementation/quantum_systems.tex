@@ -321,32 +321,34 @@ def get_indices_nm(p):
     previous_shell = 0
     current_shell = 1
     shell_counter = 1
-    
+
     while current_shell <= p:
         shell_counter += 1
         previous_shell = current_shell
         current_shell = previous_shell + shell_counter
-    
+
     middle = (current_shell - previous_shell) / 2 + previous_shell
-    
+
     if (current_shell - previous_shell) & 0x1 == 1 and abs(
         p - math.floor(middle)
     ) < 1e-8:
         n = shell_counter // 2
         m = 0
-    
+
         return n, m
-    
+
     if p < middle:
         n = p - previous_shell
         m = -((shell_counter - 1) - 2 * n)
-    
+
     else:
         n = (current_shell - 1) - p
         m = (shell_counter - 1) - 2 * n
-    
+
     return n, m
 \end{python}
+
+\input{implementation/doc/two_dim_quantom_dot.tex}
 
 \subsubsection{Double well}
 
