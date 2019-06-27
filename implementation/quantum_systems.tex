@@ -38,7 +38,7 @@ conda environment create -f environment.yml
 conda activate quantum-systems    
 \end{lstlisting}
 
-\section{Quantum Dots}
+\section{Quantum Dots [TODO: dipole moments]}
 
 In reality, quantum dots are nanometre-sized structures made of semiconductor materials.
 Theoretically, quantum dots are easy to model by harmonic oscillator potential and in practice
@@ -286,7 +286,8 @@ where $\sigma$ is the spin.
     \label{fig:2d_basis_states}
 \end{figure}
 
-Because of the energy degeneracy present in two-dimensional quantum dots,
+Because of the energy degeneracy present in two-dimensional quantum dots and for a
+more computer-friendly labelling of basis functions,
 it is necessary to make a mapping from the three quantum numbers $n$, $m$,
 to a single (quantum) number $p$. This functionality $(n,m)\mapsto p$ is 
 achieved by the following python function
@@ -347,6 +348,42 @@ def get_indices_nm(p):
 
     return n, m
 \end{python}
+
+The analytical formula for the Coulomb integrals, provided by Anisimovas and 
+Matulis\cite{anisimovas1998energy} is
+\begin{equation}
+    \begin{aligned}
+        \langle \phi_1\phi_2| \hat{W} | \phi_3\phi_4 \rangle =& 
+        \delta_{s_1, s_4} \delta_{s_2, s_3} \delta_{m_1 + m_2, m_3 + m_4}
+        \Big[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \Big]^{1/2}
+        \sum_{(4)j=0}^n \frac{(-1)^{j_1+j_2+j_3+j_4}}{j_1!j_2!j_3!j_4!} \\
+        &\times \Big[\prod_{i=1}^n {n_i + |m_i| \choose n_i + j_i} \Big]
+        \frac{1}{2^{(G+1)/2}} \sum_{(4)l=0}^\gamma (-1)^{\gamma_2 + \gamma_3 - l_2 - l_3} \\
+        &\times \delta_{l_1 + l_2, l_3 + l_4} \Big[\prod_{i=1}^4 {\gamma_i \choose l_i} \Big] 
+        \Gamma\Big(1 + \frac{L}{2} \Big)\Gamma\Big(\frac{G - L + 1}{2}\Big).
+    \end{aligned}
+\end{equation}
+The symbols $j_i$ are integer summation indices (regular indices) running from $0$ to $n_i$.
+The symbols $\gamma_i$ stand for numbers,
+\begin{align*}
+\gamma_1 &= j_1 + j_4 + (|m_1| + m_1)/2 + (|m_4| - m_4)/2 \\
+\gamma_4 &= j_1 + j_4 + (|m_1| - m_1)/2 + (|m_4| + m_4)/2
+\end{align*}
+$\gamma_2$ and $\gamma_3$ can be obtained by replacing indices $1 \to 2$ and $4 \to 3$.
+Moreover,
+\begin{align*}
+\sum_{(4)j=0}^n =
+\sum_{j_1=0}^{n_1}\sum_{j_2=0}^{n_2}\sum_{j_3=0}^{n_3}\sum_{j_4=0}^{n_4},
+\quad 
+G = \sum_i \gamma_i, 
+\quad
+L = \sum_i l_i
+\end{align*}
+For the implementation of this expression for the purpose of computing the two-dimensional 
+quantum dot basis sets, we refer the reader to the appendices (\autoref{app:anisimovas}).
+
+The final specification of the two-dimensional harmonic oscillator basis set class, which 
+is everything the user sees is the following,
 
 \input{implementation/doc/two_dim_quantum_dot.tex}
 
