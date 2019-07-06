@@ -1,5 +1,53 @@
 \chapter{Coupled Cluster}
 
+In the late 1950s Fritz Coester constructed a rigorous formal solution of the bound
+state Schrödinger equation as a set of single particle wave
+functions\cite{coester1958bound}. He wanted to find an expression for the wave operator 
+$\omega$, which transforms a zero-order wavefunction to the exact wave function,
+\begin{equation}
+    \Psi = \Omega \Phi_0.
+\end{equation}
+From Coester's solutions it would become apparent that the Rayleigh-Schrödinger 
+perturbation expansions of the energy does not contain matrix elements representing 
+the products of so-called unlinked diagram. In other words, one form of $\Omega$ is 
+given a ``linked-diagram expansion'',
+\begin{equation}
+    \Omega\ket{\Phi_0} = \ket{\Phi_0} 
+    = \sum_{k=1}^\infty\left((\hat{R}_0\hat{W})^k \ket{{\Phi_0}} \right)_L.
+\end{equation}a
+This is further underlined in discussions by John Hubbard\cite{hubbard1957description}
+and Nicolaas Marinus Hugenholtz\cite{hugenholtz1957perturbation}.
+
+Conveniently, $\Omega$ may be written quite generally as
+\begin{equation}
+    \Omega = e^{\hat{T}}, \quad \Psi = e^{\hat{T}}\Phi_0.
+\end{equation}
+This exponential form has been come to be known as the Coupled Cluster ansatz, even 
+though it is much more than a simple guess for the form of the exact wavefunction.
+To underline this point we quote Herman Kümmel: ``Strange as it may be, in spite of
+the many successes of the coupled cluster method there is still a widspread belief
+that the underlying exponential structure is something artificial, accidental or 
+an approximation only. This is why I want to make it clear that this feature is 
+extremely natural - even necessary - on a very fundamental level, not necessarily
+connected with many-body theory''\cite{kummel1991origins}. 
+
+Throughout the 1950s and early 1960s, Coester and Kümmel developed the coupled cluster method together and 
+proposed using the exponential-form wave operator as coupling between the shell-model 
+state and the correct state vector for nuclear matter\cite{coester1960short}. At the time, 
+the method proved too computationally intensive. Specifically, the hard core potenatials 
+of nuclear physics leaves no freedom in truncating the set of coupled cluster equations.
+However, the method was picked up by 
+Ji\v{r}\'{i} \v{C}\'{i}\v{z}ek who 
+in 1966 reformulated the method for modelling of electron correlation in atoms and
+molecules\cite{vcivzek1966correlation}. Further development with Josef Paldus
+made the coupled cluster method one of the most succesfull\footnote{At least one of the
+most prevalent} methods in quantum chemistry. Together with Isaiah Shavitt,
+\v{C}\'{i}\v{z}ek and Paldus did the first \emph{ab initio} comutations with the method,
+which they called the coupled-pair many-electron-theory (MET)\cite{paldus1972correlation},
+as it can be intepreted as the perturbative variant of the many-electron-theory of 
+Oktay Sinano\v{g}lu\cite{sinanoglu1964many}.
+
+
 \section{Coupled-Cluster Doubles (CCD)}
 
 As a good starting point for understanding the coupled cluster scheme and especially
