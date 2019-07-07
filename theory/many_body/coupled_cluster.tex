@@ -47,15 +47,110 @@ which they called the coupled-pair many-electron-theory (MET)\cite{paldus1972cor
 as it can be intepreted as the perturbative variant of the many-electron-theory of 
 Oktay Sinano\v{g}lu\cite{sinanoglu1964many}.
 
+\section{The Cluster Operator}
+
+Having established the form of the coupled cluster wavefunction as 
+\begin{equation}
+    \ket{\Psi} = e^{\hat{T}} \ket{\Phi_0},
+\end{equation}
+we now take a closer look at the cluster operator, which is divided into sub-operators 
+\begin{equation}
+    \hat{T} = \hat{T}_1 +  \hat{T}_2 + \hat{T}_2 + \hat{T}_3 + \dots,
+\end{equation}
+where the one-, two- and three-body operators are defined thusly,
+\begin{align}
+    \hat{T}_1 &= \sum_{ai}t^a_i\{\hat{a}^\dagger \hat{i} \} \\
+    \hat{T}_2 &= \frac{1}{(2!)^2}\sum_{ijab} t^{ab}_{ij} 
+        \{\hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} \} \\
+    \hat{T}_3 &= \frac{1}{(3!)^2} \sum_{ijkabc} 
+        \{\hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} \hat{c}^\dagger \hat{k} \},
+\end{align}
+where the coefficients $t^{abc\dots}_{ijk\dots}$ are commonly referred to as the 
+coupled cluster \emph{amplitudes}, and are coefficients to be determined. The strings 
+of operators are automatically normal-ordered. The general $m$-body cluster operator 
+is given by 
+\begin{equation}
+    \hat{T}_m = \frac{1}{(m!)^2} \sum_{\substack{ij\dots \\ ab \dots}}
+        t^{ab\dots}_{ij\dots} \{\hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} \dots\},
+\end{equation}
+which produces an $m$-fold excitation. It is not necessary to include cluster-operators
+up to a infinite-fold excitation. Logically, the maximum excitation order is dictated by the number 
+of electrons in the system $n$, such that $n \geq m$. Any higher-order excitation operator
+would eventually annihilate an unoccupied orbital, resulting in a zero-contribution.
+The prefactor $1/(m!)^2$ accounts for the redundancy created by unrestricted summations,
+as a permutation of any of the $m$ hole or $m$ particle indices will not produce a 
+distinct contributions. Indeed, we have for example that
+\begin{equation}
+    \hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} 
+    = - \hat{a}^\dagger \hat{j} \hat{b}^\dagger \hat{i}
+    = - \hat{b}^\dagger \hat{i} \hat{a}^\dagger \hat{j} 
+    = \hat{b}^\dagger \hat{j} \hat{a}^\dagger \hat{j},
+\end{equation}
+and therefore we must also have that 
+\begin{equation}
+    t^{ab}_{ij} = - t^{ab}_{ji} = -t^{ba}_{ij} = t^{ba}_{ji}.
+\end{equation}
+Hence, the $(2!)^2 = 4$ contributions of two hole indices, $ab$, and two particle indices,
+$ij$, will produce four equal terms, which is offset by the prefactor $1/4$.
+
+The exponential wave operator $e^{\hat{T}}$ may be expanded as a Taylor series,
+\begin{equation}
+    e^{\hat{T}} = 1 + \hat{T} + \frac{1}{2!}\hat{T}^2
+        + \frac{1}{3!}\hat{T}^3 + \dots.
+\end{equation}
+By including only single- and double excitations, 
+$\hat{T}_{\text{CCSD}} = \hat{T}_1 + \hat{T}_2$,
+this expressions becomes
+\begin{equation}
+    e^{\hat{T}_{\text{CCSD}}} = 
+        1 + \hat{T}_1 + \hat{T}_2 
+        + \frac{1}{2}\hat{T}_1^2 + \hat{T}_1\hat{T}_2 + \frac{1}{2} \hat{T}_2^2
+        + \frac{1}{3!}\hat{T}_1^3 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
+            + \frac{1}{2}\hat{T}_1\hat{T}_2^2 + \frac{1}{3!}\hat{T}_2^3 
+        + \dots
+\end{equation}
+Contributions to the wave function containing only a single cluster operator, $\hat{T}_m$,
+are called connected cluster contributions, while those containing products of cluster 
+operators, $\hat{T}_{m_1}^{\alpha}\hat{T}_{m_2}^{\beta}$, are called disconnected
+cluster contributions.
+
+This inclusion of only sigle- and double excitations is called ``Coupled Cluster Singles 
+Doubles'', elucidating the subscript CCSD\cite{purvis1982full}.
+The most common approximation in coupled cluster theory is the CCSD model. Here, 
+the operator $\hat{T}_2$ describes the important electron-pair interaction and the 
+$\hat{T}_1$ operator carries out the orbital relaxations induced by the field set 
+up by electron-pair interactions. 
+
+\begin{tcolorbox}[title={Importance of different parts of the cluster operator}, 
+    colback={white},
+    colbacktitle={pink},
+    coltitle={black}]
+    The most important contribution to the wave-function in quantum chemistry is
+    undoubtedlty $\hat{T}_2$, because 
+    of the two-electron nature of the Hamiltonian. It describes the most important 
+    interaction of quantum chemistry, the electron-pair interaction. The inclusion 
+    of $\hat{T}_1$ and its products are relatively insensitive to the choice of 
+    basis set, as the operators $e^{\hat{T}_1}$ has the effect of transforming 
+    thereference state $\ket{\Phi_0}$ to another Slater determinant. This is known 
+    as Thouless theorem\cite{thouless1960stability}. With very high electron-density,
+    the three-particle operator $\hat{T}_3$ becomes important. Higher-order terms 
+    are usually of less and decreasing importance, but they can be of concern in 
+    special situations. For instance, the four-particle operator $\hat{T}_4$ is 
+    very important in nuclear physics. See for instance Helgaker et 
+    ali\cite{helgaker2014molecular} or 
+    Shavitt \& Bartlett\cite{shavitt2009many} for further discussion on this topic.
+\end{tcolorbox}
+
 
 \section{Coupled-Cluster Doubles (CCD)}
 
 As a good starting point for understanding the coupled cluster scheme and especially
-where the coupled-cluster equations come from, we start with constraining the cluster
+where the coupled-cluster equations come from, we now constrain the cluster
 operator to
 \begin{equation}
-    \hat{T}_{\text{CCD}} = \hat{T}_2.
+    \hat{T}_{\text{CCD}} = \hat{T}_2,
 \end{equation}
+and completely derive the coupled cluster equations for this case.
 The CCD wave function includes all connected and disconnected clusters involving
 $\hat{T}_2$ only,
 \begin{equation}
@@ -63,9 +158,13 @@ $\hat{T}_2$ only,
         + \frac{1}{3!}\hat{T}_2^3\Phi_0 + \dots
 \end{equation}
 
-There are several ways to arrive at the coupled-cluster equations, the best ways are
-by employing configuration-interaction techniques and with the algebraic method,
-employing second quantisation and Wick's theorem.
+There are several methods with which to arrive at the coupled-cluster equations
+and here we employ two 
+of them for the coupled cluster doubles truncation. First, we use
+configuration-interaction techniques and the Slater-Condon rules 
+(\autoref{app:slater_condon}) and second, we use the ``algebraic method'',
+employing second quantisation and Wick's theorem. A third way is with the aid of
+diagrams. A brief note on such diagrams can be found in \autoref{app:diagrams}.
 
 \subsection{Configuration space derivation}
 
@@ -784,3 +883,9 @@ Combining all the quadratic terms will now yield the same as in
 \autoref{eq:quad_term}, and we can conclude that an algebraic 
 derivation of the coupled cluster method is equivalent to the 
 configuration space derivation.
+
+\section{[UNFINISHED] The Coupled Cluster Equations}
+
+\section{[UNFINISHED] The Lagrangian Formulation}s
+
+\section{[UNFINISHED] Generealisation in Time}
