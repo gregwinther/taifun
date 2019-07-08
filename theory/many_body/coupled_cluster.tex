@@ -884,8 +884,199 @@ Combining all the quadratic terms will now yield the same as in
 derivation of the coupled cluster method is equivalent to the 
 configuration space derivation.
 
-\section{[UNFINISHED] The Coupled Cluster Equations}
+\section{The Coupled Cluster Equations}
 
-\section{[UNFINISHED] The Lagrangian Formulation}s
+In general there is a more useful and compact approach that can be used to derive 
+the coupled cluster equations, compared to the lengthy derivation of the CCD 
+equations above. We start by inserting the coupled cluster wavefunctions into the 
+time-independent Schrödinger equation,
+\begin{equation}
+    \hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = \Delta E e^{\hat{T}}\ket{\Phi_0}.
+\end{equation} 
+In order to find an expression for the energy and amplitude equations one could 
+try to left-project with $\bra{\Phi_0}$. This would propel us in the same 
+direction as in the previous section, i.e. \autoref{eq:ccd_energy} and onwards.
+Instead, we multipy 
+from the left with $e^{-\hat{T}}$ first, and then left-project with $\bra{\Phi_0}$,
+\begin{equation}
+    \label{eq:cc_energy}
+    \begin{gathered}
+    \bra{\Phi_0} e^{-\hat{T}}\hat{H}_Ne^{\hat{T}} \ket{\Phi_0} 
+    = \bra{\Phi_0} e^{-\hat{T}} \Delta E e^{\hat{T}} \ket{\Phi_0} \\
+    \to \bra{\Phi_0} e^{-\hat{T}} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}
+    = \Delta E.
+    \end{gathered}
+\end{equation}
+Left-projecting with an excited state, $\bra{\Phi^{ab\dots}_{ij\dots}}$ will give us 
+expression for the corresponding amplitude $t^{ab\dots}_{ij\dots}$,
+\begin{equation}
+    \label{eq:cc_amplitude}
+    \bra{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = 0.
+\end{equation}
+Now we have obtained a \emph{non-Hermitian}\footnote{We will show later that this 
+non-Hermiticity is somewhat problematic.}, similarity-transformed Hamiltonian,
+\begin{equation}
+    \mathscr{H} = e^{-\hat{T}}\hat{H}_Ne^{\hat{T}},
+\end{equation}
+which has $\ket{\Phi_0}$ as right eigenfunction and $E$ as the corresponding eigenvalue.
+Importantly, a similarity-transformation will not change the eigenvalue spectrum of the 
+operator.
+
+A benefit of the similarity-transformed Hamiltionians is that we can write the operators
+more expicitly by applying the Baker-Campbell-Haussdorff
+expansion\cite{campbell1897law,baker1905alternants,hausdorff1906symbolische},
+\begin{equation}
+    \begin{aligned}
+        e^{-\hat{B}}\hat{A}e^{\hat{B}}
+        =& (1 - \hat{B} + \frac{1}{2}\hat{B}^2 - \frac{1}{3!} + \dots)
+        \hat{A} (1 + \hat{B} + \frac{1}{2} + \frac{1}{3!}\hat{B}^3 + \dots) \\
+        =& \hat{A} + (\hat{A}\hat{B} - \hat{B}\hat{A}) 
+        + \frac{1}{2}(\hat{A}\hat{B}^2 + 2\hat{B}\hat{A}\hat{B} + \hat{B}^2\hat{A})
+        \\ &\ + \frac{1}{3!}(
+            \hat{A}\hat{B}^3 - 3\hat{B}\hat{A}\hat{B}^2 + 3\hat{B}^2\hat{A}\hat{B}
+            - \hat{B}^3\hat{A}
+        ) + \dots \\
+        =& \hat{A} + [\hat{A}, \hat{B}] + 
+        \frac{1}{2}\{
+            (\hat{A}\hat{B} - \hat{B}\hat{A})\hat{B}
+            -\hat{B}(\hat{A}\hat{B} - \hat{B}\hat{A})     
+        \} \\ &\ + \frac{1}{3!} \{
+            [(\hat{A}\hat{B} - \hat{B}\hat{A})\hat{B}
+            -\hat{B}(\hat{A}\hat{B} - \hat{B}\hat{A})] \hat{B}\\
+            &\ \ -\hat{B}[(\hat{A}\hat{B} - \hat{B}\hat{A})\hat{B}
+            -\hat{B}(\hat{A}\hat{B} - \hat{B}\hat{A})]
+        \} + \dots \\
+        =& \hat{A} + [\hat{A}, \hat{B}]
+        + \frac{1}{2}[[\hat{A}, \hat{B}], \hat{B}]
+        + \frac{1}{3!} [[[\hat{A}, \hat{B}], \hat{B}], \hat{B}] + \dots .
+    \end{aligned}
+\end{equation}
+Applying the Baker-Campbell-Haussdorff expansion to the similarity-transformed 
+Hamiltonians yields
+\begin{equation}
+    \begin{gathered}
+    \label{eq:bch_hamiltonian}
+    \mathscr{H} = 
+    e^{-\hat{T}}\hat{H}_Ne^{\hat{T}} = \hat{H}_N + [\hat{H}_N, \hat{T}]
+        + \frac{1}{2}[[\hat{H}_N, \hat{T}], \hat{T}]
+        + \frac{1}{3!}[[[\hat{H}_N, \hat{T}], \hat{T}], \hat{T}] \\
+        + \frac{1}{4!}[[[[\hat{H}_N, \hat{T}], \hat{T}], \hat{T}], \hat{T}].
+    \end{gathered}
+\end{equation}
+Notice the absence of dots in this expression. The Baker-Campbell-Hausdorff expansion 
+for the electronic Hamiltionian, containing at most two-particle interactions, will 
+terminate with the four-fold commutator.
+
+By applying the generalised Wick's theorem to the Baker-Campbell-Hausdorff 
+expansion of the Hamiltonian in \autoref{eq:bch_hamiltonian}, we will be 
+confronted with a vast simplification. Applying the generalised Wick's theorm 
+to a commutator gives the following 
+\begin{equation}
+    \label{eq:wick_on_ab}
+    [\hat{A}, \hat{B}] = \hat{A} \hat{B} - \hat{B} \hat{A} 
+        = \{\hat{A} \hat{B} \} + \{ \wick{\c{\hat{A}} \c{\hat{B}} } \}
+        - \{\hat{B} \hat{A} \} - \{ \wick{\c{\hat{B}} \c{\hat{A}} } \},
+\end{equation}
+where $\hat{A}$ and $\hat{B}$ are normal-ordered operators, each with an even 
+number of creation- and annihilation operators\footnote{It is not a coincidence 
+that both the normal-ordred Hamiltonian $\hat{H}_N$ and the cluster operator
+$\hat{T}$ satisfy these condtions}.
+In this expression $\{ \}$ denotes a normal-ordering of the operators inside 
+the braces and $\{ \wick{\c{\hat{A}} \c{\hat{B}} } \}$
+represents a sum of all normal-ordered products of operators in which there 
+are one or more contractions between creation or annihilation operators in 
+$\hat{A}$ and those in $\hat{B}$. We must also have that 
+\begin{equation}
+    \{\hat{A} \hat{B}\} = \{\hat{B} \hat{A}\},
+\end{equation}
+since the two operators both contain an even number of creation- and
+annihilation operators. This means that what remains of \autoref{eq:wick_on_ab}
+is simply
+\begin{equation}
+    [\hat{A}, \hat{B}] = \{ \wick{\c{\hat{A}} \c{\hat{B}} } \}
+    - \{ \wick{\c{\hat{B}} \c{\hat{A}} } \}.
+\end{equation}
+
+The general $m$-fold cluster operator $T_m$ contains some number of creation
+operators $\hat{a}^\dagger, \hat{b}^\dagger \dots$ and hole operators 
+$\hat{i}, \hat{j}, \dots$, and the only possible non-zero contractions are 
+$\wick{\c{\hat{a}} \c{\hat{b}}^\dagger} = \delta_{ab}$ and 
+$\wick{\c{\hat{i}}^\dagger \c{\hat{j}}} = \delta_{ij}$. Moreover, since the 
+different cluster operators commute, no nonzero conatractions exist 
+between different $\hat{T}_m$ operators. Ergo, in the neste commutators from 
+\autoref{eq:bch_hamiltonian}, we only see surviving terms between the Hamiltonian 
+$\hat{H}_N$ and one or more of the cluster operators $\hat{T}_m$. This 
+accounts for the natural truncation at the four-fold commutator. In fact,
+we can rewrite the Baker-Campbell-Haussdorff-expanded similarity-transformed 
+Hamiltonian as 
+\begin{equation}
+    \mathscr{H} = 
+    e^{-\hat{T}}\hat{H}_Ne^{\hat{T}} = 
+    \hat{H}_N + \wick{\c{\hat{H}_N} \c{\hat{T}}}
+    + \frac{1}{2}\wick[offset=1.4em]{\c{\hat{H}_N} \c{\overline{\hat{T}\hat{T}}}}
+    + \frac{1}{3!}\wick[offset=1.4em]{\c{\hat{H}_N} 
+        \c{\overline{\hat{T}\hat{T}\hat{T}}}}
+    + \frac{1}{4!}\wick[offset=1.4em]{\c{\hat{H}_N} 
+        \c{\overline{\hat{T}\hat{T}\hat{T}\hat{T}}}},
+\end{equation}
+where the very interesting notation combining a contraction line and an horizontal bar 
+indicates a sum over all terms in which the Hamiltonian $\hat{H}_N$ is connected by at 
+least one contraction with each of the following cluster operators $\hat{T}$.
+
+Disconnected clusters that on the form $\hat{T}_m \hat{T}_n$, which can be found in the 
+coupled cluster wavefunction are not present in the Baker-Campbell-Hausdorff expansion 
+of the similarity-transformed Hamiltonian. This is true also for the coupled cluster 
+amplitude equations, which may be written 
+\begin{align}
+    \bra{\Phi_0} e^{-\hat{T}}\hat{H}_N e^{\hat{T}} \ket{\Phi_0}
+    &= \bra{\Phi_0} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}_C = \Delta E \\
+    \bra{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_N e^{\hat{T}} \ket{\Phi_0}
+    &= \bra{\Phi^{ab\dots}_{ij\dots}} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}_C = 0,
+\end{align}
+where the inclusion of only connected terms is underlined.
+
+The CCSD equations take the form 
+\begin{gather}
+    \bra{\Phi_0} \hat{H}_N
+        \Big(\hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \hat{T}_2\Big)
+    \ket{\Phi_0}_C = \Delta E \\
+    \bra{\Phi^a_i} \hat{H}_N \Big(
+        1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
+        + \hat{T}_1\hat{T}_2 + \hat{T}_2
+    \Big) \ket{\Phi_0}_C = 0 \\
+    \bra{\Phi^{ab}_{ij}} \hat{H}_N \Big(
+        1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
+        + \frac{1}{4!}\hat{T}_1^4 + \hat{T}_2 + \frac{1}{2}\hat{T}_2^2
+        + \hat{T}_1 \hat{T}_2 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
+    \Big) \ket{\Phi_0}_C = 0.
+\end{gather}
+For CCSDT, the energy expression is the same, whil the amplitude equations take
+the form 
+\begin{gather}
+    \bra{\Phi^a_i} \hat{H}_N \Big(
+        1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
+        + \hat{T}_1\hat{T}_2 + \hat{T}_2 + \hat{T}_3
+    \Big) \ket{\Phi_0}_C = 0 \\
+    \begin{aligned}
+    \bra{\Phi^{ab}_{ij}} \hat{H}_N& \Big(
+        1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
+        + \frac{1}{4!}\hat{T}_1^4 + \hat{T}_2 \\ &+ \frac{1}{2}\hat{T}_2^2
+        + \hat{T}_1 \hat{T}_2 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
+        + \hat{T}_3 + \hat{T}_1\hat{T}_3
+    \Big) \ket{\Phi_0}_C = 0  
+    \end{aligned} \\
+    \begin{aligned}
+    \bra{\Phi^{ab}_{ij}} \hat{H}_N& \Big(
+        \hat{T}_2 + \hat{T}_3 + \frac{1}{2}\hat{T}_2^2 + \hat{T}_1\hat{T}_2
+        + \hat{T}_2\hat{T}_3 + \hat{T}_1\hat{T}_3 \\
+        &+ \frac{1}{2}\hat{T}_1^2\hat{T}_2 + \frac{1}{2}\hat{T}_1\hat{T}_2^2
+        + \frac{1}{2} \hat{T}_1^2\hat{T}_3 + \frac{1}{3!} \hat{T}_1^3 \hat{T}_2
+    \big) \ket{\Phi_0}_C = 0  
+    \end{aligned}
+\end{gather}
+the final result of the computation of these equations are provided in the 
+appendices INSERT INTO THE APPENDICES!
+
+\section{[UNFINISHED] The Lagrangian Formulation}
 
 \section{[UNFINISHED] Generealisation in Time}
