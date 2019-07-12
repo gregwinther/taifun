@@ -38,7 +38,7 @@ conda environment create -f environment.yml
 conda activate quantum-systems    
 \end{lstlisting}
 
-\section{Quantum Dots [TODO: dipole moments]}
+\section{Quantum Dots}
 
 In reality, quantum dots are nanometre-sized structures made of semiconductor materials.
 Theoretically, quantum dots are easy to model by harmonic oscillator potential and in practice
@@ -466,6 +466,82 @@ is everything the user sees is the following,
 \input{implementation/doc/two_dim_quantum_dot.tex}
 
 \subsubsection{Double well}
+
+The extension from a single two-dimensional quantum dot to a double 
+quantum dot is a relatively straigth-forward proecedure, as it is 
+a mere perturbation of the regular single dot. What is more, the  
+double dot system has more possible energy tranistions and it has more 
+enery degeneracies, makin it a more interestin system to study. There 
+are several ways to define the double quantum dot. We have devised two 
+diffrent potentials that accomplish the task. The first is with a 
+sharp edge and the other with a smoother bulge dividing the two 
+potential wells. 
+
+Startin with the sharp-edge implementation the one-body operators is 
+as follows,
+\begin{equation}
+    \label{eq:sharp_double_well_one_body}
+    \hat{h} = \frac{\hat{p}}{2m} + \frac{1}{2}m \omega^2 \hat{r}^2
+        + \frac{1}{2}\left(\frac{1}{4}l^2 - l |\hat{x}| \right),
+\end{equation}
+where $l$ is the ``strength'' of the barrier between the wells. We 
+can readily see what makes the barrier so acute, namely the absolute 
+value of the position operator, $|\hat{x}|$\footnote{Here we might as 
+well have used the position operator $\hat{y}$, which would have resulted 
+in an equivalent potential, rotated ninety degrees.}.
+
+In \autoref{eq:sharp_double_well_one_body}, we immediately reconise 
+the first two terms as the normal quantum dot. This is beneficial, as we 
+can reuse single-particle functions from \autoref{eq:2d_ho_eigenstate}.
+This means that the one-body matrix elements are simply,
+\begin{equation}
+    \begin{aligned}
+    h^p_q &= \epsilon_p\delta^p_q + \frac{1}{2}m\omega^2
+        \mel{\phi_p}{\frac{1}{4}l^2 - l |\hat{x}|}{\phi_q} \\ 
+    &= \epsilon_p\delta^p_q + \frac{1}{8}m \omega^2l^2\delta^p_q 
+        - \frac{1}{2} m \omega^2l \mel{\phi_p}{|\hat{x}|}{\phi_q}.
+    \end{aligned}
+\end{equation}
+We see from the first two terms a perturbation in the diagonal matrix 
+elements, i.e. 
+\begin{equation}
+    \epsilon_p^{\text{DW}} = \epsilon_p + \frac{1}{8}m\omega^2l^2,
+\end{equation}
+and that we need only compute the matrix elements of the position operator.
+Because we are still working with polar coordinates, we make the necessary 
+transformation, and the interal becomes
+\begin{equation}
+    \mel{\phi_p}{|\hat{x}|}{\phi_q} 
+    = \int_0^\infty \int_0^{2\pi} 
+        \phi_{n_pm_p}^*(r,\theta) r^2 |\cos\theta| \phi_{n_qm_q}(r,\theta)
+    drd\theta
+\end{equation}
+We see that the wavefunctions $\phi_nm$ are the same as for the unperturbed 
+two-dimensional quantum dot, and this directs us to the same kind of interals 
+as for the dipole calculations above. The radial interal is cumbersome, and
+therefore left for a symbolic solver, but for angular integral we can at least 
+give the computer some help,
+\begin{equation}
+    \int_0^{2\pi} |\cos\theta| e^{i\bar{m}\theta} d\theta
+    = \frac{i(1 + e^{i\pi n})(\bar{m} + 2ie^{(i\pi \bar{m}/2)} - \bar{m}e^{i\pi n})}{\bar{m}^2 - 1},
+\end{equation}
+where $\bar{m} = (m_q - m_p) \in \mathbb{Z}$. We see that this expression is 
+not defined for $\bar{m} = 1$, but inserting for this value in the interegal 
+will yield zero as a resut. In fact, the integral will evaluate to zero for 
+each odd value of $\bar{m}$. If the barrier was aligned in the other direction,
+alon the $y$-axis, a similar computation can be performed for $\sin$ instead of 
+$\cos$.
+
+Since the particles are interacting in the same way as before, there is no need 
+to compute a special version of the Coulomb integral matrix elements for the 
+double well. We do, however, need to transform the single-particle functions and 
+two-body elements from the regular harmonic oscillator basis to an approximate basis 
+for the double-well problem. This can be done via diaonalisation of the one-body 
+Hamiltonian in order to find a matrix of coefficients $\mathbf{C}$, that perform 
+this basis change,
+\begin{equation}
+    \ket{\phi_p}_\text{DW} = C_p \ket{\phi_p}_\text{HO}.
+\end{equation}
 
 \input{implementation/doc/two_dim_double_dot.tex}
 
