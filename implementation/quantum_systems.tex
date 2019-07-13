@@ -195,6 +195,7 @@ because we have analytical expressions for the Coulomb integrals in polar
 coordinates\cite{anisimovas1998energy}, we write the one-body operators in 
 polar coordinates as well with $\hat{r}^2 = \hat{x}^2 + \hat{y}^2$,
 \begin{equation}
+    \label{eq:2d_ho_one_body_hamiltonian}
     \hat{h} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{r}^2
         = - \frac{\hbar^2}{2m}\left(
             \frac{\partial^2}{\partial r^2}
@@ -543,10 +544,80 @@ this basis change,
     \ket{\phi_p}_\text{DW} = C_p \ket{\phi_p}_\text{HO}.
 \end{equation}
 
+WRITE ABOUT THE basis change here!!!
+
+HERE COMES THE SMOOTH \emph{potentiâl doublé}.
+
 \input{implementation/doc/two_dim_double_dot.tex}
 
 \subsubsection{Magnetic field}
 
+Extending the two-dimensional quantum dot to be under the influence of a 
+static, transverse magnetic field is relatively effortless. We are considering a system with 
+the following one-body hamiltonian,
+\begin{equation}
+    \label{eq:b_field_one_body}
+    \hat{h} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\Omega^2\hat{r}^2 
+        + \frac{\omega_c}{2}\hat{L}_z,   
+\end{equation}
+where $\Omega = \sqrt{\omega_0^2 + \frac{\omega_c^2}{4}}$ and $\omega_c$ is the 
+parameter dictating the strength of the magnetic field. We see that this Hamiltonian
+is the same as the normal two-dimensional quantum dot one-body Hamiltonian 
+(\autoref{eq:2d_ho_one_body_hamiltonian}) for $\omega_c = 0$ as $\Omega \to \omega_0$,
+which is the well potential frequency. Conversely, if the 
+magnetic field is infitinely strong we see that $\Omega \to \omega_c/2$ and 
+\autoref{eq:b_field_one_body} becomes the one-body hamiltonian of a free electron in 
+a transverse magnetic field.
+The single-particle functions 
+(\autoref{eq:2d_ho_eigenstate}) with the adjusted Bohr radius $a=\sqrt{m\Omega/\hbar}$,
+are also eigenfunctions of the angular momentum
+$L_z$ and the energy eigenvalues are simply
+\begin{equation}
+    \epsilon_{nm} = \hbar\Omega(2n + |m| + 1) - \frac{\hbar\omega_c}{2}m.
+\end{equation}
+We see immediately that the energy undergoes a general shift due to the new $\Omega$
+which is dependent on $\omega_c$, but also that the energy shift of a particular shift 
+is dependent on the sign of the azimuthal quantum number $m$ for the given state. These 
+factors will give different degeneracies, as illustrated in \autoref{fig:magnetic_spaghetti}.
+With this comes the challenge of sorting the one-body matrix elements correctly, 
+and ensuring that the closed-shell structure. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{implementation/figures/spaghetti.png}
+    \caption{A few of the lowest eigenvalues $\epsilon_{nm}$ for a two-dimensional 
+    quantum dot for transverse magnetic field of increasing strength.
+    \label{fig:magnetic_spaghetti}}
+\end{figure}
+
+Notice in \autoref{fig:magnetic_spaghetti}, that there are lengthy intervals of 
+b-field strength were there is no degeneracy in the eigenenergies. Conversely, there 
+for certain specific field strengths there are very interesting shell structures with 
+diverse energies. For $\omega_c=1/\sqrt{2}$ we get the interesting shell structure
+depicted in \autoref{fig:b_field_degeneracy}. We also see from figure 
+\autoref{fig:magnetic_spaghetti} that for an infinitely strong magnetic field, where 
+we would be in the free particle limit, we have absolutely no energy degeneracy.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{implementation/figures/omega_inv_square_root_2_degeneracy.png}
+    \caption{Illustration of eigenenergy degeneracies for two-dimensional quantum 
+    dot for transverse magnetic field of strength $\omega_c=1/\sqrt{2}$.
+    Each dot 
+    \label{fig:b_field_degeneracy}}
+\end{figure}
+
+As for the computation of the basis set, not much needs to be added in the computation 
+than the extra energy to the diagonal part of the one-body matrix elements $h^p_q$, as 
+everything else is the same, including the two-body Coulomb integrals. But, as we have 
+already mentioned and displayed in \autoref{fig:magnetic_spaghetti}, for increasing 
+strength of the magnetic field, the eigenenergies as function  of $\omega_c$ eventually 
+cross over one another. The magnetic field has the effect of decreasing the energy of
+a state with $m>0$ and increasing the energy of a state with $m<0$. This means that 
+it is necessary to sort the eigenvalues after they have been computed. 
+
+The class specification of the two-dimensional quantum dot subjected to a transverse,
+homogeneous, static magnetic field is below.
 \input{implementation/doc/two_dim_dot_B.tex}
 
 \section{Constructing a Custom System}
