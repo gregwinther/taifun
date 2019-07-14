@@ -579,24 +579,32 @@ We see immediately that the energy undergoes a general shift due to the new $\Om
 which is dependent on $\omega_c$, but also that the energy shift of a particular shift 
 is dependent on the sign of the azimuthal quantum number $m$ for the given state. These 
 factors will give different degeneracies, as illustrated in \autoref{fig:magnetic_spaghetti}.
+Such a plot of single-particle particle energies are sometimes referred to as the 
+Fock-Darwin spectrum\cite{fock1928bemerkung,darwin1931diamagnetism}.
 With this comes the challenge of sorting the one-body matrix elements correctly, 
-and ensuring that the closed-shell structure. 
+and ensuring that the closed-shell structure.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{implementation/figures/spaghetti.png}
     \caption{A few of the lowest eigenvalues $\epsilon_{nm}$ for a two-dimensional 
-    quantum dot for transverse magnetic field of increasing strength.
+    quantum dot for transverse magnetic field of increasing strength. This plot of 
+    the single-particle energies form the Fock-Darwin spectrum. Some states for very 
+    high values of $m$ are omitted to make the formation of Landau bands in strong
+    fields more visible.
     \label{fig:magnetic_spaghetti}}
 \end{figure}
 
 Notice in \autoref{fig:magnetic_spaghetti}, that there are lengthy intervals of 
 b-field strength were there is no degeneracy in the eigenenergies. Conversely, there 
 for certain specific field strengths there are very interesting shell structures with 
-diverse energies. For $\omega_c=1/\sqrt{2}$ we get the interesting shell structure
-depicted in \autoref{fig:b_field_degeneracy}. We also see from figure 
-\autoref{fig:magnetic_spaghetti} that for an infinitely strong magnetic field, where 
-we would be in the free particle limit, we have absolutely no energy degeneracy.
+diverse energies. For $\omega_c/\omega=1/\sqrt{2}$ we get the interesting shell structure
+depicted in \autoref{fig:b_field_degeneracy}. Such accidental bunching also occurs 
+for $\omega_c/\omega=2/\sqrt{3}, 3/2, 4/\sqrt{5}\dots$. We also see from figure 
+\autoref{fig:magnetic_spaghetti} that for an infinitely strong magnetic field as 
+$\omega_c/\omega \to \infty$, in the free particle limit, that the energy levels 
+form a sequence of so-called Landau bands. 
+
 
 \begin{figure}
     \centering
