@@ -8,7 +8,7 @@
 *.blg
 *.out
 *.run.xml
-
+*.lof
 *.fdb_latexmk
 *.synctex
 *.synctex.gz
