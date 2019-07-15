@@ -21,7 +21,7 @@
 \tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={2pt}}
 
 % Arrow in the middle
-\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.markings, backgrounds}
 
 \usepackage{biblatex}
 \usepackage[breaklinks=true]{hyperref}
@@ -46,6 +46,17 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\definecolor{grey}{RGB}{234,234,242}    
+
+\definecolor{transition11}{RGB}{131,203,65}
+\definecolor{transition12}{RGB}{167,2,97}
+\definecolor{transition13}{RGB}{48,118,30}
+
+\definecolor{transition21}{RGB}{208,255,141}
+\definecolor{transition22}{RGB}{106,191,48}
+\definecolor{transition23}{RGB}{179,2,106}
+\definecolor{transition24}{RGB}{52,127,34}
 
 % Python style for highlighting
 \newcommand\pythonstyle{\lstset{
