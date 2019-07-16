@@ -542,13 +542,13 @@ for the double-well problem. This can be done via diaonalisation of the one-body
 Hamiltonian in order to find a matrix of coefficients $\mathbf{C}$, that perform 
 this basis change,
 \begin{equation}
-    \ket{\phi_q}_\text{DW} = \sum_q C_p \ket{\phi_p}_\text{HO},
+    \ket{\phi_q}_\text{DW} = \sum_p C_p \ket{\phi_p}_\text{HO},
 \end{equation}
 which can be inserted into an eigenvalue equation for the one-body operator,
 \begin{equation}
     \begin{aligned}
-        \hat{h} \ket{\psi_q} &= \epsilon_p\ket{\psi_p} \\
-        \sum_p \hat{h}C_p \ket{\phi_p} = \sum_p\epsilon_p C_p\ket{\phi_p}.
+        \hat{h} \ket{\psi_q}_\text{DW} &= \epsilon_q\ket{\psi_q}_\text{DW} \\
+        \sum_p \hat{h}C_p \ket{\phi_p} &= \sum_p\epsilon_p C_{pq}\ket{\phi_p}.
     \end{aligned}
 \end{equation}
 Assuming that the eigenvalues $\epsilon_q$ are eigenvalues for the double well 
@@ -557,26 +557,23 @@ basis,
 \begin{equation}
     \begin{gathered}
      \sum_p\mel{\phi_r}{\hat{h}}{\phi_p} 
-        = \sum_p C_p \epsilon_p \braket{\phi_r}{\phi_q} \\
-    \sum_p h^r_p C_p = C_p\epsilon_p \\
-    h^r_p \mathbf{C} = \mathbf{C} \mathbf{\epsilon}
+        = \sum_p C_{pr} \epsilon_p \braket{\phi_r}{\phi_p} \\
+    \sum_p h_{pr} C_{pr} = C_{pr}\epsilon_p \\
+    \mathbf{h} \mathbf{C} = \mathbf{C} \mathbf{\epsilon}
     \end{gathered}
 \end{equation}
 This is an eigenvalue equation we can solve in order to obtain the coefficient 
 matrix which transforms from the one basis to the other. This transformation
 can subsequently be applied to the two-body operator,
 \begin{equation}
-    \mel{\psi\psi}{\hat{w}}{\psi\psi} = C C \mel{\phi\phi}{\hat{w}}{\phi\phi} C C,
+    \mel{\psi_\alpha\psi_\beta}{\hat{w}}{\psi_\gamma\psi_\delta} 
+    = {C^p_\alpha}^* {C^p_\beta}^* \mel{\phi_p\phi_q}{\hat{w}}{\phi_r\phi_s} C^r_\gamma C^s_\delta,
 \end{equation}
-or any other operator.
-
-DOES THIS EVEN MAKE SENSE AT ALL??? MAKE A BETTER NOTATION..
-
-WRITE ABOUT THE basis change here!!!
-
-HERE COMES THE SMOOTH \emph{potentiâl doublé}.
+where summation over same indices is assumed.
 
 \input{implementation/doc/two_dim_double_dot.tex}
+
+HERE COMES THE SMOOTH \emph{potentiâl doublé}.
 
 \subsubsection{Magnetic field}
 
