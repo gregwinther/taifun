@@ -233,8 +233,8 @@ elemnets of a diagonal matrix (the eigenvalues of $\lambda$). This provides us w
 a new set of eigenvalue equations,
 \begin{equation}
     \label{eq:canonical_hf_eqns}
-    \hat{f}(\tilde{\phi}_1, \dots, \tilde{\phi}_N)\ket{\tilde{\phi}_i}
-        = \epsilon_i \ket{\tilde{\phi}_i},
+    \hat{f}(\tilde{\phi}_1, \dots, \tilde{\phi}_N)\ket*{\tilde{\phi}_i}
+        = \epsilon_i \ket*{\tilde{\phi}_i},
 \end{equation}
 which are the canonical Hartree-Fock equations. From now on we will stick with these 
 equations and suppress the tilde notations.
@@ -301,8 +301,8 @@ giving us,
 \begin{equation}
     F_{qp} = \bra{\chi_q}\hat{h} \ket{\chi_p} 
         + \sum_{p'q'}D_{p'q'}(
-            \ket{\chi_q\chi_{q'}}\hat{w} \ket{\chi_p\chi_{p'}}
-            - \ket{\chi_q\chi_{q'}}\hat{w} \ket{\chi_{p'}\chi_p}
+            \bra{\chi_q\chi_{q'}}\hat{w} \ket{\chi_p\chi_{p'}}
+            - \bra{\chi_q\chi_{q'}}\hat{w} \ket{\chi_{p'}\chi_p}
         ),
 \end{equation}
 where $D = UU^H$, is the density matrix.
@@ -318,6 +318,138 @@ until the the iterations converge. At this point we say that we have self-consit
 in the mean field, and this method is usually called the method of self-constistent
 field (SCF) iterations.
 
-\section{[UNFINISHED] Restricted Hartree-Fock Theory}
+\section{Restricted Hartree-Fock Theory}
+
+Consider some jolly band of $N$ electrons confined in a potential. 
+To begin with we will assumes that these are non-interacting, and can therefore be 
+described only by the one-body part of the Hamiltionian,
+\begin{equation}
+    \hat{h}(\vb{r}) = \hat{t}(\vb{r}) + \hat{v}(\vb{r}),
+\end{equation}
+where $\hat{v}$ is potential set up by an atomic nucleus, or some other confining
+force. The one-body operators $\hat{h}$ does noe coupled to electron spin, so the 
+spinorbitals or single-particle eigenfunctions of $\hat{h}$ separate,
+\begin{equation}
+    \phi_P(\vb{r}, \sigma) = \varphi_p(\vb{r})\chi_\alpha(\sigma),
+\end{equation}
+where $P = (p, \sigma)$ si the combined spin- and spatial index, $\alpha = \pm 1/2$
+is the value of the projection of the electron spin along the $z$-axis. The spin 
+indcex/coordnitate can only take values $\sigma \pm 1$, and we have orthonormal 
+spinorbitals, $\braket{\chi_\alpha}{\chi_\beta} = \delta_{\alpha\beta}$. 
+
+We restrict the orbitals to have the same spatial wavefunction for spin up and spin
+down, and we consider only closed-shell configurations. This means that our 
+molecular wavefunctions, in the form of a Slater determinant, can only have an 
+even number of $N$ electrons, with all electrons paired in such a manner that there 
+are two spin values for each of the $n=N/2$ spatial orbitals. The $N$-electron 
+ground state of $\hat{h}$ is given by the first $N$ eigenfunctions $\phi_{(p,\sigma)}$
+occupied,
+\begin{equation}
+    \ket{\Phi} = \ket{\phi_{1,+}\phi_{1,-}\dots \phi_{\frac{N}{2},+}\phi_{\frac{N}{2},-}},
+\end{equation}
+commonly also written as 
+\begin{equation}
+    \ket{\Phi}_{\text{RHF}} = 
+    \ket*{\varphi_1 \bar{\varphi}_1 \dots \varphi_{N/2} \bar{\varphi}_{N/2}}.
+\end{equation}
+The reasoning behind this restriction is that one would assume, for many systems, that 
+the exact wavefunctions has the same kind of structure. This is true for almost all 
+electronic systems in nature. We thererfore do not optimise all the $N$ single-particle 
+functions freely, but asume that they form sets fo doubly occupied spatial orbitals. 
+Matrix elements can now be computed more easily on the restricted form,
+\begin{equation}
+    \mel*{\phi_{(p,\alpha)}}{\hat{h}}{\phi_{(q,\beta)}} 
+    = \braket{\chi_\alpha}{\chi_\beta}
+        \int d\vb{r} \varphi_p(\vb{r})^*\hat{h}\varphi_q(\vb{r}).
+\end{equation}
+And similarly for two-body operators,
+\begin{equation}
+    \mel{\phi_{p\alpha}\phi_{q\beta}}{\hat{w}}{\phi_{r\gamma}\phi_{s\delta}}
+    = \braket{\chi_\alpha}{\chi_\gamma}\braket{\chi_\beta}{\chi_\delta}
+        \int \int d \vb{r}_1 d \vb{r}_2 \varphi_p(\vb{r}_1)\varphi_q(\vb{r}_2)
+            \hat{w}(\vb{r}_1 \vb{r}_2) \varphi_r(\vb{r}_1)\varphi_s(\vb{r}_2)
+\end{equation}
+
+Now we will find the special form of the Fock operator in restricted 
+Hartree-Fock theory. First we insert the wavefunction restriction into 
+the Hartree-Fock equation
+\begin{equation}
+    \begin{aligned}
+        \hat{f}\phi_I(\vb{r}, \sigma) &= \epsilon_i \phi_I(\vb{r}, \sigma) \\
+        \hat{f}\varphi(\vb{r}) \chi_\alpha(\sigma)
+        &= \epsilon_i \varphi_i(\vb{r})\chi_\alpha(\sigma).
+    \end{aligned}
+\end{equation}
+Here we have joined the spatial- and spin index with a capital letter $I = (i, \alpha)$.
+We left multipy with $\chi_\alpha^*$, suppress indices for brevity and integrate over spin,
+\begin{equation}
+    \mel{\chi_\alpha}{\hat{f}}{\varphi_i\chi_\alpha}
+    = \mel{\chi_\alpha}{\hat{f}}{\phi_{I = (i,\alpha)}}
+    = \epsilon_i\varphi_i.
+\end{equation}
+Next we insert the Fock operator,
+\begin{equation*}
+    \hat{f} = \hat{h} + \sum_i\mel{\cdot\varphi_i}{(\hat{w} - \hat{P}_{12})}{\cdot\varphi_i}
+\end{equation*} 
+This special notation is means that we integrate over the second orbital in 
+the bra and ket only. After insertion we get
+\begin{equation}
+   \begin{gathered}
+        \mel{\chi_\alpha}{\hat{h}}{\chi_\alpha}\varphi_i
+        + \sum_J \mel{\chi_\alpha\phi_J}{(\hat{w} - \hat{P}_{12})}{\phi_I\phi_J}
+        = \epsilon_i\varphi_i \\
+        \to\hat{h}\varphi_i 
+        + \sum_J \mel{\chi_\alpha\phi_J}{\hat{w}}{\phi_I\phi_J}
+        - \sum_J \mel{\chi_\alpha\phi_J}{\hat{w}}{\phi_J\phi_I}
+        = \epsilon_i\varphi_i.
+   \end{gathered} 
+\end{equation}
+Because if we have a closed-shell system, them over occupied spinorbitals include an 
+equal sum over spin up and spin down functions so that
+\begin{equation*}
+    \sum_J^n = \sum_\beta\sum_j^{n/2}.
+\end{equation*} 
+We next insert this into our eigenvalue equation and split the single-particle functions 
+into separate spin- and spatial orbitals,
+\begin{equation}
+    \begin{gathered}
+        \hat{h}\varphi_i 
+        + \sum_\beta\sum_j^{n/2}
+            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{w}}{\varphi_i\chi_\alpha\varphi_j\chi_\beta} 
+        - \sum_\beta\sum_j^{n/2}
+            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{w}}{\varphi_j\chi_\beta\varphi_i\chi_\alpha} \\
+        = \hat{h}\varphi_i 
+        + 2\sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{w}}{\varphi_i\varphi_j}
+        +  \sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{w}}{\varphi_j\varphi_i}
+        = \epsilon_i\varphi_i.
+    \end{gathered}
+\end{equation}
+We now have the from of the Fock operator within the restricted Hartree-Fock theory,
+\begin{equation}
+    \label{eq:RHF_fock_operator}
+    \begin{aligned}
+    \hat{f} &= \hat{h} + \sum_i^{n/2} \mel{\cdot\varphi_i}{(2\hat{w} - \hat{P}_{12})}{\cdot\varphi_i} \\
+        &= \hat{h} + 2\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{w} \varphi_i(\vb{r}_2)
+        -\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{w} \varphi_j(\vb{r}_2)
+    \end{aligned}
+\end{equation}
+
+The Hartee-Fock energy also has a special form in the restricted Hartree-Fock realm,
+\begin{equation}
+    \begin{aligned}
+        \mel{\Phi}{\hat{H}}{\Phi}
+        =& \sum_P \mel{\phi_P}{\hat{h}}{\phi_P}
+        + \frac{1}{2}\sum_P \sum_Q \mel{\phi_P \phi_Q}{(\hat{w} - \hat{P}_{12})}{\phi_P \phi_Q} \\
+        =& \sum_\alpha \sum_p^{n/2} \mel{\phi_{(p,\alpha)}}{\hat{h}}{\phi_{(p,\alpha)}} \\
+            &\quad + \sum_\alpha \sum_p^{n/2}\sum_\beta \sum_q^{n/2} 
+        \bra{\phi_{(p,\alpha)}\phi_{(q,\beta)}}\hat{w}
+        \left( 
+            \ket{\phi_{(p,\alpha)}\phi_{(q,\beta)}} - \ket{\phi_{(q,\beta)}\phi_{(p,\alpha)}} 
+        \right) \\
+        =& 2\sum_p^{n/2} \mel{\varphi_p}{\hat{h}}{\varphi_q}
+        + 2 \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{w}}{\varphi_p\varphi_q}
+        - \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{w}}{\varphi_p\varphi_q}
+    \end{aligned}
+\end{equation}
 
 \section{[UNFINISHED] Unrestricted Hartree-Fock Theory}
