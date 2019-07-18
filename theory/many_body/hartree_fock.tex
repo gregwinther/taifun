@@ -452,4 +452,111 @@ The Hartee-Fock energy also has a special form in the restricted Hartree-Fock re
     \end{aligned}
 \end{equation}
 
-\section{[UNFINISHED] Unrestricted Hartree-Fock Theory}
+\section{Unrestricted Hartree-Fock Theory}
+
+The restricted Hartree-Fock model i often a good enough approximation, but under some 
+circumstances it will fail to provide a good result. The unrestricted Hartree-Fock model 
+is an intermediate between the general Hartree-Fock model and the restricted Hatree-Fock 
+model. Compared with the restricted Hartre-Fock single-particle wavefunction form, the 
+unrestricted for is somewhat obviuous as we now allo the spins to be different,
+\begin{equation}
+    \phi_P(\vb{r}, \sigma) = \varphi_p^{\alpha}(\vb{r})\chi_\alpha(\sigma),
+\end{equation}
+where we have given a the spatial orbitals a spin-index as well. As before, a capital index 
+is the combined spatial- and spin index $P=(p,\alpha)$, where $P \in [1,L]$, $p\in [1, L/2]$
+and $\alpha = \pm 1/2$. 
+Like before, we require the states to be orthonormal 
+\begin{equation}
+    \braket{\phi_P}{\phi_Q} 
+    = \braket{\varphi^\alpha_p}{\varphi^\beta_q}\varphi{\chi_\alpha}{\chi_\beta}
+    = \delta_{PQ}.
+\end{equation}
+we can write a general unrestricted Hartree-Fock state as 
+\begin{equation}
+    \ket{\Phi}_{\text{UHF}}
+        =
+        \ket*{\varphi_1^{1/2} \varphi_1^{-1/2} \varphi_2^{1/2} \varphi_2^{-1/2}
+            \dots \varphi_{L/2}^{1/2} \varphi_{L/2}^{-1/2}}
+        =
+        \ket{\phi_1\phi_2\phi_3\phi_4 \dots \phi_{L-1} \phi_L}.
+\end{equation}
+
+In order to find an expression for the Fock operator we insert the wavefunction into the 
+canonical Hartree-Fock equation,
+\begin{equation}
+    \hat{f}\phi_P = \epsilon_p\phi_P, \ \to \ 
+    \hat{f}\varphi_p^\alpha \chi_\alpha = \epsilon_p\varphi_p^\alpha \chi_\alpha. 
+\end{equation}
+Now we left multiply by $\chi_\alpha^*$ and itegrate over spin,
+\begin{gather}
+    \mel{\chi_\alpha}{\hat{f}}{\varphi_p^\alpha\chi_\alpha}
+    = \mel{\chi_\alpha}{\epsilon_p}{\varphi_p^\alpha\chi_\alpha} \\
+    \hat{f}^\alpha \varphi_p^\alpha
+    = \left[ 
+        \int d\sigma_1 \chi_\alpha(\sigma_1)^*\hat{f}(\vb{r}, \sigma_1)\chi_\alpha(\sigma_1)     
+    \right] \varphi_p^\alpha
+    = \epsilon_p\varphi_p^\alpha.
+\end{gather}
+We now have what is called the spatial unrestricted Hartree-Fock equations. Inserting for 
+the canonical Fock operator yields the following left-hand side
+\begin{equation}
+    \begin{aligned}
+        \hat{f}^\alpha\varphi_p^\alpha 
+        =& \hat{h}\varphi_p^\alpha 
+        + \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{w}}{\varphi_p^\alpha\chi_\alpha\phi_Q}q
+        - \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{w}}{\phi_Q\varphi_p^\alpha\chi_\alpha} \\
+        =& \hat{h}\varphi_p^\alpha
+        + \sum_\beta \sum_q^{L/2}
+            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{w}}{\varphi^\alpha_p\chi_\alpha\varphi^\beta_q\chi_\beta} \\
+        & \quad - \sum_\beta \sum_q^{L/2}
+            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{w}}{\varphi^\beta_q\chi_\beta\varphi^\alpha_p\chi_\alpha} \\
+        =& \hat{h} \varphi_p^\alpha
+        + \sum_\beta \sum_q^{L/2}
+            \mel{\cdot\varphi_q^\beta}{\hat{w}}{\cdot\varphi_q^\beta}\varphi_p^\alpha
+        - \sum_q^{L/2}
+            \mel{\cdot\varphi_q^\alpha}{\hat{w}}{\cdot\varphi_p^\alpha}\varphi_q^\beta
+    \end{aligned}
+\end{equation} 
+This means that we get the following form for the spatial Fock operators in unrestricted Hartree-Fock 
+\begin{align}
+\label{eq:fock_up_uhf}
+\hat{f}^\uparrow &= 
+    \hat{h} + \sum_p^{L/2}[\hat{v}^\uparrow_{\text{Coulomb}} - \hat{v}^\uparrow_{\text{exchange}}]
+    + \sum_p^{L/2}\hat{v}^\downarrow_{\text{Coulomb}}  \\
+\label{eq:fock_down_uhf}
+\hat{f}^\downarrow &= 
+    \hat{h} + \sum_p^{L/2}[\hat{v}^\downarrow_{\text{Coulomb}} - \hat{v}^\downarrow_{\text{exchange}}]
+    + \sum_p^{L/2}\hat{v}^\uparrow_{\text{Coulomb}}
+\end{align}
+From the definition of the two spatial Fock operatiors in \autoref{eq:fock_up_uhf} and 
+\autoref{eq:fock_down_uhf},
+we see that the two integro-differential eigenvalue equations that arises from inserting
+$\hat{f}^\uparrow$ and $\hat{f}^\downarrow$ into the canonical Hartree-Fock equation,
+\begin{align}
+    \hat{f}^\uparrow \varphi_p^\uparrow &= \epsilon_p^\uparrow\varphi_p^\uparrow \\
+    \hat{f}^\downarrow \varphi_p^\downarrow &= \epsilon_p^\downarrow\varphi_p^\downarrow,
+\end{align}
+are 
+coupled and cannot be solved independently. The spin-up orbitals depend on the occupied spin-down 
+orbitals and vice versa. This means that the two equations must be solved by a simultaneous 
+iterative process.
+
+We can also derive an equation for the unrestricted Hartree-Fock energy,
+\begin{equation}
+    \begin{aligned}
+    E_{UHF} =& \mel{\Phi_{\text{UHF}}}{\hat{H}}{\Phi_{\text{UHF}}}\\
+    =& \sum_\alpha\sum_p^{L/2} \mel{\varphi_p^\alpha\chi_\alpha}{\hat{h}}{\varphi_p^\alpha\chi_\alpha}
+    + \sum_\alpha\sum_p^{L/2}\sum_\beta\sum_q^{L/2}
+        \mel{\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta}{(\hat{w} - \hat{P}_{12})}
+            {\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta} \\
+    =& \sum_\alpha\sum_{pq}^{L/2} \mel{\varphi_p^\alpha}{\hat{h}}{\varphi_p^\alpha} 
+    + \sum_{\alpha\beta}\sum_q^{L/2}
+        \mel{\varphi_p^\alpha\varphi_q^\beta}{\hat{w}}{\varphi_p^\alpha\varphi_q^\beta} 
+    - \sum_\alpha\sum_{pq}^{L/2}
+        \mel{\varphi_p^\alpha\varphi_q^\alpha}{\hat{w}}{\varphi_q^\alpha\varphi_p^\alpha}
+    \end{aligned}
+\end{equation}
+
+
+\subsection{Pople-Nesbet-Bethier...}
+... would be nice to have here.
