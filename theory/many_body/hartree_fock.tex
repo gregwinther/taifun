@@ -560,3 +560,162 @@ We can also derive an equation for the unrestricted Hartree-Fock energy,
 
 \subsection{Pople-Nesbet-Bethier...}
 ... would be nice to have here.
+
+\section{Time-Dependent Hartree-Fock}
+
+This section follows closesly the narrative of the gentlemen Hochstuhl, Hinz and 
+Bonitz\cite{hochstuhl2014time}. Deriving the time-dependent Hartree-Fock equations start,
+of course, with the time-dependent Schrödinger equation,
+\begin{equation}
+    i\hbar \frac{\partial}{\partial t}\ket{\Phi(t)} = \hat{H}(t)\ket{\Phi(t)},
+\end{equation}
+where the Hamiltonian is 
+\begin{equation}
+    \hat{H}(t) = \hat{h}(t) + \hat{w}(t).
+\end{equation}
+This is very similar to the one used the same, except for the introduction of a 
+time-dependence. We start by multiplying from the left with the reference Slater
+determinant $\bra{\Phi}$. The right-hand side of the Schrödinger equation becomes
+the familiar Hartree-Fock energy,
+\begin{equation}
+    \mel{\Phi}{\hat{H}}{\Phi} 
+    = \sum_p \mel{\phi_p}{\hat{h}}{\phi_p}
+    + \frac{1}{2} \sum_{pq}\mel{\phi_p\phi_q}{(\hat{w} + \hat{P}_{12})}{\phi_p\phi_q}.
+\end{equation}
+The left-hand side, is more interesting,
+\begin{equation}
+    \mel{\Phi}{\frac{\partial}{\partial t}}{\Phi} 
+    = \sum_p \mel{\phi_p}{\frac{\partial}{\partial t}}{\phi_p},
+\end{equation}
+which we will deal with in due time, but before doing so we need to introduce 
+functional derivatives and the functional derivatives of various matrix elements.
+First, the one-body matrix elements,
+\begin{equation}
+        \frac{\delta}{\delta\phi^*_r} \sum_p \mel{\phi_p}{\hat{h}}{\phi_p}
+        = \sum_p \frac{\delta}{\delta \phi^*_r}
+            \int dr \phi_p^* \hat{h} \phi_p 
+        = \sum_p \delta_{pr} \hat{\phi} = \hat{h}\ket{\phi_r}.
+\end{equation}
+Second, the matrix elements of the time-derivate,
+\begin{equation}
+    \frac{\delta}{\delta \phi_r^*} \sum_p\mel{\phi_p}{\frac{\partial}{\partial t}}{\phi_p}
+    = \frac{\partial}{\partial t} \ket{\phi_q},
+\end{equation}
+which is so similar to the one-body computation that the result is simply written down,
+instead of computing the result explicitly.
+Lastly, we have the two-body matrix elements,
+\begin{equation}
+    \begin{aligned}
+        \frac{\delta}{\delta \phi_r^*} &\sum_{pq}
+            \mel{\phi_p\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_p\phi_q} \\
+        &\ = \frac{\delta}{\delta \phi_r^*(r_1)} \sum_{pq} \int dr_1 dr_2 
+            \phi_p^*(r_1) \phi_q^*(r_2)(\hat{w} - \hat{P}_{12})\phi_p(r_1)\phi_q(r_2) \\
+        &\ = \sum_{pq}\delta_{pq} \int dr_2 \phi_q^*(r_2) 
+            (\hat{w} - \hat{P}_{12}) \phi_p(r_1) \phi_q(r_2) 
+        = \sum_q \mel{\cdot \phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}.
+    \end{aligned}
+\end{equation}
+
+Now we want to vary the reference state to find the optimal one, 
+applying the so-called time-dependent variational principle,
+\begin{equation}
+    \mel{\delta\Phi}{(\hat{H} - i\hbar\frac{\partial}{\partial t})}{\Phi} = 0,
+\end{equation}
+which we want to minimise under the requirement of orthonormal single-particle functions
+in time,
+\begin{equation}
+    \braket{\phi_p(t)}{\phi_q(t)} = \delta_{pq}.
+\end{equation}
+Such an optimization problem under a constraint begs for the formulation of a Lagrangian,
+which we will let manifest itself,
+\begin{equation}
+    \mathscr{L}(\Phi, \lambda_{pq}) = 
+        \mel{\Phi}{(\hat{H} - i\hbar\frac{\partial}{\partial t})}{\Phi}
+        - \sum_{pq} \lambda_{pq} (\braket{\phi_p}{\phi_q} - \delta_{pq}).
+\end{equation}
+We find a stationary point of this Lagrangian functional, by variation of the single-particle 
+functions so that 
+\begin{equation}
+    \frac{\delta\mathscr{L}}{\delta \phi_r^*} = 0, \quad \forall r.
+\end{equation}
+This is where we will make use of the functional derivatives we computed before,
+\begin{equation}
+    \label{eq:derivative_of_HF_time_lagrangian}
+    \frac{\delta\mathscr{L}}{\delta \phi_r^*}
+    = \hat{h}\ket{\phi_r} 
+        + \sum_q\mel{\cdot\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}
+        - i\hbar\frac{\partial}{\partial t} \ket{\phi_r}
+        - \sum_q \lambda_{rq} \ket{\phi_r} = 0.
+\end{equation}
+Now we want to solve for the Langrange mulitplier, we do this be left-projection of the 
+functional derivative above with $\bra{\phi_s}$ and move resulting multiplier $\lambda_{sq}$
+to the left, and all other terms to the right. We 
+get the following expression for the Lagrange multiplier,
+\begin{equation}
+    \lambda_{sq} = \mel{\phi_s}{\hat{h}}{\phi_r} 
+        + \mel{\phi_s\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}
+        - i\hbar \mel{\phi_s}{\frac{\partial}{\partial t}}{\phi_r}
+\end{equation}
+We insert this expression for the Lagrange multiplier into \autoref{eq:derivative_of_HF_time_lagrangian}
+which results in,
+\begin{equation}
+    \label{eq:projected_time_hf_eqn}
+    \hat{P}\left[\hat{h}\ket{\phi_r}
+        + \sum_q\mel{\cdot\phi_q}{(\hat{w}, \hat{P}_{12})}{\phi_r\phi_q}
+        - i\hbar\frac{\partial}{\partial t} \ket{\phi_k}\right] = 0,
+\end{equation}
+where we have the confusing operator $\hat{P}$, which is not a permutation operator 
+like $\hat{P}_{12}$, but a projection operator;
+\begin{equation}
+    \hat{P} = \hat{1} - \sum_p \outerproduct{\phi_p}.
+\end{equation}
+Rearranging \autoref{eq:projected_time_hf_eqn} yields
+\begin{equation}
+    \label{eq:tdhf_before_Q}
+    i\hbar \hat{P}\frac{\partial}{\partial t} \ket{\phi_r} 
+    = \hat{P}\left[\hat{h}\ket{\phi_r} 
+        + \mel{\cdot\phi_q}{(\hat{w} - \hat{P}_{12})}{\cdot\phi_q} \right]\ket{\phi_r}
+    = \hat{P}\hat{f}\ket{\phi_r},
+\end{equation}
+where we see that Fock operator has appeared. This equation is an integro-differential 
+equation, as the projection operator $\hat{P}$ appear on both sides of the equality 
+sign, and a solution can be difficutl to find. Because the time-dependent Hartree-Fock 
+wavefunction is invariant under unitary transformation, we can obtain equations that are 
+numerically more apporiate, by applying a unitary transformation $\hat{Q}(t)$ which 
+satisfies
+\begin{equation}
+    i\hbar\mel{\phi_p}{\frac{\partial}{\partial t}}{\phi_q}
+    \equiv \mel{\phi_p}{\hat{Q}(t)}{\phi_q}.
+\end{equation}
+It turns out that a reasonable choice for $\hat{Q}(t)$ is $\hat{f}{t}$, in which case 
+\autoref{eq:tdhf_before_Q} becomes
+\begin{equation}
+    \label{eq:tdhf_eqn}
+    i\hbar\frac{\partial}{\partial t}\ket{\phi_p(t)} = \hat{f}(t)\ket{\phi_p(t)},
+\end{equation}
+where we have explicitly written out the time-dependence. This is the time-dependent 
+Hartree-Fock equation.
+
+Now we pick a specific, finite and static basis $\{\chi_p\}_{p=1}^{L}$ and expand the Hartree-Fock single-particle
+functions in this basis,
+\begin{equation}
+    \ket{\phi_p}(t) = \sum_q \ket{\chi_q} U_{qp}(t).
+\end{equation}
+Notice that the basis set is indeed static, with no time-dependence, only the coefficients 
+of the expansions $U_{pq}(t)$ evolve in time.  
+We insert the expansion into \autoref{eq:tdhf_eqn},
+\begin{equation}
+    i\hbar\frac{\partial}{\partial}\sum_q \ket{\chi_q}U_{pq}(t) = \hat{f}(t)\sum_q \ket{\chi_q} U_{pq}(t).
+\end{equation}
+We left-project this equation with $\bra{\chi_r}$,
+\begin{equation}
+    \begin{gathered}
+    i\hbar\frac{\partial}{\partial t} \sum_q U_{pq}(t)\braket{\chi_r}{\chi_q}
+        = \sum_q U_{pq}(t) \mel{\chi_r}{\hat{f}(t)}{\chi_q}  \\
+    \to i\hbar \sum_q \dot{U}_{pq} S_{rq} = \sum_q U_{pq} \hat{f}_{rq}(t),
+    \end{gathered}
+\end{equation}
+which can be written as a matrix equation,
+\begin{equation}
+    i\hbar \vb{S}\dot{\vb{U}}(t) = \vb{F}(t)\vb{U}(t).
+\end{equation}
