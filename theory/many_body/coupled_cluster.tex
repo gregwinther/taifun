@@ -307,10 +307,56 @@ and there is one term for the case where all indices are equal,
     \sum_{k>l} \bra{kl} \ket{kl} t^{ab}_{ij} = \frac{1}{2} \sum_{kl} \bra{kl} \ket{kl} t^{ab}_{ij}.
 \end{equation}
 
+\begin{tcolorbox}[title={Difference between Coupled Cluster and Configuration Interaction}, 
+    colback={white},
+    colbacktitle={pink},
+    coltitle={black}]
+
+    THIS BOX MAY BELONG SOMEWHERE ELSE (or may not be in a box)
+
+    Monkhorst\cite{monkhorst1977calculation} gives a general formuala for transferring 
+    back and forth between CC operators $\hat{T}_m$ and CI operators $\hat{C}_m$,
+    \begin{equation}
+        \hat{C}_m = \sum_{k}^m\frac{1}{k!}\sum_{|m_\mu|}
+            \delta(m_1 + m_2 + \dots + m_k, m) \prod_{\mu=1}^k\hat{T}_{m_\mu},
+    \end{equation}
+    where the second sum is over all sets of $k$ $m_\mu$-values that sum up to $m$.
+    The first four of the terms are,
+    \begin{align}
+        \hat{C}_1 &= \hat{T}_1 \\
+        \hat{C}_2 &= \hat{T}_2 + \frac{1}{2} \hat{T}_1^2 \\
+        \hat{C}_3 &= \hat{T}_3 + \hat{T}_1\hat{T}_2 + \frac{1}{3!} T_1^3 \\
+        \hat{C}_4 &= \hat{T}_4 + \frac{1}{2}\hat{T}_2
+            + \frac{1}{2}\hat{T}_2\hat{T}_1^2 + \frac{1}{4!}\hat{T}_1^4.
+    \end{align}
+    For the CCSD and CISDTQ wavfunctions we have,
+    \begin{gather}
+        \ket{\Psi_{\text{CCSD}}} = \left(
+            1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3 
+            + \hat{T}_2 + \frac{1}{2}\hat{T}_2^2 + \frac{1}{4!}\hat{T}_1^4 
+            + \hat{T}_1\hat{T}_2 
+        \right) \ket{\Phi_0} \\
+        \ket{\Psi_{\text{CISDTQ}}} = \left(
+            1 + \hat{C}_1 + \hat{C}_2  + \hat{C}_3 + \hat{C}_4
+        \right)\ket{\Phi_0}
+    \end{gather}
+    which provides us with a relation between the two,
+    \begin{equation}
+        \ket{\Psi_{\text{CCSD}}} 
+            = \ket{\Psi_{\text{CCSDTQ}}} - (\hat{T}_3 + \hat{T}_4)\ket{\Phi_0}.
+    \end{equation}
+    Moreover, we see that for a system of $n=2$ particles, that
+    \begin{equation}
+        \ket{\Psi_{\text{CCSD}}} = \ket{\Psi_{\text{CCSDTQ}}}.
+    \end{equation}
+    FILL IN MORE...
+\end{tcolorbox}
+
 These last three- and four-index equality terms are expressible in terms of $\hat{u}$,
 and will cancel the first term in $L_1$ together with the $\hat{u}$ term from $L_0$.
-All terms so far are the same as in a CID computation. The difference between CCD and
-CID as the following extra quadratic terms,
+All terms so far are the same as in a configuration interaction with doubles excitations
+(CID) computation. The difference between coupled cluster with doubles (CCD) and
+CID is the following extra quadratic terms,
 \begin{equation}
     Q = \frac{1}{2}\bra{\Phi^{ab}_{ij}} \hat{H}_N \hat{T}_2^2\ket{\Phi_0}
         = \frac{1}{2} \sum_{\substack{k>l \\ c>d}} \sum_{\substack{m>n \\ e>f}}
