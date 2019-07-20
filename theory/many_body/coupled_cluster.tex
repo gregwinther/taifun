@@ -1009,7 +1009,7 @@ Hamiltonians yields
         + \frac{1}{4!}[[[[\hat{H}_N, \hat{T}], \hat{T}], \hat{T}], \hat{T}].
     \end{gathered}
 \end{equation}
-Notice the absence of dots in this expression. The Baker-Campbell-Hausdorff expansion 
+Notice the absence of an ``and so on''-operator ($\dots$) in this expression. The Baker-Campbell-Hausdorff expansion 
 for the electronic Hamiltionian, containing at most two-particle interactions, will 
 terminate with the four-fold commutator.
 
@@ -1123,6 +1123,214 @@ the form
 the final result of the computation of these equations are provided in the 
 appendices INSERT INTO THE APPENDICES!
 
-\section{[UNFINISHED] The Lagrangian Formulation}
+\section{[UNFINISHED] A Variational Formulation of Coupled Cluster}
+
+See Kvaal\cite{kvaal2013variational}
+
+The Coupled Cluster method is very successful in computing energies, but computing other 
+expectations values has been a problem. For instance we see that the way we compute the
+coupled cluster energy,
+\begin{equation}
+    E_{\text{CC}} = \mel{\Phi}{e^{-\hat{T}}\hat{H}e^{\hat{T}}}{\Phi},
+\end{equation}
+is not the same as one would compute the energy of the system variationally,
+\begin{equation}
+    \label{eq:var_hamiltionian_cc}
+    \ev*{\hat{H}}_{\text{var}} = \frac{\mel{\Psi}{\hat{H}}{\Psi}}{\braket{\Psi}}
+        = \frac{ \mel{\Phi}{e^{\hat{T}^\dagger} \hat{H} e^{\hat{T}}}{\Phi} }
+            {\mel{\Phi}{e^{\hat{T}^\dagger} e^{\hat{T}}}{\Phi}}
+\end{equation}
+Moreover, the similarity transformed operators are not Hermitian. This can be 
+showed by inference
+\begin{equation}
+    \hat{T}^\dagger_1 = \left(\sum_{ia}t^a_i\hat{a}^\dagger \hat{i} \right)^\dagger 
+        \sum_{ia} (t^a_i)^* \hat{i}^\dagger\hat{a} \neq \hat{T}_1,
+\end{equation}
+from which it follows that 
+\begin{equation}
+    \left(e^{-\hat{T}}\hat{H}e^{\hat{T}} \right)^\dagger
+        = (e^{\hat{T}})^\dagger\hat{H}(e^{-\hat{T}})^\dagger
+        = e^{\hat{T}^\dagger}\hat{H}e^{-\hat{T}^\dagger} 
+        \neq e^{-\hat{T}}\hat{H}e^{\hat{T}}.
+\end{equation}
+Variational computations as in \autoref{eq:var_hamiltionian_cc} has been attempted 
+by Cizek\cite{vcivzek1966correlation} and Fink\cite{fink1974new}.
+Regrettably, the coupled cluster exponential 
+wavefunction is not a variationally optimal wavefunction, as it give rise to
+series expansions in the 
+numerator and denominator in the expression for the variational expectation value. 
+For a general operator $\hat{O}$, we have
+\begin{equation}
+    \begin{aligned}
+        \label{eq:variational_exp_val_cc}
+        \ev*{\hat{O}}_{\text{var}} &=\frac{ \mel{\Psi}{\hat{O}}{\Psi} }{\braket{\Psi}} 
+            = \frac{ \mel{\Phi}{e^{\hat{T}^\dagger} \hat{O} e^{\hat{T}}}{\Phi} }
+                {\mel{\Phi}{e^{\hat{T}^\dagger} e^{\hat{T}}}{\Phi}} \\
+            &= \frac{
+                \mel{\Phi}{
+                [1 + \hat{T}^\dagger + \frac{1}{2!}(\hat{T}^\dagger)^2 + \frac{1}{3!}(\hat{T}^\dagger)^3 + \dots]
+                \hat{O} 
+                [1 + \hat{T}+ \frac{1}{2!}\hat{T}2 + \frac{1}{3!}\hat{T}^3 + \dots]
+                }{\Phi}
+                }{
+                \mel
+                {\Phi}
+                {
+                [1 + \hat{T}^\dagger + \frac{1}{2!}(\hat{T}^\dagger)^2 + \frac{1}{3!}(\hat{T}^\dagger)^3 + \dots]
+                [1 + \hat{T} + \frac{1}{2!}\hat{T}^2 + \frac{1}{3!}\hat{T}^3 + \dots]
+                } 
+                {\Phi}
+                }.
+    \end{aligned}
+\end{equation}
+In contrast with the expansions if the coupled cluster amplitude equations, which 
+truncates naturally after products of four $\hat{T}$ operators, the expansions for 
+$e^{\hat{\hat{T}}^\dagger}$ and $e^{\hat{T}}$ terminates only if the total excitation 
+level represented by a product of $\hat{T}$ operators exceed the number of electrons in 
+the wavefunctions. This means that the number of terms and the computational effort
+required to compute expectation values in this way is usually very high.
+
+An idea is to simply use a similar expression to the coupled cluster energy
+expression
+\begin{equation}
+    \ev*{O}_{\text{Goldstone}} = \mel{\Phi}{e^{-\hat{T}}\hat{O}e^{\hat{T}}}{\Phi}.
+\end{equation}
+The problem with this expression, as well as with \autoref{eq:variational_exp_val_cc},
+is that none of them conform with the Hellmann-Feynman theorem and the problem remains,
+the coupled cluster energy is arrived at non-variationally, and is therefore non-stationary.
+
+\subsection{The Hellmann-Feynman Theorem}
+
+The Hellmann-Feynmann\cite{feynman1939forces} theorem relates the first order change of total energy 
+with respect to a parameter to the first order change of the Hamiltonian with 
+respect to the same parameters,
+\begin{equation}
+    \frac{d E}{d\alpha}\Big\lvert_{\alpha=0} = 
+    \frac{\partial}{\partial t}\mel{\Psi_\alpha}{\hat{H}}{\Psi_\alpha},
+\end{equation}
+where $\Psi$ is the exact state, variationally determined from the Hamiltonian of the 
+system, and $\Psi_\alpha = N(\Psi + \alpha \delta\Psi)$ is varitation of this state,
+implicitly dependent on the parameter $\alpha$.
+
+\begin{tcolorbox}[width=\textwidth,colback={white},title={Proof of the Hellmann-Feynman theorem},colbacktitle=pink,coltitle=black]
+    Using the following conditions,
+    \begin{gather}
+        \hat{H}_\lambda \ket{\psi_\lambda} = E_\lambda \ket{\psi_\lambda} \\
+        \braket{\psi_\lambda} = 1,
+    \end{gather}
+    we prove 
+    \begin{equation}
+        \frac{\partial E_\lambda}{\partial \lambda} 
+            = \bra{\psi_\lambda} \frac{\partial \hat{H}}{\partial \lambda} \ket{\psi_\lambda}.
+    \end{equation}
+    Now,
+    \begin{equation}
+        E_\lambda =  \bra{\psi_\lambda} \hat{H} \ket{\psi_\lambda}
+        = \int \psi_\lambda \hat{H} \psi^*_\lambda dr
+    \end{equation}
+    whence,
+    \begin{equation}
+        \begin{aligned}
+        \frac{\partial E_\lambda}{\partial \lambda}
+        &= \int \psi_\lambda \frac{\hat{H}}{\partial\lambda} \psi^*_\lambda dr
+        + \int \frac{\psi_\lambda}{\partial\lambda} \hat{H} \psi^*_\lambda dr
+        + \int \psi_\lambda \hat{H} \frac{\psi^*_\lambda}{\partial\lambda} dr \\
+        &= \int \psi_\lambda \frac{\hat{H}}{\partial\lambda} \psi^*_\lambda dr
+        + E_\lambda \int \frac{\psi_\lambda}{\partial\lambda}  \psi^*_\lambda dr
+        + E_\lambda \int \psi_\lambda \frac{\psi^*_\lambda}{\partial\lambda} dr \\
+        &= \int \psi_\lambda \frac{\hat{H}}{\partial\lambda} \psi^*_\lambda dr
+        + E_\lambda \frac{\partial }{\partial \lambda} \braket{\psi_\lambda}
+        = \bra{\psi_\lambda} \frac{\partial \hat{H}}{\partial \lambda} \ket{\psi_\lambda}.
+        \end{aligned}
+    \end{equation}
+\end{tcolorbox}
+
+By treating an observable of the system as a perturbation of the Hamiltonian,
+\begin{equation*}
+    \hat{H}'(\alpha) = \hat{H} + \alpha\hat{V},
+\end{equation*}
+the Hellman-Feynman theorem provides us with a way to evaluate the expected value of 
+this observable if we have the exact wavefunction and energy,
+\begin{equation}
+    \frac{d E}{d\alpha}\Big\lvert_{\alpha=0}
+    = \frac{\partial}{\partial \alpha} 
+        \mel{\Psi_\alpha}{\hat{H} + \alpha\hat{O}}{\Psi_\alpha}
+    = \ev*{\hat{O}}.
+\end{equation}
+
+The problem with some computational techniques, like the coupled cluster method,
+is that the final energy is not variationally determined (non-stationary), 
+and we cannot invoke the Hellmann-Feynman theorem to simplify computation of 
+molecular properties. At first, it would appear that one would have to resort to 
+a more cumbersome computation, like the expansionn of clustes operators above 
+(\autoref{eq:variational_exp_val_cc}). But fortunately, there exists a way to 
+reformulate the energy function of a non-variational wavefunction in such a way that 
+the energy is stationary with respect to the variables of the new formulation.
+
+Consider an energy that depends on two sets of parameters. The parameter $\alpha$ which 
+describes a perturbation and the parameters $\alpha$ which describe the wavefunction. 
+The optimal energy $E(\alpha)$ is obtained by an optimised set of parameters $\vb{\lambda}^*$,
+which are innserted into the energy function $E(\alpha, \vb{\alpha})$;
+\begin{equation}
+    E(\alpha) = E(\alpha, \vb{\lambda}^*),
+\end{equation}
+the values for $\alpha$ and $\vb{\lambda}^*$ are obtained as the solution to some set of 
+equations
+\begin{equation}
+    \label{eq:nonvar_cond_HellF}
+    \vb{f}(\alpha, \vb{\lambda}^*) = 0 \quad \forall \alpha,
+\end{equation}
+For \emph{variational} wavefunctions, this condition corresponds to the stationarity requirement,
+\begin{equation}
+    \label{eq:stat_cond_HellF}
+    \frac{\partial E_{\text{var}}(\alpha, \vb{\lambda})}
+    {\partial \lambda}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)}
+    = 0 \quad \forall \alpha,
+\end{equation}
+but not for \emph{non-variational} wavefunctions. Writing out this derivative yields,
+\begin{equation}
+\label{eq:total_derivative_HellF_energy}
+\frac{dE(\alpha)}{d\alpha} 
+= \frac{dE(\alpha, \vb{\lambda})}{d\alpha}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)}
+= \frac{\partial E(\alpha, \vb{\lambda})}{\partial\alpha}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)}
++ \frac{\partial E(\alpha, \vb{\lambda})}{\partial\vb{\lambda}}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)}
+\cdot
+\frac{\partial \vb{\lambda}}{\partial}\alpha\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)}.
+\end{equation}
+For a variational wavefunction, the last term will vanish due to the stationarity condition in 
+\autoref{eq:stat_cond_HellF}. This would leave us with 
+\begin{equation}
+    \frac{d E_{\text{var}}(\alpha)}{d\alpha} 
+    = \frac{\partial E(\alpha, \vb{\lambda})}{\partial\alpha}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)},
+\end{equation}
+i.e. that the total derivative corresponds to the partial derivative. This means that if the variational 
+eneryg corresponds to an expectation value 
+$E_{\text{var}}(\alpha, \vb{\lambda}) = \mel{\vb{\lambda}}{\hat{H}(\alpha)}{\vb{\lambda}}$, and the 
+perturbed system is described by the Hamiltonian $\hat{H}(\alpha) = \hat{H} + \alpha\hat{H}$, we 
+recover the presumed expression
+\begin{equation}
+\frac{dE(\alpha, \vb{\lambda})}{d\alpha}\Big\lvert_{(\alpha = 0)},
+\end{equation}
+in accordance with first-order perturbation theory and the Hellmann-Feynmann theorem.
+
+But if we look at nonvariational energies, \autoref{eq:total_derivative_HellF_energy},
+will not simplify to just the partial derivative, since the stationarity condition does not hold. 
+What we do is replace the now nonvariational function $E(\alpha, \vb{\lambda})$ by a new function 
+$L(\alpha, \vb{\lambda}, \bar{\vb{\lambda}})$ with a stationary point 
+$(\vb{\lambda}^*, \bar{\vb{\lambda}}^*)$ that satisfies the nonvariational condition
+\autoref{eq:nonvar_cond_HellF}
+, and whose values at this point correspond to the optimals 
+energy. Inded, we apply Langrange's method of undetermined multipliers, by regarding the 
+energy $E(\alpha, \vb{\lambda})$ a an \emph{unconstrained} optimisation problem, but 
+subjects to the constraints of the variational parameters $\lambda$, which satisfy
+\autoref{eq:noncanonical_hf_eqns};
+\begin{equation}
+    L(\alpha, \vb{\lambda}, \bar{\vb{\lambda}})
+    = E(\alpha, \vb{\lambda}) + \bar{\vb{\lambda}} \cdot \vb{f}(\alpha, \vb{\lambda}).
+\end{equation}
+
+\subsection{The Lagrangian Formulation of Coupled Cluster}
+
+
 
 \section{[UNFINISHED] Generealisation in Time}
