@@ -1306,7 +1306,7 @@ For a variational wavefunction, the last term will vanish due to the stationarit
 i.e. that the total derivative corresponds to the partial derivative. This means that if the variational 
 eneryg corresponds to an expectation value 
 $E_{\text{var}}(\alpha, \vb{\lambda}) = \mel{\vb{\lambda}}{\hat{H}(\alpha)}{\vb{\lambda}}$, and the 
-perturbed system is described by the Hamiltonian $\hat{H}(\alpha) = \hat{H} + \alpha\hat{H}$, we 
+perturbed system is described by the Hamiltonian $\hat{H}(\alpha) = \hat{H} + \alpha\hat{V}$, we 
 recover the presumed expression
 \begin{equation}
 \frac{dE(\alpha, \vb{\lambda})}{d\alpha}\Big\lvert_{(\alpha = 0)},
@@ -1322,15 +1322,193 @@ $(\vb{\lambda}^*, \bar{\vb{\lambda}}^*)$ that satisfies the nonvariational condi
 , and whose values at this point correspond to the optimals 
 energy. Inded, we apply Langrange's method of undetermined multipliers, by regarding the 
 energy $E(\alpha, \vb{\lambda})$ a an \emph{unconstrained} optimisation problem, but 
-subjects to the constraints of the variational parameters $\lambda$, which satisfy
+subject to the constraints of the variational parameters $\lambda$, which satisfy
 \autoref{eq:noncanonical_hf_eqns};
 \begin{equation}
+    \label{eq:langrange_method}
     L(\alpha, \vb{\lambda}, \bar{\vb{\lambda}})
     = E(\alpha, \vb{\lambda}) + \bar{\vb{\lambda}} \cdot \vb{f}(\alpha, \vb{\lambda}).
 \end{equation}
+A necessary condition for the optimum Lagrange multipliers $\bar{\vb{\lambda}}^*$ to 
+be unique is that the the Jacobian of $\vb{f}$, 
+$\mathscr{J} \equiv \partial \vb{f}(\alpha, \vb{\lambda})/\partial \lambda$ is non-singular 
+and invertible.
 
 \subsection{The Lagrangian Formulation of Coupled Cluster}
 
+As we outlined in the previous section, the solution to making the coupled cluster 
+theory into a variational theory is to find a set of equations which are zero for a set
+of parameters (\autoref{eq:nonvar_cond_HellF}). These parameters should in turn provide the optimal energy by insertion 
+into the expression for energy. Luckily, Helgaker and 
+Jørgensen\cite{helgaker1988analytical,helgaker1989configuration} had the insight to 
+realise that we are already given such a set of parameters and equations in the 
+formulation of coupled cluster, namely the amplitudes and the amplitude equations
+respectively. The Hellmann-Feynman theorem will be baked into the very definition 
+of such a expectation value functional,
+\begin{equation}
+    \ev*{\hat{O}}_{\text{H-F}} 
+        = \mathscr{L}_{\text{O}}(\alpha^*, \vb{\lambda}^*, \bar{\vb{\lambda}}^*)
+        = E(\alpha^*, \vb{\lambda}^*, \bar{\vb{\lambda}}^*)
+        + \bar{\vb{\lambda}}^* \cdot \vb{f}(\alpha^*, \vb{\lambda}^*).
+\end{equation}
+This equation is essentially a restatement of \autoref{eq:langrange_method}, with  
+the optimal parameters.
+
+More specifically, we simplify the notation in some measure and state the coupled
+cluster energy Lagrangian,
+\begin{equation}
+    \label{eq:cc_energy_lagrangian}
+    \mathscr{L}_{\hat{H}}(t, \lambda) 
+        = \mel{\Phi}{e^{-\hat{T}}\hat{H}e^{\hat{T}}}{\Phi}
+        + \sum_\mu \lambda_\mu \mel{\Phi}{X_\mu^\dagger e^{-\hat{T}} \hat{H} e^{\hat{T}}}{\Phi}
+        = \mel{\Phi}{(1 + \Lambda)e^{-\hat{T}}\hat{H}e^{\hat{T}} }{\Phi},
+\end{equation}
+where we have introduced $\Lambda = \sum_\mu X^\dagger_\mu$. Here, $X^\dagger_\mu$ is a
+general relaxation operator, for instance $\hat{X}_1^\dagger = \{\hat{i}\hat{a}^\dagger\}$.
+So $\Lambda$ written out is 
+\begin{equation}
+    \Lambda = \sum_{ia}\lambda^i_a \hat{i}^\dagger 
+    + \frac{1}{2!^2}\sum_{ijab} 
+        \lambda^{ij}_{ab} \hat{i}^\dagger \hat{a} \hat{j}^\dagger \hat{a}
+    + \dots
+\end{equation}
+
+The coupled cluster Lagrangian in \autoref{eq:cc_energy_lagrangian} can be rewritten 
+with the use of density operators,
+\begin{equation}
+    \mathscr{L}_{\hat{H}}(t, \lambda) = \tr\{\hat{H}\hat{\rho}\}, \quad
+    \hat{\rho} = e^{\hat{T}}\outerproduct{\Phi}(1 + \Lambda)e^{-\hat{T}},
+\end{equation}
+in a pure state description. We check to see if the attributes of the density operator 
+endures,
+\begin{align*}
+    \hat{\rho}^2 &= 
+        e^{\hat{T}}\outerproduct{\Phi}(1 + \Lambda)e^{-\hat{T}}
+        e^{\hat{T}}\outerproduct{\Phi}(1 + \Lambda)e^{-\hat{T}} \\
+        &= 
+        e^{\hat{T}}\outerproduct{\Phi}(1 + \Lambda)e^{-\hat{T}}
+        + \cancelto{0}{e^{\hat{T}}\ket{\Phi}
+        \mel{\Phi}{\Lambda}{\Phi}
+        \bra{\Phi}e^{-\hat{T}}} 
+        = \hat{\rho} \\
+    \Tr{\hat{\rho}} &= \sum_{pq} \bra{\phi_p}e^{\hat{T}}\outerproduct{\phi_q}(1 + \Lambda)e^{-\hat{T}} \ket{\phi_p}
+    = \sum_{pq} \delta_{pq} = 1
+\end{align*}
+NOT ENTIRELY SURE THAT THE LAST ONE IS GOOD. We see however, that another problem has 
+presented itself, as the density operator is non-Hermitian. This leads us to the 
+\emph{bivariational},
+Hellmann-Feynman conforming framework developed by 
+Arponen\cite{arponen1983variational}.
+
+
+\subsection{The Bivariational Principle}
+
+Arponen approached the coupled cluster problem by employing a very general form 
+of the variational principle callsed the bivariational principle. Letting $\hat{H}$,
+be a (possibly non-Hermitian) operator over Hilbert space $\mathcal{H}$, the bivariational 
+expectation functional is defined by 
+
+\begin{equation}
+    \label{eq:bivariational_principle}
+    \mathscr{E}_{\hat{H}} : \mathcal{H}' \times \mathcal{H} \to \mathbb{C},
+    \quad
+    \mathscr{E}_{\hat{H}}(\tilde{\Psi}, \Psi) 
+        = \frac{\mel{\tilde{\Psi}}{\hat{H}}{\Psi}}{\braket{\tilde{\Psi}}{\Psi}}
+        = \frac{\tr{\hat{H}\hat{\rho}}}{\tr{\rho}}.
+\end{equation}
+The main difference from the traditional and usual variational principle is that 
+$\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$ are treated as independent elements of the
+Hilbert space, and $\hat{\rho} = \ket{\Psi}\bra*{\tilde{\Psi}}$. In the usual 
+variational principle, we have 
+$\bra*{\tilde{\Psi}} \equiv \ket{\Psi}$, which are \emph{not} independent. Nevertheless,
+since the Hamiltonian $\hat{H}$ is Hermitian, $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$
+can be treated 
+independent in the derivations of stationary conditions, which are that the left- 
+and right eigenvalues of $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$, repectably, must be
+the same, id est 
+\begin{equation}
+    \hat{H}\ket{\Psi} = E\ket{\Psi}, \quad \bra*{\tilde{\Psi}}\hat{H} = \bra*{\tilde{\Psi}}E.
+\end{equation}
+Here $E = \mathcal{E}_{\hat{H}}(\tilde{\Psi}, \Psi)$ is the value at the stationary point.
+
+We transition to coupled cluster theory by inserting the coupled cluster exponential 
+wave functions, $\ket{\Psi} = e^{\hat{T}}\ket{\Phi}$ and 
+$\bra{\tilde{\Psi}} = \bra*{\Phi}e^{\tilde{T}}$, where 
+$\tilde{T} = \tilde{t}X^\dagger$ are some general relaxation operator. The 
+bivariational functional becomes 
+\begin{equation}
+    \label{eq:bivariational_principle_cc}
+    \mathscr{E}_{\hat{H}} 
+    = \frac{\mel{\Phi}{e^{\tilde{T}}\hat{H}e^{\hat{T}}}{\Phi}}
+        {\mel{\Phi}{e^{\tilde{T}}e^{\hat{T}}}{\Phi}}
+\end{equation}
+Varying this functional over all untruncated excitation and relaxation operators,
+$\hat{T}$ and $\tilde{T}$, is the foundation of variational coupled cluster
+theory\cite{bartlett1988expectation}, which is equivalent to full configuration 
+interaction within the given single-particle basis set.
+
+Now we wish to show that Arponen's framework corresponds to that of Helgakger and 
+Jørgensen. We simplfy the expression by performing a variable change 
+$(\hat{T}, \tilde{T}) \to (\hat{T}, \hat{S})$, where $S$ is a new relaxation operator.
+We start by introducing 
+\begin{equation}
+    \bra{\omega} = \frac{\bra*{\tilde{\Psi}}e^{\hat{T}}}{\braket*{\tilde{\Psi}}{\Psi}},
+\end{equation}
+which satisfies $\braket{\omega}{\Phi} = 1$, implying that there must exist an operator
+$\hat{S} = sX^\dagger$, such that $\bra{\omega} = \bra{\Phi}e^{\hat{S}}$. Then we 
+can write,
+\begin{equation}
+    \begin{gathered}
+        \frac{\bra*{\tilde{\Psi}}e^{\hat{T}}}{\braket*{\tilde{\Psi}}{\Psi}}
+        = \bra{\Psi} e^{\hat{S}},
+        \to \bra*{\tilde{\Psi}} 
+        = \braket*{\tilde{\Psi}}{\Psi}\bra{\Phi}e^{\hat{S}}e^{-\hat{T}}.
+    \end{gathered}
+\end{equation}
+This enables us to rewrite the bivariational principle (\autoref{eq:bivariational_principle_cc})
+to 
+\begin{equation}
+    \label{eq:bivar_lagrang_equal}
+    \mathscr{E}_{\hat{H}} = \mel{\Phi}{e^{\hat{S}}e^{-\hat{T}}\hat{H}e^{\hat{T}}}{\Phi},
+\end{equation} 
+which is an exact functional if $\hat{T}$ and $\hat{S}$ are not truncated. Comparing this 
+expression to the coupled cluster Lagrangian in \autoref{eq:cc_energy_lagrangian}, we can only
+conlude that our seemingly serendipitous algebra acrobatics has revealed that
+$e^{\hat{S}} = 1 + \Lambda$. Truthfully, we have strong indication the coupled cluster bivariational 
+functional (\autoref{eq:bivariational_principle_cc}) is the same as the the 
+coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}). As a sidenote, pruning 
+the expression in \autoref{eq:bivar_lagrang_equal} to only include single and double 
+excitations will yield Arponen's \emph{extended coupled cluster} (ECC) method.
+
+
+\subsection{[UNFINISHED] The Lambda Equations}
+
+First order conditions of the coupled cluster energy Lagrangian in
+\autoref{eq:cc_energy_lagrangian} gives us a new set of amplitude equations,
+\begin{align}
+    \frac{\partial}{\partial \lambda_\mu} \mathscr{L}(t, \lambda)
+    &= \mel{\Phi_{X_\mu}}{e^{-\hat{T}}\hat{H}e^{\hat{T}} }{\Phi} = 0 \\
+    \frac{\partial}{\partial t_\mu} \mathscr{L}(t, \lambda)
+    &= \mel{\Phi}{(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_\mu]e^{\hat{T}} }{\Phi} = 0.
+\end{align}
+Under constrained optimisation all partial derivatives vanish at the same point,
+\begin{equation}
+    \frac{\partial \mathscr{L}}{\partial \lambda_\mu}\Big\lvert_{t=t^*} = 0,
+    \quad
+    \frac{\partial \mathscr{L}}{\partial t_\mu}\Big\lvert_{(t,\lambda)=(t^*,\lambda^*)} = 0,
+    \quad \forall X_\mu.
+\end{equation}
 
 
 \section{[UNFINISHED] Generealisation in Time}
+
+We now define a time-dependent generalisation of the bivariational principle
+(\autoref{eq:bivariational_principle}). This is similar to the usual time-dependent 
+action functional and the time-dependent Schrödinger equation can be recovered from 
+it,
+\begin{equation}
+    \mathcal{S}[\tilde{\Psi}(\cdot), \Psi(\cdot)]
+        = \int_0^T dt \frac{\mel{\tilde{\Psi}(t)}{\left(
+            i\hbar \frac{\partial}{\partial t} - \hat{H}
+        \right)}{\Psi(t)}}{\braket{\tilde{\Psi}(t)}{\Psi(t)}}.
+\end{equation}
