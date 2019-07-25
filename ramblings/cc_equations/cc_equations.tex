@@ -1,8 +1,6 @@
-\chapter{Coupled Cluster Equations}
+\chapter{CCSD Equations}
 
-\section{CCSD}
-
-\subsection{Singly excited $\tau$-amplitude equation}
+\paragraph{Singly excited $\tau$-amplitude equation}
 
 \begin{gather*}
 f^{a}_{c} {t_1}^{c}_{i} 
@@ -22,7 +20,7 @@ f^{a}_{c} {t_1}^{c}_{i}
 = 0
 \end{gather*}
 
-\subsection{Doubly excited $\tau$-amplitude equation}
+\paragraph{Doubly excited $\tau$-amplitude equation}
 
 \begin{gather*}
 \frac{1}{2}{t_2}^{AB}_{ij} u^{ij}_{IJ}
@@ -60,7 +58,7 @@ f^{a}_{c} {t_1}^{c}_{i}
 
 
 
-\subsection{Single-excited $\lambda$-amplitude equation}
+\paragraph{Single-excited $\lambda$-amplitude equation}
 
 \begin{gather*}
 f^{a}_{A} {\lambda_1}^{I}_{a}
@@ -110,7 +108,7 @@ f^{a}_{A} {\lambda_1}^{I}_{a}
 + f^{I}_{A} = 0
 \end{gather*}
 
-\subsection{Doubly excited $\lambda$-amplitude equation}
+\paragraph{Doubly excited $\lambda$-amplitude equation}
 
 \begin{gather*}
 + \frac{1}{2}{\lambda_2}^{IJ}_{ab} u^{ab}_{AB}
@@ -147,189 +145,189 @@ f^{a}_{A} {\lambda_1}^{I}_{a}
 + u^{IJ}_{AB} = 0
 \end{gather*}
 
-\section{CCSDT}
-
-\subsection{Triply excited $\tau$-amplitude equation}
-
-\begin{gather*}
-f^{C}_{a} {t_3}^{ABa}_{IJK}
-+ {t_2}^{AB}_{Ki} u^{Ci}_{IJ}
-+ {t_3}^{ABa}_{IJi} u^{Ci}_{Ka}
-+ \frac{1}{2}{t_3}^{ABC}_{Kij} u^{ij}_{IJ}
-+ \frac{1}{2}{t_3}^{Cab}_{IJK} u^{AB}_{ab}
-- f^{i}_{K} {t_3}^{ABC}_{IJi} \\
-- {t_2}^{Ca}_{IJ} u^{AB}_{Ka}
-+ f^{A}_{a} {t_3}^{BCa}_{IJK} P(AB)
-+ f^{i}_{a} {t_2}^{AB}_{Ki} {t_2}^{Ca}_{IJ}
-+ {t_1}^{a}_{K} {t_3}^{ABb}_{IJi} u^{Ci}_{ab}
-+ {t_1}^{a}_{i} {t_3}^{ABC}_{IJj} u^{ij}_{Ka}
-+ {t_2}^{AB}_{Ii} u^{Ci}_{JK} P(IJ) \\
-+ {t_2}^{Ca}_{IK} u^{AB}_{Ja} P(IJ)
-+ {t_2}^{Ca}_{Ki} {t_3}^{ABb}_{IJj} u^{ij}_{ab}
-+ \frac{1}{2}{t_2}^{ab}_{IJ} {t_2}^{AB}_{Ki} u^{Ci}_{ab}
-+ \frac{1}{2}{t_2}^{AB}_{Ki} {t_3}^{Cab}_{IJj} u^{ij}_{ab}
-+ \frac{1}{2}{t_2}^{Ca}_{IJ} {t_3}^{ABb}_{Kij} u^{ij}_{ab} \\
-+ \frac{1}{2}{t_2}^{Ca}_{ij} {t_3}^{ABb}_{IJK} u^{ij}_{ab}
-+ \frac{1}{2}{t_2}^{ab}_{Ki} {t_3}^{ABC}_{IJj} u^{ij}_{ab}
-+ \frac{1}{2}{t_3}^{ABC}_{Iij} u^{ij}_{JK} P(IJ)
-+ \frac{1}{2}{t_3}^{Aab}_{IJK} u^{BC}_{ab} P(AB)
-- f^{i}_{I} {t_3}^{ABC}_{JKi} P(IJ) \\
-- f^{i}_{a} {t_1}^{C}_{i} {t_3}^{ABa}_{IJK}
-- f^{i}_{a} {t_1}^{a}_{K} {t_3}^{ABC}_{IJi}
-- {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{IJ}
-- {t_1}^{C}_{i} {t_3}^{ABa}_{IJj} u^{ij}_{Ka}
-- {t_1}^{a}_{K} {t_2}^{Cb}_{IJ} u^{AB}_{ab}
-- {t_1}^{a}_{i} {t_3}^{ABb}_{IJK} u^{Ci}_{ab} \\
-- {t_2}^{AC}_{Ki} u^{Bi}_{IJ} P(AB)
-- {t_2}^{Aa}_{IJ} u^{BC}_{Ka} P(AB)
-- {t_3}^{ABa}_{IKi} u^{Ci}_{Ja} P(IJ)
-- {t_3}^{ACa}_{IJi} u^{Bi}_{Ka} P(AB)
-- \frac{1}{2}{t_2}^{AB}_{ij} {t_2}^{Ca}_{IJ} u^{ij}_{Ka} \\
-+ \frac{1}{2}{t_2}^{AB}_{ij} {t_3}^{Cab}_{IJK} u^{ij}_{ab}
-+ \frac{1}{2}{t_2}^{ab}_{IJ} {t_3}^{ABC}_{Kij} u^{ij}_{ab}
-+ f^{i}_{a} {t_2}^{AB}_{Ii} {t_2}^{Ca}_{JK} P(IJ)
-+ f^{i}_{a} {t_2}^{Aa}_{IJ} {t_2}^{BC}_{Ki} P(AB)
-+ {t_1}^{A}_{i} {t_2}^{Ba}_{IJ} u^{Ci}_{Ka} P(AB) \\
-+ {t_1}^{C}_{i} {t_2}^{Aa}_{IJ} u^{Bi}_{Ka} P(AB)
-+ {t_1}^{C}_{i} {t_3}^{ABa}_{IKj} u^{ij}_{Ja} P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{b}_{J} {t_2}^{AB}_{Ki} u^{Ci}_{ab}
-+ {t_1}^{a}_{I} {t_2}^{AB}_{Ji} u^{Ci}_{Ka} P(IJ)
-+ {t_1}^{a}_{I} {t_3}^{ABb}_{JKi} u^{Ci}_{ab} P(IJ) \\
-+ {t_1}^{a}_{K} {t_2}^{AB}_{Ii} u^{Ci}_{Ja} P(IJ)
-+ {t_1}^{a}_{i} {t_2}^{AB}_{Kj} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
-+ {t_1}^{a}_{i} {t_3}^{ACb}_{IJK} u^{Bi}_{ab} P(AB)
-+ {t_2}^{AB}_{Ii} {t_2}^{Ca}_{Jj} u^{ij}_{Ka} P(IJ) \\
-+ {t_2}^{AB}_{Ki} {t_2}^{Ca}_{Ij} u^{ij}_{Ja} P(IJ)
-+ {t_2}^{AC}_{Ii} {t_2}^{Ba}_{Kj} u^{ij}_{Ja} P(AB)
-+ {t_2}^{AC}_{Ji} {t_2}^{Ba}_{Ij} u^{ij}_{Ka} P(AB)
-+ {t_2}^{AC}_{Ki} {t_2}^{Ba}_{Jj} u^{ij}_{Ia} P(AB) \\
-+ {t_2}^{Aa}_{IJ} {t_2}^{Cb}_{Ki} u^{Bi}_{ab} P(AB)
-+ {t_2}^{Aa}_{IK} u^{BC}_{Ja} P(AB) P(IJ)
-+ {t_2}^{Aa}_{Ki} {t_2}^{Cb}_{IJ} u^{Bi}_{ab} P(AB)
-+ {t_2}^{Aa}_{Ki} {t_3}^{BCb}_{IJj} u^{ij}_{ab} P(AB) \\
-+ {t_2}^{Ca}_{Ii} {t_3}^{ABb}_{JKj} u^{ij}_{ab} P(IJ)
-+ {t_3}^{ACa}_{IKi} u^{Bi}_{Ja} P(AB) P(IJ)
-+ \frac{1}{2}{t_1}^{A}_{i} {t_1}^{B}_{j} {t_3}^{Cab}_{IJK} u^{ij}_{ab}
-+ \frac{1}{2}{t_1}^{A}_{i} {t_3}^{Cab}_{IJK} u^{Bi}_{ab} P(AB) \\
-+ \frac{1}{2}{t_1}^{a}_{I} {t_1}^{b}_{J} {t_3}^{ABC}_{Kij} u^{ij}_{ab}
-+ \frac{1}{2}{t_1}^{a}_{I} {t_3}^{ABC}_{Jij} u^{ij}_{Ka} P(IJ)
-+ \frac{1}{2}{t_1}^{a}_{K} {t_3}^{ABC}_{Iij} u^{ij}_{Ja} P(IJ)
-+ \frac{1}{2}{t_2}^{ab}_{JK} {t_2}^{AB}_{Ii} u^{Ci}_{ab} P(IJ) \\
-+ \frac{1}{2}{t_2}^{AB}_{Ii} {t_3}^{Cab}_{JKj} u^{ij}_{ab} P(IJ)
-+ \frac{1}{2}{t_2}^{AB}_{ij} {t_2}^{Ca}_{IK} u^{ij}_{Ja} P(IJ)
-+ \frac{1}{2}{t_2}^{AC}_{ij} {t_2}^{Ba}_{IJ} u^{ij}_{Ka} P(AB)
-+ \frac{1}{2}{t_2}^{Aa}_{IJ} {t_3}^{BCb}_{Kij} u^{ij}_{ab} P(AB) \\
-+ \frac{1}{2}{t_2}^{Aa}_{ij} {t_3}^{BCb}_{IJK} u^{ij}_{ab} P(AB)
-+ \frac{1}{2}{t_2}^{ab}_{Ii} {t_3}^{ABC}_{JKj} u^{ij}_{ab} P(IJ)
-- f^{i}_{a} {t_1}^{A}_{i} {t_3}^{BCa}_{IJK} P(AB)
-- f^{i}_{a} {t_1}^{a}_{I} {t_3}^{ABC}_{JKi} P(IJ) \\
-- {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Ca}_{IJ} u^{ij}_{Ka}
-- {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{IJ} P(AB)
-- {t_1}^{A}_{i} {t_2}^{Ca}_{IJ} u^{Bi}_{Ka} P(AB)
-- {t_1}^{A}_{i} {t_3}^{BCa}_{IJj} u^{ij}_{Ka} P(AB)
-- {t_1}^{a}_{K} {t_1}^{C}_{i} {t_3}^{ABb}_{IJj} u^{ij}_{ab} \\
-- {t_1}^{C}_{i} {t_2}^{AB}_{Ij} u^{ij}_{JK} P(IJ)
-- {t_1}^{a}_{i} {t_1}^{C}_{j} {t_3}^{ABb}_{IJK} u^{ij}_{ab}
-- {t_1}^{a}_{I} {t_2}^{AB}_{Ki} u^{Ci}_{Ja} P(IJ)
-- {t_1}^{a}_{I} {t_2}^{Cb}_{JK} u^{AB}_{ab} P(IJ)
-- {t_1}^{a}_{K} {t_2}^{Ab}_{IJ} u^{BC}_{ab} P(AB) \\
-- {t_1}^{a}_{K} {t_3}^{ACb}_{IJi} u^{Bi}_{ab} P(AB)
-- {t_1}^{a}_{i} {t_1}^{b}_{K} {t_3}^{ABC}_{IJj} u^{ij}_{ab}
-- {t_1}^{a}_{i} {t_3}^{ABC}_{IKj} u^{ij}_{Ja} P(IJ)
-- {t_2}^{AB}_{Ii} {t_2}^{Ca}_{Kj} u^{ij}_{Ja} P(IJ) \\
-- {t_2}^{AC}_{Ii} u^{Bi}_{JK} P(AB) P(IJ)
-- {t_2}^{Aa}_{IJ} {t_2}^{Bb}_{Ki} u^{Ci}_{ab} P(AB)
-- {t_2}^{Aa}_{Ii} {t_2}^{BC}_{Kj} u^{ij}_{Ja} P(AB)
-- {t_2}^{Aa}_{Ji} {t_2}^{BC}_{Ij} u^{ij}_{Ka} P(AB) \\
-- {t_2}^{Aa}_{Ki} {t_2}^{BC}_{Jj} u^{ij}_{Ia} P(AB)
-- \frac{1}{2}{t_1}^{A}_{i} {t_3}^{Bab}_{IJK} u^{Ci}_{ab} P(AB)
-- \frac{1}{2}{t_1}^{C}_{i} {t_2}^{ab}_{IJ} {t_2}^{AB}_{Kj} u^{ij}_{ab}
-- \frac{1}{2}{t_1}^{C}_{i} {t_3}^{Aab}_{IJK} u^{Bi}_{ab} P(AB) \\
-- \frac{1}{2}{t_1}^{a}_{I} {t_3}^{ABC}_{Kij} u^{ij}_{Ja} P(IJ)
-- \frac{1}{2}{t_1}^{a}_{K} {t_2}^{AB}_{ij} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
-- \frac{1}{2}{t_2}^{ab}_{IJ} {t_2}^{AC}_{Ki} u^{Bi}_{ab} P(AB)
-- \frac{1}{2}{t_2}^{AC}_{Ki} {t_3}^{Bab}_{IJj} u^{ij}_{ab} P(AB) \\
-- \frac{1}{2}{t_2}^{Ca}_{IK} {t_3}^{ABb}_{Jij} u^{ij}_{ab} P(IJ)
-- \frac{1}{4}{t_2}^{AC}_{ij} {t_3}^{Bab}_{IJK} u^{ij}_{ab} P(AB)
-- \frac{1}{4}{t_2}^{ab}_{IK} {t_3}^{ABC}_{Jij} u^{ij}_{ab} P(IJ)
-+ {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Ca}_{IK} u^{ij}_{Ja} P(IJ) \\
-+ {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Ba}_{IJ} u^{ij}_{Ka} P(AB)
-+ {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{Bb}_{IJ} u^{Ci}_{ab} P(AB)
-+ {t_1}^{A}_{i} {t_2}^{Ba}_{IJ} {t_2}^{Cb}_{Kj} u^{ij}_{ab} P(AB)
-+ {t_1}^{A}_{i} {t_2}^{Ba}_{Kj} {t_2}^{Cb}_{IJ} u^{ij}_{ab} P(AB) \\
-+ {t_1}^{A}_{i} {t_2}^{Ca}_{IK} u^{Bi}_{Ja} P(AB) P(IJ)
-+ {t_1}^{A}_{i} {t_3}^{BCa}_{IKj} u^{ij}_{Ja} P(AB) P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{Ja} P(IJ)
-+ {t_1}^{a}_{K} {t_1}^{C}_{i} {t_2}^{Ab}_{IJ} u^{Bi}_{ab} P(AB) \\
-+ {t_1}^{C}_{i} {t_2}^{Aa}_{JK} {t_2}^{Bb}_{Ij} u^{ij}_{ab} P(AB)
-+ {t_1}^{C}_{i} {t_2}^{Aa}_{Kj} {t_2}^{Bb}_{IJ} u^{ij}_{ab} P(AB)
-+ {t_1}^{a}_{I} {t_2}^{AB}_{Ji} {t_2}^{Cb}_{Kj} u^{ij}_{ab} P(IJ)
-+ {t_1}^{a}_{I} {t_2}^{AC}_{Ki} u^{Bi}_{Ja} P(AB) P(IJ) \\
-+ {t_1}^{a}_{J} {t_2}^{AC}_{Ii} {t_2}^{Bb}_{Kj} u^{ij}_{ab} P(AB)
-+ {t_1}^{a}_{K} {t_2}^{AB}_{Ii} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(IJ)
-+ {t_1}^{a}_{K} {t_2}^{AC}_{Ji} {t_2}^{Bb}_{Ij} u^{ij}_{ab} P(AB)
-+ {t_1}^{a}_{i} {t_2}^{AB}_{Ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ) \\
-+ {t_1}^{a}_{i} {t_2}^{Ab}_{IJ} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
-+ {t_2}^{Aa}_{IK} {t_2}^{Bb}_{Ji} u^{Ci}_{ab} P(AB) P(IJ)
-+ {t_2}^{Aa}_{Ii} {t_2}^{Cb}_{JK} u^{Bi}_{ab} P(AB) P(IJ) \\
-+ {t_2}^{Aa}_{Ii} {t_3}^{BCb}_{JKj} u^{ij}_{ab} P(AB) P(IJ)
-+ \frac{1}{2}{t_1}^{a}_{I} {t_2}^{AC}_{ij} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB)
-+ \frac{1}{2}{t_1}^{a}_{J} {t_2}^{Ab}_{IK} {t_2}^{BC}_{ij} u^{ij}_{ab} P(AB) \\
-- f^{i}_{a} {t_2}^{Aa}_{IK} {t_2}^{BC}_{Ji} P(AB) P(IJ)
-- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
-- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{Cb}_{IJ} u^{Bi}_{ab} P(AB)
-- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_3}^{BCb}_{IJj} u^{ij}_{ab} P(AB) \\
-- {t_1}^{A}_{i} {t_2}^{BC}_{Ij} u^{ij}_{JK} P(AB) P(IJ)
-- {t_1}^{A}_{i} {t_2}^{Ba}_{IK} u^{Ci}_{Ja} P(AB) P(IJ)
-- {t_1}^{a}_{i} {t_1}^{A}_{j} {t_3}^{BCb}_{IJK} u^{ij}_{ab} P(AB) \\
-- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{ab}
-- {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{AB}_{Jj} u^{ij}_{Ka} P(IJ)
-- {t_1}^{a}_{I} {t_1}^{C}_{i} {t_3}^{ABb}_{JKj} u^{ij}_{ab} P(IJ)
-- {t_1}^{a}_{K} {t_1}^{C}_{i} {t_2}^{AB}_{Ij} u^{ij}_{Ja} P(IJ) \\
-- {t_1}^{C}_{i} {t_2}^{Aa}_{IK} u^{Bi}_{Ja} P(AB) P(IJ)
-- {t_1}^{C}_{i} {t_2}^{Aa}_{Jj} {t_2}^{Bb}_{IK} u^{ij}_{ab} P(AB)
-- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_2}^{AC}_{Ki} u^{Bi}_{ab} P(AB)
-- {t_1}^{a}_{I} {t_1}^{b}_{K} {t_2}^{AB}_{Ji} u^{Ci}_{ab} P(IJ) \\
-- {t_1}^{a}_{I} {t_2}^{AB}_{Ki} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(IJ)
-- {t_1}^{a}_{I} {t_2}^{AC}_{Ji} u^{Bi}_{Ka} P(AB) P(IJ)
-- {t_1}^{a}_{I} {t_2}^{Ab}_{JK} u^{BC}_{ab} P(AB) P(IJ)
-- {t_1}^{a}_{I} {t_2}^{Ab}_{Ki} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB) \\
-- {t_1}^{a}_{I} {t_3}^{ACb}_{JKi} u^{Bi}_{ab} P(AB) P(IJ)
-- {t_1}^{a}_{K} {t_2}^{AC}_{Ii} u^{Bi}_{Ja} P(AB) P(IJ)
-- {t_1}^{a}_{K} {t_2}^{Ab}_{Ji} {t_2}^{BC}_{Ij} u^{ij}_{ab} P(AB)
-- {t_1}^{a}_{i} {t_1}^{b}_{I} {t_3}^{ABC}_{JKj} u^{ij}_{ab} P(IJ) \\
-- {t_1}^{a}_{i} {t_2}^{AC}_{Ij} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB)
-- {t_1}^{a}_{i} {t_2}^{Ab}_{IK} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB)
-- {t_2}^{Aa}_{IK} {t_2}^{Cb}_{Ji} u^{Bi}_{ab} P(AB) P(IJ)
-- \frac{1}{2}{t_1}^{A}_{i} {t_1}^{C}_{j} {t_3}^{Bab}_{IJK} u^{ij}_{ab} P(AB) \\
-- \frac{1}{2}{t_1}^{A}_{i} {t_2}^{ab}_{IJ} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
-- \frac{1}{2}{t_1}^{C}_{i} {t_2}^{ab}_{JK} {t_2}^{AB}_{Ij} u^{ij}_{ab} P(IJ)
-- \frac{1}{2}{t_1}^{a}_{I} {t_1}^{b}_{K} {t_3}^{ABC}_{Jij} u^{ij}_{ab} P(IJ)
-- \frac{1}{2}{t_1}^{a}_{I} {t_2}^{AB}_{ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ) \\
-- \frac{1}{2}{t_1}^{a}_{K} {t_2}^{Ab}_{IJ} {t_2}^{BC}_{ij} u^{ij}_{ab} P(AB)
-- \frac{1}{2}{t_2}^{ab}_{JK} {t_2}^{AC}_{Ii} u^{Bi}_{ab} P(AB) P(IJ)
-- \frac{1}{2}{t_2}^{AC}_{Ii} {t_3}^{Bab}_{JKj} u^{ij}_{ab} P(AB) P(IJ) \\
-- \frac{1}{2}{t_2}^{AC}_{ij} {t_2}^{Ba}_{IK} u^{ij}_{Ja} P(AB) P(IJ)
-- \frac{1}{2}{t_2}^{Aa}_{IK} {t_3}^{BCb}_{Jij} u^{ij}_{ab} P(AB) P(IJ)
-+ {t_1}^{a}_{K} {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Bb}_{IJ} u^{ij}_{ab} P(AB) \\
-+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{Ja} P(AB) P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{Bb}_{JK} u^{Ci}_{ab} P(AB) P(IJ)
-+ {t_1}^{A}_{i} {t_2}^{Ba}_{Ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(AB) P(IJ) \\
-+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_1}^{C}_{i} {t_2}^{AB}_{Jj} u^{ij}_{ab} P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{Ab}_{JK} u^{Bi}_{ab} P(AB) P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_2}^{AC}_{Ji} u^{Bi}_{ab} P(AB) P(IJ) \\
-+ {t_1}^{a}_{I} {t_2}^{AC}_{Ki} {t_2}^{Bb}_{Jj} u^{ij}_{ab} P(AB) P(IJ)
-- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ)
-- {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Ba}_{IK} u^{ij}_{Ja} P(AB) P(IJ) \\
-- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
-- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{BC}_{Jj} u^{ij}_{Ka} P(AB) P(IJ)
-- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{Cb}_{JK} u^{Bi}_{ab} P(AB) P(IJ) \\
-- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_3}^{BCb}_{JKj} u^{ij}_{ab} P(AB) P(IJ)
-- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{BC}_{Ij} u^{ij}_{Ja} P(AB) P(IJ)
-- {t_1}^{A}_{i} {t_2}^{Ba}_{IK} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(AB) P(IJ) \\
-- \frac{1}{2}{t_1}^{A}_{i} {t_2}^{ab}_{JK} {t_2}^{BC}_{Ij} u^{ij}_{ab} P(AB) P(IJ)
-+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB) P(IJ) \\
-+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_1}^{A}_{i} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB) P(IJ)
-= 0
-\end{gather*}
+%\section{CCSDT}
+%
+%\paragraph{Triply excited $\tau$-amplitude equation}
+%
+%\begin{gather*}
+%f^{C}_{a} {t_3}^{ABa}_{IJK}
+%+ {t_2}^{AB}_{Ki} u^{Ci}_{IJ}
+%+ {t_3}^{ABa}_{IJi} u^{Ci}_{Ka}
+%+ \frac{1}{2}{t_3}^{ABC}_{Kij} u^{ij}_{IJ}
+%+ \frac{1}{2}{t_3}^{Cab}_{IJK} u^{AB}_{ab}
+%- f^{i}_{K} {t_3}^{ABC}_{IJi} \\
+%- {t_2}^{Ca}_{IJ} u^{AB}_{Ka}
+%+ f^{A}_{a} {t_3}^{BCa}_{IJK} P(AB)
+%+ f^{i}_{a} {t_2}^{AB}_{Ki} {t_2}^{Ca}_{IJ}
+%+ {t_1}^{a}_{K} {t_3}^{ABb}_{IJi} u^{Ci}_{ab}
+%+ {t_1}^{a}_{i} {t_3}^{ABC}_{IJj} u^{ij}_{Ka}
+%+ {t_2}^{AB}_{Ii} u^{Ci}_{JK} P(IJ) \\
+%+ {t_2}^{Ca}_{IK} u^{AB}_{Ja} P(IJ)
+%+ {t_2}^{Ca}_{Ki} {t_3}^{ABb}_{IJj} u^{ij}_{ab}
+%+ \frac{1}{2}{t_2}^{ab}_{IJ} {t_2}^{AB}_{Ki} u^{Ci}_{ab}
+%+ \frac{1}{2}{t_2}^{AB}_{Ki} {t_3}^{Cab}_{IJj} u^{ij}_{ab}
+%+ \frac{1}{2}{t_2}^{Ca}_{IJ} {t_3}^{ABb}_{Kij} u^{ij}_{ab} \\
+%+ \frac{1}{2}{t_2}^{Ca}_{ij} {t_3}^{ABb}_{IJK} u^{ij}_{ab}
+%+ \frac{1}{2}{t_2}^{ab}_{Ki} {t_3}^{ABC}_{IJj} u^{ij}_{ab}
+%+ \frac{1}{2}{t_3}^{ABC}_{Iij} u^{ij}_{JK} P(IJ)
+%+ \frac{1}{2}{t_3}^{Aab}_{IJK} u^{BC}_{ab} P(AB)
+%- f^{i}_{I} {t_3}^{ABC}_{JKi} P(IJ) \\
+%- f^{i}_{a} {t_1}^{C}_{i} {t_3}^{ABa}_{IJK}
+%- f^{i}_{a} {t_1}^{a}_{K} {t_3}^{ABC}_{IJi}
+%- {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{IJ}
+%- {t_1}^{C}_{i} {t_3}^{ABa}_{IJj} u^{ij}_{Ka}
+%- {t_1}^{a}_{K} {t_2}^{Cb}_{IJ} u^{AB}_{ab}
+%- {t_1}^{a}_{i} {t_3}^{ABb}_{IJK} u^{Ci}_{ab} \\
+%- {t_2}^{AC}_{Ki} u^{Bi}_{IJ} P(AB)
+%- {t_2}^{Aa}_{IJ} u^{BC}_{Ka} P(AB)
+%- {t_3}^{ABa}_{IKi} u^{Ci}_{Ja} P(IJ)
+%- {t_3}^{ACa}_{IJi} u^{Bi}_{Ka} P(AB)
+%- \frac{1}{2}{t_2}^{AB}_{ij} {t_2}^{Ca}_{IJ} u^{ij}_{Ka} \\
+%+ \frac{1}{2}{t_2}^{AB}_{ij} {t_3}^{Cab}_{IJK} u^{ij}_{ab}
+%+ \frac{1}{2}{t_2}^{ab}_{IJ} {t_3}^{ABC}_{Kij} u^{ij}_{ab}
+%+ f^{i}_{a} {t_2}^{AB}_{Ii} {t_2}^{Ca}_{JK} P(IJ)
+%+ f^{i}_{a} {t_2}^{Aa}_{IJ} {t_2}^{BC}_{Ki} P(AB)
+%+ {t_1}^{A}_{i} {t_2}^{Ba}_{IJ} u^{Ci}_{Ka} P(AB) \\
+%+ {t_1}^{C}_{i} {t_2}^{Aa}_{IJ} u^{Bi}_{Ka} P(AB)
+%+ {t_1}^{C}_{i} {t_3}^{ABa}_{IKj} u^{ij}_{Ja} P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{b}_{J} {t_2}^{AB}_{Ki} u^{Ci}_{ab}
+%+ {t_1}^{a}_{I} {t_2}^{AB}_{Ji} u^{Ci}_{Ka} P(IJ)
+%+ {t_1}^{a}_{I} {t_3}^{ABb}_{JKi} u^{Ci}_{ab} P(IJ) \\
+%+ {t_1}^{a}_{K} {t_2}^{AB}_{Ii} u^{Ci}_{Ja} P(IJ)
+%+ {t_1}^{a}_{i} {t_2}^{AB}_{Kj} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
+%+ {t_1}^{a}_{i} {t_3}^{ACb}_{IJK} u^{Bi}_{ab} P(AB)
+%+ {t_2}^{AB}_{Ii} {t_2}^{Ca}_{Jj} u^{ij}_{Ka} P(IJ) \\
+%+ {t_2}^{AB}_{Ki} {t_2}^{Ca}_{Ij} u^{ij}_{Ja} P(IJ)
+%+ {t_2}^{AC}_{Ii} {t_2}^{Ba}_{Kj} u^{ij}_{Ja} P(AB)
+%+ {t_2}^{AC}_{Ji} {t_2}^{Ba}_{Ij} u^{ij}_{Ka} P(AB)
+%+ {t_2}^{AC}_{Ki} {t_2}^{Ba}_{Jj} u^{ij}_{Ia} P(AB) \\
+%+ {t_2}^{Aa}_{IJ} {t_2}^{Cb}_{Ki} u^{Bi}_{ab} P(AB)
+%+ {t_2}^{Aa}_{IK} u^{BC}_{Ja} P(AB) P(IJ)
+%+ {t_2}^{Aa}_{Ki} {t_2}^{Cb}_{IJ} u^{Bi}_{ab} P(AB)
+%+ {t_2}^{Aa}_{Ki} {t_3}^{BCb}_{IJj} u^{ij}_{ab} P(AB) \\
+%+ {t_2}^{Ca}_{Ii} {t_3}^{ABb}_{JKj} u^{ij}_{ab} P(IJ)
+%+ {t_3}^{ACa}_{IKi} u^{Bi}_{Ja} P(AB) P(IJ)
+%+ \frac{1}{2}{t_1}^{A}_{i} {t_1}^{B}_{j} {t_3}^{Cab}_{IJK} u^{ij}_{ab}
+%+ \frac{1}{2}{t_1}^{A}_{i} {t_3}^{Cab}_{IJK} u^{Bi}_{ab} P(AB) \\
+%+ \frac{1}{2}{t_1}^{a}_{I} {t_1}^{b}_{J} {t_3}^{ABC}_{Kij} u^{ij}_{ab}
+%+ \frac{1}{2}{t_1}^{a}_{I} {t_3}^{ABC}_{Jij} u^{ij}_{Ka} P(IJ)
+%+ \frac{1}{2}{t_1}^{a}_{K} {t_3}^{ABC}_{Iij} u^{ij}_{Ja} P(IJ)
+%+ \frac{1}{2}{t_2}^{ab}_{JK} {t_2}^{AB}_{Ii} u^{Ci}_{ab} P(IJ) \\
+%+ \frac{1}{2}{t_2}^{AB}_{Ii} {t_3}^{Cab}_{JKj} u^{ij}_{ab} P(IJ)
+%+ \frac{1}{2}{t_2}^{AB}_{ij} {t_2}^{Ca}_{IK} u^{ij}_{Ja} P(IJ)
+%+ \frac{1}{2}{t_2}^{AC}_{ij} {t_2}^{Ba}_{IJ} u^{ij}_{Ka} P(AB)
+%+ \frac{1}{2}{t_2}^{Aa}_{IJ} {t_3}^{BCb}_{Kij} u^{ij}_{ab} P(AB) \\
+%+ \frac{1}{2}{t_2}^{Aa}_{ij} {t_3}^{BCb}_{IJK} u^{ij}_{ab} P(AB)
+%+ \frac{1}{2}{t_2}^{ab}_{Ii} {t_3}^{ABC}_{JKj} u^{ij}_{ab} P(IJ)
+%- f^{i}_{a} {t_1}^{A}_{i} {t_3}^{BCa}_{IJK} P(AB)
+%- f^{i}_{a} {t_1}^{a}_{I} {t_3}^{ABC}_{JKi} P(IJ) \\
+%- {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Ca}_{IJ} u^{ij}_{Ka}
+%- {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{IJ} P(AB)
+%- {t_1}^{A}_{i} {t_2}^{Ca}_{IJ} u^{Bi}_{Ka} P(AB)
+%- {t_1}^{A}_{i} {t_3}^{BCa}_{IJj} u^{ij}_{Ka} P(AB)
+%- {t_1}^{a}_{K} {t_1}^{C}_{i} {t_3}^{ABb}_{IJj} u^{ij}_{ab} \\
+%- {t_1}^{C}_{i} {t_2}^{AB}_{Ij} u^{ij}_{JK} P(IJ)
+%- {t_1}^{a}_{i} {t_1}^{C}_{j} {t_3}^{ABb}_{IJK} u^{ij}_{ab}
+%- {t_1}^{a}_{I} {t_2}^{AB}_{Ki} u^{Ci}_{Ja} P(IJ)
+%- {t_1}^{a}_{I} {t_2}^{Cb}_{JK} u^{AB}_{ab} P(IJ)
+%- {t_1}^{a}_{K} {t_2}^{Ab}_{IJ} u^{BC}_{ab} P(AB) \\
+%- {t_1}^{a}_{K} {t_3}^{ACb}_{IJi} u^{Bi}_{ab} P(AB)
+%- {t_1}^{a}_{i} {t_1}^{b}_{K} {t_3}^{ABC}_{IJj} u^{ij}_{ab}
+%- {t_1}^{a}_{i} {t_3}^{ABC}_{IKj} u^{ij}_{Ja} P(IJ)
+%- {t_2}^{AB}_{Ii} {t_2}^{Ca}_{Kj} u^{ij}_{Ja} P(IJ) \\
+%- {t_2}^{AC}_{Ii} u^{Bi}_{JK} P(AB) P(IJ)
+%- {t_2}^{Aa}_{IJ} {t_2}^{Bb}_{Ki} u^{Ci}_{ab} P(AB)
+%- {t_2}^{Aa}_{Ii} {t_2}^{BC}_{Kj} u^{ij}_{Ja} P(AB)
+%- {t_2}^{Aa}_{Ji} {t_2}^{BC}_{Ij} u^{ij}_{Ka} P(AB) \\
+%- {t_2}^{Aa}_{Ki} {t_2}^{BC}_{Jj} u^{ij}_{Ia} P(AB)
+%- \frac{1}{2}{t_1}^{A}_{i} {t_3}^{Bab}_{IJK} u^{Ci}_{ab} P(AB)
+%- \frac{1}{2}{t_1}^{C}_{i} {t_2}^{ab}_{IJ} {t_2}^{AB}_{Kj} u^{ij}_{ab}
+%- \frac{1}{2}{t_1}^{C}_{i} {t_3}^{Aab}_{IJK} u^{Bi}_{ab} P(AB) \\
+%- \frac{1}{2}{t_1}^{a}_{I} {t_3}^{ABC}_{Kij} u^{ij}_{Ja} P(IJ)
+%- \frac{1}{2}{t_1}^{a}_{K} {t_2}^{AB}_{ij} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
+%- \frac{1}{2}{t_2}^{ab}_{IJ} {t_2}^{AC}_{Ki} u^{Bi}_{ab} P(AB)
+%- \frac{1}{2}{t_2}^{AC}_{Ki} {t_3}^{Bab}_{IJj} u^{ij}_{ab} P(AB) \\
+%- \frac{1}{2}{t_2}^{Ca}_{IK} {t_3}^{ABb}_{Jij} u^{ij}_{ab} P(IJ)
+%- \frac{1}{4}{t_2}^{AC}_{ij} {t_3}^{Bab}_{IJK} u^{ij}_{ab} P(AB)
+%- \frac{1}{4}{t_2}^{ab}_{IK} {t_3}^{ABC}_{Jij} u^{ij}_{ab} P(IJ)
+%+ {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Ca}_{IK} u^{ij}_{Ja} P(IJ) \\
+%+ {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Ba}_{IJ} u^{ij}_{Ka} P(AB)
+%+ {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{Bb}_{IJ} u^{Ci}_{ab} P(AB)
+%+ {t_1}^{A}_{i} {t_2}^{Ba}_{IJ} {t_2}^{Cb}_{Kj} u^{ij}_{ab} P(AB)
+%+ {t_1}^{A}_{i} {t_2}^{Ba}_{Kj} {t_2}^{Cb}_{IJ} u^{ij}_{ab} P(AB) \\
+%+ {t_1}^{A}_{i} {t_2}^{Ca}_{IK} u^{Bi}_{Ja} P(AB) P(IJ)
+%+ {t_1}^{A}_{i} {t_3}^{BCa}_{IKj} u^{ij}_{Ja} P(AB) P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{Ja} P(IJ)
+%+ {t_1}^{a}_{K} {t_1}^{C}_{i} {t_2}^{Ab}_{IJ} u^{Bi}_{ab} P(AB) \\
+%+ {t_1}^{C}_{i} {t_2}^{Aa}_{JK} {t_2}^{Bb}_{Ij} u^{ij}_{ab} P(AB)
+%+ {t_1}^{C}_{i} {t_2}^{Aa}_{Kj} {t_2}^{Bb}_{IJ} u^{ij}_{ab} P(AB)
+%+ {t_1}^{a}_{I} {t_2}^{AB}_{Ji} {t_2}^{Cb}_{Kj} u^{ij}_{ab} P(IJ)
+%+ {t_1}^{a}_{I} {t_2}^{AC}_{Ki} u^{Bi}_{Ja} P(AB) P(IJ) \\
+%+ {t_1}^{a}_{J} {t_2}^{AC}_{Ii} {t_2}^{Bb}_{Kj} u^{ij}_{ab} P(AB)
+%+ {t_1}^{a}_{K} {t_2}^{AB}_{Ii} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(IJ)
+%+ {t_1}^{a}_{K} {t_2}^{AC}_{Ji} {t_2}^{Bb}_{Ij} u^{ij}_{ab} P(AB)
+%+ {t_1}^{a}_{i} {t_2}^{AB}_{Ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ) \\
+%+ {t_1}^{a}_{i} {t_2}^{Ab}_{IJ} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
+%+ {t_2}^{Aa}_{IK} {t_2}^{Bb}_{Ji} u^{Ci}_{ab} P(AB) P(IJ)
+%+ {t_2}^{Aa}_{Ii} {t_2}^{Cb}_{JK} u^{Bi}_{ab} P(AB) P(IJ) \\
+%+ {t_2}^{Aa}_{Ii} {t_3}^{BCb}_{JKj} u^{ij}_{ab} P(AB) P(IJ)
+%+ \frac{1}{2}{t_1}^{a}_{I} {t_2}^{AC}_{ij} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB)
+%+ \frac{1}{2}{t_1}^{a}_{J} {t_2}^{Ab}_{IK} {t_2}^{BC}_{ij} u^{ij}_{ab} P(AB) \\
+%- f^{i}_{a} {t_2}^{Aa}_{IK} {t_2}^{BC}_{Ji} P(AB) P(IJ)
+%- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Cb}_{IJ} u^{ij}_{ab}
+%- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{Cb}_{IJ} u^{Bi}_{ab} P(AB)
+%- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_3}^{BCb}_{IJj} u^{ij}_{ab} P(AB) \\
+%- {t_1}^{A}_{i} {t_2}^{BC}_{Ij} u^{ij}_{JK} P(AB) P(IJ)
+%- {t_1}^{A}_{i} {t_2}^{Ba}_{IK} u^{Ci}_{Ja} P(AB) P(IJ)
+%- {t_1}^{a}_{i} {t_1}^{A}_{j} {t_3}^{BCb}_{IJK} u^{ij}_{ab} P(AB) \\
+%- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_1}^{C}_{i} {t_2}^{AB}_{Kj} u^{ij}_{ab}
+%- {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{AB}_{Jj} u^{ij}_{Ka} P(IJ)
+%- {t_1}^{a}_{I} {t_1}^{C}_{i} {t_3}^{ABb}_{JKj} u^{ij}_{ab} P(IJ)
+%- {t_1}^{a}_{K} {t_1}^{C}_{i} {t_2}^{AB}_{Ij} u^{ij}_{Ja} P(IJ) \\
+%- {t_1}^{C}_{i} {t_2}^{Aa}_{IK} u^{Bi}_{Ja} P(AB) P(IJ)
+%- {t_1}^{C}_{i} {t_2}^{Aa}_{Jj} {t_2}^{Bb}_{IK} u^{ij}_{ab} P(AB)
+%- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_2}^{AC}_{Ki} u^{Bi}_{ab} P(AB)
+%- {t_1}^{a}_{I} {t_1}^{b}_{K} {t_2}^{AB}_{Ji} u^{Ci}_{ab} P(IJ) \\
+%- {t_1}^{a}_{I} {t_2}^{AB}_{Ki} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(IJ)
+%- {t_1}^{a}_{I} {t_2}^{AC}_{Ji} u^{Bi}_{Ka} P(AB) P(IJ)
+%- {t_1}^{a}_{I} {t_2}^{Ab}_{JK} u^{BC}_{ab} P(AB) P(IJ)
+%- {t_1}^{a}_{I} {t_2}^{Ab}_{Ki} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB) \\
+%- {t_1}^{a}_{I} {t_3}^{ACb}_{JKi} u^{Bi}_{ab} P(AB) P(IJ)
+%- {t_1}^{a}_{K} {t_2}^{AC}_{Ii} u^{Bi}_{Ja} P(AB) P(IJ)
+%- {t_1}^{a}_{K} {t_2}^{Ab}_{Ji} {t_2}^{BC}_{Ij} u^{ij}_{ab} P(AB)
+%- {t_1}^{a}_{i} {t_1}^{b}_{I} {t_3}^{ABC}_{JKj} u^{ij}_{ab} P(IJ) \\
+%- {t_1}^{a}_{i} {t_2}^{AC}_{Ij} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB)
+%- {t_1}^{a}_{i} {t_2}^{Ab}_{IK} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB)
+%- {t_2}^{Aa}_{IK} {t_2}^{Cb}_{Ji} u^{Bi}_{ab} P(AB) P(IJ)
+%- \frac{1}{2}{t_1}^{A}_{i} {t_1}^{C}_{j} {t_3}^{Bab}_{IJK} u^{ij}_{ab} P(AB) \\
+%- \frac{1}{2}{t_1}^{A}_{i} {t_2}^{ab}_{IJ} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
+%- \frac{1}{2}{t_1}^{C}_{i} {t_2}^{ab}_{JK} {t_2}^{AB}_{Ij} u^{ij}_{ab} P(IJ)
+%- \frac{1}{2}{t_1}^{a}_{I} {t_1}^{b}_{K} {t_3}^{ABC}_{Jij} u^{ij}_{ab} P(IJ)
+%- \frac{1}{2}{t_1}^{a}_{I} {t_2}^{AB}_{ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ) \\
+%- \frac{1}{2}{t_1}^{a}_{K} {t_2}^{Ab}_{IJ} {t_2}^{BC}_{ij} u^{ij}_{ab} P(AB)
+%- \frac{1}{2}{t_2}^{ab}_{JK} {t_2}^{AC}_{Ii} u^{Bi}_{ab} P(AB) P(IJ)
+%- \frac{1}{2}{t_2}^{AC}_{Ii} {t_3}^{Bab}_{JKj} u^{ij}_{ab} P(AB) P(IJ) \\
+%- \frac{1}{2}{t_2}^{AC}_{ij} {t_2}^{Ba}_{IK} u^{ij}_{Ja} P(AB) P(IJ)
+%- \frac{1}{2}{t_2}^{Aa}_{IK} {t_3}^{BCb}_{Jij} u^{ij}_{ab} P(AB) P(IJ)
+%+ {t_1}^{a}_{K} {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Bb}_{IJ} u^{ij}_{ab} P(AB) \\
+%+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{Ja} P(AB) P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{Bb}_{JK} u^{Ci}_{ab} P(AB) P(IJ)
+%+ {t_1}^{A}_{i} {t_2}^{Ba}_{Ij} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(AB) P(IJ) \\
+%+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_1}^{C}_{i} {t_2}^{AB}_{Jj} u^{ij}_{ab} P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{C}_{i} {t_2}^{Ab}_{JK} u^{Bi}_{ab} P(AB) P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_2}^{AC}_{Ji} u^{Bi}_{ab} P(AB) P(IJ) \\
+%+ {t_1}^{a}_{I} {t_2}^{AC}_{Ki} {t_2}^{Bb}_{Jj} u^{ij}_{ab} P(AB) P(IJ)
+%- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_1}^{B}_{j} {t_2}^{Cb}_{JK} u^{ij}_{ab} P(IJ)
+%- {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Ba}_{IK} u^{ij}_{Ja} P(AB) P(IJ) \\
+%- {t_1}^{a}_{I} {t_1}^{b}_{J} {t_1}^{A}_{i} {t_2}^{BC}_{Kj} u^{ij}_{ab} P(AB)
+%- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{BC}_{Jj} u^{ij}_{Ka} P(AB) P(IJ)
+%- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_2}^{Cb}_{JK} u^{Bi}_{ab} P(AB) P(IJ) \\
+%- {t_1}^{a}_{I} {t_1}^{A}_{i} {t_3}^{BCb}_{JKj} u^{ij}_{ab} P(AB) P(IJ)
+%- {t_1}^{a}_{K} {t_1}^{A}_{i} {t_2}^{BC}_{Ij} u^{ij}_{Ja} P(AB) P(IJ)
+%- {t_1}^{A}_{i} {t_2}^{Ba}_{IK} {t_2}^{Cb}_{Jj} u^{ij}_{ab} P(AB) P(IJ) \\
+%- \frac{1}{2}{t_1}^{A}_{i} {t_2}^{ab}_{JK} {t_2}^{BC}_{Ij} u^{ij}_{ab} P(AB) P(IJ)
+%+ {t_1}^{a}_{I} {t_1}^{A}_{i} {t_1}^{C}_{j} {t_2}^{Bb}_{JK} u^{ij}_{ab} P(AB) P(IJ) \\
+%+ {t_1}^{a}_{I} {t_1}^{b}_{K} {t_1}^{A}_{i} {t_2}^{BC}_{Jj} u^{ij}_{ab} P(AB) P(IJ)
+%= 0
+%\end{gather*}
 
