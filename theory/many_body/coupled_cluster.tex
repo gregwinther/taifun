@@ -1367,6 +1367,7 @@ where we have introduced $\Lambda = \sum_\mu X^\dagger_\mu$. Here, $X^\dagger_\m
 general relaxation operator, for instance $\hat{X}_1^\dagger = \{\hat{i}\hat{a}^\dagger\}$.
 So $\Lambda$ written out is 
 \begin{equation}
+    \label{eq:capital_lambda}
     \Lambda = \sum_{ia}\lambda^i_a \hat{i}^\dagger 
     + \frac{1}{2!^2}\sum_{ijab} 
         \lambda^{ij}_{ab} \hat{i}^\dagger \hat{a} \hat{j}^\dagger \hat{a}
@@ -1480,14 +1481,13 @@ coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}). As a sidenote, p
 the expression in \autoref{eq:bivar_lagrang_equal} to only include single and double 
 excitations will yield Arponen's \emph{extended coupled cluster} (ECC) method.
 
-
-\subsection{[UNFINISHED] The Lambda Equations}
-
 First order conditions of the coupled cluster energy Lagrangian in
 \autoref{eq:cc_energy_lagrangian} gives us a new set of amplitude equations,
 \begin{align}
+    \label{eq:lagrangian_tau_amplitude_eqns}
     \frac{\partial}{\partial \lambda_\mu} \mathscr{L}(t, \lambda)
     &= \mel{\Phi_{X_\mu}}{e^{-\hat{T}}\hat{H}e^{\hat{T}} }{\Phi} = 0 \\
+    \label{eq:lagrangian_lambda_amplitude_eqns} 
     \frac{\partial}{\partial t_\mu} \mathscr{L}(t, \lambda)
     &= \mel{\Phi}{(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_\mu]e^{\hat{T}} }{\Phi} = 0.
 \end{align}
@@ -1498,7 +1498,15 @@ Under constrained optimisation all partial derivatives vanish at the same point,
     \frac{\partial \mathscr{L}}{\partial t_\mu}\Big\lvert_{(t,\lambda)=(t^*,\lambda^*)} = 0,
     \quad \forall X_\mu.
 \end{equation}
-
+What we have arrived at are amplitude equations both for the ``bra part'' and the 
+``ket part'' of the problem, which we refer to as the $\lambda$ amplitude equations
+(\autoref{eq:lagrangian_lambda_amplitude_eqns}) and 
+the $\tau$ amplitude equations
+(\autoref{eq:lagrangian_lambda_amplitude_eqns}), respectively. Notice that the $\tau$ amplitude equations 
+only depend on $\tau$, whilst the $\lambda$ equations depend both on $\tau$ and $\lambda$.
+This means that the $\tau$ amplitude equations are solved iteratively first, and then 
+the $\lambda$ amplitudes are solved similarly.
+The full equations are given in appendix (LINK TO APPENDIX).
 
 \section{[UNFINISHED] Generealisation in Time}
 
@@ -1507,8 +1515,81 @@ We now define a time-dependent generalisation of the bivariational principle
 action functional and the time-dependent Schrödinger equation can be recovered from 
 it,
 \begin{equation}
-    \mathcal{S}[\tilde{\Psi}(\cdot), \Psi(\cdot)]
-        = \int_0^T dt \frac{\mel{\tilde{\Psi}(t)}{\left(
+    \mathcal{S}[{\Psi}'(\cdot), \Psi(\cdot)]
+        = \int_0^T dt \frac{\mel{{\Psi}'(t)}{\left(
             i\hbar \frac{\partial}{\partial t} - \hat{H}
-        \right)}{\Psi(t)}}{\braket{\tilde{\Psi}(t)}{\Psi(t)}}.
+        \right)}{\Psi(t)}}{\braket{{\Psi}'(t)}{\Psi(t)}}.
 \end{equation}
+Functionals like these are quite common throughout the historical literature on 
+quantum mechanics, appearing as early as in Dirac\cite{dirac1930principles}. The 
+integral of the functional depends on all history for the system in question. 
+Under normal rariation of the functional. By applying the principle of least action, 
+requiring that the functional is stationary, $\delta\mathcal{S} = 0$, under all variations 
+of $\bra{{\Psi}'}$ and $\ket{\Psi}$ and vanishing in the endpoints $t=0$ and
+$t=T$, gives us the following conditions
+\begin{equation*}
+    i\hbar\frac{\partial}{\partial t} \ket{\Psi(t)} = \hat{H}\ket{\Psi(t)}
+    \quad -i \hbar \frac{\partial}{\partial t} \bra{{\Psi}'} = \bra{{\Psi}'}\hat{H}.
+\end{equation*}
+By a specific parametrisation of $\bra*{{\Psi}'}$, such that 
+$\braket{{\Psi}'}{\Psi} = 1$ we have indeed recovered the familiar 
+time-dependent Schrödinger euqation.
+
+Instead of venturing down this path, we will presuppose that it is possible
+that $\braket{{\Psi}'}{\Psi} \neq 1$. Indeed, that $\bra{{\Psi}'}$ 
+and $\ket{\Psi}$ are independent. This means we must enact
+Arponen's\cite{arponen1983variational} Hellmann-Feynman conforming bivariational 
+principle, where the energy expectation functial is given by 
+\begin{equation}
+    \label{eq:bivar_energy_expectation}
+    \mathscr{E}_{\hat{H}}(\tau^\dagger, \tau, \tilde{\Phi}, \Phi)
+    = \frac{\mel{\tilde{\Phi}}{e^{\hat{T}\dagger}\hat{H}e^{\hat{H}}}{\Phi}}
+    {\mel{\tilde{\Phi}}{e^{\hat{T}^\dagger}e^{\hat{T}}}{\Phi}}.
+\end{equation}
+We perform a variable change $(T', T)\to(\lambda, T)$, similarly to the section above, 
+and introduce
+\begin{equation}
+    \bra*{\tilde{\Psi}} = \frac{\bra{\Psi^\dagger}}{\braket{\Psi^\dagger}{\Psi}}
+    = \bra*{\tilde{\Phi}} (1 + \Lambda) e^{\hat{T}},
+\end{equation}
+Where $\Lambda$ is the same as in \autoref{eq:capital_lambda}.
+The bivariational energy expectation functional in \autoref{eq:bivar_energy_expectation}
+now becomes
+\begin{equation}
+    \mathscr{E}_{\hat{H}}(\lambda, \tau, \tilde{\Phi}, \Phi)
+    = \mel*{\tilde{\Phi}}{(\hat{1} + \lambda)e^{-\hat{T}}\hat{H}e^{\hat{T}} }{\Phi}.
+\end{equation}
+Disregarding the differene in $\tilde{\Phi}$ and $\Phi$, this expression is the 
+same as the coupled cluster expectation functional in \autoref{eq:bivar_lagrang_equal},
+where the interpretation is that the $\lambda$s are Lagrange multipliers 
+for a constrained energy minimisation problem. This is not the interprestation 
+here, as the $\lambda$-part of the problem is seen as equatlly important.
+
+We are now assuming biorthogonality in orbitals, $\braket*{\tilde{\phi}_p}{\phi_q} = \delta_{pq}$, but 
+independence of bra en ket states otherwise. For a full Slater determinant state 
+consisting of these orbitals, we have 
+\begin{equation}
+    \braket*{\tilde{\phi}_{p_1}\dots \tilde{\phi}_{p_n}}{\phi_{q_1}\dots\phi_{q_n}}
+    =\delta_{p_q q_1}\dots \delta_{p_N q_N}.
+\end{equation}
+The second quantised operators ascociated with these Slater determinants are defined through
+\begin{equation}
+    \ket{\phi_{q_1}\dots\phi_{q_n}} \equiv c^\dagger_{p_1}\dots c^\dagger_{p_N}\ket{ }
+    \quad
+    \bra*{\tilde{\phi}_{p_1}\dots \tilde{\phi}_{p_n}} = \bra{ } \tilde{c}_{q_N} \dots \tilde{c}_{q_1}.
+\end{equation}
+These creation- and annihilation operators can furtermore be defined by,
+\begin{equation}
+    c_p^\dagger = \int \phi_p(\vb{x}) \Psi^\dagger(\vb{x})d\vb{x}
+    \quad
+    \tilde{c}^\dagger_p = \int \tilde{\phi}_p(\vb{x}) \Psi(\vb{x})d\vb{x},
+\end{equation}
+where $\Psi^\dagger$ and $\Psi$ are field creation- and annihilation operators.
+These second quantised operators are subject to the anticommutator relation,
+\begin{equation}
+    \{\tilde{c}_p, c_q^\dagger \} \equiv \tilde{c}_p c_q^\dagger + c_q^\dagger\tilde{c}_p
+    \stackrel{!}{\equiv} \braket*{\tilde{\phi}_p}{\phi_q} = \delta_{pq} = \delta_{pq}.
+\end{equation}
+
+NEXT: The special projection operator and how the cluster operator depend on 
+the orbitals..! 
