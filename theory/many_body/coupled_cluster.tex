@@ -1123,7 +1123,7 @@ the form
 the final result of the computation of these equations are provided in the 
 appendices INSERT INTO THE APPENDICES!
 
-\section{[UNFINISHED] A Variational Formulation of Coupled Cluster}
+\section{A Variational Formulation of Coupled Cluster}
 
 See Kvaal\cite{kvaal2013variational}
 
@@ -1510,13 +1510,21 @@ The full equations are given in appendix (LINK TO APPENDIX).
 
 \section{[UNFINISHED] Generealisation in Time}
 
+Here, we will outline a derivation of the orbital-adaptive time-dependent coupled cluster 
+method, a generalisation in time for the coupled cluster method put forth by 
+Kvaal\cite{kvaal2012ab}. The method inherits both size-extensivity and size-consistency from 
+the coupled cluster method and is a hierarchy of approximations to the multi-configurational 
+time-dependent Hartree method for fermions.
+
 We now define a time-dependent generalisation of the bivariational principle
 (\autoref{eq:bivariational_principle}). This is similar to the usual time-dependent 
 action functional and the time-dependent Schrödinger equation can be recovered from 
 it,
+(IT MAY BE proper to use ' instead of $\dagger$ here.)
 \begin{equation}
-    \mathcal{S}[{\Psi}'(\cdot), \Psi(\cdot)]
-        = \int_0^T dt \frac{\mel{{\Psi}'(t)}{\left(
+    \label{eq:time_dependent_action_functional}
+    \mathcal{S}[{\Psi}^\dagger(\cdot), \Psi(\cdot)]
+        = \int_0^T dt \frac{\mel{{\Psi}^\dagger(t)}{\left(
             i\hbar \frac{\partial}{\partial t} - \hat{H}
         \right)}{\Psi(t)}}{\braket{{\Psi}'(t)}{\Psi(t)}}.
 \end{equation}
@@ -1542,9 +1550,9 @@ Arponen's\cite{arponen1983variational} Hellmann-Feynman conforming bivariational
 principle, where the energy expectation functial is given by 
 \begin{equation}
     \label{eq:bivar_energy_expectation}
-    \mathscr{E}_{\hat{H}}(\tau^\dagger, \tau, \tilde{\Phi}, \Phi)
-    = \frac{\mel{\tilde{\Phi}}{e^{\hat{T}\dagger}\hat{H}e^{\hat{H}}}{\Phi}}
-    {\mel{\tilde{\Phi}}{e^{\hat{T}^\dagger}e^{\hat{T}}}{\Phi}}.
+    \mathscr{E}_{\hat{H}}(\tau^\dagger, \tau, \Phi^\dagger, \Phi)
+    = \frac{\mel*{\Phi^\dagger}{e^{\hat{T}\dagger}\hat{H}e^{\hat{H}}}{\Phi}}
+    {\mel*{\Phi^\dagger}{e^{\hat{T}^\dagger}e^{\hat{T}}}{\Phi}}.
 \end{equation}
 We perform a variable change $(T', T)\to(\lambda, T)$, similarly to the section above, 
 and introduce
@@ -1582,14 +1590,213 @@ These creation- and annihilation operators can furtermore be defined by,
 \begin{equation}
     c_p^\dagger = \int \phi_p(\vb{x}) \Psi^\dagger(\vb{x})d\vb{x}
     \quad
-    \tilde{c}^\dagger_p = \int \tilde{\phi}_p(\vb{x}) \Psi(\vb{x})d\vb{x},
+    \tilde{c}_p = \int \tilde{\phi}_p(\vb{x}) \Psi(\vb{x})d\vb{x},
 \end{equation}
-where $\Psi^\dagger$ and $\Psi$ are field creation- and annihilation operators.
-These second quantised operators are subject to the anticommutator relation,
+where $\Psi^\dagger$ and $\Psi$ are field creation- and annihilation operators. This particular
+definition may seem like an unecessary and stringent tangent, but its purpose is to underline
+the dependence of the cluster operator $\hat{T}$ not only on the amplitudes
+$\tau$, but also on the orbitals. This is an important point to emphasise, in ``ordinary''
+coupled cluster theory, one thinks of the amplitudes as the only unknowns while keeping the 
+orbitals fixed and the dependence on $\tau$ are 1-1. This becomes very important when one computes derivatives with 
+respect to time of the cluster operators $\hat{T}$.
+Furthermore, the second quantised operators are subject to the anticommutator relation,
 \begin{equation}
     \{\tilde{c}_p, c_q^\dagger \} \equiv \tilde{c}_p c_q^\dagger + c_q^\dagger\tilde{c}_p
-    \stackrel{!}{\equiv} \braket*{\tilde{\phi}_p}{\phi_q} = \delta_{pq} = \delta_{pq}.
+    \stackrel{!}{\equiv} \braket*{\tilde{\phi}_p}{\phi_q} = \delta_{pq}.
 \end{equation}
 
-NEXT: The special projection operator and how the cluster operator depend on 
-the orbitals..! 
+The time-dependent action(-like) functional (\autoref{eq:time_dependent_action_functional}) 
+defining the Schrödinger dynamics becomes,
+\begin{equation}
+    \begin{aligned}
+        \label{eq:oatdcc_functional}
+        \mathcal{S}[\lambda, \tau, \tilde{\Phi}, \Phi]
+        &= \int_0^T \mel{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}\left(\frac{\partial}{\partial t} - \hat{H} \right)e^{\hat{T}}} 
+            {\phi} dt \\ 
+        &= \int_0^T i\hbar\mel{\tilde{\phi}}
+        {(1 + \Lambda)e^{-\hat{T}}\frac{\partial}{\partial t}e^{\hat{T}}}
+        {\phi} dt
+        - \mathscr{E}_{\hat{H}}(\lambda, \tau, \tilde{\Phi}, \Phi).
+    \end{aligned} 
+\end{equation}
+Herein, it is necessary to compute 
+$\frac{\partial}{\partial t}\ket{\Psi} = \frac{\partial}{\partial t}e^{\hat{T}}\ket{\phi}$.
+In order to accomplish this we indroduce the expansion,
+\begin{equation}
+    \ket{\Psi} = \Pi\ket{\Psi} = \ket{\phi} + \sum_\mu A^\mu \ket{\phi_\mu}, \quad
+    A^\mu = A^\mu(\tau) = \mel*{\tilde{\phi}^\mu}{e^{\hat{T}}}{\phi}
+\end{equation}
+Here we write $\phi$ as the reference Slater determinant and $\phi_\mu$ are all the other 
+excited Slater determinant. The coefficients $A^\mu$ do not depend explicitly on the 
+orbitals, only on the the amplitudes $\tau$. It is important to note that this summation is not truncated,
+regardless of the truncation of the cluster amplitudes at some excitation level $\tau^\mu$.
+To further the matter, we have introduced a projection operator,
+\begin{equation}
+    \Pi \equiv \outerproduct*{\phi}{\tilde{\phi}} 
+    + \sum_\mu \outerproduct*{\phi_\mu}{\tilde{\phi}^\mu}.
+\end{equation}
+The projection operator has the following properties,
+\begin{equation}
+    \begin{gathered}
+        \Pi \ket{\Psi} = \ket{\Psi}, \quad \bra{\Psi'}\Phi = \bra{\Psi'}, \\
+        \mel{\Psi'}{\hat{H}}{\Psi} = \mel{\Psi'}{\Pi\hat{H}\Pi}{\Psi},
+        \quad \Pi^\dagger \neq \Pi
+    \end{gathered}
+\end{equation}
+and unless orbitals are complete we have $\Pi\hat{H}\Pi \neq \hat{H}$.
+
+Now we compute the time derivative of a Slater determinant,
+\begin{equation*}
+    \begin{aligned}
+        \frac{\partial}{\partial t} c^\dagger_{p_1}c^\dagger_{p_2}\dots c^\dagger_{p_N}\ket{ }
+        &= \dot{c}^\dagger_{p_1} c^\dagger_{p_2}\dots c^\dagger_{p_N} \ket{ }
+        + c^\dagger_{p_1} \dot{c}^\dagger_{p_2}\dots c^\dagger_{p_N}\ket{ } + \dots \\
+        &= \left(\sum_q \dot{c}^\dagger_q \tilde{c}_q \right)
+        c^\dagger_{p_1}c^\dagger_{p_2}\dots c^\dagger_{p_N}\ket{ }
+        = \hat{D}c^\dagger_{p_1}c^\dagger_{p_2}\dots c^\dagger_{p_N}\ket{ },
+    \end{aligned}
+\end{equation*}
+where we have defined the operator $\hat{D}$ by 
+\begin{equation}
+    \hat{D} = \sum_q \dot{c}^\dagger_q \tilde{c}_q,
+\end{equation}
+which depends explicitly on orbitals, unlike $\hat{H}$. The derivative of the exact 
+wavefunction becomes,
+\begin{equation}
+    \begin{aligned}
+        \frac{\partial}{\partial t}\ket{\Psi} 
+        &= \sum_\mu \left(\frac{\partial}{\partial t}A^\mu (\tau)\right)\ket{\phi_\mu}
+         + \hat{D}\ket{\phi} + \sum_\mu A^\mu (\tau) \hat{D} \ket{\phi_\mu} \\
+        &= \left(
+            \sum_\nu \dot{\tau}^\nu \frac{\partial}{\partial \tau^\nu} + \hat{D}
+        \right)\ket{\Psi}
+        = \left(\sum_\nu \dot{\tau}^\nu X_\nu + \hat{D}\right)\ket{\Psi}.
+    \end{aligned}
+\end{equation}
+The time-derivative part of the functional (\autoref{eq:oatdcc_functional}) integrand
+becomes,
+\begin{equation}
+    \begin{aligned}
+        i\hbar&\mel{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}\frac{\partial}{\partial t}e^{\hat{T}}}
+        {\phi} \\
+        &= i\hbar\mel{\tilde{\phi}}
+            {
+            \left(
+                1 + \sum_\mu \lambda_\mu \tilde{X}^\mu     
+            \right)
+            e^{-\hat{T}}
+            \left(
+                \sum_\nu \dot{\tau}^\nu X_\nu + \hat{D}
+            \right)
+            e^{\hat{T}}
+            }
+        {\phi} \\
+        &= i\hbar \sum_\mu \lambda_\mu \dot{\tau}^\mu
+        + i\hbar \mel{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}\Pi\hat{D}\Pi e^{\hat{T}}}
+        {\phi},
+    \end{aligned}
+\end{equation}
+where the projected operator $\Pi\hat{D}\Pi$ is given by 
+\begin{equation}
+    \Pi\hat{D}\Pi = \hat{D}_0 
+    \equiv 
+    \sum_{pq}\braket*{\tilde{\phi}_p}{\dot{\phi}_q}c^\dagger_p \tilde{c}_q.
+\end{equation}
+Finally we obtain a new expression for the functional in \autoref{eq:oatdcc_functional}
+\begin{align}
+    \label{eq:oatdcc_functional_final}
+    \mathcal{S}[\lambda, \tau, \tilde{\Phi}, \Phi] 
+    &= \sum_0^T 
+    i\hbar\sum_\mu \lambda_\mu \dot{\tau}^\mu 
+    - \mathcal{E}_{\hat{H} - i \hbar\hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi] dt \\
+    \label{eq:einsum_density_operator_functional}  
+    &= \int_0^T i\hbar \lambda_\mu \dot{\tau}^\mu 
+    + \rho^q_p (h^p_q - i\hbar\eta^p_q) + \frac{1}{4}\rho^{qs}_{pr} u^{pr}_{qs}dt,
+\end{align}
+(HERE THE $u$ IS TWO-BODY OPERATOR. CHANGE OTHER PLACES? YES I THINK SO..) where
+\begin{align} 
+    \rho^q_p &= \rho^q_p(\lambda, \tau) 
+    \equiv \mel{\tilde{\rho}}
+    {(1 + \Lambda)e^{-\hat{T}}c^\dagger_p \tilde{c}_q e^{\hat{T}}}
+    {\phi}, \\
+    \rho^{qs}_{pr} &= \rho^{qs}_{pr}(\lambda, \tau) 
+    \equiv \mel{\tilde{\rho}}
+    {(1 + \Lambda)e^{-\hat{T}} c^\dagger_p c^\dagger_r \tilde{c}_s \tilde{c}_q e^{\hat{T}}}
+    {\phi}, \\
+    h^p_q &= h^p_q(\tilde{\Phi}, \Phi)
+    \equiv \mel{\tilde{\varphi}_p}{\hat{h}}{\varphi_q}, \\
+    \eta^p_q &= \eta^p_q(\tilde{\Phi}, \Phi)
+    \equiv \braket*{\tilde{\varphi}_p}{\dot{\varphi}_q}, \\
+    u^{pr}_{qs} &= u^{pr}_{qs}(\tilde{\Phi}, \Phi)
+    \equiv \mel{\tilde{\varphi}_p\tilde{\varphi}_r}
+    {(\hat{u} - \hat{P}_{12})}
+    {\varphi_q \varphi_s}.
+\end{align}
+We introduced Einsten summation convention over repeated indices of opposite vertical 
+placement in \autoref{eq:einsum_density_operator_functional}.
+
+\subsection{Equations of Motion}
+
+The time has now come to apply the principle of least action to the orbital-adaptive 
+coupled cluster functional from \autoref{eq:oatdcc_functional_final} in order to 
+find the equations of motion. First we keep $\tau^\nu$ constant and vary $\lambda_\mu$,
+\begin{equation}
+    \delta\mathcal{S}[\lambda, \tau] 
+    = \int_0^T i\hbar 
+        \delta\lambda_\mu\dot{\tau}^\nu 
+        - \frac{\partial \mathscr{E}_{\hat{H} - i\hbar \hat{D}_0}}{\partial \lambda_\mu} 
+            \delta\lambda_\mu
+    dt = 0.
+\end{equation}
+We see that the stationarity condition is 
+\begin{equation}
+    \label{eq:oatdcc_tau}
+    i\hbar \dot{\tau}^\mu 
+    = \frac{\partial}{\partial \lambda_\mu}
+        \mathscr{E}_{\hat{H} -i \hbar \hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
+    = \mel{\tilde{\phi}_\mu}
+        {e^{-\hat{T}}(\hat{H} - i\hbar \hat{D}_0)e^{\hat{T}}}{\phi},
+\end{equation}
+which is also the eqution of motion, dictating the time-development of $\tau$. Next, 
+we hold $\lambda_\mu$ fixed and vary $\tau^\nu$,
+\begin{equation}
+    \delta \mathcal{S}[\lambda, \tau]
+    = \int_0^T
+        i\hbar \lambda_\nu \delta \dot{\tau}^\nu
+        - \frac{\partial \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}}{\partial \lambda^\nu} 
+    dt. 
+\end{equation}
+through integration by parts we see that the first term becomes,
+\begin{equation*}
+    i\hbar\int_0^T \lambda_\nu \delta\dot{\tau}^\nu
+    = i\hbar\cancelto{0}{\lambda_\nu\delta\tau^\nu}
+    - i\hbar \int_0^T \dot{\lambda}_\nu \delta\tau^\nu dt,
+\end{equation*}
+yielding 
+\begin{equation}
+    \delta\mathcal{S}[\lambda, \tau] 
+    = \int_0^T \delta \tau^\nu \left(-i\hbar\dot{\lambda}_\nu 
+    \frac{\partial \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}}{\partial\tau^\nu}- \right).
+\end{equation}
+Here the stationary condition is 
+\begin{equation}
+    \label{eq:oatdcc_lambda}
+    -i\hbar\lambda_\nu = \frac{\partial}{\partial \tau^\nu}
+    \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
+    = \mel{\phi}
+        {(1 + \Lambda)e^{-\hat{T}}[\hat{H} -i\hbar\hat{D}_0, X_\mu]e^{\hat{T}}
+        }{\phi}.
+\end{equation}
+\autoref{eq:oatdcc_tau} and \autoref{eq:oatdcc_lambda} together make up the orbital-adaptive 
+coupled cluster amplitude equations.
+
+More stuff here:
+\begin{itemize}
+    \item TDCCSD
+    \item Gauge. P and Q.
+    \item Some stuff about Thouless
+    \item OATDCCSD
+\end{itemize}
