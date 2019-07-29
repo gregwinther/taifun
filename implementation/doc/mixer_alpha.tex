@@ -1,0 +1,47 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.mix.\textbf{AlphaMixer}
+    (\emph{theta=0.1}, \emph{np=None})
+
+    \vspace{1em}
+    Class defining the $\alpha$ mixer. Computes a superposition of current and new 
+    amplitude vector. Also defines base class and methods the new mixer classes must
+    implement.
+        
+    \vspace{1em}
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{theta}(\emph{float, default 0.1}) 
+        Mixing parameter. $\theta \in [0, 1]$
+
+    \hspace{2em}\textbf{np}(\emph{Module})
+        Matrix library to be used, e.g. numpy, cupy.
+
+    \vspace{1em} 
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{compute\_new\_vector}
+        (\emph{trial\_vector}, \emph{direction\_vector} \emph{error\_vector})
+
+        \begin{adjustwidth}{4em}{}
+        Computes new trial vector for mixing with full right hand side of amplitude 
+        equation.
+
+        \textbf{Parameters:} 
+
+            \hspace{1.5em}\textbf{trial\_vector} (\emph{np.array}) 
+            Initial vector for mixing
+
+            \hspace{1.5em}\textbf{direction\_vector} (\emph{np.array})
+            Vector to be added to \emph{trial\_vector}.
+
+            \hspace{1.5em}\textbf{error\_vector} (\emph{np.array})
+            Not used in $\alpha$ mixer. Needed in subclasses.
+
+        \textbf{Returns:} New mixed vector
+
+        \textbf{Return type:} \emph{np.array}
+
+        \end{adjustwidth}
+    } 
+\end{tcolorbox}

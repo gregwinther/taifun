@@ -1,0 +1,36 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.integrators.\textbf{RungeKutte4}
+    ()
+
+    \vspace{1em}
+    Classical fourth-order Runge-Kutta numerical integrator.
+
+    \vspace{1em}
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{np}(\emph{Module})
+        Matrix library to be used, e.g. numpy, cupy.
+
+    \vspace{1em} 
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{step}{\emph{u, t, dt}}
+
+        \begin{adjustwidth}{4em}{}
+        One itegration step
+
+        \textbf{parameters:} 
+        
+            \hspace{1.5em} \textbf{u} (np.array) Array of equations to be integrated.
+
+            \hspace{1.5em} \textbf{f} (float) Current time step.
+
+            \hspace{1.5em} \textbf{dt} (float) Time step size.
+
+        \end{adjustwidth}
+
+
+
+    } 
+\end{tcolorbox}

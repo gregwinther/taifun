@@ -1,0 +1,45 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.integrators.\textbf{GaussIntegrator}
+    (\emph{np}, \emph{s=$2$}, \emph{maxit=$20$}, \emph{eps=$1e^{-14}$})
+
+    \vspace{1em}
+    Simple implementation of symplectic Gauss-Legendre integrtor
+    of order $4$ and $6$ ($s=2$ and $2=3$).
+    
+    \vspace{1em}
+    \textbf{Parameters}
+
+    \hspace{2em} \textbf{np} (\emph{Module})
+        Matrix library to be used, e.g. numpy, cupy.
+
+    \hspace{2em} \textbf{s} (\emph{int, default $2$})
+        Order $= 2s$. Scheme only implemented for $s\in\{2, 3\}$.
+
+    \hspace{2em} \textbf{maxit} (\emph{int})
+        Maximum number of iterations.
+
+    \hspace{2em} \textbf{eps} (\emph{float, default $1e^{-4}$})
+        Convergence tolerance.
+
+    \vspace{1em} 
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{step} {\emph{u, t, dt}}
+
+        \begin{adjustwidth}{4em}{}
+        One itegration step
+
+        \textbf{parameters:} 
+        
+            \hspace{1.5em} \textbf{u} (np.array) Array of equations to be integrated.
+
+            \hspace{1.5em} \textbf{f} (float) Current time step.
+
+            \hspace{1.5em} \textbf{dt} (float) Time step size.
+
+        \end{adjustwidth}
+
+
+    } 
+\end{tcolorbox}

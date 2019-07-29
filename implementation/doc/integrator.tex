@@ -1,0 +1,36 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.integrators.\textbf{Integrator}
+    ()
+
+    \vspace{1em}
+    Abtract integrator parent class. Subclass must implement \emph{step} method       
+    \vspace{1em}
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{np}(\emph{Module})
+        Matrix library to be used, e.g. numpy, cupy.
+
+    \vspace{1em} 
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{set\_rhs} (\emph{rhs})
+
+        \begin{adjustwidth}{4em}{}
+        Setter for right-hand side of problem.
+
+        \textbf{Parameters:} 
+
+            \hspace{1.5em}\textbf{rhs} (\emph{callable, int, float}) 
+                Right hand side of ODE.
+
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{step}{\emph{u, t, dt}}
+
+        \begin{adjustwidth}{4em}{}
+            Shell method. Must be implemented by subclass.
+        \end{adjustwidth}
+
+    } 
+\end{tcolorbox}

@@ -1,0 +1,48 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.cc.\textbf{TDCCSD}
+    (\emph{*args}, \emph{**kwargs})
+
+    \vspace{1em}
+    Sub-class of \textbf{TimeDependentCoupledCluster}
+    Class for computing time-development of provided system, employing time-dependent 
+    coupled cluster method with single- and double excitations. The orbitals are kept 
+    static. This class inherits all methods from the parent class, but includes 
+    a few extra.
+
+    \vspace{1em}
+    \textbf{Parameters}
+
+    \hspace{2em}\textbf{cc}(\emph{CoupledCluster})
+        Class instance defining the ground state solver.
+
+    \hspace{2em}\textbf{system}(\emph{QuantumSystem}) 
+        Class instance defining the system to be solved.
+
+    \hspace{2em}\textbf{np}(\emph{module})
+        Matrix/linear algebra library to be used, e.g. Numpy, Cupy
+    
+    \hspace{2em}\textbf{integrator}(\emph{Integrator})
+        Integrator class instance, e.g. RK4, GaussIntegrator
+
+    \vspace{1em}
+    \textbf{Methods}
+
+    \hspace{2em} \textbf{compute\_energy} ()
+        \begin{adjustwidth}{4em}{}
+        Computes energy at current time step.
+
+        \textbf{Returns:} energy
+        \textbf{Return type:} \emph{float}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_time\_dependent\_overlap} ()
+        \begin{adjustwidth}{4em}{}
+        Computes overlap of current time-developed state with the ground state.
+
+        \textbf{Returns:} Probability of grond state 
+        \textbf{Return type:} \emph{np.array}
+        \end{adjustwidth}
+
+    } 
+\end{tcolorbox}
