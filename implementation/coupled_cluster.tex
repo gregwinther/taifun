@@ -1,10 +1,155 @@
 \chapter{Implementation: Coupled Cluster}
 
+The main product of this study is manifested in the \lstinline{coupled_cluster}
+module for Python. This module is designed to fit together with the
+\lstinline{quantum_systems} module described in the previous chapter. We have tried to 
+make this module easy to extend, resulting in a framework where every solver scheme 
+inherits from an abstract parent class that specifies what must be implemented in order 
+to make a supplemental solver or class operational in conjunction with the rest of the 
+framework.
+
+As a beginning to this project, which we hope will continue to grow and be used, 
+we have implemented several different ground state solver classes, and several
+time-dependent solver classes. In order of increasing sophistication and 
+elegance, we have a ground state- and a time-dependent solver for both the coupled cluster
+method
+with double excitations (CCD), the coupled cluster method with singles- and double 
+excitations (CCSD), and for the orbital-adaptive coupled cluster method with double
+excitations (OACCD). The time-dependent solvers within a particular categor are 
+dependent on its ground state counterpart, but the ground state solvers can be used
+independently.
+
+The \lstinline{coupled_cluster} module can be install from github via \lstinline{pip}
+by the following command,
+\begin{lstlisting}[language=bash]
+pip install git+https://github.com/Schoyen/coupled-cluster.git
+\end{lstlisting}
+If one prefers, the same task can be accomplished by the following commands,
+\begin{lstlisting}[language=bash]
+git clone https://github.com/Schoyen/coupled-cluster.git
+cd coupled-cluster
+pip install .
+\end{lstlisting}
+We have supplied environment specifications for \lstinline{conda}, with requirement 
+specifications for the convenience of the user. Assuming the git repository is cloned 
+properly,
+\begin{lstlisting}[language=bash]
+conda environment create -f environment.yml
+\end{lstlisting}
+Activate the environment with,
+\begin{lstlisting}[language=bash]
+conda activate cc
+\end{lstlisting}
+In the future, we hope that full documentation can be found on
+\url{www.coupled-cluster.com}.
+
 \section{[UNFINISHED] Ground State Computations}
+
+    All ground state solver within the \lstinline{coupled_cluster} module are built 
+    as sub-classes of the abstract base class \lstinline{CoupledCluter}. The most
+    important method of this class is the \lstinline{compute_ground_state()} method.
+    This method in turn calls the \lstinline{iterate_t_amplitudes()} and 
+    \lstinline{iterate_l_amplitudes()} successively. 
 
     \input{implementation/doc/coupled_cluster.tex}
 
+    As we have outlined in 
+    \autoref{ch:coupled_cluster_theory}, the $\tau$ amplitudes are only dependent on 
+    $\tau$, while the $\lambda$ amplitudes are dependent on both $\tau$ and $\lambda$.
+    Therefore, the $\tau$ amplitude equation iterative solver
+    \lstinline{iterate_t_amplitudes()} is called first, and the $\lambda$ amplitude
+    equation solver is called second.
+    The most important section of the \lstinline{compute_l_amplitudes} method 
+    is the following
+    \begin{python}
+    for i in range(max_iterations):
+    self.compute_l_amplitudes()
+    residuals = self.compute_l_residuals()
+
+    if self.verbose:
+        print(f"Iteration: {i}\tResiduals (l): {residuals}")
+
+    if all(res < tol for res in residuals):
+        break
+
+    assert i < (
+        max_iterations - 1
+    ), f"The l amplitudes did not converge. Last residual: {residuals}" 
+    \end{python}
+    The \lstinline{CoupledCluster} class is supposed to provide a framework for which 
+    to implement various coupled cluster ground state solver classes. It therefore
+    has several abstract classes that such subclasses need to implement and overwrite.
+    The most important of these are the methods \lstinline{compute_t_amplitudes} 
+    and \lstinline{compute_l_amplitudes}, which are supposed to contain the evaluation 
+    of amplitude equations for a given coupled cluster truncation and scheme. 
+
+    With the hope that the functunality of the rest of the methods can be inferred from 
+    name, and with the goal of brevity we proceed to a study of the simplest 
+    ground state coupled cluster solver, namely CCD, implemented in the 
+    \lstinline{CoupledClusterDoubles} class.
+   
+    Starting from construction, the \lstinline{CoupledClusterDoubles} class passes 
+    the system, defined through a \lstinline{QuantumSystem} object to the 
+    parent class constructor, along with any keyword arguments, such as turning 
+    on verbosity, mixer type to us and what matrix library to apply. The
+    \lstinline{QuantumSystem} class will contain all the information necessary to 
+    set up the system, i.e. construct a one-body matrix, fock matrix and two-body 
+    matrix. These will be used to set up empty arrays for the $\tau$ and $\lambda$ 
+    amplitudes. The \lstinline{comput_initial_guess} is called lastly in the 
+    constructor, computing the inital guess of the double-excited amplitudes as 
+    \begin{equation}
+        \tau^{(0)} = \frac{u^{ab}_{ij}}{D^{ab}_{ij}},
+    \end{equation}
+    where $u$ is the two-body operator and
+    $D^{ab}_{ij} = f^a_a + f^b_b - f^i_i - f^j_j$,
+    where $f$ is the Fock operator.
+    
+    In the \lstinline{CoupledClusterDobles} class specification one would
+    notice that it has implementations of all the abstract methods 
+    from the \lstinline{CoupledCluster} abstract class. The reason for the existence 
+    of the class, the \lstinline{compute_ground_state()} method, is inherited from the 
+    parent class, and does the same thing as described above - calling 
+    \lstinline{iterate_t_amplitudes()} and \lstinline{iterate_l_amplitudes()}. These 
+    methods alos excist as members of \lstinline{CoupledClusterDoubles}, but are excluded 
+    from the class specification for sake of brevity. It is 
+    possible to pass arguments to the the two iterator methods; one list for each iteration
+    method, or as keywords.
+    One can also pass arguments 
+    to the mixer through the \lstinline{compute_ground_state_method()}. 
+    An overview of mixing applied to iterative solvers is given in the next 
+    section.
+
+    The important part of the specific coupled cluster scheme solver is contained in the two 
+    methods \lstinline{compute_t_amplitudes()} and \lstinline{compute_l_amplitudes()}.
+    These functions evaluate the entire coupled cluster doubles amplitude equations.
+    The computation of each term (diagram) in the amplitude equation is done in separate functions,
+    as calls to \lstinline{numpy.tensordot()}, for a total of ten terms for the 
+    $\tau$ amplitude equation in the coupled cluster doubles method. An example of 
+    such a computation is,
+    \begin{python}
+    def add_d2e_t(u, t, o, v, out, np):
+        term = np.tensordot(t, u[o, v, v, o], axes=((1, 3), (2, 0))).transpose(
+            0, 2, 1, 3
+        )
+        term -= term.swapaxes(0, 1)
+        term -= term.swapaxes(2, 3)
+        out += term
+    \end{python}
+    This function particular computes the $D_{2e}$ diagram\footnote{After the labelling from 
+    \autoref{ch:coupled_cluster_theory} and Shavitt \& Bartlett\cite{shavitt2009many}}.
+
     \input{implementation/doc/ccd.tex}
+
+    Most of the rest of the methods in the \lstinline{CoupledClusterDoubles} class are there 
+    for the use of other methods, or for extracting observables. Moving to the next logical 
+    coupled cluster solver scheme; the coupled cluster method with single- and double 
+    excitation is now a matter of taking into account the extra computations needed in 
+    this scheme, for each method in the abstract base clase \lstinline{CoupledCluster}. 
+    There are indeed many more computations, but the code will structurally be the same. 
+    The class specification for \lstinline{CoupledClusterSinglesDoubles} is therefore 
+    given without specification of the methods as they are excactly the same. For testing 
+    purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the possibility 
+    to only include double excitation at construction.
 
     \input{implementation/doc/ccsd.tex}
 

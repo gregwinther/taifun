@@ -15,7 +15,7 @@
     \hspace{2em}\textbf{system}(\emph{QuantumSystem}) A system class from the 
         \emph{quantum\_systems} module.
 
-    \hspace{2em}\textbf{mixer}(\emph{AlhaMixer, default AlphaMixer}) Mixer - 
+    \hspace{2em}\textbf{mixer}(\emph{AlphaMixer, default AlphaMixer}) Mixer - 
         Subclass of \emph{AlphaMixer} class.
 
     \hspace{2em}\textbf{verbose}(\emph{bool, default False}) Will print results 
@@ -53,7 +53,9 @@
         \begin{adjustwidth}{4em}{}
         Getter for amplitudes.
 
-        \textbf{Parameters:} \textbf{get\_t\_0} (\emph{bool, default False}) 
+        \textbf{Parameters:} 
+        
+            \hspace{1.5em} \textbf{get\_t\_0} (\emph{bool, default False}) 
             Returns amplitude at $t=0$ if \lstinline{True}.
 
         \textbf{Returns:} Amplitudes
@@ -61,6 +63,56 @@
         \textbf{Return type:} \emph{AmplitudeContainer}
 
         \end{adjustwidth}
+
+    \hspace{2em} \textbf{iterate\_l\_amplitudes} 
+        (\emph{max\_iterations=$100$}, \emph{tol=$1e^{-4}$}, \emph{**mixer\_kwargs})
+        \begin{adjustwidth}{4em}{}
+            Finds solution to $\lambda$ amplitudes iteratively.
+
+        \textbf{Parameters:} 
+        
+        \hspace{1.5em} \textbf{max\_iterations} (\emph{int})
+            The limit of iterations allowed.
+
+        \hspace{1.5em} \textbf{tol} (\emph{float, default $1e^{-4}$})
+            The tolerance for convergence.
+
+        \end{adjustwidth}
+ 
+    \hspace{2em} \textbf{iterate\_t\_amplitudes} 
+        (\emph{max\_iterations=$100$}, \emph{tol=$1e^{-4}$}, \emph{**mixer\_kwargs})
+        \begin{adjustwidth}{4em}{}
+            Finds solution to $\tau$ amplitudes iteratively.
+
+        \textbf{Parameters:} 
+        
+        \hspace{1.5em} \textbf{max\_iterations} (\emph{int})
+            The limit of iterations allowed.
+
+        \hspace{1.5em} \textbf{tol} (\emph{float, default $1e^{-4}$})
+            The tolerance for convergence.
+
+        \end{adjustwidth}
+        
+    \hspace{2em} \textbf{\_get\_t\_copy} Abstract method
+
+    \hspace{2em} \textbf{\_get\_l\_copy} Abstract method
+
+    \hspace{2em} \textbf{compute\_energy} Abstract method
+
+    \hspace{2em} \textbf{compute\_one\_body\_density\_matrix} Abstract method
+
+    \hspace{2em} \textbf{compute\_t\_amplitudes} Abstract method
+
+    \hspace{2em} \textbf{compute\_l\_amplitudes} Abstract method
+
+    \hspace{2em} \textbf{setup\_t\_mixer} Abstract method
+
+    \hspace{2em} \textbf{setup\_l\_mixer} Abstract method
+
+    \hspace{2em} \textbf{compute\_t\_residuals} Abstract method
+
+    \hspace{2em} \textbf{compute\_l\_residuals} Abstract method
 
     }
 \end{tcolorbox}

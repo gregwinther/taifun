@@ -6,11 +6,87 @@
     \vspace{1em}
     Implementation of coupled cluster with double excitations ground state solver. 
     Inherits from the \textbf{CoupledCluster} abstract base class.
-    \vspace{1em}
 
+    \vspace{1em}
     \textbf{Parameters}
 
     \hspace{2em}\textbf{system}(\emph{QuantumSystem}) A system class from the 
         \emph{quantum\_systems} module.
-    } 
+
+    \vspace{1em}
+    \textbf{Methods} 
+ 
+    \hspace{2em} \textbf{compute\_ground\_state}
+        (\emph{t\_args=[]}, \emph{t\_kwargs=\{\}}, \emph{l\_args=[]}, \emph{l\_kwargs=\{\}})
+        \begin{adjustwidth}{4em}{}
+        Computes CCD ground state of given system.
+        \end{adjustwidth}  
+
+    \hspace{2em} \textbf{compute\_initial\_guess}()
+        Computes initial guess for amplitudes.
+        %\begin{adjustwidth}{4em}{}
+        %\end{adjustwidth}
+
+    \hspace{2em} \textbf{\_get\_t\_copy}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Copy of $\tau^{ab}_{ij}$ amplitudes
+        
+        \textbf{Return type:} \emph{AmplitudeContainer}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{\_get\_l\_copy}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Copy of $\lambda^{ij}_{ab}$ amplitudes
+        
+        \textbf{Return type:} \emph{AmplitudeContainer}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_t\_residuals}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Norm of $\tau^{ab}_{ij}$ amplitudes
+        
+        \textbf{Return type:} \emph{float}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_l\_residuals}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Norm of $\lambda^{ij}_{ab}$ amplitudes
+        
+        \textbf{Return type:} \emph{float}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{setup\_t\_mixer}(\emph{**kwargs})
+        Sets up mixer for $\tau$ amplitudes
+
+    \hspace{2em} \textbf{setup\_l\_mixer}(\emph{**kwargs})
+        Sets up mixer for $\lambda$ amplitudes
+
+    \hspace{2em} \textbf{compute\_energy}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} CCD ground state energy
+
+        \textbf{Return type:} {\emph{float}}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_t\_amplitudes}()
+        Computes $\tau$ amplitudes
+
+    \hspace{2em} \textbf{compute\_l\_amplitudes}()
+        Computes $\lambda$ amplitudes
+    
+    \hspace{2em} \textbf{compute\_one\_body\_density}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} One-body density matrix
+
+        \textbf{Return type:} \emph{np.array}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_two\_body\_density}()
+        \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Two-body density matrix
+
+        \textbf{Return type:} \emph{np.array}
+        \end{adjustwidth}
+
+    }
 \end{tcolorbox}
