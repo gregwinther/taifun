@@ -291,6 +291,26 @@ In the future, we hope that full documentation can be found on
     
 \subsection{Mixing}
 
+    Iterative many-body methods are prone to convergence problems for certain configurations.
+    This would be doubly important since we have moved to a variational description 
+    of coupled cluster theory,
+    where generalisations of the variational theory dictate inifitesimal variations, which 
+    is not always feasible to implement.
+    Moreover, an iterative optimisation scheme may not always converge properly at all. 
+    Luckily, there exists numerous techniques both for controlling and acceleration 
+    convergence.
+
+    The simplest way to ``massage'' convergence out of the coupled cluster ground state methods
+    to use a dampening, where one would include a part of the result from the previous 
+    iteration, here applied to the $\tau$ amplitudes,
+    \begin{equation}
+        \bar{\tau}^{(k+1)} = (1 - \theta)\tau^{(k+1)} + \theta\tau^{(k)},
+    \end{equation}
+    where $\tau^{(k+1)}$ is the current result from evaluating the amplitude equations, 
+    and $\tau^{(k)}$ is the previous value. Choosing $\theta \in [0,1]$ will tune how
+    much of the previous amplitude to include in the new state. We have implemented this 
+    very simple mixing scheme in the \lstinline{AlphaMixer} class, which also serves as 
+    a base class for further mixer implementations.
 
     \input{implementation/doc/mixer_alpha.tex}
 
