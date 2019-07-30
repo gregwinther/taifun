@@ -4,12 +4,14 @@
     (\emph{system}, \emph{**kwargs})
 
     \vspace{1em}
-    Implementation of the orbital-adaptive coupled cluster method with double excitation,
-    also called the nonorthogonal orbital-optimized coupled cluster model.
-    Requires orthonormal basis functions. Based on work by Rolf H. 
+    Implementation of the orbital-adaptive coupled cluster method with double excitation
+    (OACCD),
+    also called the nonorthogonal orbital-optimized coupled cluster model with double 
+    excitations (NOCCD).
+    This algorithm require orthonormal basis functions. Based on work by Rolf H. 
     Myhre\cite{myhre2018demonstrating}.
 
-    Inherits from the \textbf{CoupledCluster} abstract base class.
+    Inherits from the \textbf{CoupledClusterDoubles} class.
 
     \vspace{1em}
     \textbf{Parameters}
@@ -29,7 +31,7 @@
         \hspace{3.2em}\emph{**mixer\_kwargs})
 
         \begin{adjustwidth}{4em}{}
-        Computes ground state of system.
+        Computes ground state of system by iterating over $\kappa$ equations.
 
         \textbf{Parameters:} 
 
@@ -43,11 +45,62 @@
             Give up if tolerance is below this.
 
             \hspace{1.5em}\textbf{tol\_factor} (\emph{float, default $0.1$})
-            Decreases tolerance if non-convergent.
+            Stricter for each $\kappa$-iteration.
 
             \hspace{1.5em}\textbf{change\_system\_basis} (\emph{bool, default False})
             Changes basis after calculation.
 
         \end{adjustwidth}
+
+    \hspace{2em} \textbf{setup\_kappa\_mixer} (**kwargs)
+        Set up mixer for $\kappa$ vector iterations.
+
+
+    \hspace{2em} \textbf{compute\_kappa\_down\_rhs} 
+        (\emph{f}, \emph{u}, \emph{t\_2}, \emph{l\_2}, \emph{o}, \emph{v}, \emph{np})
+        \begin{adjustwidth}{4em}{}
+        
+        \textbf{Parameters:}
+
+            \hspace{1.5em} \textbf{f} (\emph{np.array}) Fock matrix.
+
+            \hspace{1.5em} \textbf{u} (\emph{np.array})
+                Two-body operator, Coulomb integrals. 
+
+            \hspace{1.5em} \textbf{t\_2} (\emph{np.array}) $\tau^{ab}_{ij}$ amplitudes.
+
+            \hspace{1.5em} \textbf{l\_2} (\emph{np.array}) $\lambda^{ij}_{ab}$ amplitudes.
+
+            \hspace{1.5em} \textbf{o} (\emph{Slice}) Occupied arbitals.
+
+            \hspace{1.5em} \textbf{v} (\emph{Slice}) Virtual orbitals.
+
+            \hspace{1.5em} \textbf{np} (\emph{Module}) Linear algebra library.
+
+        \end{adjustwidth}        
+
+    \hspace{2em} \textbf{compute\_kappa\_up\_rhs} 
+        (\emph{f}, \emph{u}, \emph{t\_2}, \emph{l\_2}, \emph{o}, \emph{v}, \emph{np})
+        \begin{adjustwidth}{4em}{}
+        
+        \textbf{Parameters:}
+
+            \hspace{1.5em} \textbf{f} (\emph{np.array}) Fock matrix.
+
+            \hspace{1.5em} \textbf{u} (\emph{np.array})
+                Two-body operator, Coulomb integrals. 
+
+            \hspace{1.5em} \textbf{t\_2} (\emph{np.array}) $\tau^{ab}_{ij}$ amplitudes.
+
+            \hspace{1.5em} \textbf{l\_2} (\emph{np.array}) $\lambda^{ij}_{ab}$ amplitudes.
+
+            \hspace{1.5em} \textbf{o} (\emph{Slice}) Occupied arbitals.
+
+            \hspace{1.5em} \textbf{v} (\emph{Slice}) Virtual orbitals.
+
+            \hspace{1.5em} \textbf{np} (\emph{Module}) Linear algebra library.
+
+        \end{adjustwidth}
+
     } 
 \end{tcolorbox}

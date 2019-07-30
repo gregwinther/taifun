@@ -59,7 +59,7 @@ In the future, we hope that full documentation can be found on
     Therefore, the $\tau$ amplitude equation iterative solver
     \lstinline{iterate_t_amplitudes()} is called first, and the $\lambda$ amplitude
     equation solver is called second.
-    The most important section of the \lstinline{compute_l_amplitudes} method 
+    The most important section of the \lstinline{compute_l_amplitudes()} method 
     is the following
     \begin{python}
     for i in range(max_iterations):
@@ -76,6 +76,8 @@ In the future, we hope that full documentation can be found on
         max_iterations - 1
     ), f"The l amplitudes did not converge. Last residual: {residuals}" 
     \end{python}
+    The equivalent section in the \lstinline{compute_t_amplitudes()} method is nearly
+    identical.
     The \lstinline{CoupledCluster} class is supposed to provide a framework for which 
     to implement various coupled cluster ground state solver classes. It therefore
     has several abstract classes that such subclasses need to implement and overwrite.
@@ -98,6 +100,7 @@ In the future, we hope that full documentation can be found on
     amplitudes. The \lstinline{comput_initial_guess} is called lastly in the 
     constructor, computing the inital guess of the double-excited amplitudes as 
     \begin{equation}
+        \label{eq:ccd_inital_guess}
         \tau^{(0)} = \frac{u^{ab}_{ij}}{D^{ab}_{ij}},
     \end{equation}
     where $u$ is the two-body operator and
@@ -124,8 +127,39 @@ In the future, we hope that full documentation can be found on
     These functions evaluate the entire coupled cluster doubles amplitude equations.
     The computation of each term (diagram) in the amplitude equation is done in separate functions,
     as calls to \lstinline{numpy.tensordot()}, for a total of ten terms for the 
-    $\tau$ amplitude equation in the coupled cluster doubles method. An example of 
-    such a computation is,
+    $\tau$ amplitude equation in the coupled cluster doubles method including 
+    permutation operators:
+    \begin{equation}
+        \label{eq:ccd_tau}
+        \begin{aligned}
+        0 =& u^{ab}_{ij} + f^b_c \tau^{ac}_{ij}P(ab) 
+            - f^k_j \tau^{ab}_{ik}P(ij)
+            + \frac{1}{4} \tau^{ac}_{ij} \tau^{ab}_{mn}u^{mn}_{cd} 
+            + \frac{1}{2} \tau^{cd}_{ij}u^{ab}_{cd}
+            + \frac{1}{2} \tau^{cd}_{jm} \tau^{ab}_{in} u^{mn}_{cd}P(ij) \\
+            &\ - \frac{1}{2} \tau^{ac}_{nm} \tau^{bd}_{ij} u^{nm}_{cd}P(ab)
+            + \tau^{ac}_{im} \tau^{bd}_{jn}u^{mn}_{cd}P(ij)
+            + \tau^{ac}_{im}u^{bm}_{jc}P(ab)P(ij)
+            + \frac{1}{2} \tau^{ab}_{mn}u^{mn}_{ij}.
+        \end{aligned}
+    \end{equation}
+
+    \input{implementation/doc/ccd.tex}
+   
+    THIS IS NOT CORRECT WHEN INCLUDING LAMBDA..
+    The initial guess in equation \autoref{eq:ccd_inital_guess} is terms 2 and 3
+    from \autoref{eq:ccd_tau}. These terms also form the basis of the iterative scheme,
+    if we move them to the left of the equal sign in \autoref{eq:ccd_tau}, 
+    \begin{equation}
+        D^{ab}_{ij} \tau^{ab}_{ij} = g(u, \tau),
+    \end{equation}
+    where $g(u, \tau)$ now consists of the rest of the doubles amplitude equation, our 
+    recursion relation can be written
+    \begin{equation}
+        t^{(k+1)} = \frac{g(u,\tau^{(k)})}{D^{ab}_{ij}}.
+    \end{equation}
+    
+    An example of a computation of one term from \autoref{eq:ccd_tau} is,
     \begin{python}
     def add_d2e_t(u, t, o, v, out, np):
         term = np.tensordot(t, u[o, v, v, o], axes=((1, 3), (2, 0))).transpose(
@@ -138,24 +172,125 @@ In the future, we hope that full documentation can be found on
     This function particular computes the $D_{2e}$ diagram\footnote{After the labelling from 
     \autoref{ch:coupled_cluster_theory} and Shavitt \& Bartlett\cite{shavitt2009many}}.
 
-    \input{implementation/doc/ccd.tex}
-
     Most of the rest of the methods in the \lstinline{CoupledClusterDoubles} class are there 
     for the use of other methods, or for extracting observables. Moving to the next logical 
     coupled cluster solver scheme; the coupled cluster method with single- and double 
-    excitation is now a matter of taking into account the extra computations needed in 
+    excitations is now a matter of taking into account the extra computations needed in 
     this scheme, for each method in the abstract base clase \lstinline{CoupledCluster}. 
     There are indeed many more computations, but the code will structurally be the same. 
     The class specification for \lstinline{CoupledClusterSinglesDoubles} is therefore 
-    given without specification of the methods as they are excactly the same. For testing 
+    given here without specification of the methods as they are excactly the same. For testing 
     purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the possibility 
     to only include double excitation at construction.
 
     \input{implementation/doc/ccsd.tex}
 
+    The algorithm applied when computing the ground state in the orbital-adaptive sphere 
+    is the nonorthogonal orbital-optimised coupled cluster (NOCC) method, developed by 
+    Myhre\cite{myhre2018demonstrating}. The NOCC scheme is shown to converge towards full
+    configuration interaction. Since the \lstinline{OACCD} class is acutally applying 
+    NOCC it can be perceived as a misnomer, but as of yet there exist no ground state 
+    equivalent of the time-dependent 
+    orbital-adaptive coupled cluster (OACC) method. Such a method is in development, and there
+    is strong indication that NOCC would be equivalent to a OACC ground state solver. What is 
+    more, NOCC does vary the orbitals as well as iterate over amplitude, and we have therefore 
+    opted to call it OACC.
+
     \input{implementation/doc/oaccd.tex}
 
+    Our implementation of the NOCC ground state solver is inderited from code written by Rolf Myhre and 
+    adapted to our 
+    framework. We supply a brief overview of the algorithm here. The starting point for the 
+    NOCC model is the bivariational Lagrangian
+    \begin{equation}
+        \label{eq:nocc_lagrangian}
+        \mathscr{L} = \mel*{\tilde{\Psi}}{\hat{H}}{\Psi} \\
+            = \mel*{\tilde{\phi}}
+                {
+                (1 + \Lambda) e^{-\hat{T}}e^{-\kappa}\hat{H}e^{\kappa}e^{\hat{T}}
+                }{\phi}
+    \end{equation}
+    which is very similar to the coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}),
+    except for a biorthogonal basis and a transformation of the Hamiltonian, defined 
+    as follows
+    \begin{equation}
+        \begin{aligned}
+            \tilde{c}_p^\dagger &= e^{-\kappa}\hat{c}_p^\dagger e^\kappa \\
+            c_p &= e^{-\kappa} \hat{c}_p^\dagger e^\kappa \\
+            \ket{\phi} &= e^{-\kappa}\ket*{\hat{\phi}}
+        \end{aligned}
+    \end{equation}
+    where the orthogonal reference creation- and annihilation operators marked with a hat
+    ($\hat{\ }$), as is the reference state function. We require that $\kappa$ is antihermitian,
+    \begin{equation}
+        \kappa = \sum_{pq} \kappa_{pq}c^\dagger_p c_q, \quad \kappa^\dagger = -\kappa.
+    \end{equation}
+    Moreover, we split $\kappa$ into excitations and relaxations (up and down),
+    \begin{equation}
+        \label{eq:agg_kappa}
+        \kappa = \sum_{ai} \kappa^u_{ai}c^\dagger_a \tilde{a}_i
+            + \kappa^d_{ia} c^\dagger_i \tilde{c}_a
+            = \sum_{ai} \kappa^u_{ai} X_ai + \kappa^d_{ia} \tilde{X}^\dagger_{ia}.
+    \end{equation} 
+    
+    As in any many-body formulation that includes a Lagrangian, we would like to compute 
+    the first-order conditions of the Lagrangian, in order to derive what would be the 
+    NOCC equation. The problem with this is that the result would be some extremely 
+    lengthy expressions, because $\kappa$ does not commute with $\hat{T}$ or $\Lambda$.
+    Therefore, we express the NOCC equations with an optimized basis where $\kappa=0$,
+    where a solution would correspond to a stationary point of the Schrödinger equation.
+    This is the same as expanding the exponentials in $\kappa$ and keeping only zero-order 
+    terms. This trick leads to an algorithm which iterates between orbital transformations 
+    and amplitudes until self-consistency.
+
+    At a particular stationary point the differential of the Lagrangian
+    (\autoref{eq:nocc_lagrangian}) must be zero with respect to the four sets of 
+    parameters $\{\tau\}$, $\{\lambda\}$, $\{\kappa^u\}$ and $\{\kappa^d\}$, giving
+    us four sets of equations,
+    \begin{align}
+        \frac{\partial \mathscr{L}}{\partial \lambda_{\mu_n}}
+            &= \mel*{\tilde{\phi}}
+            {\tilde{X}_{\mu_n} e^{-\hat{T}}\hat{H}e^{\hat{T}}}
+            {\phi}, \\
+        \frac{\partial \mathscr{L}}{\partial \tau_{\mu_n}}
+            &= \mel*{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_{\mu_n}]e^{\hat{T}}}
+            {\phi}, \\
+        \frac{\partial \mathscr{L}}{\partial \kappa^u_{\mu_1}}
+            &= \mel*{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_{\mu_1}]e^{\hat{T}}}
+            {\phi}, \\
+        \frac{\partial \mathscr{L}}{\partial \kappa^d_{\mu_1}}
+            &= \mel*{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, \tilde{X}_{\mu_1}]e^{\hat{T}}}
+            {\phi}.
+    \end{align}
+
+    We are now ready to outline the full algorithm of the 
+    \lstinline{compute\_ground\_state()} in what we have called the \lstinline{OACCD}.
+    The method is iterating over the the norm of $\kappa^u$ and $\kappa^d$, called the 
+    residuals of $\kappa$, until consistency compared to a tolerance value us achieved. 
+    For each such iteration, iteration over the $\tau$ and $\lambda$ double excitation
+    amplitudes is performed, but at a much less strict tolarance value than under the 
+    \lstinline{CoupledClusterDoubles} scheme. After the iteration over $\tau$ and $\lambda$ 
+    is achieved, the values for $\kappa^u$ and $\kappa^d$ are recalculated, in order to 
+    compute the aggragate $\kappa$ (\autoref{eq:agg_kappa}), 
+    which in turn can be used to transform the orbitals,
+    \begin{equation*}
+        \begin{gathered}
+            h^{(k + 1)} = e^{-\kappa} h^{(k)} e^{\kappa}, \\
+            (u^{pq}_{rs})^{(k + 1)}
+            = (e^{-\kappa})^p_a (e^{-\kappa})^q_b 
+                (u^{ab}_{cd})^{(k)}
+            (e^{\kappa})^d_s (e^{\kappa})^c_r,
+        \end{gathered}
+    \end{equation*}
+    which (in addition to being written with incomprehensible notation) is used to compute 
+    a new Fock operator. The resulting rotation of the orbitals will aid in better 
+    convergence towards the ground state. FLOW CHART??
+    
 \subsection{Mixing}
+
 
     \input{implementation/doc/mixer_alpha.tex}
 
