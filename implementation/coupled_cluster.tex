@@ -308,11 +308,99 @@ In the future, we hope that full documentation can be found on
     \end{equation}
     where $\tau^{(k+1)}$ is the current result from evaluating the amplitude equations, 
     and $\tau^{(k)}$ is the previous value. Choosing $\theta \in [0,1]$ will tune how
-    much of the previous amplitude to include in the new state. We have implemented this 
+    much of the previous amplitude to include in the new state. The idea is to allow for 
+    a more gentle transition between the iterations. We have implemented this 
     very simple mixing scheme in the \lstinline{AlphaMixer} class, which also serves as 
     a base class for further mixer implementations.
 
     \input{implementation/doc/mixer_alpha.tex}
+
+    A more sophisticated method to aid in convergence, and perhaps the most popular,
+    is by performing a direct inversion of iterative subspace (DIIS). The DIIS method 
+    is built to accelerate the quasi-Newton method, an we will necesarily outline the 
+    quasi-Newton before we examine DIIS, which is explained in Helgaker et 
+    al.\cite{helgaker2014molecular}.
+
+    The commutator of Fock operator with the cluster operator is generally
+    \begin{equation}
+        \label{eq:fock_cluster_commutator}
+        [\hat{f}, \hat{T}] = \sum_\mu D_\mu \tau_\mu X_\mu,
+    \end{equation}
+    where $\epsilon_\mu$ is the sum of unoccupied energies minus sum of all 
+    occupied energies, i.e. $D^{ab}_{ij} = \epsilon_a  + \epsilon_b - \epsilon_i - \epsilon_j$,
+    $\tau_\mu$ is the amplitude of a particular excitation, and $X_\mu$ is an excitation 
+    operator. For CCD \autoref{eq:fock_cluster_commutator} becomes,
+    \begin{equation}
+        [\hat{f}, \hat{T}_2] = D^{ab}_{ij} \tau^{ab}_{ij} c^\dagger_a c^\dagger_b c_i c_j.
+    \end{equation}
+    This allows us to write the coupled cluster vector function $\Omega^{(0)}_\mu$,
+    and its Jacobian $\Omega^{(1)}_{\mu\nu}$ of the $n$th iteration in the form 
+    \begin{align}
+        \label{eq:vector_function_diis}
+        \Omega^{(0)}_\mu &= D_\mu \tau^{(n)}_\mu 
+            + \mel{\Phi_\mu}
+            {e^{-\hat{T}^{(n)}} \hat{U} e^{\hat{T}^{(n)}}}
+            {\Phi_0} \\
+        \label{eq:jacobian_diis}
+        \Omega^{(1)}_{\mu\nu} &= D_\mu\delta_{\mu\nu} 
+            + \mel{\Phi_\mu}
+            {e^{-\hat{T}^{(n)}} [\hat{U}, X^\nu] e^{\hat{T}^{(n)}}}
+            {\Phi_0}
+    \end{align}
+    which are very similar to the coupled cluster energy and amplitude equations, but 
+    the matrix element contains just $\hat{U}$, the fluctuation potential, instead of 
+    the entire Hamiltonian $\hat{H} = \hat{F} + \hat{U}$. HERE I AM BEING INCONSISTENT
+    WITH MY NOTATION AGAIN.
+
+    The Jacobian constists onluy of a diagonal part, involving differences of the 
+    orbital energies, and a nondiagonal part, containing the fluctuation potential.
+    The trick from \emph{Newton's} method is to expand the vector functions around 
+    the set of amplitudes of the current iteration $\tau^{(n)}$,
+    \begin{equation}
+        \Omega(\tau^{(n)} + \Delta\tau) = \Omega^{(0)}(\tau^{(n)})
+            + \Omega^{(1)}(\tau^{(n)})\Delta \tau + \dots,
+    \end{equation}
+    which leads to a recursion relation be neglecting terms that are nonlinear in
+    $\Delta \tau$,
+    \begin{equation}
+        \Omega^{(1)}(\tau^{(n)})\Delta \tau^{(n)} = - \Omega^{(0)}(\tau^{(n)}).
+    \end{equation}
+    By inserting \autoref{eq:vector_function_diis} and \autoref{eq:jacobian_diis} 
+    we get the \emph{quasi-Newton} equations for the optimisation of the 
+    coupled-cluster wavefunction,
+    \begin{equation}
+        \label{eq:quasi_newton}
+        \Delta \tau^{(n)}_\mu = - \frac{\Omega^{(0)}_\mu(\tau^{(n)})}{D_\mu}
+    \end{equation}
+    The quasi-Newton method is fairly robust, but the convergence may be improved 
+    significantly by introducing DIIS.
+
+    In the DIIS framework\cite{pulay1980convergence}, the new amplitudes 
+    $\tau^{(n+1)}$ are obtained by a linear interpolation among the previous 
+    estimates of the amplitudes,
+    \begin{equation}
+        \tau^{(n+1)} = \sum_{k+1}^n w_k(\tau^{(k)} + \Delta\tau^{(k)}),
+    \end{equation}
+    where $\Delta\tau^{(k)}$ are obtained from \autoref{eq:quasi_newton}, and 
+    the interpolations weights sum to unity,
+    \begin{equation*}
+        \label{eq:diis_weights_sum}
+        \sum_{k=1}^n w_k = 1.
+    \end{equation*}
+    To determine the DIIS weights, we associate each set of amplitudes $\tau^{(k)}$ 
+    with an error vector. We use the scaled vector function $\Delta\tau^{(k)}$ as 
+    error vector and determine the interpolation coefficients by minimising the norm of 
+    the averaged vector
+    \begin{equation}
+        \Delta \tau^{\text{ave}} = \sum_{k=1}^n w_k \Delta \tau^{(k)}
+    \end{equation}
+    subject to \autoref{eq:diis_weights_sum}.
+
+    We have implemented the DIIS acceleration of the quasi-Newton method in the class 
+    \lstinline{DIIS}. This class inherits from the \lstinline{AlphaMixer} class and
+    would function in its place. The \lstinline{DIIS} class allows one to pick 
+    how many vectors to store and compute a linear interpolation of, with a default 
+    value of $10$ vectors.
 
     \input{implementation/doc/diis.tex}
 
