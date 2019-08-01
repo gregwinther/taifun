@@ -1890,10 +1890,12 @@ single amplitudes, $\tau^a_i$ and $\lambda^i_a$ equal to zero.
 In OATDCC theory such a gauge condition corresponds to considering orbital time 
 derivatives of the form
 \begin{align}
+    \label{eq:orbital_time_derivative_ket}
     \ket{\dot{\varphi}_q} &= (P + Q)\ket{\dot{\varphi}_q}
         = \sum_p \ket{\varphi_p}\braket{\tilde{\varphi}_p}{\dot{\varphi}_q} 
             + Q\ket{\dot{\varphi_q}}
         = \sum_p\eta^p_q + Q\ket{\dot{\varphi}_q}\\
+    \label{eq:orbital_time_derivative_bra}
     \bra*{\dot{\tilde{\varphi}}_p} &= \bra{\dot{\tilde{\varphi}}_p}(P + Q)
         = \sum_q \braket{\dot{\tilde{\varphi}}_p}{\varphi_q}\bra{\tilde{\varphi}_q}
             + \bra{\dot{\tilde{\varphi}}_p}Q
@@ -1943,8 +1945,68 @@ where mean-field operators $W^r_s$ are defined by
     \mel{\cdot \tilde{\varphi}_r}{u}{\psi\varphi_s}.
 \end{equation}
 
+The logical next step is to write down the equations of motion for the lowest 
+truncated from of OATDCC available too us, namely OATDCCD. In addition to the 
+orbitals $\Phi$ and $\tilde{\Phi}$, the only parameters of the exact wavefunction 
+are the amplitudes $\tau = \tau^{ab}_{ij}$ and $\lambda = \lambda^{ij}_{ab}$. 
+The OATDCCD amplitude equations read 
+\begin{align}
+    \label{eq:oatdccd_tau}
+    i\hbar \dot{\tau}^{ab}_{ij} 
+        &= \frac{\partial}{\partial \lambda^{ij}_{ab}}
+            \mathscr{E}_{\text{H}}[\lambda, \tau, \tilde{\Phi}, \Phi]
+        = \mel{\tilde{\phi}^{ab}_{ij}}
+            {e^{-\hat{T}}\hat{H}e^{\hat{T}}}
+        {\phi} \\
+    \label{eq:oatdccd_lambda}
+    -i\hbar\dot{\lambda}^{ij}_{ab}
+        &= \frac{\partial}{\partial \tau^{ab}_{ij}}
+            \mathscr{E}[\lambda, \tau, \tilde{\Phi}, \Phi]
+        = \mel{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X^{ij}_{ab}]e^{\hat{T}}}
+            {\phi}.
+\end{align}
+The $P$-space orbitals read 
+\begin{align}
+    \label{eq:oatdccd_p_1}
+    i\hbar\sum_{bj}A^{ib}_{aj} \eta^j_b
+        &= \sum_j \rho^i_j h^j_a - \sum_b \rho^b_a h^i_b
+        + \frac{1}{2}\left[
+             \sum_{prs}\rho^{is}_{pr} u^{pr}_{as}
+            -\sum_{rqs}\rho^{qs}_{ar} U^{ir}_{qs}
+        \right], \\
+    \label{eq:oatdccd_p_2}
+    -i\hbar\sum_{bj}A^{ja}_{bi} \eta^b_j
+        &= \sum_b \rho^a_b h^b_i - \sum_j \rho^j_i h^a_j
+        + \frac{1}{2}\left[
+             \sum_{prs}\rho^{as}_{pr} u^{pr}_{is}
+            -\sum_{rqs}\rho^{qs}_{ir} U^{ar}_{qs}       
+        \right]
+\end{align}
+and the $Q$-space orbitales read
+\begin{align}
+    \label{eq:oatdccd_q_1}
+    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q}
+        &= \sum_q \rho^p_q Q h\ket{\varphi_q} 
+            + \sum_{qrs} \rho^{qs}_{pr} Q W^r_s \ket{\varphi_q}, \\
+    \label{eq:oatdccd_q_2}
+    -i\hbar\sum_p \rho^q_p
+    \left(\frac{\partial}{\partial t} \bra{\tilde{\varphi}_q}\right)Q
+        &= \sum_p \rho^q_p \ket{\varphi_q} Q h
+            + \sum_{prs} \rho^{qs}_{pr}\bra{\varphi_q} W^r_s Q.
+\end{align}
 
-More stuff here:
-\begin{itemize}
-    \item OATDCCD
-\end{itemize}
+Notice that the $\tau$ and $\lambda$ OATDCCD equations
+(\autoref{eq:oatdccd_tau} and \autoref{eq:oatdccd_lambda}) are the 
+same as the ones used in standard TDCCD
+(\autoref{eq:tdcc_tau} and \autoref{eq:tdcc_lambda}), because the 
+operator $\hat{D}_0$ is eliminated due to $\rho^a_i = \rho^i_a = 0$.
+Because the operators $\hat{D}_0$ disappears from 
+\autoref{eq:oatdccd_tau} and \autoref{eq:oatdccd_lambda},
+the right-hand sides can be evaluated independently of 
+equations \ref{eq:oatdccd_p_1}, \ref{eq:oatdccd_p_2},
+\ref{eq:oatdccd_q_1}, \ref{eq:oatdccd_q_2}. In order to compute 
+$\dot{\tilde{\Phi}}$ and $\dot{\Phi}$, $\eta$ must be solved for in 
+addition to $Q\ket{\dot{\varphi}_q}$ and $\bra{\dot{\tilde{\varphi}}_p}Q$,
+according to \autoref{eq:orbital_time_derivative_ket} and 
+\autoref{eq:orbital_time_derivative_bra}.
