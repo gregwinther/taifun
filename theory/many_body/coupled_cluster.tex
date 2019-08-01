@@ -1752,14 +1752,16 @@ find the equations of motion. First we keep $\tau^\nu$ constant and vary $\lambd
             \delta\lambda_\mu
     dt = 0.
 \end{equation}
-We see that the stationarity condition is 
+We see that the stationary condition is 
 \begin{equation}
     \label{eq:oatdcc_tau}
+    \boxed{
     i\hbar \dot{\tau}^\mu 
     = \frac{\partial}{\partial \lambda_\mu}
         \mathscr{E}_{\hat{H} -i \hbar \hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
-    = \mel{\tilde{\phi}_\mu}
+    = \mel*{\tilde{\phi}_\mu}
         {e^{-\hat{T}}(\hat{H} - i\hbar \hat{D}_0)e^{\hat{T}}}{\phi},
+    }
 \end{equation}
 which is also the eqution of motion, dictating the time-development of $\tau$. Next, 
 we hold $\lambda_\mu$ fixed and vary $\tau^\nu$,
@@ -1780,24 +1782,169 @@ yielding
 \begin{equation}
     \delta\mathcal{S}[\lambda, \tau] 
     = \int_0^T \delta \tau^\nu \left(-i\hbar\dot{\lambda}_\nu 
-    \frac{\partial \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}}{\partial\tau^\nu}- \right).
+    -\frac{\partial \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}}{\partial\tau^\nu} \right).
 \end{equation}
 Here the stationary condition is 
 \begin{equation}
     \label{eq:oatdcc_lambda}
-    -i\hbar\lambda_\nu = \frac{\partial}{\partial \tau^\nu}
+    \boxed{
+    -i\hbar\dot{\lambda}_\nu = \frac{\partial}{\partial \tau^\nu}
     \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
-    = \mel{\phi}
+    = \mel*{\tilde{\phi}}
         {(1 + \Lambda)e^{-\hat{T}}[\hat{H} -i\hbar\hat{D}_0, X_\mu]e^{\hat{T}}
         }{\phi}.
+    }
 \end{equation}
 \autoref{eq:oatdcc_tau} and \autoref{eq:oatdcc_lambda} together make up the orbital-adaptive 
-coupled cluster amplitude equations.
+coupled cluster (OACC) amplitude equations of motion.
+
+We will return to the OACC equations of motion shortly, but first we consider a special 
+situation where the operator
+$\hat{D}_0 \equiv \sum_{pq} \braket*{\tilde{\phi}_p}{\dot{\phi}_q}c^\dagger_p\tilde{c}_q$,
+equates to zero. This is the same as keeping the orbitals static over time. The 
+resulting equations of motions are 
+\begin{align}
+    \label{eq:tdcc_tau}
+    i\hbar\dot{\tau}^\mu 
+        &= \frac{\partial}{\partial \lambda_\mu}\mathscr{E}_{\hat{H}}
+            [\lambda, \tau, \tilde{\Phi}, \Phi]
+        = \mel*{\tilde{\phi}_\mu}
+            {e^{-\hat{T}}\hat{H}e^{\hat{T}}}
+        {\phi} \\
+    \label{eq:tdcc_lambda}
+    -i\hbar\dot{\lambda}_\nu
+        &= \frac{\partial}{\partial \tau^\nu}\mathscr{E}_{\hat{H}}
+            [\lambda, \tau, \tilde{\Phi}, \Phi]
+        = \mel*{\tilde{\phi}}
+            {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_\mu]e^{\hat{T}}}
+        {\phi}.
+\end{align}
+We call these equations the time-developted coupled cluster (TDCC) amplitude equations. 
+Setting the left-hand side of
+\autoref{eq:tdcc_tau} and \autoref{eq:tdcc_lambda} to zero will give a set of 
+non-linar equations that can be solved in order to find initial amplitudes 
+($\lambda^{(0)}$, $\tau^{(0)}$). These equations are the same as 
+\autoref{eq:lagrangian_tau_amplitude_eqns} and \autoref{eq:lagrangian_lambda_amplitude_eqns}.
+
+Returning to the orbital-adaptive scheme, the OATDCC equations 
+(\autoref{eq:oatdcc_tau} and \autoref{eq:oatdcc_lambda}) have parametric redundancies
+that we need to address briefly\footnote{A thorough decription of this matter can be 
+found in the supplementary to Kvaal's articl on OATDCC\cite{kvaal2012ab}}. The 
+parametric redundancies exist in the sense that when one derives equations of motion
+for 
+$(\tau, \lambda, \tilde{\Phi}, \Phi) = (\tau^\mu, \lambda_\mu, \tilde{\phi}_p, \phi_q)$,
+under the stationary condition
+$\delta\mathcal{S} = 0$, for a given pair of coupled cluster wavefunctions
+$(\bra*{\tilde{\Psi}}, \ket{\Psi}) \in \mathcal{M}$, there are many choices for the amplitudes and 
+orbitals that would give this same wavefunction pair. It is therefore necessary 
+to define a transformation as a many-to-one mapping from this collection of points
+$(\lambda, \tau, \tilde{\Phi}, \Phi) \in \mathcal{N}$
+to the wavefunction pair on $(\bra*{\tilde{\Psi}}, \ket{\Psi}) \in \mathcal{M}$,
+\begin{equation}
+   f : \mathcal{N} \to \mathcal{M}. 
+\end{equation}
+As circumstances would have it, the simplest of such transformations corresponds to 
+a rotation that elminates the singles amplitudes $\tau^a_i$. This is the same ansatz 
+employed in orbital-optimised-  or Bruecker coupled cluster theory (see box). Additionally,
+including $\lambda^i_a$ after this rotation would leave the equations of motions 
+overdetermined. The presence of $\hat{T}_1$ is compensated by the freely 
+varying orbitals, but this does not hold for $\Lambda_1$, which gives more 
+parameters in the $\bra{\tilde{\Psi}}$ than in $\ket{\Psi}$. As such, we set all 
+single amplitudes, $\tau^a_i$ and $\lambda^i_a$ equal to zero.
+
+\begin{tcolorbox}[title={Orbital-optimised and Bruecker coupled cluster theories
+    \cite{krylov1998size,pedersen1999gauge}}, 
+    colback={white},
+    colbacktitle={pink},
+    coltitle={black}]
+
+    In standard coupled cluster theory including single excitations,
+    \begin{equation}
+        \label{eq:the_singles_manifold}
+        e^{\hat{T}_1} = \exp{\sum_{ai}\tau^a_ic^\dagger_ac_i},
+    \end{equation} 
+    we determine a set of non-zero single-excitation amplitudes $\tau^a_i$
+    together with any 
+    higher-excitation amplitudes.
+    An alternative parametrisation of the singles manifold
+    in \autoref{eq:the_singles_manifold} is the orthogonal orbital-rotation 
+    operator
+    \begin{equation}
+        \label{eq:the_orbital rotator}
+        e^{-\kappa} = \exp{ 
+            - \sum_{ai} \kappa_ai(c^\dagger_a c_i - c^\dagger_i c_a)     
+        }
+    \end{equation}
+    This is a rephrasing of Thouless
+    theorem\cite{thouless1960stability}. We may therefore use 
+    \begin{equation}
+       \ket{\Psi_{\text{OCC}}} = e^{-\kappa}e^{\hat{T}_{\text{O}}}\ket{\Phi}
+    \end{equation}
+    as a wavefunction ansatz instead. Here,
+    \begin{equation}
+        \hat{T}_{\text{O}} = \hat{T}_2 + \hat{T}_3 + \dots
+    \end{equation}
+
+\end{tcolorbox}
+
+In OATDCC theory such a gauge condition corresponds to considering orbital time 
+derivatives of the form
+\begin{align}
+    \ket{\dot{\varphi}_q} &= (P + Q)\ket{\dot{\varphi}_q}
+        = \sum_p \ket{\varphi_p}\braket{\tilde{\varphi}_p}{\dot{\varphi}_q} 
+            + Q\ket{\dot{\varphi_q}}
+        = \sum_p\eta^p_q + Q\ket{\dot{\varphi}_q}\\
+    \bra*{\dot{\tilde{\varphi}}_p} &= \bra{\dot{\tilde{\varphi}}_p}(P + Q)
+        = \sum_q \braket{\dot{\tilde{\varphi}}_p}{\varphi_q}\bra{\tilde{\varphi}_q}
+            + \bra{\dot{\tilde{\varphi}}_p}Q
+        = - \sum_q \eta^p_q \bra{\tilde{\varphi}_q} + \bra{\dot{\tilde{\varphi}}_p}Q,
+\end{align}
+with $\eta^i_j = \eta^a_b = 0$,
+$\eta^p_q = \braket{\tilde{\varphi}_p}{\dot{\varphi}_q} = - \braket{\dot{\tilde{\varphi}}_p}{\varphi_1}$.
+Here we have defined the projection operators $P$ and $Q$, where 
+$P = \Phi\tilde{\Phi} = \sum_p \dyad{\varphi_p}{\varphi_p}$ projects onto the single-particle 
+space defined by the orbitals, and $Q = 1 - P$ projects onto everything else.
+
+We can write down equations of motions just for the nonzero $P$-components
+$\eta^a_i$ and $\eta^i_a$ of the orbital derivatives,
+\begin{align}
+    i\hbar \sum_{bj}A^{ib}_{aj}\eta^j_b 
+        &= \sum_p \rho^i_p h^p_a - \sum_q \rho^q_a h^i_q
+        + \frac{1}{2}\left[ 
+              \sum_{qrs} \rho^{is}_{pr} u^{pr}_{as}
+            - \sum_{rqs} \rho^{qs}_{ar} u^{ir}_{qs}     
+        \right] \\
+    - i\hbar \sum_{bj} A^{ja}_{bi}\eta^b_j 
+        &= \sum_p \rho^a_p h^p_i - \sum_q \rho^q_i h^a_q
+        + \frac{1}{2} \left[
+              \sum_{prs} \rho^{as}_{ps} u^{pr}_{is}
+            - \sum_{rqs} \rho^{qs}_{ir} u^{ar}_{qs}
+        \right]
+        + i\hbar \hat{\rho}_i^a,
+\end{align}
+where the matrix elements $A^{ib}_{aj}$ are defined by,
+\begin{equation}
+    A^{ib}_{aj} \equiv 
+    \mel{\tilde{\Psi}}{[c^\dagger_j\tilde{c}_b, c^\dagger_a\tilde{c}_i]}{\Psi}
+    = \delta^b_a\rho^i_j - \delta^i_j\rho^b_a.
+\end{equation}
+The $Q$-part of the orbital derivatives are,
+\begin{align}
+    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q}
+        &= \sum_q \rho^q_p Q h\ket{\varphi_q}
+        + \sum_{qrs} \rho^{qs}_{pr}Q W^r_s\ket{\varphi_q}, \ \forall p \\
+    -i\hbar\sum_p \rho^q_p \left(\frac{\partial}{\partial t}\bra{\tilde{\varphi}_p} \right)Q
+        &= \sum_p\rho^q_p \bra{\tilde{\varphi}_p}hQ
+        + \sum_{prs} \rho^{qs}_{pr} \bra{\tilde{\varphi}_p}W^r_s Q, \ \forall q,
+\end{align}
+where mean-field operators $W^r_s$ are defined by 
+\begin{equation}
+    W^r_s\ket{\psi} \equiv 
+    \mel{\cdot \tilde{\varphi}_r}{u}{\psi\varphi_s}.
+\end{equation}
+
 
 More stuff here:
 \begin{itemize}
-    \item TDCCSD
-    \item Gauge. P and Q.
-    \item Some stuff about Thouless
-    \item OATDCCSD
+    \item OATDCCD
 \end{itemize}
