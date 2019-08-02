@@ -406,7 +406,109 @@ In the future, we hope that full documentation can be found on
 
 \section{[UNFINISHED] Time Development}
 
+    Simlarly to the rest of the \lstinline{coupled_cluster} module, the portion relating
+    to time development begins with an abstract base class,
+    \lstinline{TimeDependentCoupledCluster}
+    functioning as an interface for the rest of the classes. At construction, the 
+    \lstinline{TimeDependentCoupledCluster} class is passed an affiliated 
+    ground state solver in the form of a \lstinline{CoupledCluster} object, a 
+    \lstinline{QuantumSystems} object and an \lstinline{Integrator} object. All these 
+    are necessary in order to compute a time-development. The starting point of a 
+    time development is a system at it's ground state, necessitating the specification 
+    of a system and a ground state solver. The system is developed in time by solving 
+    the equations of motion with a numerical integrator. We will consider 
+    integrators separately in the next section.
+
+    Inclusion of a \lstinline{CoupledCluster} object in the 
+    \lstinline{TimeDependentCoupledCluster} class allows one to call the 
+    \lstinline{compute_ground_state()} from this object, and it is included as a 
+    wrapper. Severak other methods are included from the ground state realm, like 
+    the methods for particle density computations. 
+
+    The bare minimum that a time-dependent coupled cluster scheme needs to implement 
+    in order to function is the methods \lstinline{rhs_t_amplitudes()} and 
+    \lstinline{rhs_l_amplitudes()}, which should return the right-hand side of 
+    the amplitude equations. These methods should be integrated as generators, to make 
+    it possible to iterate over them, and should yield the amplitudes in order of 
+    increasing excitation level.
+
     \input{implementation/doc/tdcc.tex}
+
+    Arguably the most important method in the \lstinline{TimeDependentCoupledCluster}
+    abstract base class is the \lstinline{solve(time_steps)} method. For the array 
+    of time steps supplied, this method propagates with the integrator member of the 
+    class for all amplitudes. This method remains the same for all time-propagation 
+    schemes, and is therefore implemented in the base class for inheritance in 
+    sub-classes. This method in full is
+    \begin{python}
+    def solve(self, time_points, timestep_tol=1e-8):
+        n = len(time_points)
+
+        for i in range(n - 1):
+            dt = time_points[i + 1] - time_points[i]
+            amp_vec = self.integrator.step(
+                self._amplitudes.asarray(), time_points[i], dt
+            )
+
+            self._amplitudes = type(self._amplitudes).from_array(
+                self._amplitudes, amp_vec
+            )
+
+            if abs(self.last_timestep - (time_points[i] + dt)) > timestep_tol:
+                self.update_hamiltonian(time_points[i] + dt, self._amplitudes)
+                self.last_timestep = time_points[i] + dt
+
+            yield self._amplitudes
+    \end{python}
+    We see that after the integrator is advanced one step in time, returning an amplitude 
+    vector. This amplitude object is stored as a member of the class by use of the 
+    \lstinline{from_array()} method from the \lstinline{AmplitudeContainer} class,
+    after which the  
+    Hamiltonian of the system is updated if enough time has passed.
+
+    We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
+    (TDCCSD)
+    solver. For the sake of brevity, we present only the TDCCSD here. 
+    The \lstinline{TDCCSD} class, a sub-class of \lstinline{TimeDependentCoupledCluster},
+    inheriting all methods from this super-class. It accepts the same parameter as the super-class, except the 
+    parameter that defines the ground state solver to be used - the \lstinline{CoupledCluster}
+    class implementation. The ground state solver is already decided by the level of 
+    excitation for the computation at hand. All parameters are passed to the constructor 
+    in the parent class.
+
+    The \lstinline{solve()} method will have the exact same functionality as in the parent class,
+    but since the \lstinline{TDCCSD} contains amplitudes and everything else needed to 
+    solve the equations of motions in a singles and doubles trunctation, it will now yield a 
+    \lstinline{Generator} object 
+    containing amplitudes that are developed in time. Any observable can be extracted during 
+    an iteration over this \lstinline{Generator} object. We have implemeted several methods that 
+    can be useful in extracting information about the state of the time-developed system,
+    for instance \lstinline{compute\_time\_dependent\_overlap} which computes the 
+    probability of the system being in the ground state, and \lstinline{compute\_energy} 
+    which computes the energy of the system in the current time-dependent state.
+    The ground state probability, i.e. \lstinline{compute_time_dependent_overlap}, is 
+    given by a general time-dependent auto-correlation function,
+    \begin{equation}
+        \label{eq:td_autocorr_1}
+        A(t', t) \equiv \braket{S(t')}{S(t)}.
+    \end{equation}
+    Because coupled cluster theory is not variational in the usual sense it is necessary to 
+    define a general state vector as combination of both $\ket{\Psi}$ and $\bra*{\tilde{\Psi}}$,
+    \begin{equation}
+        \ket{S} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+            \ket{\Psi} \\ \ket*{\tilde{\Psi}}
+        \end{pmatrix}
+    \end{equation}
+    which makes the time-dependent auto-correlation function (\autoref{eq:td_autocorr_1}),
+    \begin{equation}
+        A(t', t) = \frac{1}{2} 
+        \left( \braket*{\tilde{\Psi}(t')}{\Psi(t)} 
+            +  \braket*{\Psi(t')}{\tilde{\Psi}(t)}  \right)
+    \end{equation}
+    according to the definitions of the \emph{indefinite} innerproduct by Petersen and 
+    Kvaal\cite{pedersen2019symplectic}. Here we would set $t'=0$, because we are
+    interested in the ground state overlap, translating to the state before developement 
+    in time.
 
     \input{implementation/doc/tdccsd.tex}
 

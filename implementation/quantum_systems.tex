@@ -5,13 +5,21 @@ make a distinction for what defines the system. One must therefore undergo the
 mathematical procedure of defining a finite basis sets that defines the 
 quantum system under scrutiny when dealing with the electronic problem. 
 
-Here we present the \lstinline{quantum_system} python module, designed to 
+Here we present the \lstinline{quantum_systems} python module, designed to 
 provide basis sets for one- and two-dimensional quantum dots. The two-dimensional 
 quantum dot can also be modelled with a constant, homogeneous magnetic field; and 
 as a double quantum dot. 
 Moreover, the module includes an option for constructing a custom system which can 
 be interfaced with popular quantum chemistry packages \lstinline{PySCF}\cite{PYSCF} 
-and \lstinline{Psi4}\cite{parrish2017psi4}.
+and \lstinline{Psi4}\cite{parrish2017psi4}. This allows one to construct basis sets 
+representing all kinds of systems of interest in quantum chemistry, like atoms and 
+molecules. 
+
+The \lstinline{quantum_systems} module also contains an implementation of 
+a plane wave or homogenous electron gas basis set, sometimes called the 
+jellium model. However, this implementation exists mainly as 
+a curiosity at this point. In the future it can be developed into something more useful,
+as the electron gas can serve as a first approximation to a metal or a semi-conductor.
 
 The \lstinline{quantum_system} module can installed from github with \lstinline{pip}
 by the following command,
@@ -25,11 +33,6 @@ cd quantum-systems
 pip install .
 \end{lstlisting}
 
-\noindent
---------------\\
-NOTE: not sure the part below here is necessary. Maybe just link to web page 
-documentation? If it is done, that is.. \\
---------------
 
 It can be useful to install the module to a separate environment. We have made this 
 possible through \lstinline{conda},

@@ -4,17 +4,14 @@
     (\emph{*args}, \emph{**kwargs})
 
     \vspace{1em}
-    Sub-class of \textbf{TimeDependentCoupledCluster}
-    Class for computing time-development of provided system, employing time-dependent 
+    Sub-class of \textbf{TimeDependentCoupledCluster}.
+    Computes time-development of provided system, employing time-dependent 
     coupled cluster method with single- and double excitations. The orbitals are kept 
     static. This class inherits all methods from the parent class, but includes 
     a few extra.
 
     \vspace{1em}
     \textbf{Parameters}
-
-    \hspace{2em}\textbf{cc}(\emph{CoupledCluster})
-        Class instance defining the ground state solver.
 
     \hspace{2em}\textbf{system}(\emph{QuantumSystem}) 
         Class instance defining the system to be solved.
@@ -28,12 +25,49 @@
     \vspace{1em}
     \textbf{Methods}
 
+    \hspace{2em} \textbf{rhs\_t\_0\_amplitude} (\emph{*args}, \emph{**kwargs})
+        \begin{adjustwidth}{4em}{}
+        Evaluates CC energy expression
+
+        \textbf{Returns:} CCSD ground state energy.
+
+        \textbf{Return type:} \emph{np.array}
+        \end{adjustwidth} 
+
+    \hspace{2em} \textbf{rhs\_t\_amplitudes}()
+        \begin{adjustwidth}{4em}{}
+        Evaluates $\tau^a_i$ and $\tau^{ab}_{ij}$ amplitude equations
+
+        \textbf{Returns:} $\tau^a_i$, $\tau^{ab}_{ij}$
+
+        \textbf{Return type:} \emph{Generator}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{rhs\_l\_amplitudes}()
+        \begin{adjustwidth}{4em}{}
+        Evaluates $\lambda^i_a$ and $\lambda^{ij}_{ab}$ amplitude equations
+
+        \textbf{Returns:} $\lambda^i_a$, $\lambda^{ij}_{ab}$
+
+        \textbf{Return type:} \emph{Generator}
+        \end{adjustwidth}
+
     \hspace{2em} \textbf{compute\_energy} ()
         \begin{adjustwidth}{4em}{}
         Computes energy at current time step.
 
         \textbf{Returns:} energy
+
         \textbf{Return type:} \emph{float}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_particle\_density}()
+        \begin{adjustwidth}{4em}{}
+        Computes one-body density matrix
+
+        \textbf{Returns:} One-body density
+
+        \textbf{Return type:} \emph{np.array}
         \end{adjustwidth}
 
     \hspace{2em} \textbf{compute\_time\_dependent\_overlap} ()
@@ -42,6 +76,23 @@
 
         \textbf{Returns:} Probability of grond state 
         \textbf{Return type:} \emph{np.array}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{solve} (\emph{time\_points}, \emph{timestep\_tol=$1e^{-8}$})
+        \begin{adjustwidth}{4em}{}
+        Develop given system in time, specified by an array of \emph{time\_points}.
+        Integrates equations of motion repeatedly, over all time points.
+        
+        \textbf{Parameters:}
+
+            \hspace{1.5em} \textbf{time\_points} (\emph{list, np.array})
+                Time points over which to integrate EOM.
+
+            \hspace{1.5em} \textbf{timestep\_tol} (\emph{float, default $1e^{-8}$})
+                Tolerance in size of steps \lstinline{dt}.
+
+        \textbf{Returns:} Amplitudes
+        \textbf{Return type:} \emph{AmplitudeContainer}
         \end{adjustwidth}
 
     } 

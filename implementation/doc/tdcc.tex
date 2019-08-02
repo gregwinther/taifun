@@ -2,7 +2,8 @@
     {\fontfamily{cmss}\selectfont
     \textbf{class} coupled\_cluster.cc.\textbf{TimeDependentCoupledCluster}
 
-    \hspace{1em}(\emph{cc}, \emph{np=None}, \emph{integator=None} \emph{**cc\_kwargs})
+    \hspace{1em}(\emph{cc}, \emph{np=None}, \emph{system}, 
+    \emph{integator=None} \emph{**cc\_kwargs})
 
     \vspace{1em}
     Abstract base class defining the basic structure for a time-dependent coupled cluster 
@@ -46,14 +47,14 @@
 
     \hspace{2em} \textbf{rhs\_l\_amplitudes}()
         \begin{adjustwidth}{4em}{}
-        Function that needs to be implemented as a generator. The generator 
+        Abstract function that needs to be implemented as a generator. The generator 
         should return the $\lambda$-amplitudes right-hand sides, in order of 
         increasing excitation.           
         \end{adjustwidth}
 
     \hspace{2em} \textbf{rhs\_t\_amplitudes}()
         \begin{adjustwidth}{4em}{}
-        Function that needs to be implemented as agenerator. The generator 
+        Abstract function that needs to be implemented as a generator. The generator 
         should return the $\tau$-amplitudes right-hand sides, in order of 
         increasing excitation.
         \end{adjustwidth}
@@ -84,7 +85,23 @@
                 Tolerance in size of steps \lstinline{dt}.
 
         \textbf{Returns:} Amplitudes
-        \textbf{Return type:} \emph{AmplitudeContainer}
+        \textbf{Return type:} \emph{Generator(AmplitudeContainer)}
+        \end{adjustwidth}
+
+    \hspace{2em} \textbf{compute\_energy}() Abstract function.
+    
+    \hspace{2em} \textbf{compute\_one\_body\_density\_matrix}() Abstract function.
+    
+    \hspace{2em} \textbf{compute\_two\_body\_density\_matrix}() Abstract function.
+    
+    \hspace{2em} \textbf{compute\_time\_dependent\_overlap}() Abstract function.
+
+    \hspace{2em} \textbf{compute\_particle\_density}()
+        Calls \emph{compute\_one\_body\_density\_matrix}.
+
+    \hspace{2em} \textbf{update\_hamiltonian}(\emph{current\_time}, \emph{amplitudes})
+        \begin{adjustwidth}{4em}{}
+        Updates Hamiltonian of system in time, constructs new Fock operator.
         \end{adjustwidth}
    
     } 
