@@ -466,6 +466,10 @@ In the future, we hope that full documentation can be found on
     after which the  
     Hamiltonian of the system is updated if enough time has passed.
 
+    \noindent -------- \\
+    SECTION ON IMPLEMENTATION OF \lstinline{__call__} HERE? \\
+    \noindent -------- 
+
     We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
     (TDCCSD)
     solver. For the sake of brevity, we present only the TDCCSD here. 
@@ -483,8 +487,8 @@ In the future, we hope that full documentation can be found on
     containing amplitudes that are developed in time. Any observable can be extracted during 
     an iteration over this \lstinline{Generator} object. We have implemeted several methods that 
     can be useful in extracting information about the state of the time-developed system,
-    for instance \lstinline{compute\_time\_dependent\_overlap} which computes the 
-    probability of the system being in the ground state, and \lstinline{compute\_energy} 
+    for instance \lstinline{compute_time_dependent_overlap} which computes the 
+    probability of the system being in the ground state, and \lstinline{compute_energy} 
     which computes the energy of the system in the current time-dependent state.
     The ground state probability, i.e. \lstinline{compute_time_dependent_overlap}, is 
     given by a general time-dependent auto-correlation function,
@@ -511,6 +515,100 @@ In the future, we hope that full documentation can be found on
     in time.
 
     \input{implementation/doc/tdccsd.tex}
+
+    Within our truncation to includ only single- and double escitations,
+    an inner product of two state vectors, in the normal coupled cluster scheme
+    with static orbitals, can be computed in the following manner
+    \begin{equation}
+        \begin{aligned}
+            \braket{\Psi'}{\Psi} 
+            =& \mel{\Phi}
+            {
+                (1 + \Lambda)e^{-\hat{T}'} e^{\hat{T}}
+            }
+            {\Phi} \\
+            =&
+            \mel{\Phi}{
+            (1 + \Lambda_1 + \Lambda_2)
+            (1 - \hat{T}'_1 - \hat{T}'_2 + \frac{1}{2}\hat{T}'^2_1) 
+            (1 + \hat{T}_1 + \hat{T}_2 + \frac{1}{2}\hat{T}^2_1)
+            }{\Phi} \\
+            =& \braket{\Phi} - \mel{\Phi}{\Lambda_1\hat{T}'_1}{\Phi} 
+                + \mel{\Phi}{\Lambda_1\hat{T}'_1}{\Phi}
+                - \mel{\Phi}{\Lambda_2\hat{T}'_1\hat{T}_1}{\Phi}
+                - \mel{\Phi}{\Lambda_2\hat{T}'_2}{\Phi} \\
+            \ & + \mel{\Phi}{\Lambda_2\hat{T}_2}{\Phi}
+                + \frac{1}{2}\mel{\Phi}{\Lambda_2\hat{T}'_1\hat{T}'_1}{\Phi}
+                + \frac{1}{2}\mel{\Phi}{\Lambda_2\hat{T}_1\hat{T}_1}{\Phi},
+        \end{aligned}
+    \end{equation}
+    where we have ignored terms that would give a zero-contribution.
+    Evaluating the remainding terms can be done with your 
+    favourite method. Here is an example using Wick's theorem,
+    \begin{equation}
+        \begin{aligned}
+            \mel{\Phi}{\Lambda_2\hat{T}_2}{\Phi} 
+            &= \mel{\Phi} 
+            {
+            \sum_{abij} \frac{1}{4}\lambda^{ij}_{ab}
+                \{\hat{i}^\dagger \hat{a} \hat{j}^\dagger \hat{b} \}
+            \sum_{cdkl} \frac{1}{4}\tau^{cd}_{kl}
+                \{\hat{c}^\dagger \hat{k} \hat{d}^\dagger \hat{l} \}           
+            } 
+            {\Phi} \\
+            &= \mel{\Phi} 
+            {
+            \sum_{\substack{abcd\\ijkl}} \frac{1}{16}\lambda^{ij}_{ab} \tau^{cd}_{kl}
+                \wick{
+                \{\c1{\hat{i}^\dagger} \c2{\hat{a}} \c3{\hat{j}^\dagger} \c4{\hat{b}} \}
+                \{\c2{\hat{c}^\dagger} \c1{\hat{k}} \c4{\hat{d}^\dagger} \c3{\hat{l}} \}
+                } 
+            } 
+            {\Phi}  + \text{three more equivalent contractions} \\
+            &= 
+            \frac{1}{4} \mel{\Phi} 
+            {
+                \sum_{\substack{abcd \\ ijkl}} \lambda^{ij}_{ab} \tau^{cd}_{kl} 
+                \delta_{ac} 
+                \delta_{bd}
+                \delta_{ik} 
+                \delta_{jl}
+            } {\Phi}
+            = \frac{1}{4} \sum_{abij} \lambda^{ij}_{ab} \tau^{ab}_{ij}.
+        \end{aligned}
+    \end{equation}
+
+    The entirity of the \lstinline{compute_time_dependent_overlap_method()} consists of
+    similar computations,
+    \begin{python}
+    def compute_time_dependent_overlap():
+        np = self.np
+        t_0, t_1, t_2, l_1, l_2 = self._amplitudes.unpack()
+        t_1_0, t_2_0 = self.cc.t_1, self.cc.t_2 
+        l_1_0, l_2_0 = self.cc.l_1, self.cc.l_2
+
+        psi_t_0 = 1
+        psi_t_0 += np.einsum("ia, ai ->", l_1, t_1_0)
+        psi_t_0 -= np.einsum("ia, ai ->", l_1, t_1)
+        psi_t_0 += 0.25 * np.einsum("ijab, abij ->", l_2, t_2_0)
+        psi_t_0 -= 0.5 * np.einsum("ijab, aj, bi ->", l_2, t_1_0, t_1_0)
+        psi_t_0 -= np.einsum("ijab, ai, bj ->", l_2, t_1, t_1_0)
+        psi_t_0 -= 0.5 * np.einsum("ijab, aj, bi ->", l_2, t_1, t_1)
+        psi_t_0 -= 0.25 * np.einsum("ijab, abij ->", l_2, t_2)
+    
+        psi_0_t = 1
+        psi_0_t += np.einsum("ia, ai ->", l_1_0, t_1)
+        psi_0_t -= np.einsum("ia, ai ->", l_1_0, t_1_0)
+        psi_0_t += 0.25 * np.einsum("ijab, abij ->", l_2_0, t_2)
+        psi_0_t -= 0.5 * np.einsum("ijab, aj, bi ->", l_2_0, t_1_0, t_1_0)
+        psi_0_t -= np.einsum("ijab, ai, bj ->", l_2_0, t_1, t_1_0)
+        psi_0_t -= 0.5 * np.einsum("ijab, aj, bi ->", l_2_0, t_1, t_1)
+        psi_0_t -= 0.25 * np.einsum("ijab, abij ->", l_2_0, t_2_0)
+    
+        auto_corr = 0.5 * (psi_t_0 * np.exp(-t_0) + (psi_0_t * np.exp(t_0)).conj())
+
+        return np.abs(auto_corr) ** 2
+    \end{python}
 
     \input{implementation/doc/oatdccd.tex}
 
