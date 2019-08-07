@@ -1,7 +1,7 @@
 \begin{tcolorbox}
     {\fontfamily{cmss}\selectfont
     \textbf{class} coupled\_cluster.integrators.\textbf{Integrator}
-    ()
+    (\emph{np})
 
     \vspace{1em}
     Abtract integrator parent class. Subclass must implement \emph{step} method       
@@ -26,7 +26,7 @@
 
         \end{adjustwidth}
 
-    \hspace{2em} \textbf{step}{\emph{u, t, dt}}
+    \hspace{2em} \textbf{step} (\emph{u}, \emph{t}, \emph{dt})
 
         \begin{adjustwidth}{4em}{}
             Shell method. Must be implemented by subclass.

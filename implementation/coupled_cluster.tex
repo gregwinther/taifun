@@ -509,8 +509,9 @@ In the future, we hope that full documentation can be found on
         \left( \braket*{\tilde{\Psi}(t')}{\Psi(t)} 
             +  \braket*{\Psi(t')}{\tilde{\Psi}(t)}  \right)
     \end{equation}
-    according to the definitions of the \emph{indefinite} innerproduct by Petersen and 
-    Kvaal\cite{pedersen2019symplectic}. Here we would set $t'=0$, because we are
+    according to the definitions of the \emph{indefinite} innerproduct by
+    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}. 
+    Here we would set $t'=0$, because we are
     interested in the ground state overlap, translating to the state before developement 
     in time.
 
@@ -614,8 +615,116 @@ In the future, we hope that full documentation can be found on
 
 \subsection{Integrators and ODE Solvers}
 
+    Most, if not all, physical systems that evolve in time will can be described by 
+    as set of equations that we call the equations of motion. These can be usually 
+    be formulated as a single- or a set of ordinary differential equations written 
+    on the abstract form
+    \begin{equation}
+        \label{eq:general_ode}
+        u'(t) = f(u(t), t).
+    \end{equation}
+    To this particular equation there is an infinite number of solutions, so in order to
+    make the solution unique, we must also specify an initial condition
+    \begin{equation}
+        u(0) = U_0.
+    \end{equation}
+    Given the right hand side of \autoref{eq:general_ode}, $f(u,t)$ and the initial
+    condition $U_0$, our task would be to compute $u(t)$. The simplest equation of motion
+    in physics is Newton's second law,
+    \begin{equation}
+        a(t) = \frac{F(t)}{m},
+    \end{equation}
+    which we have reformulated to be on the standard form as \autoref{eq:general_ode}.
+ 
+    In any numerical scheme, the ODE defining our problem will be discretised, such 
+    that the inital value problem \autoref{eq:general_ode} becomes the following 
+    \begin{equation}
+        u_{n+1} = u_n + hf(u_n, t_n), \quad u(t_0) = u_0,
+    \end{equation}
+    where $h$ is some small time step, $t_{n+1} = t_n + h$. We see that the equation(s) at 
+    hand is solve in steps and the most important method of an implementation of any integrator 
+    scheme will be the method defining how one would step from one point to the next. 
+ 
+    We have already derive the equations of motions for several coupled 
+    cluster frameworks\footnote{TDCC:\autoref{eq:tdcc_tau} and
+    \autoref{eq:tdcc_lambda}.
+    OATDCC:\autoref{eq:oatdcc_tau}, \autoref{eq:oatdcc_lambda}}. Solving these equations 
+    in time is done in the same manner as any other equations of motion. The right hand 
+    side of these equations is put into practice by implementing \lstinline{__call__()} for 
+    all the time-dependent classes, and the initial condition of the problem is some 
+    configuration defined by the amplitudes of the problem. By formulating the time-dependent
+    many-body problem in this way, we can find solutions to the equations of motion by 
+    any numerical integrator scheme. For convenience, we have included two integrator 
+    implementations in the \lstinline{coupled_cluster} module - the common fourth order 
+    Runge-Kutta method and the symplectic Gauss-Legendre method. Moreover, we have defined an 
+    abstract base class \lstinline{Integrator}, which defines a general integrator for 
+    eventual future additons.
+
     \input{implementation/doc/integrator.tex}
 
+    \subsubsection{The Runge-Kutta Method}
+
+    The Runge-Kutta methods are a large family of implicit and iterative methods or 
+    increasing order. The first-order Runge-Kutta method is the same as the forward 
+    Euler method, where a step is defined as follows, 
+    \begin{equation}
+        u_{n+1} = u_n + h f(u_n, t_n).
+    \end{equation}
+    The general step of an explicit $n$-th order Runge-Kutta method is defined
+    by
+    \begin{equation}
+        u_{n+1} = u_n = h \sum_{i=1}^s b_i k_i,
+    \end{equation}
+    where 
+    \begin{equation}
+        \begin{aligned}
+            k_1 =& f(u_n, t_n), \\
+            k_2 =& f(u_n + h(a_{21}k_1), t_n + c_2h), \\
+            k_3 =& f(u_n + h(a_{31}k_1 + a_{32}k_2), t_n + c_3h), \\
+                \vdots& \\
+            k_s =& f(u_n + h(a_{s1}k_1 + a_{s2}k_2 + \dots + a_{s,s-1}k_{s-1}), t_n + c_s),
+        \end{aligned}
+    \end{equation}
+    where $s$ is the number of stages, and the coefficients $a_{ij}$ 
+    (for $j\in[1,i\rangle$ and $i\in\langle j, s]$), $b_i$ (for $b\in[1,s]$)
+    and $c_i$ (for $i\in[2,s]$) defines the particular method. The matrix 
+    $a_{ij}$ is called the Runge-Kutta matrix and $b_i$ and $c_i$ are known as the 
+    \emph{weights} and \emph{nodes}, respectively. We call the Runge-Kutta method consistent 
+    if
+    \begin{equation*}
+        \sum_{j=1}^{i-1} a_{ij} = c_i, \quad i \in[2,s].
+    \end{equation*}
+
+    We have implemented the fourth-order Runge-Kutta method in the class
+    \lstinline{RungeKutta4}. This is the most common of the Runge-Kutta method, and is 
+    often sometimes referred to as simply ``the Runge-Kutta method''. 
+
     \input{implementation/doc/RK4.tex}
+
+    A step of size $h$ in the fourth order Runge-Kutta method is defined by 
+    \begin{equation}
+       \begin{aligned}
+            u_{n+1} =& u_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4), \\
+            t_{n+1} =& t_n + h,
+       \end{aligned} 
+    \end{equation} 
+    where
+    \begin{align*}
+        k_1 =& hf(u_n, t_n), \\
+        k_2 =& hf(u_n + \frac{k_1}{2}, t_n + \frac{h}{2}), \\
+        k_3 =& hf(u_n + \frac{k_2}{2}, t_n + \frac{h}{2}), \\
+        k_4 =& hf(u_n + k_3, t_n + h),
+    \end{align*}
+    This is implemented in the \lstinline{step(u, t, dt)} method as
+    \begin{python}
+    f = self.rhs
+    K1 = dt * f(u, t)
+    K2 = dt * f(u + 0.5 * K1, t + 0.5 * dt)
+    K3 = dt * f(u + 0.5 * K2, t + 0.5 * dt)
+    K4 = dt * f(u + K3, t + dt)
+    u_new = u + (1 / 6.0) * (K1 + 2 * K2 + 2 * K3 + K4 
+    \end{python}
+
+    \subsubsection{The Gauss-Legendre Quadrature}
 
     \input{implementation/doc/gauss_integrator.tex}
