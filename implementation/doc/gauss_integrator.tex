@@ -4,7 +4,7 @@
     (\emph{np}, \emph{s=$2$}, \emph{maxit=$20$}, \emph{eps=$1e^{-14}$})
 
     \vspace{1em}
-    Simple implementation of symplectic Gauss-Legendre integrtor
+    Simple implementation of symplectic Gauss-Legendre integrator
     of order $4$ and $6$ ($s=2$ and $2=3$).
     
     \vspace{1em}
@@ -25,21 +25,45 @@
     \vspace{1em} 
     \textbf{Methods}
 
-    \hspace{2em} \textbf{step} {\emph{u, t, dt}}
+    \hspace{2em} \textbf{step} (\emph{u, t, dt})
 
         \begin{adjustwidth}{4em}{}
         One itegration step
 
-        \textbf{parameters:} 
+        \textbf{Parameters:} 
         
-            \hspace{1.5em} \textbf{u} (np.array) Array of equations to be integrated.
+            \hspace{1.5em} \textbf{u} (\emph{np.array}) Array of equations to be integrated.
 
-            \hspace{1.5em} \textbf{f} (float) Current time step.
+            \hspace{1.5em} \textbf{f} (\emph{float}) Current time step.
 
-            \hspace{1.5em} \textbf{dt} (float) Time step size.
+            \hspace{1.5em} \textbf{dt} (\emph{float}) Time step size.
+
+        \textbf{Returns:} RHS advanced one step, $u_{n+1}$.
+        
+        \textbf{Return type:} \emph{np.array}
 
         \end{adjustwidth}
 
+    %\hspace{2em} \textbf{Z\_solve} (\emph{u}, \emph{Z0}, \emph{t}, \emph{dt})
 
-    } 
+    %    \begin{adjustwidth}{4em}{}
+    %        Method solving the problem $Z = hf(u + Z)a^{T}$ by fix point iterations.
+
+    %    \textbf{Parameters:}
+
+    %        \hspace{1.5em} \textbf{u} (\emph{np.array}) Flattened array of amplitudes.
+
+    %        \hspace{1.5em} \textbf{Z0} (\emph{np.array}) Initial guess.
+
+    %        \hspace{1.5em} \textbf{t} (\emph{float}) Current time step.
+
+    %        \hspace{1.5em} \textbf{dt} (\emph{float}) Time step length.
+
+    %    \textbf{Returns:} The converged solution $Z$, RHS evaluation of $f$.
+
+    %    \textbf{Return type:} \emph{tuple}
+
+    %    \end{adjustwidth}
+
+    }
 \end{tcolorbox}

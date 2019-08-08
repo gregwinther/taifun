@@ -40,8 +40,8 @@ Activate the environment with,
 \begin{lstlisting}[language=bash]
 conda activate cc
 \end{lstlisting}
-In the future, we hope that full documentation can be found on
-\url{www.coupled-cluster.com}.
+Full documentation, which we hope will be kept up to date with any future revisions 
+can be found at \url{www.coupled-cluster.com}.
 
 \section{Ground State Computations}
 
@@ -725,6 +725,137 @@ In the future, we hope that full documentation can be found on
     u_new = u + (1 / 6.0) * (K1 + 2 * K2 + 2 * K3 + K4 
     \end{python}
 
-    \subsubsection{The Gauss-Legendre Quadrature}
+    \subsubsection{Symplectic Gauss Integrator}
+
+    The Runge-Kutta method, as described above, will be unstable for most systems
+    becuase of its inability to preserve structure and energy of the system. It is 
+    necessary to apply an integrator which is both structure-preserving and 
+    symplectic.
+    We have inherited code used by 
+    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} and have 
+    adapted it to our framework. Nevertheless, we give a brief overview of 
+    its inner mechanics here.
+
+    A quadrature rule is an approximation of the definite integral of a function over 
+    an interval $[a,b]$.
+
+    The most common family of quadrature rules are derived by 
+    defining an equidistant grid of $N$ points on the interval $[a,b]$,
+    where the grid points $x_n$ are given by 
+    \begin{equation}
+        x_n = a + nh
+    \end{equation}
+    where $h = (b - a)/N$, with index $n\in[0, N]$. A quadrature rule is commonly stated 
+    as a weighted sum of function values at specified points. 
+    \begin{equation*}
+        \int_a^b f(x) dx \approx \sum_{i=1}^{(N-1)} h f(x_i).
+    \end{equation*}
+    The simplest of such schemes of equidistant points is the \emph{trapezoidal} rule 
+    given by 
+    \begin{equation}
+        \int_a^b f(x) dx = 
+            h \left(\frac{1}{2}g(x_0) + f(x_1) + f(x_2) + \dots 
+                f(x_{N-1}) + \frac{1}{2}f(x_N) \right) + \mathscr{O}(h^2).
+    \end{equation}
+
+    A very efficient method consists of repeating the trapezoidal rule and 
+    performing it for successive values of $h$, each having half the size of the 
+    previous one. This yields a sequence of approximations to the integral for various 
+    values of $h$ can be fitted to a polynomial, and the value for this polynomial 
+    for $h=0$ will yield a very accurate approximation to the exact value. This is
+    called the \emph{Romberg} method.
+
+    The $n$-point Gaussian quadrature rule functions similarly to the family of methods 
+    described above, but instead of equidistant points we use the zeros of 
+    orthogonal polynomials for the gripd points $x_n$. The first pick of orthogonal 
+    polynomials are Legendre polynomials, which are orthogonal on the interval $[-1,1]$,
+    i.e.,
+    \begin{equation}
+        \int_{-1}^1 P_l(x) P_{l'}(x) dx = \delta_{ll'}.
+    \end{equation}
+    We also approximate the function $f$ with Legendre polynomials. 
+    
+    The Gauss-Legendre quadrature rule is constructed to yield an exact 
+    result for polynomials of degree $2n-1$ or less. An advantage of the Gauss-Legendre 
+    method is that its accuracy is much better than that of other methods using the 
+    same number of integration points. In fact, the accuracy of an $N$-point Gauss-Legendre 
+    method is equivalent to that of an equidistiant point method using $2N$ points.
+    The resulting Gauss-Legendre quadrature rule can be stated as 
+    \begin{equation}
+        \int_{-1}^1 f(x) dx = \sum_{n=1}^N w_n f(x_n) + \mathscr{O}(h^{2N}),
+    \end{equation}
+    where $x_n$ are the zeroes of the Legendre polynomial $P_n$, $h$ is $2/N$ and 
+    $w_n$ are appropriately chosen weights for the method.
+    
+    Orthogonal polynomials $p_r$ of degree $r$ and 
+    leading coefficient one, satisfy the following recurrence realtion,
+    \begin{equation}
+        P_{r+1}(x) = (x - a_{r,r})p_r(x) - a_{r,r-1}p_{r-1}(x) \dots -a_{r,0}p_0(x).
+    \end{equation}
+    The trhee-term recurrence relation can be written as a matrix equation
+    \begin{equation}
+        J\tilde{P} = x\tilde{P} - p_n(x) \times \vb{e}_n,
+    \end{equation}
+    where $\tilde{P} = [p_0(x),p_1(x),\dots,p_{n-1}(x)]^T$, $\vb{e}_n$ is the $n$th 
+    standard basis vector and $J$ is the Jacobian matrix,
+    \begin{equation}
+        J = \begin{pmatrix}
+            a_0 &    1  &    0  & \dots   &         & \\
+            b_1 &  a_1  &    1  &    0    & \dots   & \\
+            0   &  b_2  &   a_2 &    1    &    0    & \dots\\
+            0   & \dots &       &         & \dots   & 0 \\
+                & \dots &   0   & b_{N-2} & a_{N-2} & 1 \\
+                &       & \dots &      0  & n_{N-1} & a_{N-1} \\
+        \end{pmatrix}
+    \end{equation}
+
+    The eigenvalues of this matrix will be the nodes $x_n$, i.e. the zeros of the 
+    polynomials up to degree $N$. If $\phi^{(n)}$ is an eigenvector corresponding to 
+    an eigenvalue such an eigenvalue $x_n$, the corresponding weight can be found 
+    from the first component of this vector
+    \begin{equation}
+        w_n = \mu_0 \left(\phi_1^{(n)} \right)^2,
+    \end{equation}
+    where 
+    \begin{equation*}
+        \mu_0 = \int_a^b \omega(x) dx
+    \end{equation*}
+    and $\omega(x)$ is the weight function. $\omega(x) = 1$ when Legendre polynomials
+    are used in the Gauss quadrature. This efficient way of arriving at weights and 
+    nodes is called the Golub-Welsh algorithm\cite{golub1969calculation}.
+   
+    Generally, a quadrature method is not used to compute the solution to ODEs, but we 
+    adapt it to a Runge-Kutta solver in the way explained in 
+    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}. A general 
+    implicit $s$-stage Runge-Kutta method is defined by 
+    \begin{align}
+        u_{n+1} = u_n + h\sum_{i=1}^s x_i f(u_n + Z_{ij}, t_n + w_i h), \\
+        \label{eq:z_solve}
+        Z_{in} h\sum_{j=1}^s a_{ij} f(u_n + Z_{jn}, t_n + w_j h).
+    \end{align}
+    This allows us to make an interpolation between each time step $t_n$ and $t_n + h$
+    by a polynomial of order $s$ and requiring the ODE to be satisfied at the $s$
+    Gauss-Legendre quadrature points gives a symplectic and reversible integrator of
+    order $2s$. The matrix $a_{ij}$ is computed analytically,
+    \begin{equation}
+        a_{ij} = \int_0^{w_j} \ell_j(x) dx,
+    \end{equation}
+    where
+    \begin{equation}
+        \ell_j(x) = \prod_{k=1,k\neq j}^s \frac{x - w_k}{w_j - w_k},
+    \end{equation}
+    is the $j$th Lagrange interpolation polynomial.
+    The nonlinear equation \autoref{eq:z_solve} is solved iteratively for each time
+    step, making the method implicit. These fixed-point iterations are defined by 
+    \begin{equation}
+        Z^{(k+1)}_{in} = h\sum_{j=1}^s a_{ij}f(u_n + Z^{(k)}_{jn}, t_n + w_j h).
+    \end{equation}
+    The initial guess is crucial to the convergence speed of the method. We have 
+    employed guess (A) scheme described in section VIII.6.1 of
+    Ref.\cite{hairer2006geometric}.
+
+    For the user of the Gauss integrator, the experience will be much better, but the 
+    operations performed are the same, as evidenced by the \lstinline{GaussIntegrator}
+    class specification. 
 
     \input{implementation/doc/gauss_integrator.tex}
