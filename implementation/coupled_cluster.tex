@@ -89,6 +89,8 @@ can be found at \url{www.coupled-cluster.com}.
     name, and with the goal of brevity we proceed to a study of the simplest 
     ground state coupled cluster solver, namely CCD, implemented in the 
     \lstinline{CoupledClusterDoubles} class.
+
+    \subsection{Coupled Cluster Doubles}
    
     Starting from construction, the \lstinline{CoupledClusterDoubles} class passes 
     the system, defined through a \lstinline{QuantumSystem} object to the 
@@ -172,6 +174,8 @@ can be found at \url{www.coupled-cluster.com}.
     This function particular computes the $D_{2e}$ diagram\footnote{After the labelling from 
     \autoref{ch:coupled_cluster_theory} and Shavitt \& Bartlett\cite{shavitt2009many}}.
 
+    \subsection{Coupled Cluster Singles Doubles}
+
     Most of the rest of the methods in the \lstinline{CoupledClusterDoubles} class are there 
     for the use of other methods, or for extracting observables. Moving to the next logical 
     coupled cluster solver scheme; the coupled cluster method with single- and double 
@@ -184,6 +188,8 @@ can be found at \url{www.coupled-cluster.com}.
     to only include double excitation at construction.
 
     \input{implementation/doc/ccsd.tex}
+
+    \subsection{Orbital-Adaptive Coupled Cluster Doubles}
 
     The algorithm applied when computing the ground state in the orbital-adaptive sphere 
     is the nonorthogonal orbital-optimised coupled cluster (NOCC) method, developed by 
@@ -287,7 +293,7 @@ can be found at \url{www.coupled-cluster.com}.
     \end{equation*}
     which (in addition to being written with incomprehensible notation) is used to compute 
     a new Fock operator. The resulting rotation of the orbitals will aid in better 
-    convergence towards the ground state. FLOW CHART??
+    convergence towards the ground state.
     
 \subsection{Mixing}
 
@@ -299,6 +305,8 @@ can be found at \url{www.coupled-cluster.com}.
     Moreover, an iterative optimisation scheme may not always converge properly at all. 
     Luckily, there exists numerous techniques both for controlling and acceleration 
     convergence.
+
+    \subsubsection{Alpha mixer}
 
     The simplest way to ``massage'' convergence out of the coupled cluster ground state methods
     to use a dampening, where one would include a part of the result from the previous 
@@ -314,6 +322,9 @@ can be found at \url{www.coupled-cluster.com}.
     a base class for further mixer implementations.
 
     \input{implementation/doc/mixer_alpha.tex}
+
+
+    \subsubsection{The Quasi-Newton method with DIIS acceleration}
 
     A more sophisticated method to aid in convergence, and perhaps the most popular,
     is by performing a direct inversion of iterative subspace (DIIS). The DIIS method 
@@ -352,7 +363,7 @@ can be found at \url{www.coupled-cluster.com}.
     the entire Hamiltonian $\hat{H} = \hat{F} + \hat{U}$. HERE I AM BEING INCONSISTENT
     WITH MY NOTATION AGAIN.
 
-    The Jacobian constists onluy of a diagonal part, involving differences of the 
+    The Jacobian constists only of a diagonal part, involving differences of the 
     orbital energies, and a nondiagonal part, containing the fluctuation potential.
     The trick from \emph{Newton's} method is to expand the vector functions around 
     the set of amplitudes of the current iteration $\tau^{(n)}$,
@@ -470,6 +481,7 @@ can be found at \url{www.coupled-cluster.com}.
     SECTION ON IMPLEMENTATION OF \lstinline{__call__} HERE? \\
     \noindent -------- 
 
+    \subsection{Time-Dependent Coupled Cluster Singles Doubles}
     We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
     (TDCCSD)
     solver. For the sake of brevity, we present only the TDCCSD here. 
@@ -611,6 +623,66 @@ can be found at \url{www.coupled-cluster.com}.
         return np.abs(auto_corr) ** 2
     \end{python}
 
+    \subsection{Orbital-Adaptive Time-Dependent Coupled Cluster Doubles}
+
+    \paragraph{Disappearing RHS of Q-space equations.}
+
+    A necessary additon to an orbital-adaptive time-dependent coupled cluster framework 
+    is the computation of $P$- and $Q$-space equations. The $Q$-space equations can 
+    be simplified substatially, because they equate to zero for an infinite basis. 
+    We will show this now, starting with \autoref{eq:oatdccd_q_1},
+    \begin{equation}
+        i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q} 
+        = \sum_q \rho^q_p Q h\ket{\varphi_q}
+        + \sum_{qrs} \rho^{qs}_{pr} Q W^r_s \ket{\varphi_q}.
+    \end{equation}
+    Inserting for $Q$ in the second term on the right-hand side gives
+    \begin{equation}
+        \sum_{qrs} \rho^{qs}_{pr} Q W^r_s \ket{\varphi_q} 
+        = \sum_{qrs} \rho^{qs}_{pr} W^r_s\ket{\varphi_q} 
+        - \sum_{qrs} \rho^{qs}_{pr} W^r_s
+            \sum_t \ket{\varphi_t}\braket{\tilde{\varphi}_t}{\varphi_q}.
+    \end{equation}
+    If we assume an infinite orthogonal basis, we have 
+    \begin{equation*}
+        \sum_t \dyad{\varphi_t}{\tilde{\varphi}_t}\ket{\varphi_q} = \hat{1},
+    \end{equation*}
+    and the term will disappear. Inserting for $Q$ in the first term on the 
+    right hand side of the first $Q$-space equations also yields zero. This 
+    means that the first $Q$-space equations reduce to 
+    \begin{equation}
+        \begin{aligned}
+        i\hbar \sum_q \rho^q_p Q \frac{\partial}{\partial t} &= 0 \\
+        i\hbar \sum_q \rho^q_p \frac{\partial}{\partial t} \ket{\varphi_p}
+        &=
+        i\hbar \sum_q \rho^q_p
+            \sum_s \dyad{\varphi_s}{\tilde{\varphi}_s}\frac{\partial}{\partial t}
+            \ket{\varphi_p} \\
+        \frac{\partial}{\partial t}\ket{\varphi_p(t)}
+        &=
+        \sum_s \ket{\varphi_s(t)}
+            \mel*{\tilde{\varphi}_s(t)}{\frac{\partial}{\partial t}}{\varphi_p(t)} \\
+        \frac{\partial}{\partial t} C^\alpha_p(t) \ket{\chi_\alpha}
+        &=
+        \sum_s C^\alpha_s(t) \ket{\chi_\alpha} \eta^s_p \\
+        \dot{C}^\alpha_p &= \sum_s C^\alpha_s \eta^s_p,
+        \end{aligned}
+    \end{equation}
+    which we rewrite more nicely on einsten summation form,
+    \begin{equation}
+        \dot{\vb{C}} = \vb{C}\eta^p_q.
+    \end{equation}
+    Similarly for the second $Q$-space equations (\autoref{eq:oatdccd_q_2}),
+    \begin{equation}
+       \dot{\tilde{\vb{C}}} = -\eta^p_q\tilde{\vb{C}}.
+    \end{equation}
+    We see that the $Q$ space equation has provided us with equations that 
+    describe the time propagation of the orbitals through the coefficient 
+    matrices $\vb{C}$ and $\tilde{\vb{C}}$. These equations are valid 
+    for all excitations levels of orbital-adaptive time-dependent coupled cluster
+    (OATDCC), and have been implemented 
+    in the new abstract class \lstinline{OATDCC}.
+
     \input{implementation/doc/oatdccd.tex}
 
 \subsection{Integrators and ODE Solvers}
@@ -645,7 +717,7 @@ can be found at \url{www.coupled-cluster.com}.
     hand is solve in steps and the most important method of an implementation of any integrator 
     scheme will be the method defining how one would step from one point to the next. 
  
-    We have already derive the equations of motions for several coupled 
+    We have already derived the equations of motions for several coupled 
     cluster frameworks\footnote{TDCC:\autoref{eq:tdcc_tau} and
     \autoref{eq:tdcc_lambda}.
     OATDCC:\autoref{eq:oatdcc_tau}, \autoref{eq:oatdcc_lambda}}. Solving these equations 
@@ -854,8 +926,9 @@ can be found at \url{www.coupled-cluster.com}.
     employed guess (A) scheme described in section VIII.6.1 of
     Ref.\cite{hairer2006geometric}.
 
-    For the user of the Gauss integrator, the experience will be much better, but the 
-    operations performed are the same, as evidenced by the \lstinline{GaussIntegrator}
+    For the user of the Gauss integrator, the experience will be much more pleasant 
+    than dealing with the derivations of the method, because its opeartion
+    are the same, as evidenced by the \lstinline{GaussIntegrator}
     class specification. 
 
     \input{implementation/doc/gauss_integrator.tex}
