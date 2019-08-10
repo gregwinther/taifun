@@ -1,0 +1,51 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} coupled\_cluster.cc\_helper.\textbf{OACCVector}
+    (\emph{t}, \emph{l}, \emph{C}, \emph{C\_tilde} \emph{np})
+
+    \vspace{1em}
+    Container for amplitude functions.
+
+    \vspace{1em}
+    \textbf{Parameters:}
+
+    \hspace{2em}\textbf{t}(\emph{list}, \emph{tuple}, \emph{set}) $\tau$ amplitudes
+
+    \hspace{2em}\textbf{l}(\emph{list}, \emph{tuple}, \emph{set}) $\lambda$ amplitudes
+
+    \hspace{2em}\textbf{C}(\emph{np.array}) Right-hand side coefficient matrix
+
+    \hspace{2em}\textbf{C\_tilde}(\emph{np.array}) Left-hand side coefficient matrix
+
+    \hspace{2em}\textbf{np}(\emph{module}) Matrix library, e.g. numpy, cupy etc
+
+    \vspace{1em}
+    \textbf{Attributes:}
+
+    \hspace{2em} \textbf{t} $\tau$ amplitudes
+
+    \hspace{2em} \textbf{l} $\lambda$ amplitudes
+
+    \hspace{2em} \textbf{C} Coefficient matrix $\vb{C}$ 
+
+    \hspace{2em} \textbf{C\_tilde} Coefficient matrix $\tilde{\vb{C}}$
+
+    \vspace{1em}
+    \textbf{Methods:}
+
+    \hspace{2em} \textbf{unpack}()
+    \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Amplitudes and coefficient matrices
+
+        \textbf{Return type:} \emph{generator}
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{asarray}()
+    \begin{adjustwidth}{4em}{}
+        \textbf{Returns:} Amplitude vector and coefficient matrices
+
+        \textbf{Return type:} \emph{np.array}
+    \end{adjustwidth}
+
+    }
+\end{tcolorbox}

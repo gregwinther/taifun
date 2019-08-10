@@ -1,4 +1,4 @@
-\chapter{Implementation: Coupled Cluster}
+\chapter{Coupled Cluster}
 
 The main product of this study is manifested in the \lstinline{coupled_cluster}
 module for Python. This module is designed to fit together with the
@@ -40,12 +40,46 @@ Activate the environment with,
 \begin{lstlisting}[language=bash]
 conda activate cc
 \end{lstlisting}
-Full documentation, which we hope will be kept up to date with any future revisions 
+Full documentation of this module, which we hope will be kept up to date with any future revisions 
 can be found at \url{www.coupled-cluster.com}.
 
 \section{Ground State Computations}
 
-    All ground state solver within the \lstinline{coupled_cluster} module are built 
+    Before any development in time can be performed, we need to derives systems that 
+    we can be pretty certain exist in nature. This makes the implementation of ground 
+    state solvers necessary. We have implemented ground state solvers; the
+    \lstinline{CoupledClusterDoubles} and \lstinline{CoupledClusterSinglesDoubles} 
+    are based on the theoretical framework form the Lagrangian formulation of coupled 
+    cluster, while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
+    ground state coupled cluster solver with double excitations. Moreover, we constructed 
+    a data structure for the ampltudes in the \lstinline{AmplitudeContainer} class and 
+    we have implemented two mixers that helt with convergences of the ground state solvers,
+    \lstinline{AlphaMixer} and \lstinline{DIIS}.
+
+    \subsection{Representation of Amplitudes}
+
+    The most central structure in any coupled cluster solver are the amplitudes. The 
+    amplitudes are what defines the true structure of the wavefunction as a linear 
+    combination of single-particle functions contained in the reference Slater 
+    determinant. We have found it beneficial to implement a special container 
+    class for the amplitudes, aptly called \lstinline{AmplitudeContainer}.
+
+    \input{implementation/doc/amplitude_container.tex}
+
+    The \lstinline{AmplitudeContainer} class is built as a data structure for 
+    the amplitude functions, and comprises all methods and attributes to serve this 
+    purpose. This includes includes overloading of primitive methods of the base 
+    python \lstinline{Object} type.: \lstinline{__add__} and \lstinline{__radd__}
+    enables adding a scalar or properly shaped vector to the amplitudes, 
+    \lstinline{__mul__} and \lstinline{__rmul__} allows for multiplication 
+    with scalars and vectors, and \lstinline{__iter__} is implemented to make 
+    the class an iterable. In summary, the \lstinline{AmplitudeContainer} 
+    functions as a fully functional data structure for amplitudes of coupled 
+    cluster solver, with both $\tau$ and $\lambda$ amplitudes.
+
+    \subsection{Coupled Cluster Base Class}
+
+    All ground state solvers within the \lstinline{coupled_cluster} module are built 
     as sub-classes of the abstract base class \lstinline{CoupledCluter}. The most
     important method of this class is the \lstinline{compute_ground_state()} method.
     This method in turn calls the \lstinline{iterate_t_amplitudes()} and 
@@ -59,7 +93,7 @@ can be found at \url{www.coupled-cluster.com}.
     Therefore, the $\tau$ amplitude equation iterative solver
     \lstinline{iterate_t_amplitudes()} is called first, and the $\lambda$ amplitude
     equation solver is called second.
-    The most important section of the \lstinline{compute_l_amplitudes()} method 
+    For illustration, the most important section of the \lstinline{compute_l_amplitudes()} method 
     is the following
     \begin{python}
     for i in range(max_iterations):
@@ -76,22 +110,23 @@ can be found at \url{www.coupled-cluster.com}.
         max_iterations - 1
     ), f"The l amplitudes did not converge. Last residual: {residuals}" 
     \end{python}
-    The equivalent section in the \lstinline{compute_t_amplitudes()} method is nearly
-    identical.
+    The equivalent section of code in the \lstinline{compute_t_amplitudes()} method is 
+    nearly identical.
     The \lstinline{CoupledCluster} class is supposed to provide a framework for which 
     to implement various coupled cluster ground state solver classes. It therefore
-    has several abstract classes that such subclasses need to implement and overwrite.
+    has several abstract methods that such subclasses need to implement and overwrite.
     The most important of these are the methods \lstinline{compute_t_amplitudes} 
     and \lstinline{compute_l_amplitudes}, which are supposed to contain the evaluation 
     of amplitude equations for a given coupled cluster truncation and scheme. 
 
-    With the hope that the functunality of the rest of the methods can be inferred from 
+    With the hope that the functunality of the rest of the methods 
+    in the abstract base class \lstinline{CoupledCluster} can be inferred from 
     name, and with the goal of brevity we proceed to a study of the simplest 
     ground state coupled cluster solver, namely CCD, implemented in the 
-    \lstinline{CoupledClusterDoubles} class.
+    \lstinline{CoupledClusterDoubles} class. 
 
     \subsection{Coupled Cluster Doubles}
-   
+    
     Starting from construction, the \lstinline{CoupledClusterDoubles} class passes 
     the system, defined through a \lstinline{QuantumSystem} object to the 
     parent class constructor, along with any keyword arguments, such as turning 
@@ -189,7 +224,7 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/ccsd.tex}
 
-    \subsection{Orbital-Adaptive Coupled Cluster Doubles}
+    \subsection{Orbital-Adaptive Coupled Cluster}
 
     The algorithm applied when computing the ground state in the orbital-adaptive sphere 
     is the nonorthogonal orbital-optimised coupled cluster (NOCC) method, developed by 
@@ -294,8 +329,21 @@ can be found at \url{www.coupled-cluster.com}.
     which (in addition to being written with incomprehensible notation) is used to compute 
     a new Fock operator. The resulting rotation of the orbitals will aid in better 
     convergence towards the ground state.
+
+    \subsubsection{Specialised Orbital-Adaptive \lstinline{AmplitudeContainer}}
+
+    Because of the nature of the orbital-adaptive coupled cluster scheme, it is no 
+    longer sufficient to store just the amplitudes as representation of the exact 
+    state. Therefore, we have implemented a subclass of the \lstinline{AmplitudeContainer}
+    data structure which also contains the coefficient matrices necessary to perform the 
+    required orbital transformations.
+
+    \input{implementation/doc/oaccvector.tex}
+
+    Like the \lstinline{AmplitudeContainer} class, this data structure also implements 
+    fuctionality for addition, multiplications and iteration.
     
-\subsection{Mixing}
+\subsection{Mixing of Amplitude Vectors}
 
     Iterative many-body methods are prone to convergence problems for certain configurations.
     This would be doubly important since we have moved to a variational description 
@@ -481,7 +529,7 @@ can be found at \url{www.coupled-cluster.com}.
     SECTION ON IMPLEMENTATION OF \lstinline{__call__} HERE? \\
     \noindent -------- 
 
-    \subsection{Time-Dependent Coupled Cluster Singles Doubles}
+    \subsection{TDCCSD}
     We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
     (TDCCSD)
     solver. For the sake of brevity, we present only the TDCCSD here. 
@@ -623,7 +671,7 @@ can be found at \url{www.coupled-cluster.com}.
         return np.abs(auto_corr) ** 2
     \end{python}
 
-    \subsection{Orbital-Adaptive Time-Dependent Coupled Cluster Doubles}
+    \subsection{OATDCCD}
 
     \paragraph{Disappearing RHS of Q-space equations.}
 
