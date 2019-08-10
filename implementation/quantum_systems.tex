@@ -374,12 +374,12 @@ Matulis\cite{anisimovas1998energy} is
     \begin{aligned}
         \langle \phi_1\phi_2| \hat{W} | \phi_3\phi_4 \rangle =& 
         \delta_{s_1, s_4} \delta_{s_2, s_3} \delta_{m_1 + m_2, m_3 + m_4}
-        \Big[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \Big]^{1/2}
+        \left[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \right]^{1/2}
         \sum_{(4)j=0}^n \frac{(-1)^{j_1+j_2+j_3+j_4}}{j_1!j_2!j_3!j_4!} \\
-        &\times \Big[\prod_{i=1}^n {n_i + |m_i| \choose n_i + j_i} \Big]
+        &\times \left[\prod_{i=1}^n \binom{n_i + |m_i|} {n_i + j_i} \right]
         \frac{1}{2^{(G+1)/2}} \sum_{(4)l=0}^\gamma (-1)^{\gamma_2 + \gamma_3 - l_2 - l_3} \\
-        &\times \delta_{l_1 + l_2, l_3 + l_4} \Big[\prod_{i=1}^4 {\gamma_i \choose l_i} \Big] 
-        \Gamma\Big(1 + \frac{L}{2} \Big)\Gamma\Big(\frac{G - L + 1}{2}\Big).
+        &\times \delta_{l_1 + l_2, l_3 + l_4} \left[\prod_{i=1}^4 \binom{\gamma_i}{l_i} \right] 
+        \Gamma\left(1 + \frac{L}{2} \right)\Gamma\left(\frac{G - L + 1}{2}\right).
     \end{aligned}
 \end{equation}
 The symbols $j_i$ are integer summation indices (regular indices) running from $0$ to $n_i$.
