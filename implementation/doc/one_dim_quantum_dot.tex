@@ -1,4 +1,3 @@
-
 \begin{tcolorbox}
     {\fontfamily{cmss}\selectfont
     \textbf{class} quantum\_systems.\textbf{OneDimensionalHarmonicOscillator}
@@ -16,10 +15,10 @@
     
     \hspace{2em}\textbf{l}(\emph{int}) Number of spinorbitals
     
-    \hspace{2em}\textbf{grid\_length}(\emph{int or float}) Space over which to 
+    \hspace{2em}\textbf{grid\_length}(\emph{int, float}) Space over which to 
         construct wavefunction.
     
-    \hspace{2em}\textbf{num\_grid\_points}(\emph{int of float}) Number of 
+    \hspace{2em}\textbf{num\_grid\_points}(\emph{int, float}) Number of 
         points for construction of wavefunction.
 
     \hspace{2em}\textbf{omega}(\emph{float, default $0.25$}) Angular frequency of
@@ -39,15 +38,23 @@
 
     \hspace{2em} \textbf{h}
     One-body matrix 
-    \textbf{Type} np.array
+    \textbf{Type} \emph{np.array}
     
     \hspace{2em} \textbf{f}
     Fock matrix
-    \textbf{Type} np.array
+    \textbf{Type} \emph{np.array}
 
     \hspace{2em} \textbf{u}
     Two-body matrix
     \textbf{Type} np.array
+
+    % \hspace{2em} \textbf{o}
+    % Occupied orbital indices
+    % \textbf{Type} \emph{Slice} object
+
+    % \hspace{2em} \textbf{v}
+    % Virtual orbital indices
+    % \textbf{Type} \emph{Slice} object
 
     \vspace{1em}
     \textbf{Methods}

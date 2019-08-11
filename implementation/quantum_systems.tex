@@ -33,13 +33,57 @@ cd quantum-systems
 pip install .
 \end{lstlisting}
 
-
 It can be useful to install the module to a separate environment. We have made this 
 possible through \lstinline{conda},
 \begin{lstlisting}[language=bash]
 conda environment create -f environment.yml
 conda activate quantum-systems    
 \end{lstlisting}
+
+\section{Quantum System Abstract Base Class} 
+
+Here we present the abstract base class that every system class in the
+\lstinline{QuantumSystems} model is built upon. This base class forms the foundation 
+of any quantum system, in order to make a system specification function together with 
+the \emph{CoupledCluster} module presented in the next chapter. The base class is 
+reasonably named \lstinline{QuantumSystem}.
+
+Many of the methods necessary to set up a quantum system can be abstracted away, which 
+si most of the motivation for constructing a parent class that all other 
+quantum system classes can inherit from. Examples of such functionality is the 
+setting up of Fock matrix. The one- and two-body operators are necessary to set up 
+for a specific system, but the Fock matrix computations can be abstracted away 
+to the superclass.
+
+\input{implementation/doc/quantumsystem.tex}
+
+In the \lstinline{QuantumSystem} abstract base class we have included a
+method that changes the basis of the system according to some coefficient matrix 
+$\vb{C}$ and $\tilde{\vb{C}}$, the \lstinline{change_basis(c, c_tilde)} method.
+This method will be useful later, especially when 
+computing the basis for the double well system. In the time-dependent coupled cluster 
+scheme with adaptive oribtals, this method is also very useful. 
+
+A similar method \lstinline{change_to_hf_basis()} is also implemented in the 
+\lstinline{QuantumSystems} class. This changes the system basis to a basis based 
+on the coefficient matrix found from the Roothan-Hall equations,
+\begin{equation}
+    FC = SC\epsilon.
+\end{equation}
+See \autoref{sec:roothan_hall_eqns} for further discussion of the Roothan-Hall equations.
+The basis transformation is performed simply,
+\begin{equation}
+    \ket{\phi_p} = C^\alpha_p \ket{\chi_\alpha},
+\end{equation}
+where we go from a (naïve) basis $\ket{\chi_\alpha}$, to the much better Hartree-Fock basis 
+$\ket{\phi_p}$. The basis would be better suited to represent the system because is 
+already consitute an approximate ground state solution. The improvent in ground state 
+energies by using the Hartree-Fock basis is well
+documented\cite{jorgensen2011many,lohne2010coupled}.
+
+The most main method that needs to be implemented in a subclass is
+\lstinline{setup_system()}, including a special considerations for dipole computations.
+These factors will be discussed for each specific system.
 
 \section{Quantum Dots}
 
@@ -166,20 +210,11 @@ def _compute_orbital_integrals(spf, l, inner_integral, grid):
 
     return u
 \end{python}
-
-Each integral is solved by the trapezoidal scheme,
-\begin{python}
-def _trapz(f, x):
-   n = len(x)
-   delta_x = x[1] - x[0]
-   val = 0
-
-   for i in range(1, n):
-       val += f[i - 1] + f[i]
-
-   return 0.5 * val * delta_
-  
-\end{python}
+Each integral is solved by the trapezoidal scheme, which approximates the integral 
+by 
+\begin{equation}
+    \int_x^{x + \Delta x} f(x) dx \approx \Delta x \frac{f(x + \Delta x) - f(x)}{2}.
+\end{equation}
 
 Needless to say, computing the coulomb integrals is one of the more compute-heave tasks,
 and we therefore make great use of just-in-time compulation from the \lstinline{numba} 
@@ -401,7 +436,7 @@ L = \sum_i l_i
 For the implementation of this expression for the purpose of computing the two-dimensional 
 quantum dot basis sets, we refer the reader to the appendices (\autoref{app:anisimovas}).
 
-\paragraph{Dipole Moments}
+\subsubsection{Dipole Moments}
 For our implementation of time dependent Hamiltonians, outlined below, we make use of 
 a dipole approximation of an electric field. For this reason it is necessary to compute 
 dipole moments. Moreover, the ``transitions rules
@@ -470,7 +505,7 @@ is everything the user sees is the following,
 
 \input{implementation/doc/two_dim_quantum_dot.tex}
 
-\subsubsection{Double well}
+\subsection{Two-Dimensional Double well}
 
 The extension from a single two-dimensional quantum dot to a double 
 quantum dot is a relatively straigth-forward proecedure, as it is 
@@ -514,7 +549,7 @@ elements, i.e.
 \end{equation}
 and that we need only compute the matrix elements of the position operator.
 Because we are still working with polar coordinates, we make the necessary 
-transformation, and the interal becomes
+transformation, and the integral becomes
 \begin{equation}
     \mel{\phi_p}{|\hat{x}|}{\phi_q} 
     = \int_0^\infty \int_0^{2\pi} 
@@ -525,7 +560,7 @@ We see that the wavefunctions $\phi_nm$ are the same as for the unperturbed
 two-dimensional quantum dot, and this directs us to the same kind of interals 
 as for the dipole calculations above. The radial interal is cumbersome, and
 therefore left for a symbolic solver, but for angular integral we can at least 
-give the computer some help,
+give the computer some help, THIS CAN BE DONE BETTER ANALYTICALLY!!
 \begin{equation}
     \int_0^{2\pi} |\cos\theta| e^{i\bar{m}\theta} d\theta
     = \frac{i(1 + e^{i\pi n})(\bar{m} + 2ie^{(i\pi \bar{m}/2)} - \bar{m}e^{i\pi n})}{\bar{m}^2 - 1},
@@ -569,8 +604,8 @@ This is an eigenvalue equation we can solve in order to obtain the coefficient
 matrix which transforms from the one basis to the other. This transformation
 can subsequently be applied to the two-body operator,
 \begin{equation}
-    \mel{\psi_\alpha\psi_\beta}{\hat{w}}{\psi_\gamma\psi_\delta} 
-    = {C^p_\alpha}^* {C^p_\beta}^* \mel{\phi_p\phi_q}{\hat{w}}{\phi_r\phi_s} C^r_\gamma C^s_\delta,
+    \mel{\psi_\alpha\psi_\beta}{\hat{u}}{\psi_\gamma\psi_\delta} 
+    = {C^p_\alpha}^* {C^p_\beta}^* \mel{\phi_p\phi_q}{\hat{u}}{\phi_r\phi_s} C^r_\gamma C^s_\delta,
 \end{equation}
 where summation over same indices is assumed.
 
@@ -578,7 +613,7 @@ where summation over same indices is assumed.
 
 HERE COMES THE SMOOTH \emph{potentiâl doublé}.
 
-\subsubsection{Magnetic field}
+\subsection{Magnetic field}
 
 Extending the two-dimensional quantum dot to be under the influence of a 
 static, transverse magnetic field is relatively effortless. We are considering a system with 
@@ -657,17 +692,66 @@ The class specification of the two-dimensional quantum dot subjected to a transv
 homogeneous, static magnetic field is below.
 \input{implementation/doc/two_dim_dot_B.tex}
 
-\section{[UNFINISHED] Constructing a Custom System}
+\section{Constructing a Custom System}
 
-\begin{itemize}
-    \item Examples for interfacing with PySCF / Psi4 
-    \item Class specification.
-\end{itemize}
+We have constructed a subclass of the \lstinline{QuantumSystem} base 
+class called \lstinline{CustomSystem} with the intent of interfacing with 
+other quantum chemistry libraries. This interfacing allows us to extract basis 
+sets for other systems, like atoms and molecules, that will function with the
+coupled cluster solvers we have implemented.
 
-\section{[UNFINISHED] Time Evolution}
+The function of the member methods in the \lstinline{CustomSystem} class
+should be evident from their names. One can set the one-body matrix elements with 
+\lstinline{set_h(h, add_spin)}, set dipole matrix with 
+\lstinline{set_dipole_moment(dipole_moment, add_spin)} and so on. How one would go about 
+getting these structures is somewhat non-trivial, at least for someone not used 
+to using quantum chemistry libries. We have therefore added functions 
+to the \lstinline{quantum_systems} module that do just that. The functions \\
+\indent\lstinline{quantum_systems.custom_system.construct_psi4_system()} and \\
+\indent\lstinline{quantum_systems.custom_system.construct_pyscf_system()} \\
+extracts one-body matrix, Coulomb intergrals, dipole moment, overlap matrix and
+nuclear repulsion from Psi4\cite{parrish2017psi4} and PySCF\cite{PYSCF}, respectively.
+The functions are provided in full in \autoref{sec:custom_system_psi4} and 
+\autoref{sec:custom_system_pyscf}.
+We have picked Psi4 and PySCF to interface with as they seem to be widely used in the 
+quantum chemistry community. Psi4 har 354 stars and 235 forks, while PySCF has 308 stars
+and 175 forks on GitHub. Arguably this can be considered  widely popular considering 
+the specificity of the topic.
 
-\begin{itemize}
-    \item Class specification of LaserField
-    \item Example of Pulse class?/function?
-\end{itemize}
+\input{implementation/doc/custom_system.tex}
 
+\section{Time Evolution}
+
+In order to compute the time-development of a quantum system, we add a
+time-dependent term to the Hamiltonian that describes the system. The class 
+\lstinline{TimeEvolutionOperator} is an abstract base class, which defines
+components necessary to make such a time-dependent operator. Since a time-dependent 
+operator is usually only applies to the one- or two-body part of the Hamiltonian, and 
+usually just the non-interacting one-body operator. For this reason we have implemented 
+abstract attributes in the \lstinline{TimeEvolutionOperator} which will make it 
+possible for the time-dependent coupled cluster solver to determine what parts 
+of the Hamiltonian is necessary to update for each time step.
+
+\input{implementation/doc/time_evolution_operator.tex}
+
+A common time evolution operator used in the study is a dipole approximation of 
+a laser field. We have implemented a class \lstinline{LaserField}, which makes 
+a simulation of such a field possible. This is a relatively simple time evolution 
+operator, as it only affects the one-body part of the Hamiltonian, i.e. the 
+non-interacting part. Consequently, the \lstinline{LaserField} class only needs 
+to switch the \lstinline{is_one_body_operator} to \lstinline{True} and implement 
+the method \lstinline{h_t(current_time)}. The time-dependent pulse, incorporating the 
+shape and frequency of the laser is passed as a parameter to the class. This can be 
+any callable type. The polarisation of the field is also passed to the class 
+as a simple static vector, meaning that as of now the class only allows for 
+linear polarisation. The electric field in the dipole appriximation typically 
+reads
+\begin{equation}
+    \vb{E}(t) = \vb{\epsilon} \mathscr{E}_0 F(t)\cos{(\omega_k t)},
+\end{equation}
+where $\vb{\epsilon}$ is the polarisation vector, $\mathscr{E}_0$ is a parameter 
+for the maximum amplitude (strength) of the field, $F(t)$ defines the time-dependent 
+envelope of the laser pusle, the cosine term is there to make sure it's a waveform and
+$\omega_k$ is the angular frequency of the laser.
+
+\input{implementation/doc/laser_field.tex}

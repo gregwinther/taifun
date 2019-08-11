@@ -1,0 +1,95 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} quantum\_systems.\textbf{CustomSystem}
+
+    \vspace{1em} 
+    Constructs custom quantum system, where a uses can add matrix elements
+    for other sources. The purpose of this class is to allow usage of 
+    quantum many-body solvers that function with \emph{quantum\_systems} 
+    module using other sources basis sets.
+
+    \vspace{1em}
+    \textbf{Methods:}
+
+    \hspace{2em} \textbf{set\_h}(\emph{h}, \emph{add\_spin=False})
+    \begin{adjustwidth}{4em}{}
+        Add one-body matrix elements, i.e. matrix elements from non-interacting 
+        part of Hamiltonian.
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{h} (\emph{np.array}) One-body matrix
+
+        \hspace{1.5em} \textbf{add\_spin} (\emph{bool}) Enforces spin orthogonality
+
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{set\_u}
+        (\emph{u}, \emph{add\_spin=False}, \emph{anti\_symmetrize=False})
+    \begin{adjustwidth}{4em}{}
+        Add two-body matrix elements, i.e. matrix elements from interacting 
+        part of Hamiltonian.
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{u} (\emph{np.array}) Two-body matrix
+
+        \hspace{1.5em} \textbf{add\_spin} (\emph{bool}) Enforces spin orthogonality
+
+        \hspace{1.5em} \textbf{anti\_symmetrize} (\emph{bool})
+            Anti-symmetrises two-body matrix
+
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{set\_s}(\emph{u}, \emph{add\_spin=False})
+    \begin{adjustwidth}{4em}{}
+        Add overlap matrix
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{s} (\emph{np.array}) Overlap matrix
+
+        \hspace{1.5em} \textbf{add\_spin} (\emph{bool}) Enforces spin orthogonality
+
+    \end{adjustwidth}   
+
+    \hspace{2em} \textbf{set\_dipole\_moment}(\emph{dipole\_moment}, \emph{add\_spin=False})
+    \begin{adjustwidth}{4em}{}
+        Add dipole moment, i.e. transition matrix.
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{dipole\_moment} (\emph{np.array}) Dipole moment
+
+        \hspace{1.5em} \textbf{add\_spin} (\emph{bool}) Enforces spin orthogonality
+
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{set\_spf}(\emph{spf}, \emph{add\_spin=False})
+    \begin{adjustwidth}{4em}{}
+        Add single-particle functions, i.e. eigenfunctions of non-interacting 
+        part of Hamiltonian.
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{spf} (\emph{np.array}) Single-particle functions
+
+        \hspace{1.5em} \textbf{add\_spin} (\emph{bool}) Enforces spin orthogonality
+
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{set\_nuclear\_repulsion\_energy}
+        (\emph{set\_nuclear\_repulsion\_energy})
+    \begin{adjustwidth}{4em}{}
+        Add nuclear repulsion energy. For atoms and molecules.
+
+        \textbf{Parameters:}
+
+        \hspace{1.5em} \textbf{nuclear\_repulsion\_energy} 
+            (\emph{float}) Nuclear reulsion energy 
+
+    \end{adjustwidth}
+
+
+    }
+\end{tcolorbox}

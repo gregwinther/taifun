@@ -1,0 +1,29 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} quantum\_systems.\textbf{LaserField}
+    (\emph{laser\_pulse}, \emph{polarization\_vector=None})
+
+    \vspace{1em}
+    Implementation of laser field. Needs time-dependent \emph{callable}
+    to function properly.
+
+    \vspace{1em}
+    \textbf{Attributes:}
+    
+    \hspace{2em}\textbf{is\_one\_body\_operator} 
+    Always \emph{True} 
+    \textbf{Type} \emph{Bool}
+
+    \vspace{1em} 
+    \textbf{Methods:}
+
+    \hspace{2em} \textbf{h\_t}(\emph{current\_time})
+        \begin{adjustwidth}{4em}{}
+            Computes one-body operator as a sum of the one-body operator of the 
+            system and product of \emph{laser\_pulse} parameter at current time,
+            \emph{polarization\_vector} parameter and \emph{dipole\_moment} 
+            attribute of system.
+        \end{adjustwidth}
+
+    }
+\end{tcolorbox}

@@ -1,0 +1,85 @@
+\begin{tcolorbox}
+    {\fontfamily{cmss}\selectfont
+    \textbf{class} quantum\_systems.\textbf{QuantumSystem}
+    (\emph{n}, \emph{l}, \emph{n\_up=None}, \emph{np=None})
+
+    \vspace{1em}
+    Base class defining the common methods used by all different quantum systems.
+
+    \vspace{1em}
+    \textbf{Parameters:} 
+
+    \hspace{2em} \textbf{n} (\emph{int}) Number of electrons
+    
+    \hspace{2em} \textbf{l} (\emph{int}) Number of spinorbitals
+
+    \hspace{2em} \textbf{n\_up} (\emph{int, default=None}) Number of spin-up spinorbitals
+
+    \hspace{2em} \textbf{np} (\emph{module}) Matrix library, i.e. numpy, cupy etc.
+
+    \vspace{1em}
+    \textbf{Attributes:}
+
+    \hspace{2em} \textbf{h}
+    One-body matrix 
+    \textbf{Type} \emph{np.array}
+    
+    \hspace{2em} \textbf{f}
+    Fock matrix
+    \textbf{Type} \emph{np.array}
+
+    \hspace{2em} \textbf{u}
+    Two-body matrix
+    \textbf{Type} \emph{np.array}
+
+    \hspace{2em} \textbf{s}
+    Overlap matrix of spinorbitals
+    \textbf{Type} \emph{np.array}
+    
+    \hspace{2em} \textbf{spf}
+    Single-particle functions
+    \textbf{Type} \emph{np.array}
+
+    \hspace{2em} \textbf{spf\_bra}
+    Conjugated single-particle functions
+    \textbf{Type} \emph{np.array}
+
+    % \hspace{2em} \textbf{o}
+    % Occupied orbital indices
+    % \textbf{Type} \emph{Slice} object
+
+    % \hspace{2em} \textbf{v}
+    % Virtual orbital indices
+    % \textbf{Type} \emph{Slice} object
+
+    \vspace{1em}
+    \textbf{Methods:}
+
+    \hspace{2em} \textbf{setup\_system}()
+    \begin{adjustwidth}{4em}{}
+        Method must be implemented by subclasses.
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{change\_basis}(\emph{c}, \emph{c\_tilde=None})
+    \begin{adjustwidth}{4em}{}
+        Changes basis of system according to coefficient matrices $\vb{C}$
+        and $\tilde{\vb{C}}$.
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{change\_to\_hf\_basis}(\emph{*args}, \emph{verbose=False} \emph{**kwargs})
+    \begin{adjustwidth}{4em}{}
+        Changes basis of system to Hartree-Fock basis.
+    \end{adjustwidth}
+
+    \hspace{2em} \textbf{set\_time\_evolution\_operator}(\emph{time\_evolution\_operator})
+    \begin{adjustwidth}{4em}{}
+        Setter for time-evolution operator.
+
+        \textbf{Parameters:} 
+        
+        \hspace{1.5em} \textbf{time\_evolution\_operator} (\emph{TimeEvolutionOperator}) 
+
+    \end{adjustwidth}
+
+    }
+\end{tcolorbox}
