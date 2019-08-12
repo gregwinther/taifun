@@ -219,8 +219,11 @@ can be found at \url{www.coupled-cluster.com}.
     There are indeed many more computations, but the code will structurally be the same. 
     The class specification for \lstinline{CoupledClusterSinglesDoubles} is therefore 
     given here without specification of the methods as they are excactly the same. For testing 
-    purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the possibility 
-    to only include double excitation at construction.
+    purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the option 
+    to only include double excitation at construction. The amplitude equations for 
+    the CCSD scheme is found by constructing the coupled cluster Lagrangian
+    (\autoref{eq:cc_energy_lagrangian}) in \lstinline{sympy} and differentiating 
+    it symbolically. The resulting equations can be found in \autoref{app:ccsd_equations}.
 
     \input{implementation/doc/ccsd.tex}
 
@@ -463,17 +466,26 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/diis.tex}
 
-\section{[UNFINISHED] Time Development}
+\section{Time Development}
 
-    \begin{itemize}
-        \item Add general decsription of ODE solver (Langtangen).
-        \item \lstinline{__call__} implementations.
-        \item Describe: \lstinline{compute\_energy()} in TDCCSD.
-        \item Rest of iterations in OA solver, $P$-space eqns.
-        \item Why overlap dosen't work in OA solver.
-    \end{itemize}
+    We have sought to formulate the time-dependent coupled cluster methods
+    in the abstraction of very general differential equations. By doing this we 
+    conform to the mindset of \emph{implement once, apply anywhere}. In any 
+    implementation of a time-dependent coupled cluster solver, we consider it as
+    though we  are working with a general function $f(u(t), t)$, so that it can 
+    be solved by any general solver for a differential equation. The abstract 
+    formulation of a differential equation reads 
+    \begin{equation}
+        \label{eq:general_ode_orig}
+        u'(t) = f(u(t), t).
+    \end{equation}
+    Notice that nearly any equations of motion in physics can be written in this 
+    way. Practically, this framework makes it necessary for us to implement the  
+    primitive \lstinline{__call__} method for all coupled cluster solvers, in order 
+    to make them into a callable representation of the right-hand side of 
+    \autoref{eq:general_ode_orig}.
 
-    Simlarly to the rest of the \lstinline{coupled_cluster} module, the portion relating
+    Similarly to the rest of the \lstinline{coupled_cluster} module, the portion relating
     to time development begins with an abstract base class,
     \lstinline{TimeDependentCoupledCluster}
     functioning as an interface for the rest of the classes. At construction, the 
@@ -482,24 +494,30 @@ can be found at \url{www.coupled-cluster.com}.
     \lstinline{QuantumSystems} object and an \lstinline{Integrator} object. All these 
     are necessary in order to compute a time-development. The starting point of a 
     time development is a system at it's ground state, necessitating the specification 
-    of a system and a ground state solver. The system is developed in time by solving 
-    the equations of motion with a numerical integrator. We will consider 
-    integrators separately in the next section.
-
+    of a system and a ground state solver.
     Inclusion of a \lstinline{CoupledCluster} object in the 
     \lstinline{TimeDependentCoupledCluster} class allows one to call the 
     \lstinline{compute_ground_state()} from this object, and it is included as a 
-    wrapper. Severak other methods are included from the ground state realm, like 
+    wrapper. Several other methods are included from the ground state realm, like 
     the methods for particle density computations. 
+    The \lstinline{__call__} method is implemented in 
+    the abstrace base class, where the current amplitude in the form as an 
+    \lstinline{AmplitudeContainer} object is passed as an argument 
+    together with the current time step. The right hand side of all amplitude equations 
+    are valued, and new amplitudes are returned. The class is called, i.e. evaluated 
+    by an \lstinline{Intergator}, i.e. the system is developed in time by solving 
+    the equations of motion with a numerical integrator.  We will consider 
+    integrators separately in the next section.
+
+    \input{implementation/doc/tdcc.tex}
 
     The bare minimum that a time-dependent coupled cluster scheme needs to implement 
     in order to function is the methods \lstinline{rhs_t_amplitudes()} and 
     \lstinline{rhs_l_amplitudes()}, which should return the right-hand side of 
     the amplitude equations. These methods should be integrated as generators, to make 
     it possible to iterate over them, and should yield the amplitudes in order of 
-    increasing excitation level.
-
-    \input{implementation/doc/tdcc.tex}
+    increasing excitation level. Most of the remainding functionality lies in the 
+    superclass \lstinline{TimeDependentCoupledCluster}.
 
     Arguably the most important method in the \lstinline{TimeDependentCoupledCluster}
     abstract base class is the \lstinline{solve(time_steps)} method. For the array 
@@ -533,14 +551,12 @@ can be found at \url{www.coupled-cluster.com}.
     after which the  
     Hamiltonian of the system is updated if enough time has passed.
 
-    \noindent -------- \\
-    SECTION ON IMPLEMENTATION OF \lstinline{__call__} HERE? \\
-    \noindent -------- 
-
     \subsection{TDCCSD}
+
     We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
     (TDCCSD)
-    solver. For the sake of brevity, we present only the TDCCSD here. 
+    solver. For the sake of brevity, we present only the TDCCSD here as their appearance 
+    would be nearly identical. 
     The \lstinline{TDCCSD} class, a sub-class of \lstinline{TimeDependentCoupledCluster},
     inheriting all methods from this super-class. It accepts the same parameter as the super-class, except the 
     parameter that defines the ground state solver to be used - the \lstinline{CoupledCluster}
@@ -555,10 +571,10 @@ can be found at \url{www.coupled-cluster.com}.
     containing amplitudes that are developed in time. Any observable can be extracted during 
     an iteration over this \lstinline{Generator} object. We have implemeted several methods that 
     can be useful in extracting information about the state of the time-developed system,
-    for instance \lstinline{compute_time_dependent_overlap} which computes the 
-    probability of the system being in the ground state, and \lstinline{compute_energy} 
+    for instance \lstinline{compute_time_dependent_overlap()} which computes the 
+    probability of the system being in the ground state, and \lstinline{compute_energy()} 
     which computes the energy of the system in the current time-dependent state.
-    The ground state probability, i.e. \lstinline{compute_time_dependent_overlap}, is 
+    The ground state probability, i.e. \lstinline{compute_time_dependent_overlap()}, is 
     given by a general time-dependent auto-correlation function,
     \begin{equation}
         \label{eq:td_autocorr_1}
@@ -679,9 +695,23 @@ can be found at \url{www.coupled-cluster.com}.
         return np.abs(auto_corr) ** 2
     \end{python}
 
+    The time-dependent energy in \lstinline{compute_energy()} is found by evaluation of 
+    the coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}) at the current 
+    time-developed amplitudes.
+
     \subsection{OATDCCD}
 
-    \paragraph{Disappearing RHS of Q-space equations.}
+    In order to move to an orbital-adaptive framework, we have implemented a new abstract 
+    base class that includes treatment of orbitals. This class has the modified 
+    amplitude container \lstinline{OACCVector} as a memeber. Most important differences 
+    from the standard time-dependent coupled cluster framework in the way the 
+    \lstinline{__call__} implementation also returns coefficient matrices, how the 
+    Hamiltonian is updated for every time step and the inclusion of functions that 
+    compute $P$- and $Q$-space equations. As we will get into, the $Q$-space equations 
+    will simplify greatly under the assumption of a complete basis, but the $P$-space 
+    equations will differ depending on the excitation level.
+
+    \subsubsection{Disappearing RHS of Q-space equations.}
 
     A necessary additon to an orbital-adaptive time-dependent coupled cluster framework 
     is the computation of $P$- and $Q$-space equations. The $Q$-space equations can 
@@ -739,7 +769,56 @@ can be found at \url{www.coupled-cluster.com}.
     (OATDCC), and have been implemented 
     in the new abstract class \lstinline{OATDCC}.
 
+    We see that $\eta^p_q$ is the only thing needed in order to compute the 
+    coefficient matrices which dictate the oribtal time propagation. We get $\eta^p_q$
+    from the $P$-space equations. Since the $P$-space equations will be different for 
+    each level of sophistication we move onto a treatment of \lstinline{OATDCCD}.
+
+    \subsubsection{P-space equations in OATDCCD} 
+
+    The P-space equations for the orbital-adaptive time-dependent coupled cluster 
+    doubles (OATDCCD) scheme are nothing more than a series of tensor contractions,
+    given by \autoref{eq:oatdccd_p_1} and \autoref{eq:oatdccd_p_2}, restated here.
+    \begin{align*}
+    i\hbar\sum_{bj}A^{ib}_{aj} \eta^j_b
+        &= \sum_j \rho^i_j h^j_a - \sum_b \rho^b_a h^i_b
+        + \frac{1}{2}\left[
+             \sum_{prs}\rho^{is}_{pr} u^{pr}_{as}
+            -\sum_{rqs}\rho^{qs}_{ar} U^{ir}_{qs}
+        \right], \\
+    -i\hbar\sum_{bj}A^{ja}_{bi} \eta^b_j
+        &= \sum_b \rho^a_b h^b_i - \sum_j \rho^j_i h^a_j
+        + \frac{1}{2}\left[
+             \sum_{prs}\rho^{as}_{pr} u^{pr}_{is}
+            -\sum_{rqs}\rho^{qs}_{ir} U^{ar}_{qs}       
+        \right]
+    \end{align*}
+    We apply \lstinline{numpy.linalg.tensorsolve}, in order to find $\eta^a_i$ and 
+    $\eta^j_b$, which is the entirity of $\eta^p_q$.
+    Now we have everything we need in order to iterate over the OATDCCD equations of 
+    motion.
+
+    In the outmost briefness, for each iteration, i.e. for each 
+    \lstinline{Integrator.step()} advance, we 
+    compute the right hand side of the OATDCCD equations, \autoref{eq:oatdccd_tau} 
+    and \autoref{eq:oatdcc_lambda}, providing us with new amplitudes 
+    $\lambda^{ij}_{ab}$ and $\tau^{ab}_{ij}$. These can be used to compute density 
+    matrices, which in turn can be used to find $\eta^p_q$ from the $P$-space 
+    equations. These will gives us the time-development or the orbitals in 
+    the form of coefficient matrices $\vb{C}$ and $\tilde{\vb{C}}$, which are used 
+    to update the one- and two-body parts of the Hamiltonian $\hat{h}$ and $\hat{u}$,
+    respectively.
+
     \input{implementation/doc/oatdccd.tex}
+
+    \subsubsection{Problematic Overlap}
+
+    Notice the absence of a \lstinline{compute_time_dependent_overlap()} function
+    int the \lstinline{OATDCCD} class specification. It is unfeasible to compute 
+    a time-dependent overlap in an orbital-adaptive scheme, because of the 
+    computation increase due to the basis transformations.
+
+    IS THERE A WAY TO SHOW THIS BRIEFLY AND CLEARLY?
 
 \subsection{Integrators and ODE Solvers}
 
