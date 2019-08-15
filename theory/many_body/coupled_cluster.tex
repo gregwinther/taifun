@@ -4,7 +4,7 @@
 In the late 1950s Fritz Coester constructed a rigorous formal solution of the bound
 state Schrödinger equation as a set of single particle wave
 functions\cite{coester1958bound}. He wanted to find an expression for the wave operator 
-$\omega$, which transforms a zero-order wavefunction to the exact wave function,
+$\Omega$, which transforms a zero-order wavefunction to the exact wave function,
 \begin{equation}
     \Psi = \Omega \Phi_0.
 \end{equation}
@@ -15,7 +15,7 @@ given a ``linked-diagram expansion'',
 \begin{equation}
     \Omega\ket{\Phi_0} = \ket{\Phi_0} 
     = \sum_{k=1}^\infty\left((\hat{R}_0\hat{W})^k \ket{{\Phi_0}} \right)_L.
-\end{equation}a
+\end{equation}
 This is further underlined in discussions by John Hubbard\cite{hubbard1957description}
 and Nicolaas Marinus Hugenholtz\cite{hugenholtz1957perturbation}.
 
@@ -115,7 +115,7 @@ are called connected cluster contributions, while those containing products of c
 operators, $\hat{T}_{m_1}^{\alpha}\hat{T}_{m_2}^{\beta}$, are called disconnected
 cluster contributions.
 
-This inclusion of only sigle- and double excitations is called ``Coupled Cluster Singles 
+This inclusion of only single- and double excitations is called ``Coupled Cluster Singles 
 Doubles'', elucidating the subscript CCSD\cite{purvis1982full}.
 The most common approximation in coupled cluster theory is the CCSD model. Here, 
 the operator $\hat{T}_2$ describes the important electron-pair interaction and the 
@@ -132,14 +132,15 @@ up by electron-pair interactions.
     interaction of quantum chemistry, the electron-pair interaction. The inclusion 
     of $\hat{T}_1$ and its products are relatively insensitive to the choice of 
     basis set, as the operators $e^{\hat{T}_1}$ has the effect of transforming 
-    thereference state $\ket{\Phi_0}$ to another Slater determinant. This is known 
+    the reference state $\ket{\Phi_0}$ to another Slater determinant. This is known 
     as Thouless theorem\cite{thouless1960stability}. With very high electron-density,
     the three-particle operator $\hat{T}_3$ becomes important. Higher-order terms 
     are usually of less and decreasing importance, but they can be of concern in 
     special situations. For instance, the four-particle operator $\hat{T}_4$ is 
-    very important in nuclear physics. See for instance Helgaker et 
-    ali\cite{helgaker2014molecular} or 
-    Shavitt \& Bartlett\cite{shavitt2009many} for further discussion on this topic.
+    very important in nuclear physics. See for instance 
+    \citeauthor{helgaker2014molecular}\cite{helgaker2014molecular} or 
+    \citeauthor{shavitt2009many}\cite{shavitt2009many} for further discussion on this
+    topic.
 \end{tcolorbox}
 
 
@@ -188,7 +189,7 @@ from the coupled cluster ansatz,
         &= E_{\text{ref}} 
         + \sum_{\substack{i>j \\ a>b}} \bra{\Phi_0} \hat{H} \ket{\Phi_{ij}^{ab}}t^{ab}_{ij} \\
         &= E_{\text{ref}}
-        + \sum_{\substack{i>j \\ a>b}} \bra{ij}  \ket{ab}t^{ab}_{ij}.
+        + \sum_{\substack{i>j \\ a>b}} \bra{ij} \ket{ab}t^{ab}_{ij}.
     \end{aligned}
 \end{equation}
 The energy expression will truncate here because no higher order terms will contribute.
@@ -196,8 +197,9 @@ It is common to substract $E_{\text{ref}}$ to get,
 \begin{equation}
     \hat{H}_N \Psi_{\text{CCD}} = \Delta E_{\text{CCD}} \Psi_{\text{CCD}},
 \end{equation}
-where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Now follows a bunch of expressions
+where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Now follows a series of expressions
 intended to show the correspondence between coupled cluster- and perturbation theory,
+HOPEFULLY THIS WILL BE CLEARER WHEN THE CHAPTER ON PERTURBATION THEORY IS COMPLETE
 \begin{equation}
     \hat{H}_N = \hat{F} - \hat{U} + \hat{H}_2 - E_{\text{ref}}
         = \hat{H}_0 + \hat{F}^0 - \hat{U} + \hat{H}_2 - E_{\text{ref}},
@@ -297,7 +299,7 @@ For one equality in both hole and particle index we have
                 -\bra{ak}\ket{cj} t^{bc}_{ik} - \bra{bk}\ket{ci}  t^{ac}_{jk} \big),
 \end{equation}
 where the sign stems from the maximum coincidence permutations as dictated by the
-Slater-Condon rules. Most of the three- and four euqal index terms are accounted
+Slater-Condon rules. Most of the three- and four equal index terms are accounted
 for by the expression above, the remaining three-index equality terms are
 \begin{align}
     -\sum_{kl}\big( \bra{jl}\ket{kl} t^{ab}_{ik} - \bra{il}\ket{kl} t^{ab}_{jk} \big) \\
@@ -344,13 +346,12 @@ and there is one term for the case where all indices are equal,
     which provides us with a relation between the two,
     \begin{equation}
         \ket{\Psi_{\text{CCSD}}} 
-            = \ket{\Psi_{\text{CCSDTQ}}} - (\hat{T}_3 + \hat{T}_4)\ket{\Phi_0}.
+            = \ket{\Psi_{\text{CISDTQ}}} - (\hat{T}_3 + \hat{T}_4)\ket{\Phi_0}.
     \end{equation}
     Moreover, we see that for a system of $n=2$ particles, that
     \begin{equation}
-        \ket{\Psi_{\text{CCSD}}} = \ket{\Psi_{\text{CCSDTQ}}}.
+        \ket{\Psi_{\text{CCSD}}} = \ket{\Psi_{\text{CISD}}}.
     \end{equation}
-    FILL IN MORE...
 \end{tcolorbox}
 
 These last three- and four-index equality terms are expressible in terms of $\hat{u}$,
@@ -570,8 +571,8 @@ Starting with the first term,
             \ket{0} t^{cd}_{kl}
     \end{aligned}
 \end{equation}
-The product of normal-ordered operators must be contracted in such a way that tree and
-three operators in the first and last operators string are contracted with one another,
+The product of normal-ordered operators must be contracted in such a way that three and
+three operators in the first and last operator strings are contracted with one another,
 and the two operators in the middle string is contracted with one operator in the last
 and first one. This provides us with $3\times 3 \times 2 = 16$ possible contractions.
 Here are the first four contractions,
@@ -622,8 +623,8 @@ Proceeding to the second linear term,
         \ket{0}t^{cd}_{kl}
     \end{aligned}
 \end{equation}
-Here there are many possible ways to contract the operators string, so it is convenient
-to label the different kinds of contractions. Subscript $a$-term consist of two
+Here there are many possible ways to contract the operator strings, so it is convenient
+to label the different kinds of contractions. Subscript $a$-terms consist of two
 hole-hole contractions, subscript $b$-terms consist of two particle-particle
 contractions and subscript $c$-terms consist of one particle-hole and one
 hole-particle contractions,
@@ -746,7 +747,15 @@ A very similar computation will yield the following result for the next linear t
 \begin{equation}
     L_{2b} = \frac{1}{2} \sum_{kl} \bra{kl} \ket{ij} t^{ab}_{kl}.
 \end{equation}
-The last linear term is very different, however. INSERT SOMETHING HERE!
+The last linear term is somewhat different, however,
+\begin{equation}
+    L_{2c} = - \sum_kc \left( 
+        \bra{bk} \ket{cj} t^{ac}_{ik}
+       -\bra{bk} \ket{ci} t^{ac}_{jk} 
+       -\bra{ak} \ket{cj} t^{bc}_{ik}
+       +\bra{ak} \ket{ci} t^{bc}_{jk}. 
+    \right)
+\end{equation}
 
 After long last, we have only the quadratic term to deal with,
 \begin{equation}
@@ -814,8 +823,8 @@ permutations of contractions that remain;
     with operators in the third string and the last particle operator 
     with an operator in the fourth string.
 \end{itemize}
-The results for class a and class b are somewhat straight-forward to 
-compute, giving the following,
+The results for class a and class b are agruably the least complicated to 
+compute, yielding the following,
 \begin{align}
     &\begin{gathered}
         Q_a = \frac{1}{16}\sum_{pqrs}\sum_{klcd} 
@@ -850,7 +859,7 @@ $\hat{i}^\dagger \hat{j}^\dagger \hat{a}$ or
 $\hat{i}^\dagger \hat{j}^\dagger \hat{b}$ for d). In each case there 
 are 16 possibilities; the three operators from the first string can be 
 contracted with operators in both the third or fourth string in four ways and
-the remainding operators can be then be contracted in two ways. All these 
+the remainding operators can then be contracted in two ways. All these
 possibilities lead to equivalent results. For example, here is the first 
 $Q_c$ term,
 \begin{equation}
@@ -906,15 +915,15 @@ The remainding operators in this expression can be contracted in four ways,
     - \delta_{pl} \delta_{qk} \delta_{rc} \delta_{sd}
     + \delta_{pk} \delta_{ql} \delta_{rc} \delta_{sd}
 \end{align}
-Algbra eventually leads to,
+Some algebraic extertion will eventually lead to,
 \begin{equation}
     - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
         t^{ab}_{ik} t^{cd}_{jl}.
 \end{equation}
-A similar computations provides the second $Q_c$ term,
+A similar computation provides the second $Q_c$ term,
 \begin{equation}
     - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
-        t^{cd}_{ik} t^{ab}_{jl}
+        t^{cd}_{ik} t^{ab}_{jl}.
 \end{equation}
 These two terms give us,
 \begin{equation}
@@ -955,7 +964,7 @@ from the left with $e^{-\hat{T}}$ first, and then left-project with $\bra{\Phi_0
     \end{gathered}
 \end{equation}
 Left-projecting with an excited state, $\bra{\Phi^{ab\dots}_{ij\dots}}$ will give us 
-expression for the corresponding amplitude $t^{ab\dots}_{ij\dots}$,
+an expression for the corresponding amplitude $t^{ab\dots}_{ij\dots}$,
 \begin{equation}
     \label{eq:cc_amplitude}
     \bra{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = 0.
@@ -967,9 +976,21 @@ non-Hermiticity is somewhat problematic.}, similarity-transformed Hamiltonian,
 \end{equation}
 which has $\ket{\Phi_0}$ as right eigenfunction and $E$ as the corresponding eigenvalue.
 Importantly, a similarity-transformation will not change the eigenvalue spectrum of the 
-operator.
+operator. This holds for any operator or matrix. 
 
-A benefit of the similarity-transformed Hamiltionians is that we can write the operators
+Proving this is not an exercise in perseverance and toil.
+Consider some matrix $A$, and the matrix $C$ which is a square, non-singular 
+matrix of the same order as $A$. We say that the matrices $A$ and
+$C^{-1}AC$ are \emph{similar}, and $C^{-1}AC$ is the \emph{similarity transformation}
+of $A$. If $(\lambda, \vb{x})$ is an
+eigenvalue-eigenvector pair of $A$, then $(\lambda, C^{-1}\vb{x})$ is the 
+eigenvalue-eigenvector pari for $C^{-1}AC$,
+\begin{equation}
+    (C^{-1}AC)C^{-1}\vb{x} = C^{-1}A\vb{x} = \lambda C^{-1}\vb{x}.
+\end{equation}
+
+A benefit of the similarity-transformed Hamiltionians that we will take advantage of,
+is that we can write the operators
 more expicitly by applying the Baker-Campbell-Haussdorff
 expansion\cite{campbell1897law,baker1905alternants,hausdorff1906symbolische},
 \begin{equation}
@@ -1012,7 +1033,7 @@ Hamiltonians yields
 \end{equation}
 Notice the absence of an ``and so on''-operator ($\dots$) in this expression. The Baker-Campbell-Hausdorff expansion 
 for the electronic Hamiltionian, containing at most two-particle interactions, will 
-terminate with the four-fold commutator.
+terminate with the four-fold commutator. We will show this shortly.
 
 By applying the generalised Wick's theorem to the Baker-Campbell-Hausdorff 
 expansion of the Hamiltonian in \autoref{eq:bch_hamiltonian}, we will be 
@@ -1050,7 +1071,7 @@ $\hat{i}, \hat{j}, \dots$, and the only possible non-zero contractions are
 $\wick{\c{\hat{a}} \c{\hat{b}}^\dagger} = \delta_{ab}$ and 
 $\wick{\c{\hat{i}}^\dagger \c{\hat{j}}} = \delta_{ij}$. Moreover, since the 
 different cluster operators commute, no nonzero conatractions exist 
-between different $\hat{T}_m$ operators. Ergo, in the neste commutators from 
+between different $\hat{T}_m$ operators. Ergo, in the nested commutators from 
 \autoref{eq:bch_hamiltonian}, we only see surviving terms between the Hamiltonian 
 $\hat{H}_N$ and one or more of the cluster operators $\hat{T}_m$. This 
 accounts for the natural truncation at the four-fold commutator. In fact,
@@ -1066,11 +1087,11 @@ Hamiltonian as
     + \frac{1}{4!}\wick[offset=1.4em]{\c{\hat{H}_N} 
         \c{\overline{\hat{T}\hat{T}\hat{T}\hat{T}}}},
 \end{equation}
-where the very interesting notation combining a contraction line and an horizontal bar 
+where the notation combining a contraction line and a horizontal bar 
 indicates a sum over all terms in which the Hamiltonian $\hat{H}_N$ is connected by at 
 least one contraction with each of the following cluster operators $\hat{T}$.
 
-Disconnected clusters that on the form $\hat{T}_m \hat{T}_n$, which can be found in the 
+Disconnected clusters on the form $\hat{T}_m \hat{T}_n$, which can be found in the 
 coupled cluster wavefunction are not present in the Baker-Campbell-Hausdorff expansion 
 of the similarity-transformed Hamiltonian. This is true also for the coupled cluster 
 amplitude equations, which may be written 
@@ -1097,7 +1118,7 @@ The CCSD equations take the form
         + \hat{T}_1 \hat{T}_2 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
     \Big) \ket{\Phi_0}_C = 0.
 \end{gather}
-For CCSDT, the energy expression is the same, whil the amplitude equations take
+For CCSDT, the energy expression is the same, while the amplitude equations take
 the form 
 \begin{gather}
     \bra{\Phi^a_i} \hat{H}_N \Big(
@@ -1121,12 +1142,13 @@ the form
     \big) \ket{\Phi_0}_C = 0  
     \end{aligned}
 \end{gather}
-the final result of the computation of these equations are provided in the 
-appendices INSERT INTO THE APPENDICES!
+The coupled cluster with singles and doubles equations are provided
+in \autoref{app:ccsd_equations}.
 
 \section{A Variational Formulation of Coupled Cluster}
 
-See Kvaal\cite{kvaal2013variational}
+In the following section we follow the narrative of 
+\citeauthor{kvaal2013variational}\cite{kvaal2013variational} closely.
 
 The Coupled Cluster method is very successful in computing energies, but computing other 
 expectations values has been a problem. For instance we see that the way we compute the
@@ -1139,7 +1161,7 @@ is not the same as one would compute the energy of the system variationally,
     \label{eq:var_hamiltionian_cc}
     \ev*{\hat{H}}_{\text{var}} = \frac{\mel{\Psi}{\hat{H}}{\Psi}}{\braket{\Psi}}
         = \frac{ \mel{\Phi}{e^{\hat{T}^\dagger} \hat{H} e^{\hat{T}}}{\Phi} }
-            {\mel{\Phi}{e^{\hat{T}^\dagger} e^{\hat{T}}}{\Phi}}
+            {\mel{\Phi}{e^{\hat{T}^\dagger} e^{\hat{T}}}{\Phi}}.
 \end{equation}
 Moreover, the similarity transformed operators are not Hermitian. This can be 
 showed by inference
@@ -1184,7 +1206,7 @@ For a general operator $\hat{O}$, we have
                 }.
     \end{aligned}
 \end{equation}
-In contrast with the expansions if the coupled cluster amplitude equations, which 
+In contrast with the expansions of the coupled cluster amplitude equations, which 
 truncates naturally after products of four $\hat{T}$ operators, the expansions for 
 $e^{\hat{\hat{T}}^\dagger}$ and $e^{\hat{T}}$ terminates only if the total excitation 
 level represented by a product of $\hat{T}$ operators exceed the number of electrons in 
@@ -1210,7 +1232,7 @@ respect to the same parameters,
     \frac{\partial}{\partial t}\mel{\Psi_\alpha}{\hat{H}}{\Psi_\alpha},
 \end{equation}
 where $\Psi$ is the exact state, variationally determined from the Hamiltonian of the 
-system, and $\Psi_\alpha = N(\Psi + \alpha \delta\Psi)$ is varitation of this state,
+system, and $\Psi_\alpha = N(\Psi + \alpha \delta\Psi)$ is a variation of this state,
 implicitly dependent on the parameter $\alpha$.
 
 \begin{tcolorbox}[width=\textwidth,colback={white},title={Proof of the Hellmann-Feynman theorem},colbacktitle=pink,coltitle=black]
@@ -1263,7 +1285,7 @@ The problem with some computational techniques, like the coupled cluster method,
 is that the final energy is not variationally determined (non-stationary), 
 and we cannot invoke the Hellmann-Feynman theorem to simplify computation of 
 molecular properties. At first, it would appear that one would have to resort to 
-a more cumbersome computation, like the expansionn of clustes operators above 
+a more cumbersome computation, like the expansion of clustes operators above 
 (\autoref{eq:variational_exp_val_cc}). But fortunately, there exists a way to 
 reformulate the energy function of a non-variational wavefunction in such a way that 
 the energy is stationary with respect to the variables of the new formulation.
@@ -1271,7 +1293,7 @@ the energy is stationary with respect to the variables of the new formulation.
 Consider an energy that depends on two sets of parameters. The parameter $\alpha$ which 
 describes a perturbation and the parameters $\alpha$ which describe the wavefunction. 
 The optimal energy $E(\alpha)$ is obtained by an optimised set of parameters $\vb{\lambda}^*$,
-which are innserted into the energy function $E(\alpha, \vb{\alpha})$;
+which are inserted into the energy function
 \begin{equation}
     E(\alpha) = E(\alpha, \vb{\lambda}^*),
 \end{equation}
@@ -1305,7 +1327,7 @@ For a variational wavefunction, the last term will vanish due to the stationarit
     = \frac{\partial E(\alpha, \vb{\lambda})}{\partial\alpha}\Big\lvert_{(\vb{\lambda} = \vb{\lambda}^*)},
 \end{equation}
 i.e. that the total derivative corresponds to the partial derivative. This means that if the variational 
-eneryg corresponds to an expectation value 
+energy corresponds to an expectation value 
 $E_{\text{var}}(\alpha, \vb{\lambda}) = \mel{\vb{\lambda}}{\hat{H}(\alpha)}{\vb{\lambda}}$, and the 
 perturbed system is described by the Hamiltonian $\hat{H}(\alpha) = \hat{H} + \alpha\hat{V}$, we 
 recover the presumed expression
@@ -1320,8 +1342,8 @@ What we do is replace the now nonvariational function $E(\alpha, \vb{\lambda})$ 
 $L(\alpha, \vb{\lambda}, \bar{\vb{\lambda}})$ with a stationary point 
 $(\vb{\lambda}^*, \bar{\vb{\lambda}}^*)$ that satisfies the nonvariational condition
 \autoref{eq:nonvar_cond_HellF}
-, and whose values at this point correspond to the optimals 
-energy. Inded, we apply Langrange's method of undetermined multipliers, by regarding the 
+, and whose values at this point correspond to the optimal
+energy. Indeed, we apply Langrange's method of undetermined multipliers, by regarding the 
 energy $E(\alpha, \vb{\lambda})$ a an \emph{unconstrained} optimisation problem, but 
 subject to the constraints of the variational parameters $\lambda$, which satisfy
 \autoref{eq:noncanonical_hf_eqns};
@@ -1369,7 +1391,7 @@ general relaxation operator, for instance $\hat{X}_1^\dagger = \{\hat{i}\hat{a}^
 So $\Lambda$ written out is 
 \begin{equation}
     \label{eq:capital_lambda}
-    \Lambda = \sum_{ia}\lambda^i_a \hat{i}^\dagger 
+    \Lambda = \sum_{ia}\lambda^i_a \hat{i}^\dagger \hat{a}
     + \frac{1}{2!^2}\sum_{ijab} 
         \lambda^{ij}_{ab} \hat{i}^\dagger \hat{a} \hat{j}^\dagger \hat{a}
     + \dots
@@ -1393,10 +1415,12 @@ endures,
         \mel{\Phi}{\Lambda}{\Phi}
         \bra{\Phi}e^{-\hat{T}}} 
         = \hat{\rho} \\
-    \Tr{\hat{\rho}} &= \sum_{pq} \bra{\phi_p}e^{\hat{T}}\outerproduct{\phi_q}(1 + \Lambda)e^{-\hat{T}} \ket{\phi_p}
-    = \sum_{pq} \delta_{pq} = 1
+    \Tr{\hat{\rho}} &= \sum_{p} \bra{\phi_p}e^{\hat{T}}\outerproduct{\Phi}(1 + \Lambda)e^{-\hat{T}} \ket{\phi_p}
+    = 1 \\
+    (\hat{\rho})^\dagger &= e^{-\hat{T}^\dagger}(1 + \Lambda^\dagger)
+    \dyad{\Phi}e^{\hat{T}^\dagger} \neq \hat{\rho}.
 \end{align*}
-NOT ENTIRELY SURE THAT THE LAST ONE IS GOOD. We see however, that another problem has 
+We see that another problem has 
 presented itself, as the density operator is non-Hermitian. This leads us to the 
 \emph{bivariational},
 Hellmann-Feynman conforming framework developed by 
@@ -1406,7 +1430,7 @@ Arponen\cite{arponen1983variational}.
 \subsection{The Bivariational Principle}
 
 Arponen approached the coupled cluster problem by employing a very general form 
-of the variational principle callsed the bivariational principle. Letting $\hat{H}$,
+of the variational principle called the bivariational principle. Letting $\hat{H}$,
 be a (possibly non-Hermitian) operator over Hilbert space $\mathcal{H}$, the bivariational 
 expectation functional is defined by 
 
@@ -1415,27 +1439,26 @@ expectation functional is defined by
     \mathscr{E}_{\hat{H}} : \mathcal{H}' \times \mathcal{H} \to \mathbb{C},
     \quad
     \mathscr{E}_{\hat{H}}(\tilde{\Psi}, \Psi) 
-        = \frac{\mel{\tilde{\Psi}}{\hat{H}}{\Psi}}{\braket{\tilde{\Psi}}{\Psi}}
+        = \frac{\mel*{\tilde{\Psi}}{\hat{H}}{\Psi}}{\braket*{\tilde{\Psi}}{\Psi}}
         = \frac{\tr{\hat{H}\hat{\rho}}}{\tr{\rho}}.
 \end{equation}
 The main difference from the traditional and usual variational principle is that 
 $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$ are treated as independent elements of the
-Hilbert space, and $\hat{\rho} = \ket{\Psi}\bra*{\tilde{\Psi}}$. In the usual 
-variational principle, we have 
-$\bra*{\tilde{\Psi}} \equiv \ket{\Psi}$, which are \emph{not} independent. Nevertheless,
-since the Hamiltonian $\hat{H}$ is Hermitian, $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$
+Hilbert space, and $\hat{\rho} = \ket{\Psi}\bra*{\tilde{\Psi}}$.
+Since the Hamiltonian $\hat{H}$ is Hermitian, $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$
 can be treated 
-independent in the derivations of stationary conditions, which are that the left- 
-and right eigenvalues of $\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$, repectably, must be
-the same, id est 
+independently in the derivations of stationary conditions. However, we must have that
+$\bra*{\tilde{\Psi}}$ and $\ket{\Psi}$ are left- 
+and right eigenvalues of the Hamiltonian, with the same eigenvalue
 \begin{equation}
     \hat{H}\ket{\Psi} = E\ket{\Psi}, \quad \bra*{\tilde{\Psi}}\hat{H} = \bra*{\tilde{\Psi}}E.
 \end{equation}
-Here $E = \mathcal{E}_{\hat{H}}(\tilde{\Psi}, \Psi)$ is the value at the stationary point.
+We alos have that $E = \mathcal{E}_{\hat{H}}(\tilde{\Psi}, \Psi)$ is the value at the
+stationary point.
 
 We transition to coupled cluster theory by inserting the coupled cluster exponential 
 wave functions, $\ket{\Psi} = e^{\hat{T}}\ket{\Phi}$ and 
-$\bra{\tilde{\Psi}} = \bra*{\Phi}e^{\tilde{T}}$, where 
+$\bra*{\tilde{\Psi}} = \bra*{\Phi}e^{\tilde{T}}$, where 
 $\tilde{T} = \tilde{t}X^\dagger$ are some general relaxation operator. The 
 bivariational functional becomes 
 \begin{equation}
@@ -1449,8 +1472,9 @@ $\hat{T}$ and $\tilde{T}$, is the foundation of variational coupled cluster
 theory\cite{bartlett1988expectation}, which is equivalent to full configuration 
 interaction within the given single-particle basis set.
 
-Now we wish to show that Arponen's framework corresponds to that of Helgakger and 
-Jørgensen. We simplfy the expression by performing a variable change 
+Now we wish to show that Arponen's framework corresponds to that of
+\citeauthor{helgaker1988analytical}. We simplify the expression by performing 
+a variable change 
 $(\hat{T}, \tilde{T}) \to (\hat{T}, \hat{S})$, where $S$ is a new relaxation operator.
 We start by introducing 
 \begin{equation}
@@ -1478,9 +1502,11 @@ expression to the coupled cluster Lagrangian in \autoref{eq:cc_energy_lagrangian
 conlude that our seemingly serendipitous algebra acrobatics has revealed that
 $e^{\hat{S}} = 1 + \Lambda$. Truthfully, we have strong indication the coupled cluster bivariational 
 functional (\autoref{eq:bivariational_principle_cc}) is the same as the the 
-coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}). As a sidenote, pruning 
+coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian})\footnote{Pruning 
 the expression in \autoref{eq:bivar_lagrang_equal} to only include single and double 
-excitations will yield Arponen's \emph{extended coupled cluster} (ECC) method.
+excitations will yield Arponen's \emph{extended coupled cluster} (ECC) 
+method\cite{arponen1987extended}.
+This method has seen little use due to it's complexity.}.
 
 First order conditions of the coupled cluster energy Lagrangian in
 \autoref{eq:cc_energy_lagrangian} gives us a new set of amplitude equations,
@@ -1507,9 +1533,32 @@ the $\tau$ amplitude equations
 only depend on $\tau$, whilst the $\lambda$ equations depend both on $\tau$ and $\lambda$.
 This means that the $\tau$ amplitude equations are solved iteratively first, and then 
 the $\lambda$ amplitudes are solved similarly.
-The full equations are given in appendix (LINK TO APPENDIX).
+The full equations are given in \autoref{app:ccsd_equations}.
 
-\section{Generealisation in Time}
+The benefit of going through the exercise of reformulating the coupled cluster framework entirely
+is that it is now possible to define operators,
+\begin{align}
+    \rho^q_p &= \mel*{\tilde{\Psi}}{c^\dagger_p c_q}{\Psi} \\
+    \rho^{qs}_{pr} &= \mel*{\tilde{\Psi}}{c^\dagger_p c^\dagger_q c_s c_r}{\Psi},
+\end{align}
+which we can use to compute expectation values of operators,
+$\ev*{\hat{A}} = \tr{\rho\hat{A}}$. Here, $\hat{A}$ is a general one- and two-body 
+operator,
+\begin{equation}
+    \hat{A} = 
+        a^p_qc^\dagger_p c_q 
+        + \frac{1}{4}a^{pr}_{qs}c^\dagger_p c^\dagger_q c_s c_r.
+\end{equation}
+Then we have,
+\begin{equation}
+    \ev*{\hat{A}} = \mel*{\tilde{\Psi}}{\hat{A}}{\Psi}
+        = a^p_q \mel*{\tilde{\Psi}}{c^\dagger_p}{\Psi}
+        + \frac{1}{4} a^{pr}_{qs}
+            \mel*{\tilde{\Psi}}{c^\dagger_p c^\dagger_q c_s c_r}{\Psi}
+        = a^p_q \rho^q_p + \frac{1}{4} a^{pr}_{qs} \rho^{qs}_{pr}.
+\end{equation}
+
+\section{Generalisation in Time}
 
 Here, we will outline a derivation of the orbital-adaptive time-dependent coupled cluster 
 method, a generalisation in time for the coupled cluster method put forth by 
@@ -1521,18 +1570,17 @@ We now define a time-dependent generalisation of the bivariational principle
 (\autoref{eq:bivariational_principle}). This is similar to the usual time-dependent 
 action functional and the time-dependent Schrödinger equation can be recovered from 
 it,
-(IT MAY BE proper to use ' instead of $\dagger$ here.)
 \begin{equation}
     \label{eq:time_dependent_action_functional}
-    \mathcal{S}[{\Psi}^\dagger(\cdot), \Psi(\cdot)]
-        = \int_0^T dt \frac{\mel{{\Psi}^\dagger(t)}{\left(
+    \mathcal{S}[{\Psi}'(\cdot), \Psi(\cdot)]
+        = \int_0^T dt \frac{\mel{{\Psi}'(t)}{\left(
             i\hbar \frac{\partial}{\partial t} - \hat{H}
         \right)}{\Psi(t)}}{\braket{{\Psi}'(t)}{\Psi(t)}}.
 \end{equation}
 Functionals like these are quite common throughout the historical literature on 
 quantum mechanics, appearing as early as in Dirac\cite{dirac1930principles}. The 
 integral of the functional depends on all history for the system in question. 
-Under normal rariation of the functional. By applying the principle of least action, 
+By applying the principle of least action, 
 requiring that the functional is stationary, $\delta\mathcal{S} = 0$, under all variations 
 of $\bra{{\Psi}'}$ and $\ket{\Psi}$ and vanishing in the endpoints $t=0$ and
 $t=T$, gives us the following conditions
@@ -1551,14 +1599,14 @@ Arponen's\cite{arponen1983variational} Hellmann-Feynman conforming bivariational
 principle, where the energy expectation functial is given by 
 \begin{equation}
     \label{eq:bivar_energy_expectation}
-    \mathscr{E}_{\hat{H}}(\tau^\dagger, \tau, \Phi^\dagger, \Phi)
-    = \frac{\mel*{\Phi^\dagger}{e^{\hat{T}\dagger}\hat{H}e^{\hat{H}}}{\Phi}}
-    {\mel*{\Phi^\dagger}{e^{\hat{T}^\dagger}e^{\hat{T}}}{\Phi}}.
+    \mathscr{E}_{\hat{H}}(\tau', \tau, \Phi', \Phi)
+    = \frac{\mel*{\Phi'}{e^{\hat{T}'}\hat{H}e^{\hat{H}}}{\Phi}}
+    {\mel*{\Phi'}{e^{\hat{T}'}e^{\hat{T}}}{\Phi}}.
 \end{equation}
 We perform a variable change $(T', T)\to(\lambda, T)$, similarly to the section above, 
 and introduce
 \begin{equation}
-    \bra*{\tilde{\Psi}} = \frac{\bra{\Psi^\dagger}}{\braket{\Psi^\dagger}{\Psi}}
+    \bra*{\tilde{\Psi}} = \frac{\bra{\Psi'}}{\braket{\Psi'}{\Psi}}
     = \bra*{\tilde{\Phi}} (1 + \Lambda) e^{\hat{T}},
 \end{equation}
 Where $\Lambda$ is the same as in \autoref{eq:capital_lambda}.
@@ -1571,11 +1619,11 @@ now becomes
 Disregarding the differene in $\tilde{\Phi}$ and $\Phi$, this expression is the 
 same as the coupled cluster expectation functional in \autoref{eq:bivar_lagrang_equal},
 where the interpretation is that the $\lambda$s are Lagrange multipliers 
-for a constrained energy minimisation problem. This is not the interprestation 
-here, as the $\lambda$-part of the problem is seen as equatlly important.
+for a constrained energy minimisation problem. This is not the interpretation 
+here, as the $\lambda$-part of the problem is seen as equally important.
 
 We are now assuming biorthogonality in orbitals, $\braket*{\tilde{\phi}_p}{\phi_q} = \delta_{pq}$, but 
-independence of bra en ket states otherwise. For a full Slater determinant state 
+independence of bra and ket states otherwise. For a full Slater determinant state 
 consisting of these orbitals, we have 
 \begin{equation}
     \braket*{\tilde{\phi}_{p_1}\dots \tilde{\phi}_{p_n}}{\phi_{q_1}\dots\phi_{q_n}}
@@ -1612,30 +1660,30 @@ defining the Schrödinger dynamics becomes,
     \begin{aligned}
         \label{eq:oatdcc_functional}
         \mathcal{S}[\lambda, \tau, \tilde{\Phi}, \Phi]
-        &= \int_0^T \mel{\tilde{\phi}}
+        &= \int_0^T \mel{\tilde{\Phi}}
             {(1 + \Lambda)e^{-\hat{T}}\left(\frac{\partial}{\partial t} - \hat{H} \right)e^{\hat{T}}} 
-            {\phi} dt \\ 
-        &= \int_0^T i\hbar\mel{\tilde{\phi}}
+            {\Phi} dt \\ 
+        &= \int_0^T i\hbar\mel{\tilde{\Phi}}
         {(1 + \Lambda)e^{-\hat{T}}\frac{\partial}{\partial t}e^{\hat{T}}}
-        {\phi} dt
+        {\Phi} dt
         - \mathscr{E}_{\hat{H}}(\lambda, \tau, \tilde{\Phi}, \Phi).
     \end{aligned} 
 \end{equation}
 Herein, it is necessary to compute 
-$\frac{\partial}{\partial t}\ket{\Psi} = \frac{\partial}{\partial t}e^{\hat{T}}\ket{\phi}$.
+$\frac{\partial}{\partial t}\ket{\Psi} = \frac{\partial}{\partial t}e^{\hat{T}}\ket{\Phi}$.
 In order to accomplish this we indroduce the expansion,
 \begin{equation}
-    \ket{\Psi} = \Pi\ket{\Psi} = \ket{\phi} + \sum_\mu A^\mu \ket{\phi_\mu}, \quad
-    A^\mu = A^\mu(\tau) = \mel*{\tilde{\phi}^\mu}{e^{\hat{T}}}{\phi}
+    \ket{\Psi} = \Pi\ket{\Psi} = \ket{\Phi} + \sum_\mu A^\mu \ket{\Phi_\mu}, \quad
+    A^\mu = A^\mu(\tau) = \mel*{\tilde{\Phi}^\mu}{e^{\hat{T}}}{\Phi}
 \end{equation}
-Here we write $\phi$ as the reference Slater determinant and $\phi_\mu$ are all the other 
+Here we write $\Phi$ as the reference Slater determinant and $\Phi_\mu$ are all the other 
 excited Slater determinant. The coefficients $A^\mu$ do not depend explicitly on the 
 orbitals, only on the the amplitudes $\tau$. It is important to note that this summation is not truncated,
 regardless of the truncation of the cluster amplitudes at some excitation level $\tau^\mu$.
 To further the matter, we have introduced a projection operator,
 \begin{equation}
-    \Pi \equiv \outerproduct*{\phi}{\tilde{\phi}} 
-    + \sum_\mu \outerproduct*{\phi_\mu}{\tilde{\phi}^\mu}.
+    \Pi \equiv \outerproduct*{\Phi}{\tilde{\Phi}} 
+    + \sum_\mu \outerproduct*{\Phi_\mu}{\tilde{\Phi}^\mu}.
 \end{equation}
 The projection operator has the following properties,
 \begin{equation}
@@ -1667,8 +1715,8 @@ wavefunction becomes,
 \begin{equation}
     \begin{aligned}
         \frac{\partial}{\partial t}\ket{\Psi} 
-        &= \sum_\mu \left(\frac{\partial}{\partial t}A^\mu (\tau)\right)\ket{\phi_\mu}
-         + \hat{D}\ket{\phi} + \sum_\mu A^\mu (\tau) \hat{D} \ket{\phi_\mu} \\
+        &= \sum_\mu \left(\frac{\partial}{\partial t}A^\mu (\tau)\right)\ket{\Phi_\mu}
+         + \hat{D}\ket{\Phi} + \sum_\mu A^\mu (\tau) \hat{D} \ket{\Phi_\mu} \\
         &= \left(
             \sum_\nu \dot{\tau}^\nu \frac{\partial}{\partial \tau^\nu} + \hat{D}
         \right)\ket{\Psi}
@@ -1679,10 +1727,10 @@ The time-derivative part of the functional (\autoref{eq:oatdcc_functional}) inte
 becomes,
 \begin{equation}
     \begin{aligned}
-        i\hbar&\mel{\tilde{\phi}}
+        i\hbar&\mel{\tilde{\Phi}}
             {(1 + \Lambda)e^{-\hat{T}}\frac{\partial}{\partial t}e^{\hat{T}}}
-        {\phi} \\
-        &= i\hbar\mel{\tilde{\phi}}
+        {\Phi} \\
+        &= i\hbar\mel{\tilde{\Phi}}
             {
             \left(
                 1 + \sum_\mu \lambda_\mu \tilde{X}^\mu     
@@ -1693,11 +1741,11 @@ becomes,
             \right)
             e^{\hat{T}}
             }
-        {\phi} \\
+        {\Phi} \\
         &= i\hbar \sum_\mu \lambda_\mu \dot{\tau}^\mu
-        + i\hbar \mel{\tilde{\phi}}
+        + i\hbar \mel{\tilde{\Phi}}
             {(1 + \Lambda)e^{-\hat{T}}\Pi\hat{D}\Pi e^{\hat{T}}}
-        {\phi},
+        {\Phi},
     \end{aligned}
 \end{equation}
 where the projected operator $\Pi\hat{D}\Pi$ is given by 
@@ -1717,26 +1765,26 @@ Finally we obtain a new expression for the functional in \autoref{eq:oatdcc_func
     &= \int_0^T i\hbar \lambda_\mu \dot{\tau}^\mu 
     + \rho^q_p (h^p_q - i\hbar\eta^p_q) + \frac{1}{4}\rho^{qs}_{pr} u^{pr}_{qs}dt,
 \end{align}
-(HERE THE $u$ IS TWO-BODY OPERATOR. CHANGE OTHER PLACES? YES I THINK SO..) where
+where
 \begin{align} 
     \rho^q_p &= \rho^q_p(\lambda, \tau) 
-    \equiv \mel{\tilde{\rho}}
+    \equiv \mel{\tilde{\Phi}}
     {(1 + \Lambda)e^{-\hat{T}}c^\dagger_p \tilde{c}_q e^{\hat{T}}}
-    {\phi}, \\
+    {\Phi}, \\
     \rho^{qs}_{pr} &= \rho^{qs}_{pr}(\lambda, \tau) 
-    \equiv \mel{\tilde{\rho}}
+    \equiv \mel{\tilde{\Phi}}
     {(1 + \Lambda)e^{-\hat{T}} c^\dagger_p c^\dagger_r \tilde{c}_s \tilde{c}_q e^{\hat{T}}}
-    {\phi}, \\
+    {\Phi}, \\
     h^p_q &= h^p_q(\tilde{\Phi}, \Phi)
-    \equiv \mel{\tilde{\varphi}_p}{\hat{h}}{\varphi_q}, \\
+    \equiv \mel{\tilde{\phi}_p}{\hat{h}}{\varphi_q}, \\
     \eta^p_q &= \eta^p_q(\tilde{\Phi}, \Phi)
-    \equiv \braket*{\tilde{\varphi}_p}{\dot{\varphi}_q}, \\
+    \equiv \braket*{\tilde{\phi}_p}{\dot{\varphi}_q}, \\
     u^{pr}_{qs} &= u^{pr}_{qs}(\tilde{\Phi}, \Phi)
-    \equiv \mel{\tilde{\varphi}_p\tilde{\varphi}_r}
+    \equiv \mel{\tilde{\phi}_p\tilde{\varphi}_r}
     {(\hat{u} - \hat{P}_{12})}
-    {\varphi_q \varphi_s}.
+    {\phi_q \varphi_s}.
 \end{align}
-We introduced Einsten summation convention over repeated indices of opposite vertical 
+We introduced Einstein summation convention over repeated indices of opposite vertical 
 placement in \autoref{eq:einsum_density_operator_functional}.
 
 \subsection{Equations of Motion}
@@ -1759,8 +1807,8 @@ We see that the stationary condition is
     i\hbar \dot{\tau}^\mu 
     = \frac{\partial}{\partial \lambda_\mu}
         \mathscr{E}_{\hat{H} -i \hbar \hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
-    = \mel*{\tilde{\phi}_\mu}
-        {e^{-\hat{T}}(\hat{H} - i\hbar \hat{D}_0)e^{\hat{T}}}{\phi},
+    = \mel*{\tilde{\Phi}_\mu}
+        {e^{-\hat{T}}(\hat{H} - i\hbar \hat{D}_0)e^{\hat{T}}}{\Phi},
     }
 \end{equation}
 which is also the eqution of motion, dictating the time-development of $\tau$. Next, 
@@ -1790,9 +1838,9 @@ Here the stationary condition is
     \boxed{
     -i\hbar\dot{\lambda}_\nu = \frac{\partial}{\partial \tau^\nu}
     \mathscr{E}_{\hat{H} - i\hbar\hat{D}_0}[\lambda, \tau, \tilde{\Phi}, \Phi]
-    = \mel*{\tilde{\phi}}
+    = \mel*{\tilde{\Phi}}
         {(1 + \Lambda)e^{-\hat{T}}[\hat{H} -i\hbar\hat{D}_0, X_\mu]e^{\hat{T}}
-        }{\phi}.
+        }{\Phi}.
     }
 \end{equation}
 \autoref{eq:oatdcc_tau} and \autoref{eq:oatdcc_lambda} together make up the orbital-adaptive 
@@ -1808,18 +1856,18 @@ resulting equations of motions are
     i\hbar\dot{\tau}^\mu 
         &= \frac{\partial}{\partial \lambda_\mu}\mathscr{E}_{\hat{H}}
             [\lambda, \tau, \tilde{\Phi}, \Phi]
-        = \mel*{\tilde{\phi}_\mu}
+        = \mel*{\tilde{\Phi}_\mu}
             {e^{-\hat{T}}\hat{H}e^{\hat{T}}}
-        {\phi} \\
+        {\Phi} \\
     \label{eq:tdcc_lambda}
     -i\hbar\dot{\lambda}_\nu
         &= \frac{\partial}{\partial \tau^\nu}\mathscr{E}_{\hat{H}}
             [\lambda, \tau, \tilde{\Phi}, \Phi]
-        = \mel*{\tilde{\phi}}
+        = \mel*{\tilde{\Phi}}
             {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_\mu]e^{\hat{T}}}
-        {\phi}.
+        {\Phi}.
 \end{align}
-We call these equations the time-developted coupled cluster (TDCC) amplitude equations. 
+We call these equations the time-dependent coupled cluster (TDCC) amplitude equations. 
 Setting the left-hand side of
 \autoref{eq:tdcc_tau} and \autoref{eq:tdcc_lambda} to zero will give a set of 
 non-linar equations that can be solved in order to find initial amplitudes 
@@ -1844,12 +1892,12 @@ to the wavefunction pair on $(\bra*{\tilde{\Psi}}, \ket{\Psi}) \in \mathcal{M}$,
    f : \mathcal{N} \to \mathcal{M}. 
 \end{equation}
 As circumstances would have it, the simplest of such transformations corresponds to 
-a rotation that elminates the singles amplitudes $\tau^a_i$. This is the same ansatz 
+a rotation that eliminates the singles amplitudes $\tau^a_i$. This is the same ansatz 
 employed in orbital-optimised-  or Bruecker coupled cluster theory (see box). Additionally,
 including $\lambda^i_a$ after this rotation would leave the equations of motions 
 overdetermined. The presence of $\hat{T}_1$ is compensated by the freely 
 varying orbitals, but this does not hold for $\Lambda_1$, which gives more 
-parameters in the $\bra{\tilde{\Psi}}$ than in $\ket{\Psi}$. As such, we set all 
+parameters in the $\bra*{\tilde{\Psi}}$ than in $\ket{\Psi}$. As such, we set all 
 single amplitudes, $\tau^a_i$ and $\lambda^i_a$ equal to zero.
 
 \begin{tcolorbox}[title={Orbital-optimised and Bruecker coupled cluster theories
@@ -1887,24 +1935,24 @@ single amplitudes, $\tau^a_i$ and $\lambda^i_a$ equal to zero.
 
 \end{tcolorbox}
 
-In OATDCC theory such a gauge condition corresponds to considering orbital time 
-derivatives of the form
+In orbital-adaptive time-dependent coupled cluster theory such a gauge condition corresponds
+to considering orbital time derivatives of the form
 \begin{align}
     \label{eq:orbital_time_derivative_ket}
-    \ket{\dot{\varphi}_q} &= (P + Q)\ket{\dot{\varphi}_q}
-        = \sum_p \ket{\varphi_p}\braket{\tilde{\varphi}_p}{\dot{\varphi}_q} 
-            + Q\ket{\dot{\varphi_q}}
-        = \sum_p\eta^p_q + Q\ket{\dot{\varphi}_q}\\
+    \ket{\dot{\phi}_q} &= (P + Q)\ket{\dot{\phi}_q}
+        = \sum_p \ket{\phi_p}\braket{\tilde{\phi}_p}{\dot{\phi}_q} 
+            + Q\ket{\dot{\phi_q}}
+        = \sum_p\eta^p_q + Q\ket{\dot{\phi}_q}\\
     \label{eq:orbital_time_derivative_bra}
-    \bra*{\dot{\tilde{\varphi}}_p} &= \bra{\dot{\tilde{\varphi}}_p}(P + Q)
-        = \sum_q \braket{\dot{\tilde{\varphi}}_p}{\varphi_q}\bra{\tilde{\varphi}_q}
-            + \bra{\dot{\tilde{\varphi}}_p}Q
-        = - \sum_q \eta^p_q \bra{\tilde{\varphi}_q} + \bra{\dot{\tilde{\varphi}}_p}Q,
+    \bra*{\dot{\tilde{\phi}}_p} &= \bra{\dot{\tilde{\phi}}_p}(P + Q)
+        = \sum_q \braket{\dot{\tilde{\phi}}_p}{\phi_q}\bra{\tilde{\phi}_q}
+            + \bra{\dot{\tilde{\phi}}_p}Q
+        = - \sum_q \eta^p_q \bra{\tilde{\phi}_q} + \bra{\dot{\tilde{\phi}}_p}Q,
 \end{align}
 with $\eta^i_j = \eta^a_b = 0$,
-$\eta^p_q = \braket{\tilde{\varphi}_p}{\dot{\varphi}_q} = - \braket{\dot{\tilde{\varphi}}_p}{\varphi_1}$.
+$\eta^p_q = \braket{\tilde{\phi}_p}{\dot{\phi}_q} = - \braket{\dot{\tilde{\phi}}_p}{\phi_q}$.
 Here we have defined the projection operators $P$ and $Q$, where 
-$P = \Phi\tilde{\Phi} = \sum_p \dyad{\varphi_p}{\varphi_p}$ projects onto the single-particle 
+$P = \Phi\tilde{\Phi} = \sum_p \dyad{\phi_p}{\phi_p}$ projects onto the single-particle 
 space defined by the orbitals, and $Q = 1 - P$ projects onto everything else.
 
 We can write down equations of motions just for the nonzero $P$-components
@@ -1932,21 +1980,21 @@ where the matrix elements $A^{ib}_{aj}$ are defined by,
 \end{equation}
 The $Q$-part of the orbital derivatives are,
 \begin{align}
-    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q}
-        &= \sum_q \rho^q_p Q h\ket{\varphi_q}
-        + \sum_{qrs} \rho^{qs}_{pr}Q W^r_s\ket{\varphi_q}, \ \forall p \\
-    -i\hbar\sum_p \rho^q_p \left(\frac{\partial}{\partial t}\bra{\tilde{\varphi}_p} \right)Q
-        &= \sum_p\rho^q_p \bra{\tilde{\varphi}_p}hQ
-        + \sum_{prs} \rho^{qs}_{pr} \bra{\tilde{\varphi}_p}W^r_s Q, \ \forall q,
+    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\phi_q}
+        &= \sum_q \rho^q_p Q h\ket{\phi_q}
+        + \sum_{qrs} \rho^{qs}_{pr}Q W^r_s\ket{\phi_q}, \ \forall p \\
+    -i\hbar\sum_p \rho^q_p \left(\frac{\partial}{\partial t}\bra{\tilde{\phi}_p} \right)Q
+        &= \sum_p\rho^q_p \bra{\tilde{\phi}_p}hQ
+        + \sum_{prs} \rho^{qs}_{pr} \bra{\tilde{\phi}_p}W^r_s Q, \ \forall q,
 \end{align}
 where mean-field operators $W^r_s$ are defined by 
 \begin{equation}
     W^r_s\ket{\psi} \equiv 
-    \mel{\cdot \tilde{\varphi}_r}{u}{\psi\varphi_s}.
+    \mel*{\cdot \tilde{\phi}_r}{u}{\psi\phi_s}.
 \end{equation}
 
 The logical next step is to write down the equations of motion for the lowest 
-truncated from of OATDCC available too us, namely OATDCCD. In addition to the 
+truncated form of OATDCC available too us, namely OATDCCD. In addition to the 
 orbitals $\Phi$ and $\tilde{\Phi}$, the only parameters of the exact wavefunction 
 are the amplitudes $\tau = \tau^{ab}_{ij}$ and $\lambda = \lambda^{ij}_{ab}$. 
 The OATDCCD amplitude equations read 
@@ -1983,17 +2031,17 @@ The $P$-space orbitals read
             -\sum_{rqs}\rho^{qs}_{ir} U^{ar}_{qs}       
         \right]
 \end{align}
-and the $Q$-space orbitales read
+and the $Q$-space orbitals read
 \begin{align}
     \label{eq:oatdccd_q_1}
-    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q}
-        &= \sum_q \rho^p_q Q h\ket{\varphi_q} 
-            + \sum_{qrs} \rho^{qs}_{pr} Q W^r_s \ket{\varphi_q}, \\
+    i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\phi_q}
+        &= \sum_q \rho^p_q Q h\ket{\phi_q} 
+            + \sum_{qrs} \rho^{qs}_{pr} Q W^r_s \ket{\phi_q}, \\
     \label{eq:oatdccd_q_2}
     -i\hbar\sum_p \rho^q_p
-    \left(\frac{\partial}{\partial t} \bra{\tilde{\varphi}_q}\right)Q
-        &= \sum_p \rho^q_p \ket{\varphi_q} Q h
-            + \sum_{prs} \rho^{qs}_{pr}\bra{\varphi_q} W^r_s Q.
+    \left(\frac{\partial}{\partial t} \bra{\tilde{\phi}_q}\right)Q
+        &= \sum_p \rho^q_p \ket{\phi_q} Q h
+            + \sum_{prs} \rho^{qs}_{pr}\bra{\phi_q} W^r_s Q.
 \end{align}
 
 Notice that the $\tau$ and $\lambda$ OATDCCD equations
@@ -2007,6 +2055,6 @@ the right-hand sides can be evaluated independently of
 equations \ref{eq:oatdccd_p_1}, \ref{eq:oatdccd_p_2},
 \ref{eq:oatdccd_q_1}, \ref{eq:oatdccd_q_2}. In order to compute 
 $\dot{\tilde{\Phi}}$ and $\dot{\Phi}$, $\eta$ must be solved for in 
-addition to $Q\ket{\dot{\varphi}_q}$ and $\bra{\dot{\tilde{\varphi}}_p}Q$,
+addition to $Q\ket*{\dot{\phi}_q}$ and $\bra*{\dot{\tilde{\phi}}_p}Q$,
 according to \autoref{eq:orbital_time_derivative_ket} and 
 \autoref{eq:orbital_time_derivative_bra}.
