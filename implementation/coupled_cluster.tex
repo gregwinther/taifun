@@ -15,7 +15,7 @@ elegance, we have a ground state- and a time-dependent solver for both the coupl
 method
 with double excitations (CCD), the coupled cluster method with singles- and double 
 excitations (CCSD), and for the orbital-adaptive coupled cluster method with double
-excitations (OACCD). The time-dependent solvers within a particular categor are 
+excitations (OACCD). The time-dependent solvers within a particular category are 
 dependent on its ground state counterpart, but the ground state solvers can be used
 independently.
 
@@ -45,16 +45,17 @@ can be found at \url{www.coupled-cluster.com}.
 
 \section{Ground State Computations}
 
-    Before any development in time can be performed, we need to derives systems that 
+    Before any development in time can be performed, we need to derive configurations 
+    of systems that 
     we can be pretty certain exist in nature. This makes the implementation of ground 
     state solvers necessary. We have implemented ground state solvers; the
     \lstinline{CoupledClusterDoubles} and \lstinline{CoupledClusterSinglesDoubles} 
-    are based on the theoretical framework form the Lagrangian formulation of coupled 
+    are based on the theoretical framework form of the Lagrangian formulation of coupled 
     cluster, while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
     ground state coupled cluster solver with double excitations. Moreover, we constructed 
-    a data structure for the ampltudes in the \lstinline{AmplitudeContainer} class and 
-    we have implemented two mixers that helt with convergences of the ground state solvers,
-    \lstinline{AlphaMixer} and \lstinline{DIIS}.
+    a data structure for the amplitudes in the \lstinline{AmplitudeContainer} class and 
+    we have implemented two ``mixer'' classes that help with convergences of the ground
+    state solvers, \lstinline{AlphaMixer} and \lstinline{DIIS}.
 
     \subsection{Representation of Amplitudes}
 
@@ -68,13 +69,13 @@ can be found at \url{www.coupled-cluster.com}.
 
     The \lstinline{AmplitudeContainer} class is built as a data structure for 
     the amplitude functions, and comprises all methods and attributes to serve this 
-    purpose. This includes includes overloading of primitive methods of the base 
+    purpose. This includes overloading of primitive methods of the base 
     python \lstinline{Object} type.: \lstinline{__add__} and \lstinline{__radd__}
     enables adding a scalar or properly shaped vector to the amplitudes, 
     \lstinline{__mul__} and \lstinline{__rmul__} allows for multiplication 
     with scalars and vectors, and \lstinline{__iter__} is implemented to make 
     the class an iterable. In summary, the \lstinline{AmplitudeContainer} 
-    functions as a fully functional data structure for amplitudes of coupled 
+    functions as a fully operational data structure for amplitudes of coupled 
     cluster solver, with both $\tau$ and $\lambda$ amplitudes.
 
     \subsection{Coupled Cluster Base Class}
@@ -90,7 +91,7 @@ can be found at \url{www.coupled-cluster.com}.
     As we have outlined in 
     \autoref{ch:coupled_cluster_theory}, the $\tau$ amplitudes are only dependent on 
     $\tau$, while the $\lambda$ amplitudes are dependent on both $\tau$ and $\lambda$.
-    Therefore, the $\tau$ amplitude equation iterative solver
+    Therefore, the $\tau$ amplitude equations iterative solver
     \lstinline{iterate_t_amplitudes()} is called first, and the $\lambda$ amplitude
     equation solver is called second.
     For illustration, the most important section of the \lstinline{compute_l_amplitudes()} method 
@@ -119,7 +120,7 @@ can be found at \url{www.coupled-cluster.com}.
     and \lstinline{compute_l_amplitudes}, which are supposed to contain the evaluation 
     of amplitude equations for a given coupled cluster truncation and scheme. 
 
-    With the hope that the functunality of the rest of the methods 
+    With the hope that the functiunality of the rest of the methods 
     in the abstract base class \lstinline{CoupledCluster} can be inferred from 
     name, and with the goal of brevity we proceed to a study of the simplest 
     ground state coupled cluster solver, namely CCD, implemented in the 
@@ -130,11 +131,11 @@ can be found at \url{www.coupled-cluster.com}.
     Starting from construction, the \lstinline{CoupledClusterDoubles} class passes 
     the system, defined through a \lstinline{QuantumSystem} object to the 
     parent class constructor, along with any keyword arguments, such as turning 
-    on verbosity, mixer type to us and what matrix library to apply. The
+    on verbosity, mixer type and what matrix library to apply. The
     \lstinline{QuantumSystem} class will contain all the information necessary to 
     set up the system, i.e. construct a one-body matrix, fock matrix and two-body 
     matrix. These will be used to set up empty arrays for the $\tau$ and $\lambda$ 
-    amplitudes. The \lstinline{comput_initial_guess} is called lastly in the 
+    amplitudes. The \lstinline{compute_initial_guess} is called lastly in the 
     constructor, computing the inital guess of the double-excited amplitudes as 
     \begin{equation}
         \label{eq:ccd_inital_guess}
@@ -150,7 +151,7 @@ can be found at \url{www.coupled-cluster.com}.
     of the class, the \lstinline{compute_ground_state()} method, is inherited from the 
     parent class, and does the same thing as described above - calling 
     \lstinline{iterate_t_amplitudes()} and \lstinline{iterate_l_amplitudes()}. These 
-    methods alos excist as members of \lstinline{CoupledClusterDoubles}, but are excluded 
+    methods also exist as members of \lstinline{CoupledClusterDoubles}, but are excluded 
     from the class specification for sake of brevity. It is 
     possible to pass arguments to the the two iterator methods; one list for each iteration
     method, or as keywords.
@@ -183,7 +184,6 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/ccd.tex}
    
-    THIS IS NOT CORRECT WHEN INCLUDING LAMBDA..
     The initial guess in equation \autoref{eq:ccd_inital_guess} is terms 2 and 3
     from \autoref{eq:ccd_tau}. These terms also form the basis of the iterative scheme,
     if we move them to the left of the equal sign in \autoref{eq:ccd_tau}, 
@@ -242,7 +242,7 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/oaccd.tex}
 
-    Our implementation of the NOCC ground state solver is inderited from code written by Rolf Myhre and 
+    Our implementation of the NOCC ground state solver is inherited from code written by Rolf Myhre and 
     adapted to our 
     framework. We supply a brief overview of the algorithm here. The starting point for the 
     NOCC model is the bivariational Lagrangian
@@ -311,11 +311,11 @@ can be found at \url{www.coupled-cluster.com}.
     \end{align}
 
     We are now ready to outline the full algorithm of the 
-    \lstinline{compute\_ground\_state()} in what we have called the \lstinline{OACCD}.
+    \lstinline{compute_ground_state()} in what we have called the \lstinline{OACCD}.
     The method is iterating over the the norm of $\kappa^u$ and $\kappa^d$, called the 
-    residuals of $\kappa$, until consistency compared to a tolerance value us achieved. 
+    residuals of $\kappa$, until consistency compared to a tolerance value is achieved. 
     For each such iteration, iteration over the $\tau$ and $\lambda$ double excitation
-    amplitudes is performed, but at a much less strict tolarance value than under the 
+    amplitudes is performed, but at a much less strict tolerance value than under the 
     \lstinline{CoupledClusterDoubles} scheme. After the iteration over $\tau$ and $\lambda$ 
     is achieved, the values for $\kappa^u$ and $\kappa^d$ are recalculated, in order to 
     compute the aggragate $\kappa$ (\autoref{eq:agg_kappa}), 
@@ -388,7 +388,7 @@ can be found at \url{www.coupled-cluster.com}.
         \label{eq:fock_cluster_commutator}
         [\hat{f}, \hat{T}] = \sum_\mu D_\mu \tau_\mu X_\mu,
     \end{equation}
-    where $\epsilon_\mu$ is the sum of unoccupied energies minus sum of all 
+    where $\epsilon_\mu$ is the sum of unoccupied energies minus the sum of all 
     occupied energies, i.e. $D^{ab}_{ij} = \epsilon_a  + \epsilon_b - \epsilon_i - \epsilon_j$,
     $\tau_\mu$ is the amplitude of a particular excitation, and $X_\mu$ is an excitation 
     operator. For CCD \autoref{eq:fock_cluster_commutator} becomes,
@@ -411,8 +411,7 @@ can be found at \url{www.coupled-cluster.com}.
     \end{align}
     which are very similar to the coupled cluster energy and amplitude equations, but 
     the matrix element contains just $\hat{U}$, the fluctuation potential, instead of 
-    the entire Hamiltonian $\hat{H} = \hat{F} + \hat{U}$. HERE I AM BEING INCONSISTENT
-    WITH MY NOTATION AGAIN.
+    the entire Hamiltonian $\hat{H} = \hat{F} + \hat{U}$.
 
     The Jacobian constists only of a diagonal part, involving differences of the 
     orbital energies, and a nondiagonal part, containing the fluctuation potential.
@@ -422,7 +421,7 @@ can be found at \url{www.coupled-cluster.com}.
         \Omega(\tau^{(n)} + \Delta\tau) = \Omega^{(0)}(\tau^{(n)})
             + \Omega^{(1)}(\tau^{(n)})\Delta \tau + \dots,
     \end{equation}
-    which leads to a recursion relation be neglecting terms that are nonlinear in
+    which leads to a recursion relation, neglecting terms that are nonlinear in
     $\Delta \tau$,
     \begin{equation}
         \Omega^{(1)}(\tau^{(n)})\Delta \tau^{(n)} = - \Omega^{(0)}(\tau^{(n)}).
@@ -492,8 +491,8 @@ can be found at \url{www.coupled-cluster.com}.
     \lstinline{TimeDependentCoupledCluster} class is passed an affiliated 
     ground state solver in the form of a \lstinline{CoupledCluster} object, a 
     \lstinline{QuantumSystems} object and an \lstinline{Integrator} object. All these 
-    are necessary in order to compute a time-development. The starting point of a 
-    time development is a system at it's ground state, necessitating the specification 
+    are necessary in order to compute a time-development. The starting point for 
+    time development is a system in it's ground state, necessitating the specification 
     of a system and a ground state solver.
     Inclusion of a \lstinline{CoupledCluster} object in the 
     \lstinline{TimeDependentCoupledCluster} class allows one to call the 
@@ -501,10 +500,10 @@ can be found at \url{www.coupled-cluster.com}.
     wrapper. Several other methods are included from the ground state realm, like 
     the methods for particle density computations. 
     The \lstinline{__call__} method is implemented in 
-    the abstrace base class, where the current amplitude in the form as an 
+    the abstract base class, where the current amplitude in the form as an 
     \lstinline{AmplitudeContainer} object is passed as an argument 
     together with the current time step. The right hand side of all amplitude equations 
-    are valued, and new amplitudes are returned. The class is called, i.e. evaluated 
+    are evaluated, and new amplitudes are returned. The class is called, i.e. evaluated 
     by an \lstinline{Intergator}, i.e. the system is developed in time by solving 
     the equations of motion with a numerical integrator.  We will consider 
     integrators separately in the next section.
@@ -601,7 +600,7 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/tdccsd.tex}
 
-    Within our truncation to includ only single- and double escitations,
+    Within our truncation to include only single- and double excitations,
     an inner product of two state vectors, in the normal coupled cluster scheme
     with static orbitals, can be computed in the following manner
     \begin{equation}
@@ -770,7 +769,7 @@ can be found at \url{www.coupled-cluster.com}.
     in the new abstract class \lstinline{OATDCC}.
 
     We see that $\eta^p_q$ is the only thing needed in order to compute the 
-    coefficient matrices which dictate the oribtal time propagation. We get $\eta^p_q$
+    coefficient matrices which dictate the orbital time propagation. We get $\eta^p_q$
     from the $P$-space equations. Since the $P$-space equations will be different for 
     each level of sophistication we move onto a treatment of \lstinline{OATDCCD}.
 
@@ -822,7 +821,7 @@ can be found at \url{www.coupled-cluster.com}.
 
 \subsection{Integrators and ODE Solvers}
 
-    Most, if not all, physical systems that evolve in time will can be described by 
+    Most, if not all, physical systems that evolve in time can be described 
     as set of equations that we call the equations of motion. These can be usually 
     be formulated as a single- or a set of ordinary differential equations written 
     on the abstract form
@@ -871,7 +870,7 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsubsection{The Runge-Kutta Method}
 
-    The Runge-Kutta methods are a large family of implicit and iterative methods or 
+    The Runge-Kutta methods are a large family of implicit and iterative methods of 
     increasing order. The first-order Runge-Kutta method is the same as the forward 
     Euler method, where a step is defined as follows, 
     \begin{equation}
@@ -999,7 +998,7 @@ can be found at \url{www.coupled-cluster.com}.
     \begin{equation}
         P_{r+1}(x) = (x - a_{r,r})p_r(x) - a_{r,r-1}p_{r-1}(x) \dots -a_{r,0}p_0(x).
     \end{equation}
-    The trhee-term recurrence relation can be written as a matrix equation
+    The three-term recurrence relation can be written as a matrix equation
     \begin{equation}
         J\tilde{P} = x\tilde{P} - p_n(x) \times \vb{e}_n,
     \end{equation}
