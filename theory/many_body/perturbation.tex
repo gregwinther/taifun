@@ -124,8 +124,6 @@ the general $m$th-order expression (\autoref{eq:perturbation_lambda_power_mth}),
 In principle, we can obtain every next-order energy contribution $E_n^{(m)}$ from 
 the previous-order wavefunctions $\Psi_n^{(m-1)}$ and then solve for $\Psi_n^{(m)}$.
 
-\subsection{The 2n+1 Wigner Rule}
-
 \subsection{Projection Operators}
 We define the projection operators in terms of the zero-order wave functions,
 \begin{equation}
@@ -259,9 +257,21 @@ Applying the resolvent to both sides of \autoref{eq:q_space_schrodinger_2},
 which can be interpreted as a recursive relation for $\Psi$. Inserting the 
 expression for $\Psi$ into itself repeatedly, yields 
 \begin{equation}
-    \Psi = \sum_{m=0}^\infty \{\hat{R}_0(\zeta)(\hat{V}) - E + \zeta \}^m \Phi_0.
+    \label{eq:perturbation_wavefunction}
+    \Psi = \sum_{m=0}^\infty [\hat{R}_0(\zeta)(\hat{V}) - E + \zeta ]^m \Phi_0.
 \end{equation}
-The problem with this equation is that $E$, which is unknown, appears on the right-hand
+We can find an expression for the perturbative energy correction by left-projecting 
+this expression with $\bra{\Phi_0}\hat{V}$,
+\begin{equation}
+    \label{eq:perturbation_energy}
+    \Delta E = \mel{\Phi_0}{\hat{V}}{\Psi} 
+        = \sum_{m=0}^\infty \mel*{\Phi_0}
+        {
+            \left[\hat{R}_0(\zeta)(\hat{V} - E + \zeta)\right]^m
+        }{\Phi_0}.
+\end{equation}
+
+The problem with these equations is that $E$, which is unknown, appears on the right-hand
 side. One would also wonder what to do with $\zeta$. There are two common 
 choices for $\zeta$ that give rise to two important theories,
 \begin{align*}
@@ -270,10 +280,149 @@ choices for $\zeta$ that give rise to two important theories,
         &\leftarrow \text{Rayleigh-Schrödinger Perturbation}
 \end{align*}
 
-\section{[UNFINISHED] Brillouin-Wigner Perturbation Theory}
+\section{Brillouin-Wigner Perturbation Theory}
 
-Set $\zeta = E$ and get BWPT\cite{brillouin1932problemes,wigner1935modification}.
+By setting $\zeta = E$ in \autoref{eq:perturbation_wavefunction} and 
+\autoref{eq:perturbation_energy} we get Brilloun-Wigner
+perturbation theory\cite{brillouin1932problemes,wigner1935modification}. 
+The wavefunction- and energy expression becomes the following,
+\begin{gather}
+    \Psi = \sum_{m=0}^\infty [\hat{R}_0(E) \hat{V}]^m \Phi_0 \\
+    \Delta E = \sum_{m=0}^\infty 
+        \mel*{\Phi_0}{\hat{V}[\hat{R}_0(E)\hat{V}]^m}{\Phi_0}.
+\end{gather}
+Moreover, the resolvent now looks like 
+\begin{equation}
+    \hat{R}_0 = \sum_i \frac{\dyad{\Phi_i}{\Phi_i}}{E - E_i^{(0)}}.
+\end{equation}
+As we can the, these equations are still explicity, i.e. $E$ appears on the 
+right-hand side. In order to compute corrections in the energy and wavefunctions 
+estimates, we need an estimate for $E$. A common estimate is for the first-order 
+energy is $E^{(0)}_0 + \mel*{\Phi_0}{\hat{V}}{\Phi_0}$. From this we can continue 
+computing the second-order energy,
+\begin{equation}
+    \begin{aligned}
+        E^{(2)}
+            &= \mel*{\Phi_0}{\hat{V}\hat{R}_0(E)\hat{V}}{\Phi_0} \\
+            &= \sum_i \frac{\mel*{\Phi_0}{\hat{V}}{\Phi_i}
+                \mel*{\Phi_i}{\hat{V}}{\Phi_0}
+            }{E - E^{(0)}_i} \\
+            &= \sum_i \frac{V_{0i}V_i0}{E - E^{(0)}_i}.
+    \end{aligned}
+\end{equation}
+Similiarly for the third-order energy,
+\begin{equation}
+    E^{(3)} = \sum_{ij} \frac{V_{0i}V_{ij}V_{j0}}{(E - E^{(0)}_i)(E - E^{(0)}_j)}.
+\end{equation}
 
-\section{[UNFINISHED] Rayleigh-Schrödinger Perturbation Theory}
+These expressions are somewhat simple, but Brilloun-Wigner is plagued by a fundamental
+problem as it does not provide a true order-by-order expansion of the energy. This is 
+due to the stil prevalent presence of the infinite-order $E$-term in the right-hand 
+sides of the equations. Related to this problem, is the lack of extensivity if the 
+perturbation is truncated at any finite order. See 
+\citeauthor{shavitt2009many}\cite{shavitt2009many} for a derivation of this
+non-extensivity of finite-order Brilloun-Wigner perturbation theory. For this 
+reason, we move on to Raylei-Schrödinger perturbation theory.
 
-set $\zeta = E_n^{(0)}$ and get RSPT\cite{rayleigh1894theory,schrodinger1926quantisierung}.
+\section{Rayleigh-Schrödinger Perturbation Theory}
+
+By setting $\zeta = E_0^{(0)}$ in \autoref{eq:perturbation_wavefunction} and
+\autoref{eq:perturbation_energy} we get Rayleigh-Schrödinger perturbation
+theory\cite{rayleigh1894theory,schrodinger1926quantisierung}. This parametrisation 
+gives means that $\zeta - E = - \Delta E$, which gives us 
+\begin{gather}
+    \label{eq:rspt_wavefunction}
+    \Psi = \sum_{m=0}^\infty \left[ 
+        \hat{R}_0(E^{(0)}_0) (\hat{V} - \Delta E)     
+    \right]^m \Phi_0 \\
+    \label{eq:rspt_energy}
+    \Delta E =  \sum_{m=0}^\infty \mel*{\Phi_0}
+    {
+        \hat{V} \left[\hat{R}_0 (E^{(0)}_0)(\hat{V} - \Delta E) \right]^m
+    }{\Phi_0},
+\end{gather}
+where the resolvent becomes
+\begin{equation}
+    \hat{R}_0(E^{(0)}_0) = \sum_i \frac{\dyad{\Phi_i}{\Phi_i}}{E^{(0)} - E^{(0)}_i}.
+\end{equation}
+The keen reader will have notices that these expressions are lacking the unknown 
+$E$, but we still have an expression for $\Delta E$ in the right-hand sides.
+
+
+The first-order correction in energy is simply
+\begin{equation}
+    E^{(1)} = \mel{\Phi_0}{\hat{V}}{\Phi_0}.
+\end{equation}
+For the second order energy correction, $E^{(2)}$ we need the first-order 
+wavefunction correction,
+\begin{equation}
+    \Psi^{(1)} = \hat{R}_0\hat{V}\Phi_0.
+\end{equation}
+Notice that the $\Delta E$-term to the right disappears as 
+$\hat{R}_0\Delta_E\ket{\Phi_0} = \Delta_E\hat{R}_0\ket{\Phi_0} = 0$.
+This gives us
+\begin{equation}
+    E^{(2)} = \mel{\Phi_0}{\hat{V}\hat{R}_0\hat{V}}{\Phi_0}
+        = \sum_{i} \frac{|\mel{\Phi_0}{\hat{V}}{\Phi_i}|^2}{E^{(0)} - E^{(0)}_i}.
+\end{equation}
+For the third-order energy correction we need the second-order wavefunction correction,
+\begin{equation}
+    \Psi^{(2)} = \hat{R}_0(\hat{V} - \Delta E)\hat{R}\hat{V} \Phi_0
+        = \hat{R}_0(\hat{V} - \mel{\Phi_0}{\hat{V}}{\Phi_0})\hat{R}\hat{V} \Phi_0,
+\end{equation}
+where we have started to treat the stepwise expansions as a recursive relation, by 
+inserting the first-ordere energy corrections for $\Delta E$. Generally, we can 
+write this recursive relation as
+\begin{gather}
+    E^{(n)} = \mel{\Psi_k}{\hat{V}}{\Psi^{(n-1)}_k}, \\
+    \Psi^{n} = \hat{R}_0 \hat{V}\Psi^{(n-1)} - \sum_{j=1}^{n-1}E^{(n-j)} \Psi^{(j)}.
+\end{gather}
+The third order-energy correction becomes
+\begin{equation}
+    \begin{aligned}
+    E^{(0)} =& \mel{\Phi_0}{\hat{V}\hat{R}_0[\hat{V} - \mel{\Phi_0}{\hat{V}}{\Phi_0}]}{\Phi_0} \\
+        =& \mel{\Phi_0}{\hat{V}\hat{R}\hat{V}\hat{R}\hat{V}}{\Phi}
+            - \mel{\Phi_0}{\hat{V} \hat{R}^2\hat{V}}{\Phi_0}
+    \end{aligned}
+\end{equation}
+We should now notice that a pattern has arisen in the energy terms, albeit a bit complicated one. 
+There will always be a leading term,
+\begin{equation}
+    E^{(n)} = \mel{\Phi_0}{\hat{V}\hat{R}\hat{V}\hat{R}\dots\hat{V}}{\Phi_0},
+\end{equation}
+with $n$ factors $\hat{V}$ and $n-1$ factors $\hat{R}$. But then we will have 
+terms that are on the form 
+\begin{equation}
+    E^{(j)}\braket{\Psi^{(n-1)}}{\Psi^{(n-j)}} 
+    = E^{(j)}\mel{\Phi_0}{\hat{V}\mathcal{M}(\hat{R}, \hat{V})\hat{V}}{\Phi_0},
+\end{equation}
+where $\mathcal{M}(\hat{R}, \hat{V})$ is the \emph{monomial} of in total 
+$n - j - 2$ operators $\hat{V}$ and $\hat{R}$'s, in some order. The terms 
+can be systematically generated from the leading energy term by a procedure called 
+\emph{bracketing}.
+
+The bracketing procedure can be quickly summarised as follows. The $n$th order 
+energy $E^{(n)}$ can be written as the leading term plus terms generated by inserting 
+some brackets $\langle$ $\rangle$ around one or more $\hat{V}$s, except for the outer 
+ones, in \emph{any} possible way, in \emph{any} number. These terms may also be nested.
+The bracket represents an expectation value with $\Psi$. The sing of each term is 
+$(-1)^j$, where $j$ is the number of brackets in the term. 
+For example, for $n=4$ we have four possibilities,
+\begin{align}
+    \mel{\Phi_0}{\hat{V}\hat{R}_0\ev*{\hat{V}}\hat{R}_0\hat{V}\hat{R}_0\hat{V}}{\Phi_0}
+        =& - \mel{\Phi_0}{\hat{V}}{\Phi_0}
+            \mel{\Phi_0}{\hat{V}\hat{R}_0^2\hat{V}\hat{R}_0\hat{V}}{\Phi_0} \\
+    \mel{\Phi_0}{\hat{V}\hat{R}_0\hat{V}\hat{R}_0\ev*{\hat{V}}\hat{R}_0\hat{V}}{\Phi_0}
+        =& - \mel{\Phi_0}{\hat{V}}{\Phi_0}
+            \mel{\Phi_0}{\hat{V}\hat{R}_0\hat{V}\hat{R}_0^2\hat{V}}{\Phi_0} \\
+    \mel{\Phi_0}{\hat{V}\hat{R}_0\ev*{\hat{V}}\hat{R}_0\ev*{\hat{V}}\hat{R}_0\hat{V}}{\Phi_0}
+        =&  \mel{\Phi_0}{\hat{V}}{\Phi_0}^2
+            \mel{\Phi_0}{\hat{V}\hat{R}_0^3\hat{V}}{\Phi_0} \\
+    \mel{\Phi_0}{\hat{V}\hat{R}_0\ev*{\hat{V}\hat{R}_0\hat{V}}\hat{R}_0\hat{V}}{\Phi_0}
+        =& - \mel{\Phi_0}{\hat{V}\hat{R}_0\hat{V}}{\Phi_0}
+            \mel{\Phi_0}{\hat{V}\hat{R}_0^2\hat{V}}{\Phi_0}.
+\end{align}
+For higher order energies, we would see brackets within brackets, leading to an increating 
+growth rate in the number of terms.
+
+I NEED TO DOUBLE CHECK THE RSPT STUFF!!!
