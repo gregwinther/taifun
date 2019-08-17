@@ -23,6 +23,7 @@
     $\{q_i, p_k\} = \delta_{ij}$. The Poisson bracket of two functions is defined as 
 
     \begin{equation}
+        \label{eq:poisson_bracket}
         \{f, g\} = \frac{\partial f}{\partial q} \frac{\partial g}{\partial g}
         - \frac{\partial f}{\partial p} \frac{\partial g}{\partial q}.
     \end{equation}
@@ -61,7 +62,7 @@
     the classucal phase space to the Hilbert space, through the procedure known as 
     canonical, or first\footnote{Second quantisation comes later.}-, quantisation.
     Whilst the state of a classical system is a point in phase space, a quantum state
-    is a complex-valued state vector in discrete, infinite dimensional, Hilbert space,
+    is a complex-valued state vector in discrete, infinite-dimensional, Hilbert space,
     that is a complete vector space equipped with an inner product. This space
     is most commonly chosen to be the space of square-integrable functions $\Psi$,
     dependent on all coordinates
@@ -99,7 +100,33 @@
     \begin{equation}
         \int_{X^N} \abs{\Psi(x_1, x_2, \dots, x_N)}^2 dx_1 dx_2\dots dx_N = \mathds{1}.
     \end{equation}
-    
+
+    The relation between a classical- and quantum decsription of a mechanical system 
+    is most clearly seen when the two descriptions are expressed in terms of the same 
+    variables. In fact, we may apply \emph{quantisation} of the classical variables to 
+    produce the quantum equivalent of the system. The classical phase space variables 
+    are changed into quantum observables,
+    \begin{equation}
+        q_i \to \hat{q}_i, \ p_i \to \hat{p}_i.
+    \end{equation}
+    The quantum observables are required to satisfy the Heisenberg commutation relation,
+    \begin{equation}
+        [\hat{q}_i, \hat{p}_j] = i \hbar \delta_{ij},
+    \end{equation}
+    instead of the Poisson bracket (\autoref{eq:poisson_bracket}). Here $\hbar$ is the 
+    reduced Planck's constant. For any general variables $A$ and $B$, this 
+    transition can be expressed by subsition between Poission brackets for the 
+    classical variables and commutators for the quantum observables,
+    \begin{equation}
+        \{A, B\} \to \frac{1}{i\hbar}[\hat{A},\hat{B}].
+    \end{equation}
+
+    This correspondence between the classical and quantum dynamical equations is 
+    directly related to \emph{Ehrenfest's therom}, which states that the classical 
+    dynamical equations keep their validity also in the quantum theory, with the 
+    classical variables repaced by their corresponding quantum expectation
+    values\cite{ehrenfest1927bemerkung}.
+
 \subsection{The Dirac-von Neumann Postulates}
 
     The following postulates, or axioms, provide a precise and concise description 
@@ -108,40 +135,80 @@
     Paul Adriene Maurice Dirac\cite{dirac1930principles} and John von 
     Neumann\cite{vonNeumann1932foundations}.
 
-    \paragraph{Hilbert Space}
+    \subsubsection{Hilbert Space}
     A quantum state of an isolated physical system is described by a vector
-    with unit norm in a Hilbert space, a complex vector space quipped with a
-    scalar product. 
+    with unit norm in a Hilbert space $\mathcal{H}$, 
+    a complex vector space equipped with an inner product. The inner product 
+    associates a scalar value, which may be either real or complex, with any pair
+    of state vectors.
+    
+    The inner product can be defined as 
+    \begin{equation}
+        \braket{\psi_\alpha}{\psi_\beta} = \int \psi_\alpha^*(x) \psi_\beta(x)dx,
+    \end{equation}
+    where $\psi^*$ is the complex conjugate of $\psi$. Here we have introduced 
+    Dirac notation, which is very common when describing quantum states. For each 
+    quantum state $\ket{\psi_\alpha}$ there exists a dual state $\bra{\psi_\alpha}$.
+    We refers to these two vectors as \emph{bra} and \emph{ket} vectors, respectably.
+    Some properties of a Dirac-style inner product read
+    \begin{align}
+        \braket{\psi_\alpha}{\psi_\beta} =& \braket{\psi_\beta}{\psi_\alpha}^* \\
+        \bra{\psi_\alpha}\left(z_1\ket{\psi_\beta} + z_2 \ket{\psi_\beta}\right)
+            =& z_1 \braket{\psi_\alpha}{\psi_\beta} + z_2\braket{\psi_\alpha}{\psi_\beta} \\
+        \braket{\psi_\alpha} \geq& 0,
+    \end{align}
+    where $z_n = a_n + ib_n$ is some complex number. Notice that in these properties, a 
+    superposition of a state wavefunction in the form of linear combination of two other 
+    states have appeared. Such superpositions are generally written
+    \begin{equation}
+        \label{eq:superposition}
+        \ket{\psi_\gamma} = z_1\ket{\psi_\alpha} + z_2\ket{\psi_\beta},
+    \end{equation}
+    where we have produced a new quantum state from two other states. Any two or more
+    states may be superposed to produce a new state. Superposition is of fundamental 
+    importance to quantum mechanics, and even though the concept is similar to the 
+    classical superposition principle for waves in classical physics, "the superposition 
+    that occurs in quantum mechanics is of an essentially different nature from any 
+    occuring in the classical theory" according 
+    to \citeauthor{dirac1930principles}\cite{dirac1930principles}.
 
-    \paragraph{Observables}
+    Proceeding with the description of quantum states, a state function $\psi$ is said 
+    to be \emph{normal} if its innerproduct with itself is one, $\braket{\psi}{\psi} = 1$.
+    Two different state functions are \emph{orthogonal} if their inner product is zero. 
+    We have orthogonal functions if $\braket{\psi_\alpha}{\psi_\beta} = \delta_{\alpha\beta}$,
+    where $\delta_{\alpha\beta}$ is the Kronecker delta.
+
+
+    \subsubsection{Observables}
     Each physical observable of a system is accociated with a \emph{hermitian}
     operator acting on the Hilbert space. The eigenstates of each such
-    operator define a \emph{complete}, \emph{orthonormal} set of vectors.
+    an operator define a \emph{complete}, \emph{orthonormal} basis set of vectors
+    $\mathcal{B}$ for the $d$-dimensional Hilbert space,
+    \begin{equation}
+        \mathcal{B} = \{\ket{i}\}_{i=1}^d
+    \end{equation}
+    Completeness of the basis set $\mathcal{B}$ means,
+    \begin{equation}
+        \sum_{i=1}^d \ket{i}\bra{i} = \mathds{1}.
+    \end{equation}
 
-    With $\hat{O}$ an operator, hermiticity means,
+    With $\hat{O}$ an operator, \emph{hermiticity} means,
     \begin{equation}
         \bra{\phi}\hat{O}\psi\rangle = \langle\hat{O}\phi\ket{\psi} \equiv \bra{\phi} \hat{O} \ket{\psi}.
     \end{equation}
-
-    Completeness means,
+    This means that the operator $\hat{O}$ is its own Hermitian conjugate,
     \begin{equation}
-        \sum_i \ket{i}\bra{i} = \mathds{1}.
+        \hat{O}^\dagger = \hat{O}.
     \end{equation}
+    Some properties of the Hermitian conjugate reads,
+    \begin{align}
+       (z\hat{O})^\dagger =& z^*\hat{O}^\dagger \\
+       (\hat{O}_1 + \hat{O}_2)^\dagger =& \hat{O}_1^\dagger \hat{O}_2^\dagger \\
+       (\hat{O}_1\hat{O_2})^\dagger =& \hat{O}_2^\dagger \hat{O}_1^\dagger.
+    \end{align}
 
-    Orthonormal means,
-    \begin{equation}
-        \braket{i}{j} = \delta_{ij}.
-    \end{equation}
-
-    \paragraph{Time Evolution}
-    The time evolution of the state vector, $\ket{\psi} = \ket{\psi (t)}$, is given by the Schrödinger
-    equation\footnote{In the Schrödinger picture.}.
-    \begin{equation}
-        i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
-    \end{equation}
-
-    \paragraph{Measurements}
-    Physically measurable values, associated with an obeservable $\hat{O}$ are defined by the 
+    \subsubsection{Measurements}
+    Physically measurable values, associated with an observable $\hat{O}$ are defined by the 
     eigenvalues $o_n$ of the observable,
     \begin{equation}
         \hat{O}\ket{n} = o_n\ket{n}.
@@ -152,17 +219,106 @@
     \end{equation}
     with the system in state $\ket{\psi}$ before the measurement, and $\ket{n}$ as the 
     eigenstate corresponding to the eigenvalue $o_n$.
+    If the observable $\hat{O}$ is Hermitian, we can write the operators as a spectral 
+    decomposition 
+    \begin{equation}
+        \hat{O} = \sum_{n=1}^d o_n \dyad{n},
+    \end{equation}
+    where $d$ is the dimensionality of the Hilbert space.
 
-\section{The Many-Body Quantum Hamiltonian}
+    \subsubsection{Time Evolution}
+    In the \emph{Schrödinger picture}
+    time evolution of the state vector, $\ket{\psi} = \ket{\psi (t)}$, is given by the Schrödinger
+    equation\footnote{In the Schrödinger picture.}.
+    \begin{equation}
+        i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
+    \end{equation}
+    Note that any superposed state, as described by \ref{eq:superposition}, will also be 
+    a solution to the Schrödinger equation due to its linearity.
+
+    The Schrödinger equation is first order in the time derivate, meaning that the time 
+    evolution $\ket{\psi} = \ket{\psi(t)}$ is uniquely determined by some initial 
+    condition $\ket{\psi_0} = \ket{\psi(t_0)}$. $\hat{H}$ is the Hamiltonian of the system,
+    which is a \emph{linear}, \emph{hermitian} operator. The Hamiltonian gives rise to the 
+    time evolution, which is a \emph{unitary} mapping between quantum states in time,
+    \begin{equation}
+        \ket{\psi(t)} =  \hat{\mathcal{U}}(t, t_0) \ket{t_0}.
+    \end{equation}
+    The time evolution operator $\hat{\mathcal{U}}$ is determined by the Hamiltonian 
+    through the equaton 
+    \begin{equation}
+        i\hbar \frac{\partial}{\partial t} \hat{\mathcal{U}}(t, t_0)
+            = \hat{H}\hat{\mathcal{U}}(t, t_0),
+    \end{equation}
+    which follows from the Schrödinger equation. For a time-independent 
+    Hamiltonian it is given by 
+    \begin{equation}
+        \hat{\mathcal{U}}(t, t_0) = e^{-i \hat{H}(t - t_0/\hbar)}.
+    \end{equation}
+    We see that this time-propagater is Hermitian 
+    \begin{equation}
+        \hat{\mathcal{U}}\hat{\mathcal{U}}^\dagger 
+        = \hat{\mathcal{U}}^\dagger \hat{\mathcal{U}} = 1.
+    \end{equation}
+    If however $\hat{H}$ is time-dependent, so that the operator at different times do 
+    not commute, we may use a mroe general integral expression for the time-propagator,
+    \begin{equation}
+        \hat{\mathcal{U}}(t, t_0)
+         = \sum_{n=0}^\infty (-\frac{i}{\hbar})^n
+            \int_{t_0}^t \int_{t_0}^{t_1}dt_1 \int_{t_0}^{t_1}dt_2 \dots \int_{t_0}^{t_{n-1}}
+                dt_n \hat{H}(t_1)\hat{H}(t_2) \dots \hat{H}(t_n).
+    \end{equation}
+
+    A unitary transformation of states and observables
+    \begin{equation}
+        \ket{\psi} \to \ket{\psi'} = \hat{U}\ket{\psi}, \ 
+        \hat{O} \to \hat{O}' = \hat{U}\hat{O}\hat{U}^\dagger, \ 
+        \hat{U}^\dagger\hat{U} = 1.
+    \end{equation}
+    leads to a different, but equivalent representation of a quantum system.
+    The transition to the \emph{Heisenberg picture} is defined by a special
+    time-dependent unitary transformation,
+    \begin{equation}
+        \hat{U} = \hat{\mathcal{U}}^\dagger(t, t_0),
+    \end{equation}
+    which is the inverse of the time-evolution operator. When applied to the 
+    time-dependent state vector of the Schrödinger picture it will cancel 
+    the time-dependence
+    \begin{equation}
+        \ket{\psi}_\text{H} 
+        = \hat{\mathcal{U}}^\dagger(t, t_0) \ket{\psi(t)}_\text{S}. 
+        = \ket{\psi(t_0)}_\text{S}
+    \end{equation}
+    The time-dependece is now carried by the observables, rather than the state 
+    vectors,
+    \begin{equation}
+        \hat{O}_\text{H} 
+        = \hat{\mathcal{U}}^\dagger(t, t_0)
+        \hat{O}_\text{S}
+        \hat{\mathcal{U}}(t, t_0),
+    \end{equation}
+    and the Schrödinger equation is replaced by the Heisenberg equation
+    \begin{equation}
+        \frac{d}{dt} 
+        = \frac{i}{\hbar}[\hat{H}, \hat{O}_\text{H}]
+        + \frac{\partial}{\partial t} \hat{O}_\text{H}.
+    \end{equation}
+
+    There is a third representation called the \emph{interaction picture}, but we will 
+    remain firmly rooted in the Schrödinger picture and halt this general introduction 
+    to time-development here. 
+
+\section{The Quantum Hamiltonian}
 
     The full Hamiltionian for a quantum many-body system can be a large 
     and unwieldy thing. In this study we will constrain ourselves to the study of
     electronic systems. Purely on a phenomenological basis, one would include nuclear
     terms in the Hamiltonian as well. In this study however, we will stay within the
     Born-Oppenheimer approximation and treat the nuclei as stationary particles, thereby
-    refraining from introducing terms that involve the motion of nuclei. Here we
-    introduce the molecular electronic Breit-Pauli Hamiltionian, throrougly described in 
-    Helgaker et al.\cite{helgaker2012recent},
+    refraining from introducing terms that involve the motion of nuclei.
+
+    The full  molecular electronic Breit-Pauli Hamiltionian, throrougly described in 
+    Helgaker et al.\cite{helgaker2012recent}, contains the following types of terms
     \begin{equation}
         \label{eq:breit_pauli_hamiltonian}
         \hat{H}^{\text{BP}}_{\text{mol}}
@@ -170,167 +326,305 @@
             \hat{H}_{\text{kin}} \quad &\leftarrow \text{kinetic energy} \\
             + \hat{H}_{\text{cou}} \quad &\leftarrow \text{Coulomb interactions} \\
             + \hat{H}_{\text{ee}} \quad &\leftarrow \text{external electric field interaction} \\
-            + \hat{H}_Z \quad &\leftarrow \text{Zeeman intercations} \\
+            + \hat{H}_Z \quad &\leftarrow \text{Zeeman interactions} \\
             + \hat{H}_{\text{so}} &\leftarrow \text{spin-orbit interactions} \\
             + \hat{H}_{\text{ss}} &\leftarrow \text{spin-spin interactions} \\
-            + \hat{H}_{\text{oo}} &\leftarrow \text{spin-spin interactions} \\
-            + \hat{H}_{\text{dia}} &\leftarrow \alpha^4 \text{diamagnetic interactions}
+            + \hat{H}_{\text{oo}} &\leftarrow \text{orbit-orbit interactions} \\
+            + \hat{H}_{\text{dia}} &\leftarrow \alpha^4 \text{ diamagnetic interactions}
         \end{cases}
     \end{equation}
+    We will not be working with this giant beast, but will go into some of the most  
+    import terms that an electronic Hamiltonian can constitute. 
     
     \paragraph{Kinetic energy}
-    The Breit-Pauli kinetic energy term in \autoref{eq:breit_pauli_hamiltonian} is
-    \begin{equation}
-        \hat{H}_{\text{kin}}
-            = - \frac{1}{2}\sum_i \nabla^2_i - \frac{\alpha^2}{8}\sum_{i} \nabla^4_i,
-    \end{equation}
-    where the first term is the common classical kinetic energy operator and the second
-    term is the relativistic mass-velocity term. This term arises because of the
-    dependence of mass on velocity. This is one of the larger relativistic corrections
-    for slow electrons. The mass-velocity term is unbounded from below and should not
-    be included in variational calculations\cite{kutzelnigg1990perturbation}.
 
+    The genereal kinetic energy operator is given by
+    \begin{equation}
+        \label{eq:kinetic_energy_term}
+        \hat{H}_{\text{kin}}
+            = - \frac{\hbar}{2m}\sum_i \nabla^2_i,
+    \end{equation}
+    where $\nabla$ is the differential operator and the sum is over all electrons in 
+    the system. This term is an example of a one-particle operator as it remains the 
+    same for all eletrons and has is contains to terms that would constitute interaction 
+    between particles. For a free particle or a gas of non-interacting particles, 
+    \autoref{eq:kinetic_energy_term} is sufficient to describe the system. 
+
+    \paragraph{Potential terms}
+
+    By adding a confining potential to the Hamiltonian in addition to the kinetic 
+    energy term \autoref{eq:kinetic_energy_term},
+    \begin{equation}
+        \hat{H} \supset \hat{H}_\text{kin} + \hat{V}
+    \end{equation}
+    gives rise to much more intersting systems and are the beginning of an approximation 
+    of reality. Perhaps the most common is the harmonic oscillator potential, which 
+    in one dimension reads 
+    \begin{equation}
+        \hat{V}(x) = \frac{1}{2}m\omega^2x^2.
+    \end{equation}
+    This is a very popular confining potential because virtually any oscilaltory motion can 
+    be approximated by it, if the amplitude of the oscillations are small. The parabolic 
+    potential is the basis of a quantum dot which is a central part of this study. 
+    In quantum chemistry we only consider potentials derived from particle-particle 
+    interactions, and not such external potentials.
 
     \paragraph{Coulomb interactions}
 
-    Coulomb interaction terms in the Breit-Pauli Hamiltonian (\autoref{eq:breit_pauli_hamiltonian})
-    are the following,
+    Electrostatic interaction between particles in a molecule or atom is 
+    modelled by Coulomb terms in the Hamiltonian. 
     \begin{equation}
-        \begin{aligned}
             \hat{H}_{\text{cou}} 
-                =& -\sum_{iK}\frac{Z_K}{r_{iK}} 
-                    + \frac{1}{2}\sum_{i \neq j} \frac{1}{r_{ij}} 
-                    + \frac{1}{2}\sum_{K \neq L} \frac{Z_k Z_L}{R_{KL}} \\
-                &+ \frac{\alpha^2\pi}{2} \sum_{iK} Z_{K}\delta (\vb{r}_{iK})
-                - \frac{\alpha^2\pi}{2} \sum_{i \neq j} \delta (\vb{r}_{ij}) \\
-                &+ \frac{2\pi}{3} \sum_{iK}Z_K R^2_K \delta (\vb{r}_{iK})
-                    - \frac{1}{3} \sum_{iK}
-                        \frac{\tr \Theta_K (3\vb{r}_{iK} \vb{r}^T_{iK} - r^2_{iK}I_3)}
-                        {r^5_{ik}}.
-        \end{aligned}
+                = -\sum_{iK}\frac{k_eZ_Ke^2}{r_{iK}} 
+                    + \frac{1}{2}\sum_{i \neq j} \frac{k_e e^2}{r_{ij}} 
+                    + \frac{1}{2}\sum_{K \neq L} \frac{k_eZ_K Z_Le^2}{R_{KL}},
     \end{equation}
-    The first three terms are the nonrelativistic Coulomb point-charge interactions between
-    nucles and electron, electron and electron and nucleus and nucleus, respectively.
-    The fourth and fifth terms are the Darwin corrections caused by the Zitterbewegung
-    of the electrons. Because the nuclear point-charge model is not always adequate, the
-    second-to-last and last term correct errors from this approximation. Here, $R_K$ is 
-    the nuclear extent and $\Theta_K$ is the nuclear quadropole moment. These terms are
-    important in nuclear resonance studies\cite{kutzelnigg1990perturbation} and nucllear quadropole resonance
-    studies\cite{abragam1961principles}.
+    where $e$ is the elementary particle charge and $k_e = 1 / 4\pi\epsilon_0$ is the 
+    Coulomb constant.
+    The first term is the potential between nuclei and electrons, the second term is
+    the potential between electrons and the last term is the potential between 
+    nuclei. In the Born-Oppenheimer approximaton we ignore the first and third term.
 
     \paragraph{External electric field interactions}
-    The Breit-Pauli Hamiltonian includes terms that model the effects of an externally
-    applied scalar potential $\phi(\vb{r})$,
+    
+    Applying an electromagnetic field we need to include terms in the Hamiltonian that 
+    model the effects of externally applied scalar potential $\phi = \phi(\vb{r}, t)$
+    and vector potential $\vb{A} = \vb{A}(\vb{r}, t)$. This will also affect the 
+    kinetic energy of the particles, which we therefore include at first,
     \begin{equation}
-        \label{eq:ef_hamiltonian}
-        \hat{H}_{\text{ef}}
-            = - \sum_i \phi_i
-              + \sum_K Z_K\phi_K
-              + \frac{\alpha^2}{\phi_K} \sum_i (\nabla_i \cdot \vb{E}_i).
+        \hat{H}_\text{ef} 
+            \subset \frac{1}{2m}(\vb{p} + e \vb{A})^2 - e\phi
+            = \frac{\hat{\vb{p}}}{2m} + \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
+                + \frac{e^2}{2m}\vb{A}^2 - e\phi.
     \end{equation}
-    It is often safe to assume that the applied field are quite uniform on the
-    molecular scale, and one therefore often expands \autoref{eq:ef_hamiltonian}
-    in multipoles,
+    This Hamiltonian now describes a free partice subject to an external 
+    electro field. Since we have already included a term for kinetic energy we 
+    now wish to remove it,
     \begin{equation}
-        \hat{H}_{\text{ef}}
-            = Q_{\text{tot}}\phi_0 
-            - \vb{\mu}_{\text{tot}} \cdot \vb{E}_0
-            - \frac{1}{2}\tr \vb{Q}_{\text{tot}}\vb{V}_0
-            + \dots,
+        \hat{H}_\text{ef} 
+            = - \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
+                + \frac{e^2}{2m}\vb{A}^2 - e\phi.
     \end{equation}
-    where $q_{\text{tot}}$ is the total charge of the molecule, $\vb{\mu}_0$ is the 
-    dipole moment, $\vb{Q}_{\text{tot}}$ is the second moment, and $\vb{V}_0$ is the
-    electric field gradient. Higher-order terms are only necessary for fields that vary
-    greatly in time.
 
-    \paragraph{Zeeman interactions}
-    Paramagnetic interactions of the molecule with an externally applied magnetic field
-    $\vb{B}$ are described by the Zeeman term in the Breit-Pauli Hamiltonian
-    (\autoref{eq:breit_pauli_hamiltonian}),
+    We assume that the external field has sufficiently large wavelenght compared to the 
+    system, making the vector potential uniform in space $\vb{A}(\vb{r}, t) = \vb{A}(t)$
+    This approximation is very reasonable, because visible light has a wavelength of 
+    $\lambda \sim 5000 \text{Å}$ and an atom is around $1 \text{Å}$. In the dipole 
+    approximation we can write the vector potential as 
     \begin{equation}
-        \label{eq:zeeman_hamiltonian}
-        \hat{H}_Z
-            = - \vb{B} \cdot \sum_i \left(
-                - \frac{1}{2}\vb{l}_{iO} - \vb{s}_i
-                + \frac{1}{2}\alpha^2\vb{s}_i\nabla_i^2
-            \right)
-            - \vb{B} \cdot \sum_K \vb{M}_K.
-    \end{equation} 
-    The nuclear part, here represented by the last term in \autoref{eq:zeeman_hamiltonian},
-    are on the order of $10^{-3}$ in atomic units. This is much smaller than the electronic
-    part, given by the first sum in \autoref{eq:zeeman_hamiltonian}, but the nuclear part is 
-    very important in nuclear magnetic resonance (NMR) computations, where it determines the
-    unshielded resonance lines in the spectra. 
+        \vb{A}(t) = \vb{A}_0e^{-i \omega_k t} + \vb{A}_0^*e^{i\omega_k t}a,
+    \end{equation}
+    where $\vb{A}_0$ and $\vb{A}_0^*$ are photon creation and annihilation operators. 
+    These allow for spontaneous emission and absorption of photons without the presence 
+    of a field, but we will stick to a semi-classical world where such things are 
+    impossible. We therefore rewrite the vector potential to 
+    \begin{equation}
+        \vb{A}(t) = \epsilon A_0\sin(\omega_k t),
+    \end{equation}
+    which is the same up to a phase. In the Coulomb gauge we have 
+    \begin{equation}
+        \vb{E} = - \frac{d}{dt}\vb{A},
+    \end{equation}
+    which gives us an expression for the E-field 
+    \begin{equation}
+        \vb{E} = \epsilon \mathscr{E}_0 \cos(\omega_k t),
+    \end{equation}
+    where $\mathscr{E}_0 = -\omega_k A_0$ and we can approximate the external electric 
+    field time-dependent field by 
+    \begin{equation}
+        \hat{H}_\text{ef} = - \hat{d} \cdot \epsilon \mathscr{E}_0 \cos{\omega_k t},
+    \end{equation}
+    where $\hat{\vb{d}} = q\hat{\vb{r}}$, is the dipole operator, dictating the 
+    allowed transitions.
 
-    The first term inside the parenthesis in \autoref{eq:zeeman_hamiltonian} corresponds to
-    Zeeman interaction with the magnetic moment generated by the orbital angular momentum of
-    the electrons, $\vb{l}_{iO} = \vb{r}_{iO} \times \vb{p}_i$. The second and third terms 
-    in the paranthesis are electronic contributions to Zeeman effect from the spin of the 
-    electrons. The relativistic correction constituted in the third term is important in
-    electron paramegnetic resonance (EPR) spectroscopy.
+    \subsection{Angular Momentum and Intrinsic Spin}
 
-    \paragraph{Spin-orbit interactions}
-    Up to second order in the fine-structure constant, the terms that couple motion of eletrons 
-    to particle spins in \autoref{eq:breit_pauli_hamiltonian} are
+    In general, modelling of interaction with magnetic fields necessitates the 
+    use of operators for intrinsic angular momentum ($\vb{S}$) and extrinsic 
+    angular momentum ($\vb{L}$). These are often referred to as \emph{spin} 
+    and \emph{angular momentum}, respectively.
+    We will spend some time here elaborating on such terms.
+
+    \subsubsection{Angular momentum}
+    The angular momentum in a classical system the angular momentum of a particle with 
+    resepct to the orign is given as
+    \begin{equation}
+        \vb{L} = \vb{r} \times \vb{p},
+    \end{equation}
+    which broken down into components becomes,
+    \begin{equation}
+        L_x = y p_z - z p_y,\ 
+        L_y = y p_x - x p_z,\ 
+        L_z = x p_y - y p_x.
+    \end{equation}
+    From this we can obtain the quanutm mechanical description by promotion to operators,
+    and inserting the representaion for the momentum operator in position space,
+    $p_x \to i\hbar \partial / \partial x$.
+
+    The commutators of the angular momentum operators follows a nice cyclic permutation 
+    of indices rule:
+    \begin{equation}
+        [\hat{L}_x, \hat{L}_y] = i\hbar \hat{L}_z, \  
+        [\hat{L}_y, \hat{L}_z] = i\hbar \hat{L}_x, \ 
+        [\hat{L}_z, \hat{L}_x] = i\hbar \hat{L}_y.
+    \end{equation}
+    We see that they do not commute with each other, but the square of the total 
+    angular momentum, defined by 
+    \begin{equation}
+        \hat{L}^2 \equiv \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2,
+    \end{equation}
+    does
+    \begin{equation}
+        [\hat{L}^2, \hat{L}_x] = 0, \ 
+        [\hat{L}^2, \hat{L}_y] = 0, \ 
+        [\hat{L}^2, \hat{L}_z] = 0.
+    \end{equation}
+
+    In spherical coordinates, which is better suited for our needs, the angular 
+    momentum operator is given by
+    \begin{equation}
+        \hat{\vb{L}} = -i\hbar \hat{\vb{r}} \times \nabla.
+    \end{equation}
+    Given the gradient in spherical coordinates,
+    \begin{equation}
+        \nabla = 
+          e_r \frac{\partial}{\partial} 
+        + e_\theta \frac{1}{r} \frac{\partial}{\partial \theta}
+        + e_\phi \frac{1}{r\sin \theta} \frac{\partial}{\partial \phi}
+    \end{equation}
+    and $\vb{r} = re_r$ we get 
     \begin{equation}
         \begin{aligned}
-            \label{eq:spin_orbit_hamiltonian}
-            \hat{H}_{\text{so}}
-                =& \frac{\alpha^2}{2} \sum_{iK} \frac{Z_K\vb{s}_i \cdot \vb{l}_{iK}}
-                        {r^3_{iK}}
-                    - \frac{\alpha^2}{2}\sum_{i \neq j} \frac{\vb{s}_i \vb{l}_{ij}}
-                        {r^3_{ij}}
-                    - \alpha^2 \sum_{i \neq j} \frac{\vb{s}_j \vb{l}_{ij}}
-                        {r^3_{ij}} \\
-                &+ \alpha^2 \sum_{iK} \frac{\vb{M}_K \cdot \vb{l}_{iK}}{r^3_{iK}}
-                    + \frac{\alpha^2}{4} \sum_i (\vb{E}_i \times \vb{p}_i - \vb{p}_i\times\vb{E}_i)
+        \hat{\vb{L}}
+        &= 
+        -i\hbar\left[ 
+              r(e_r \times e_r)\frac{\partial}{\partial r} 
+            + (e_r \times e_\theta)\frac{\partial}{\partial \theta}
+            + (e_r \times e_\phi) \frac{1}{\sin\theta} \frac{\partial}{\partial \phi}  
+        \right] \\
+        &=
+        -i\hbar \left( 
+        e_\phi \frac{\partial}{\partial \theta}
+        - e_\theta \frac{1}{\sin\theta}\frac{\partial}{\partial \phi}     
+        \right).
         \end{aligned}
     \end{equation}
-    When electron spin coupled to magnetic filed induced by other charges i motion we have spin-orbit 
-    interaction. The first term in \autoref{eq:spin_orbit_hamiltonian} models nuclear spin-orbit effect, 
-    the second term models interaction between the spin of a particle with its own orbit, 
-    the third is interaction with other orbits. The fourth term is known as the orbital hyperfin
-    operator and couples magnetic moments to the 
-    orbital motion of electrons, while the fifth and last term is modles coupling of electric fields 
-    and orbits.
-
-    \paragraph{Spin-psin interaction}
-    All terms that arises in the Breit-Pauli Hamiltionian (\autoref{eq:breit_pauli_hamiltonian}) due to 
-    coupling between magnetic momenta or spin of two particles are
+    Now, with an algebraic spinning backflip kick and 
+    \begin{align}
+        \hat{L}_x &= i\hbar \left(
+            \sin\phi \frac{\partial}{\partial\theta}
+            +\cos\phi\cot\theta\frac{\partial}{\partial \phi}
+        \right) \\
+        \hat{L}_y &= i\hbar \left(
+            \cos\phi \frac{\partial}{\partial\theta}
+            +\sin\phi\cot\theta\frac{\partial}{\partial \phi}
+        \right) \\
+        \hat{L}_z &= -i\hbar \frac{\partial}{\partial \phi}
+    \end{align}
+    falls out of the piñata.
+    The squared operator becomes
     \begin{equation}
-        \begin{aligned}
-            \hat{H}_{\text{ss}}
-                &= \frac{\alpha^2}{2} \sum_{i \neq j}
-                \left[ 
-                    \frac{r^2_{ij}\vb{s}_i \cdot \vb{s}_j - 3\vb{s}_i \cdot \vb{r}_{ij}\vb{r}_{ij} \cdot \vb{s}_j}
-                            {r^5_{ij}}
-                    - \frac{8\pi}{3} \delta(\vb{r}_{ij}) \vb{s}_i \cdot \vb{s}_j
-                \right] \\
-                &= \alpha^2 \sum_{iK}
-                \left[ 
-                    \frac{r^2_{iK}\vb{s}_i \cdot \vb{M}_K - 3\vb{s}_i \cdot \vb{r}_{iK}\vb{r}_{iK} \cdot \vb{M}_K}
-                            {r^5_{iK}}
-                    - \frac{8\pi}{3} \delta(\vb{r}_{iK}) \vb{s}_i \cdot \vb{M}_k
-                \right] \\
-                &= \frac{\alpha^2}{2} \sum_{K \neq L}
-                \left[ 
-                    \frac{r^2_{KL} (\vb{M}_K \vb{M}_L - 3(\vb{M}_K \cdot \vb{R}_{KL}) (\vb{R}_{KL} \cdot \vb{M}_L)}
-                            {R^5_{KL}}
-                \right]
-        \end{aligned}
+        \hat{L}^2 = -\hbar^2 \left[
+        \frac{1}{\sin\theta}\frac{\partial}{\partial\theta}
+            \left(\sin\theta\frac{\partial}{\partial\theta} \right)
+        + \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
+        \right]
     \end{equation}
+    The eigenvalue equations of $\hat{L}^2$ and $\hat{L}_z$ are
+    \begin{equation}
+        \hat{L}^2\psi = \hbar^2l(l + 1)\psi, \quad \hat{L}_z\psi = \hbar m \psi,
+    \end{equation}
+    where $\psi = Y^m_l(\theta, \phi)$ are the spherical harmonics,
+    \begin{equation}
+        Y^m_l (\theta, \phi) 
+            = 
+            \epsilon\sqrt{\frac{(2l + 1)}{4\pi}\frac{(l - |m|)!}{(1 + |m|)!}}
+            e^{im\theta} P^m_l(cos\theta),
+    \end{equation}
+    and $P^m_l$ are the associated Legendre polynomials.
 
-    \paragraph{Diamagnetic Interactions}
-    The magnitude of effects from diamagnetic interaction in the Breit-Pauli Hamiltonian 
-    (\autoref{eq:breit_pauli_hamiltonian}) are terms of order $\alpha^4$ or smaller.
-    Most of these effects are only important in some cases where strong external magnetic
-    fields are applied (NMR, EPR).
+    \subsubsection{Spin}
+
+    In classical mechanics, intrinsic spin ($\vb{S} = I\omega$) is associated with
+    an objects mortion aboth its centre of mass. A similar thing goes on in quantum 
+    mechanics, but it has nothing to do with motion in space. In quantum mechanics spin 
+    is seen as a property that particles can carry, but i analoguous with its classical 
+    counterpart only in name.
+
+    Algebraically, \emph{spin} is the same as \emph{angular momentum}, beginning with 
+    the commutator relations,
+    \begin{equation}
+        [\hat{S}_x, \hat{S}_y] = i\hbar \hat{S}_z, \ 
+        [\hat{S}_y, \hat{S}_z] = i\hbar \hat{S}_x, \ 
+        [\hat{S}_z, \hat{S}_x] = i\hbar \hat{S}_y,
+    \end{equation}
+    while the eigenvectors of $\hat{S}^2$ and $S_z$ satisfy 
+    \begin{equation}
+        \hat{S}^2\ket{s\ m_s} = \hbar^2 s(s + 1)\ket{s\ m_s}, \quad
+        \hat{S}_z\ket{s\ m_s} = \hbar m \ket{s\ m_s}.
+    \end{equation}
+   
+    Because the quantum mechanical spin has nothing to do with motion in space and 
+    is independent of any coordinates $r$, $\theta$ or $\phi$m there is no reason to 
+    exclude half-integer values of $s$ and $m_s$,
+    \begin{equation}
+        s=0,\frac{1}{2},1,\frac{3}{2},\dots, \quad m_s\in[-s, s].
+    \end{equation}
+    As it would turn out, every elemental particle as a specific and immutable value of 
+    $s$, and the most important one is $s=\frac{1}{2}$ (!) as it is the spin-value for 
+    all leptons, including the electron, all quarks as well as protons and neutrons. Since 
+    our particle of scrutiny is the electron our interest lies in spin-half systems, i.e. 
+    \begin{equation}
+        s = \frac{1}{2}, \quad m_s = \pm \frac{1}{2}.
+    \end{equation}
+    In such a system there are only two eigenstates,
+    \begin{equation}
+        \ket{\frac{1}{2},+\frac{1}{2}} = \ket{\uparrow} = \ket{+}, \quad
+        \ket{\frac{1}{2},-\frac{1}{2}} = \ket{\downarrow} = \ket{-}.
+    \end{equation}
+    This means that the Hilbert space $\mathcal{H}$ for spin-half particles has 
+    two dimensions. This means that any state can be expressed as a two-dimensional 
+    vectors called spinors,
+    \begin{equation}
+        \ket{\chi} = \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        = a\ket{\uparrow} + b\ket{\downarrow}
+        = a\begin{pmatrix}
+            1 \\ 0 
+        \end{pmatrix}
+        + b\begin{pmatrix}
+            0 \\ 1
+        \end{pmatrix}.
+    \end{equation}
+    The probability of finding a particle represented by the state vector $\ket{\chi}$
+    in the spin up or spin down state is $|a|^2$ and $|b|^2$, respectively. This requires 
+    a normalisation, $|a|^2 + |b|^2 = 1$.
+
+    In the basis of $\ket{\uparrow}$ and $\ket{\downarrow}$ the operators $\hat{S}^2$, 
+    $\hat{S}_x$, $\hat{S}_y$ and $\hat{S}_z$ are represented by two-dimensional matrices,
+    \begin{equation}
+        \hat{S}^2 = \frac{3}{4}\hbar^2\begin{pmatrix}
+            1 & 0 \\ 0 & 1 
+        \end{pmatrix}
+    \end{equation}
+    \begin{equation}
+        \hat{S}_x = \frac{\hbar}{2}\sigma_x, \quad 
+        \hat{S}_y = \frac{\hbar}{2}\sigma_y, \quad 
+        \hat{S}_z = \frac{\hbar}{2}\sigma_z,
+    \end{equation}
+    where the Pauli matricies are given by, 
+    \begin{equation}
+        \sigma_x = \begin{pmatrix} 0 &  1 \\ 1 & 0 \end{pmatrix} \quad 
+        \sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad 
+        \sigma_z = \begin{pmatrix} 1 &  0 \\ 0 & -1 \end{pmatrix}.
+    \end{equation}
 
     \subsection{Atomic Units}
 
-        In the Hamiltionian above (\autoref{eq:breit_pauli_hamiltonian}), we have grown up
-        and set $\hbar = m_e = e = \dots = 1$. This is a result of using atomic units, a
-        form of commonly used dimensionless units. To see how these units arise, consider
+        It is common practice to switch to a set of units that are easier to work with,
+        i.e. setting $\hbar = m_e = e = \dots = 1$. In this study we use atomic units, a
+        form of such dimensionless units. To see how these units arise, consider
         the time-independent Schrödinger equation for a Hydrogen atom,
 
         \begin{equation}
