@@ -1,11 +1,59 @@
 \chapter{Second Quantisation}
 
-Some Slater determinant is written,
+We have already invested some time in what the wave-function is, but some more time 
+is necessary in order to build a nomenclature for writing down wavefunctions that
+actually describe many-electron systems with which we are concerned. For some smaller
+systems it can be satisfactory or even provident to use a single, special function 
+to describe the entire system. Here however, we introduce the Slater determinant as 
+we will only consider many-electron wavefunctions that can be written as a single 
+Slater determinant or as a linear combination of several Slater determinants.
+
+We define an \emph{orbital}\footnote{Sometimes also called a single-particle function,
+a single-particle orbital, a single-electron orbital or similar. There is a chance that 
+these terms will be used interchangably throughout this text without warning.} which is the
+wavefunction for a single particle, or more precicely a single electron. The wavefunction
+a larger group of electrons, for instance those electrons surround an atom or molecule,
+we call the \emph{molecular orbital}. We also discriminate between 
+spatial orbitals which are functions of spatial coordinates; and spinorbitals, which 
+are functions of the space and spin coordinates (typically a product of a spatial orbital
+and a spin function). A very complete description and thorough discussion of all things 
+concerning electronic sructure wavefunctions is given by Szabo and Ostlund\cite{szabo2012modern}. 
+
+\subsection{Slater Determinants}
+
+The best description for a multiple-electron wavefunction, given by the independent-particle
+approximation is the Slater determinant,
 \begin{equation}
-    \ket{\Phi} = \ket{\phi_i \phi_j \phi_k \dots \phi_z} = \ket{ijk \dots z}.
+    \label{eq:general_slater_determinant}
+    \Phi = \frac{1}{\sqrt{N!}} \begin{vmatrix}
+        \psi_1(1) & \psi_2(1) & \dots & \psi_N(1) \\
+        \psi_1(2) & \psi_2(2) & \dots & \psi_N(2) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \psi_1(N) & \psi_2(N) & \dots & \psi_N(N)
+    \end{vmatrix}
+    = \mathscr{A}\psi_1 \psi_2 \dots \psi_N,
 \end{equation}
+where $\psi_i(\mu)$ is a spinorbital and $\mathscr{A}$ is the antisymmetriser. The
+spinorbitals, are single-particle functions in $L^2(X)$, not necessarily orthonormal.
+
+To illustrate why this is a good approximation of the electronic wave function,
+condiser first the two-electron case,
+\begin{equation}
+    \Phi_{N=2} = \frac{1}{\sqrt(2)}(\psi_1(1)\psi_2(2) - \psi_1(2)\psi_2(1)).
+\end{equation}
+We see from this relatively simple expression that if the electrons where to occupy
+the same state. This ensures that the Pauli exclusion principle for 
+fermions\cite{pauli1925zusammenhang}. Moreover, if we switch coordinates of any two 
+single-particle functions (spinorbitals), corresponding to the interchange of rows in
+\autoref{eq:general_slater_determinant}, the result is a change of sign. This attribute
+accomodates the total anti-symmetry necessary for a fermionic wavefunction.       
 
 \section{Creation and Annihilation Operators}
+   
+    Some Slater determinant is written,
+    \begin{equation}
+        \ket{\Phi} = \ket{\phi_i \phi_j \phi_k \dots \phi_z} = \ket{ijk \dots z}.
+    \end{equation}
 
     The notation of creation and annihilation operators vary,
     \begin{align*}
