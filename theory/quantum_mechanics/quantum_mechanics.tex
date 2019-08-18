@@ -690,23 +690,26 @@
         Individuality'' by Heinz Post\cite{post1963individuality}. In quantum mechanics, on 
         the other hand, a permutation is not regarded as giving rise to a new 
         arrangement. It follows that quantum objects are very different from anything else we
-        know from everyday life, and must be considered ``non-individual''. By taken this idea
-        to it's extreme one may postulate that all particles of a given type are one and the
-        same. Here from a telephone call betwwen John Wheeler and Richard
+        know from everyday life, and must be considered ``non-individual''. This 
+        idea has its origin from the uncertainty principle, sating that no sharply defined 
+        particle exist. If we take this idea
+        to its extreme one may postulate that all particles of a given type are one and the
+        same. Here from Richard Feynman's Nobel lecture:
         Feynman\cite{feynman1965nobel},
         \say{I received a telephone call one day at the graduate college at Princeton from 
         Professor Wheeler, in which he said, \say{Feynman, I know why all electrons have
         the same charge and the same mass} \say{Why?} \say{Because, they are all the same 
        electron!} }
 
-        Following the brief discussion above one may conclude that, the probability density
+        Following the brief discussion above one may begin to postulate that, the probability density
         for the location of particles in a system must be permutation invariant,
         \begin{equation}
             \label{eq:square_wavefunction_pauli}
             \abs{\Psi(x_1, x_2, \dots, x_i, x_j, \dots, x_N)}^2 
             = 
-            \abs{\Psi(x_1, x_2, \dots, x_j, x_i, \dots, x_N)}^2.
+            \abs{\Psi(x_1, x_2, \dots, x_j, x_i, \dots, x_N)}^2,
         \end{equation}
+        Where $\Psi$ represents a wavefunction description of many particles 
         For any arbitrary permutation, this is equivalent to 
         \begin{equation}
             \Psi(x_1, \dots x_N) 
@@ -725,7 +728,8 @@
         to a state representing an assembly of particles, there is no way of distinguishing
         between the permuted state and the original, by means of an observation at any time.
    
-        One can show (Difficult to show? exercise 2.2 in FYS-KJM4480) that 
+        One can show that the resulting wavefunction that has undergon a permutation operation 
+        falls into two categories,
         \begin{equation}
             \hat{P}_\sigma\Psi = 
             \begin{cases}
@@ -737,6 +741,29 @@
         will be $(-1)^{\abs{\sigma}} = \pm 1$. In the former case, when the sign is $+$,
         the wavefunction is ``totally symmetric with respect to permutations''; while in 
         the latter case, when the sign is $-$, the wavefunction is ``totally anti-symmetric.''
+        We show this result with a simple permutation operator $\hat{P}_{ij}$ that exchanges 
+        coordinates of particle $i$ and $j$, i.e.
+        \begin{equation}
+            \hat{P}_{ij}\Psi(x_1, x_2, \dots, x_i, x_j, \dots, x_N)
+            =  \Psi(x_1, x_2, \dots, x_j, x_i, \dots, x_N).
+        \end{equation}
+        Applying this permutation operator twice will return us to the initial wavefunction,
+        \begin{equation}
+            \hat{P}_{ij} \hat{P}_{ij} = 1,
+        \end{equation}
+        which implies that the permutation operator is Hermitian and unitary. Morover, the 
+        Permutation operator must commute with any operator $\hat{O}$,
+        \begin{equation}
+            [\hat{P}_{ij}, \hat{O}] = 0.
+        \end{equation}
+        Consider an eigenvalue equation for the permutation operator $\hat{P}_{ij}$,
+        \begin{equation}
+            \hat{P}_{ij}\Psi = \lambda_{ij}\Psi,
+        \end{equation}
+        from which it follows that 
+        \begin{equation}
+            \Psi = \hat{P}_{ij}^2 \Psi = \lambda_{ij}^2\Psi\ \to \  \lambda_{ij}^2 = 1.
+        \end{equation}
 
         This leads us to another postulate in quantum theory that we have only two types of 
         basic particles, \emph{bosons} have totally symmetric wavefunctions only, while 
@@ -746,11 +773,22 @@
         and all particles with half-integer spin are fermions
         \cite{fierz1939relativistische,pauli1940connection}. This can be proved in relativistic
         quantum mechanics, but must be accepted as an axiom in nonrelativistic 
-        theory\cite{hilborn1995atoms}. Boson follow Bose-Einsten statistics and fermions
-        follow Fermi-Dirac statistics.
+        theory\cite{hilborn1995atoms}.Generally, the degeneracy of a state for a given 
+        energy $\epsilon$ is divided into three categories,
+        \begin{equation}
+            n(\epsilon) = \begin{cases}
+                e^{-(\epsilon - \mu)/k_BT} &\quad \text{Maxwell-Boltzmann} \\
+                \frac{1}{e^{-(\epsilon - \mu)/k_BT} + 1} &\quad \text{Fermi-Dirac} \\
+                \frac{1}{e^{-(\epsilon - \mu)/k_BT} - 1} &\quad \text{Bose-Einstein}.
+            \end{cases}
+        \end{equation}
+        The Maxwell-Boltzmann distribution is the classical result, for \emph{distinguishable}
+        particles; the Fermi-Dirac distribution applies to \emph{identical fermions}, and 
+        the Bose-Einstein distribution is for \emph{identical bosons}. Here, $T$ is the 
+        temperature, $k_B$ is Boltzmann's constant and $\mu$ is the chemical potential.
 
         To this day, particles with no other spin has been found, but norwegian physicists
         Jon Magne Leinaas and Jan Myrheim discovered that in one- and two dimensions, more 
-        general permutations symmetries are possible. The dubbed this third class of
+        general permutation symmetries are possible. The dubbed this third class of
         fundamental particles "anyons"\cite{leinaas1977theory}.
         
