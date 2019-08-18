@@ -21,14 +21,14 @@
     The Hartree-Fock methods makes the following simplications to the multi-electron 
     atomic (molecular) problem,
     \begin{itemize}
-        \item The full molecular wavefunction is contrained to a function of the
+        \item The full molecular wavefunction is constrained to a function of the
             coordinates of only the electrons in the molecule. In not so many words,
-            the Born-Oppernheimer approximation is inerent in the method.
+            the Born-Oppernheimer approximation is inherent in the method.
         \item Any relativistic effects are completely ignored, i.e. the momentum
             operator is assumed to be completely non-relativistic.
         \item A variational solution is assumed to be a linear combination of a basis
             set, which is assumed to be approximately complete. This set of basis
-            functions is usually orthogonal, but may not be. 
+            functions is usually non-orthogonal.
         \item Some electron correlation effects are ignored, as the methods implies
             a mean-field approximation. Coulomb correlation is fully incorporated 
             in the Hartree-Fock method, but it ignores Fermi Correlation and is
@@ -36,7 +36,7 @@
             dispersion\footnote{Named after Fritz London; London dispersion
             forces (LDF) are a type of force between atoms and 
             molecules\cite{heitler1927wechselwirkung}}.
-        \item Any energy eigenfunction is assumed to be describable by a single 
+        \item The ground state is assumed to be describable by a single 
             Slater determinant. 
     \end{itemize}
 
@@ -48,34 +48,39 @@
     Consider a Hamiltionian for some system
     \begin{equation}
         \label{eq:hf_hamiltonian}
-        \hat{H} = \hat{H}_0 + \hat{W}, \quad \hat{H}_0 = \sum_i^N \hat{h}(i),
+        \hat{H} = \hat{h} + \hat{u}
     \end{equation}
-    where the ground state of $\hat{H}_0$ is a Slater determinant consisting 
+    where the ground state of $\hat{h}$ is a Slater determinant consisting 
     of $N$ single-particle functions,
     \begin{equation}
         \Phi = \mathscr{A}\phi_1 \phi_2 \dots \phi_N, \quad 
             \braket{\phi_i}{\phi_j} = \delta_{ij}.
     \end{equation} 
-    If $\hat{W}$ is 
+    If $\hat{u}$ is 
     only a limited perturbation to the system, it is reasonable to assume that the 
     actual ground state of the full system can also be represented by a Slater 
     determinant. Because the Hartree-Fock theory includes a mean-field approximation,
     each particle moves independently of the others interacting with the remainding
-    electrons only idirectly through an average potential $\hat{v}^{\text{HF}}$.
+    electrons only indirectly through an average potential $\hat{v}^{\text{HF}}$.
 
     The expectation value of the Hamiltionian in \autoref{eq:hf_hamiltonian} is 
     \begin{equation}
         \label{eq:hf_energy}
-        \bra{\Phi} \hat{H} \ket{\Phi} 
-            = \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
-            + \frac{1}{2} \sum_{ij} \bra{\phi_i \phi_k} \hat{w} 
-                \ket{\phi_i \phi_j - \phi_j \phi_i},
+        \begin{aligned}
+         \bra{\Phi} \hat{H} \ket{\Phi} 
+            &= \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
+            + \frac{1}{2} \sum_{ij} \bra{\phi_i \phi_k} \hat{u} 
+                \ket{\phi_i \phi_j - \phi_j \phi_i} \\
+            &= \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
+            + \frac{1}{2} \sum_{ij} \bra{\phi_i \phi_k} \hat{u} 
+                \ket{\phi_i \phi_j}_\text{AS}
+        \end{aligned}
     \end{equation}
     where 
     \begin{equation*}
-        \bra{\phi_i \phi_j} \hat{w} \ket{\phi_k \phi_l}
-         = \int \int \bar{\phi}_i(1) \bar{\phi}_j(2) 
-            \hat{w}(1, 2) \phi_k(1) \phi_l(2) d1 d2
+        \bra{\phi_i \phi_j} \hat{u} \ket{\phi_k \phi_l}
+         = \int \int \bar{\phi}_i(x_1) \bar{\phi}_j(x_2) 
+            \hat{u}(x_1, x_2) \phi_k(x_1) \phi_l(x_2) dx_1 dx_2
     \end{equation*}
 
     Now we want to minimise the energy (\autoref{eq:hf_hamiltonian}) under the
@@ -92,7 +97,7 @@
                 - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
             &= \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i}
                 + \frac{1}{2}\sum_{ij} \bra{\phi_i \phi_j} 
-                    \hat{w} \ket{\phi_i \phi_j -  \phi_j \phi_i}
+                    \hat{u} \ket{\phi_i \phi_j -  \phi_j \phi_i}
                 - \sum_{ij} \lambda_{ij} (\braket{\phi_i}{\phi_j - \delta_{ij}}).
         \end{aligned}
     \end{equation}
@@ -134,7 +139,7 @@
             \sum_i \bra{\phi_i + \delta_{ki}\epsilon\eta} \hat{h} \ket{\phi_i}
             + \frac{1}{2} \sum_{ij} 
             \bra{(\phi_i + \delta_{ki}\epsilon\eta)(\phi_j + \delta_{kj}\epsilon\eta)}
-            \hat{w} \ket{\phi_i\phi_j - \phi_j\phi_i} \\
+            \hat{u} \ket{\phi_i\phi_j - \phi_j\phi_i} \\
             - \sum_{ij} \lambda_{ij} (\bra{\phi_i + \delta_{ik} \epsilon\eta}
                 \ket{\phi_j} - \delta_{ij}) + \mathscr{O}(\epsilon^2)
         \end{gathered} \\
@@ -142,12 +147,12 @@
         \begin{gathered}
             =
             \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
-                + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+                + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{u} 
                     \ket{\phi_i \phi_j - \phi_j \phi_i}
                 + \epsilon\bra{\eta} \hat{h} \ket{\phi_k} \\
-            + \frac{1}{2} \sum_{ij}\bra{\phi_i\delta_{kj}\epsilon\eta}\hat{w}
+            + \frac{1}{2} \sum_{ij}\bra{\phi_i\delta_{kj}\epsilon\eta}\hat{u}
                 \ket{\phi_i\phi_j - \phi_j\phi_i} \\
-            + \frac{1}{2} \sum_{ij}\bra{\delta_{ki}\epsilon\eta\phi_j}\hat{w} 
+            + \frac{1}{2} \sum_{ij}\bra{\delta_{ki}\epsilon\eta\phi_j}\hat{u} 
                 \ket{\phi_i\phi_j - \phi_j\phi_i} \\
             - \sum_{ij} \lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij})
             - \sum_{ij} \lambda_{ij}(\braket{\delta_{ik}\epsilon\eta}{\phi_j} - \delta_{ij})
@@ -157,17 +162,17 @@
         \begin{gathered}
             =
             \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
-            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{u} 
                     \ket{\phi_i \phi_j - \phi_j \phi_i}
             + \epsilon\bra{\eta} \hat{h} \ket{\phi_k}
             - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
-            + \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{w}
+            + \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{u}
                 \ket{\phi_i \phi_k}
-            - \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{w}
+            - \frac{1}{2} \epsilon \sum_i \bra{\phi_i\eta} \hat{u}
                 \ket{\phi_k \phi_i} \\
-            + \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{w}
+            + \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{u}
                 \ket{\phi_k \phi_j}
-            - \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{w}
+            - \frac{1}{2} \epsilon \sum_j \bra{\eta\phi_j} \hat{u}
                 \ket{\phi_j \phi_k} \\
             - \epsilon \sum_j \lambda_{jk}\braket{\eta}{\phi_j}
             + \mathscr{O}(\epsilon^2) 
@@ -177,12 +182,12 @@
             \label{eq:hf_taylor_exp}
             =
             \sum_i \bra{\phi_i} \hat{h} \ket{\phi_i} 
-            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{w} 
+            + \frac{1}{2} \sum_ij \bra{\phi_i \phi_j} \hat{u} 
                     \ket{\phi_i \phi_j - \phi_j \phi_i}
             - \sum_{ij}\lambda_{ij}(\braket{\phi_i}{\phi_j} - \delta_{ij}) \\
             + \epsilon\bra{\eta} \hat{h} \ket{\phi_k}
-            + \epsilon \sum_i \bra{\eta\phi_i} \hat{w} \ket{\phi_k \phi_i}
-            - \epsilon \sum_i \bra{\eta\phi_i} \hat{w} \ket{\phi_i \phi_k} \\
+            + \epsilon \sum_i \bra{\eta\phi_i} \hat{u} \ket{\phi_k \phi_i}
+            - \epsilon \sum_i \bra{\eta\phi_i} \hat{u} \ket{\phi_i \phi_k} \\
             - \epsilon \sum_j \lambda_{jk}\braket{\eta}{\phi_j}
             + \mathscr{O}(\epsilon^2) 
         \end{gathered}
@@ -193,24 +198,24 @@ is simply the original Lagrangian in \autoref{eq:hf_lagrangian}. We equate all t
 first-order terms to zero,
 \begin{equation}
     \bra{\eta} \hat{h} \ket{\phi_k} 
-    + \sum_i \bra{\eta \phi_i} \hat{w} \ket{\phi_k\phi_i}
-    - \sum_i \bra{\eta \phi_i} \hat{w} \ket{\phi_i\phi_k}
+    + \sum_i \bra{\eta \phi_i} \hat{u} \ket{\phi_k\phi_i}
+    - \sum_i \bra{\eta \phi_i} \hat{u} \ket{\phi_i\phi_k}
     - \sum_i \lambda_{ik} \braket{\eta}{\phi_i} = 0.
 \end{equation}
 This must be valid for any choice $\eta$, meaning
 \begin{equation}
     \label{eq:unfinished_hf_eqn}
     \hat{h} \ket{\phi_k} 
-    + \sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_k\phi_i}
-    - \sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_i\phi_k}
+    + \sum_i \bra{\cdot\ \phi_i} \hat{u} \ket{\phi_k\phi_i}
+    - \sum_i \bra{\cdot\ \phi_i} \hat{u} \ket{\phi_i\phi_k}
     - \sum_i \lambda_{ik} \ket{\phi_i} = 0,
 \end{equation}
-where $\bra{\cdot\ \phi_1} \hat{w} \ket{\phi_2 \phi_3} \in L_1^2$ is interpreted
+where $\bra{\cdot\ \phi_1} \hat{u} \ket{\phi_2 \phi_3} \in L_1^2$ is interpreted
 as an integral over only the second particle in the matrix element. We define,
 \begin{gather}
     \hat{v}_{\text{HF}} = \hat{v}_{\text{direct}} + \hat{v}_{\text{exchange}}
-        =\sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_k\phi_i}
-        -\sum_i \bra{\cdot\ \phi_i} \hat{w} \ket{\phi_i\phi_k} \\
+        =\sum_i \bra{\cdot\ \phi_i} \hat{u} \ket{\phi_k\phi_i}
+        -\sum_i \bra{\cdot\ \phi_i} \hat{u} \ket{\phi_i\phi_k} \\
     \hat{f} = \hat{h} + \hat{v}_{\text{HF}},
 \end{gather}
 and can then rewrite \autoref{eq:unfinished_hf_eqn} to 
@@ -220,16 +225,16 @@ and can then rewrite \autoref{eq:unfinished_hf_eqn} to
 \end{equation} 
 which are the non-canonical Hartree-Fock equations.
 
-It so happends that the Slater dertminant $\ket{\Phi}$ is invariant under unitary
+It so happens that the Slater determinant $\ket{\Phi}$ is invariant under unitary
 transformation of the single particle functions. Consider
 \begin{equation}
-    \tilde{\phi}_k = \sum_j \phi_j U_{jk},
+    \tilde{\phi}_k = \sum_j C^j_k\phi_j ,
 \end{equation}
-where $U$ is a unitary matrix. This implies that $\ket{\tilde{\Phi}} = \det(U)\ket{\Phi}$,
+where $C$ is a unitary matrix. This implies that $\ket{\tilde{\Phi}} = \det(C)\ket{\Phi}$,
 is the same state and the energy must be the same as well. We choose a particular
-unitary transformation $U$, rotating the single particle functions in a certain 
-manner so that $\lambda = UEU^H$, where $E_{jk} = \delta_{jk}\epsilon_k$ are the 
-elemnets of a diagonal matrix (the eigenvalues of $\lambda$). This provides us with 
+unitary transformation $C$, rotating the single particle functions in a certain 
+manner so that $\lambda = CEC^H$, where $E_{jk} = \delta_{jk}\epsilon_k$ are the 
+elements of a diagonal matrix (the eigenvalues of $\lambda$). This provides us with 
 a new set of eigenvalue equations,
 \begin{equation}
     \label{eq:canonical_hf_eqns}
@@ -247,95 +252,95 @@ render the equations in a finite, fixed basis $\{\chi_p \}_{p=1}^L$ of a finite
 size $L$. It is not a necessity for this basis to be orthonormal, and we therefore 
 define the overlap matrix,
 \begin{equation}
-    S_{pq} \equiv \braket{\chi_p}{\chi_q}.
+    S^\alpha_\beta \equiv \braket{\chi_\alpha}{\chi_\beta}.
 \end{equation}
 
 The Hartree-Fock single-particle functions are expanded in this basis,
 \begin{equation}
     \label{eq:roothan_hall_exp}
-    \ket{\phi_p} = \sum_q \ket{\chi_q} U_{qp},
+    \ket{\phi_p} = \sum_\alpha U^\alpha_p \ket{\chi_\alpha},
 \end{equation}
-where $U$ is not necessarily unitary, because the basis is not necessarily 
-orthongonal. However, we do have $U^HSU = \hat{1}$.
+where $C$ is not necessarily unitary, because the basis is not necessarily 
+orthongonal. However, we do have $C^HSC = 1$.
 
 We insert the expansion from \autoref{eq:roothan_hall_exp} into the expression 
-for the canonical Hatree-Fock equations from \autoref{eq:canonical_hf_eqns},
+for the canonical Hartree-Fock equations from \autoref{eq:canonical_hf_eqns},
 \begin{equation}
-    \hat{f}\sum_r \ket{\chi_r} U_{rp} = \epsilon_p \sum_r \ket{\chi_r} U_{rp}.
+    \hat{f}\sum_\alpha C^\alpha_p \ket{\chi_\alpha} = \epsilon_p \sum_\alpha C^\alpha_p \ket{\chi_\alpha}
 \end{equation}
 Then we left project with an arbitrary function from our new basis,
 \begin{equation}
     \begin{gathered}
-        \bra{\chi_q} \hat{f} \sum_r \ket{\chi_r} U_{rp}
-            = \epsilon_r \braket{\chi_q}{\chi_r} \sum_r U_{rp}\ \forall q,p \\
-        \sum_r F_{qr} U_{rp} = \epsilon_r \sum_r S_{qr} U_{rp}\ \forall q,p \\
-        F(D) U = S U \epsilon.
+        \bra{\chi_\beta} \hat{f} \sum_\alpha U^\alpha_p \ket{\chi_\alpha}
+            = \epsilon_\alpha \braket{\chi_\beta}{\chi_\alpha} \sum_r C^\alpha_p \\
+        \sum_\alpha f^\beta_\alpha C^\alpha_p = \epsilon_p \sum_\alpha S^\beta_\alpha C^\alpha_p \\
+        F(D) C = S C \epsilon.
     \end{gathered}
 \end{equation}
 where the last line is the Roothan-Hall equations.
 
 Elaborating on the computation of the Fock matrix element,
 \begin{equation}
-    F_{qp} = \bra{\chi_q} \hat{f} \ket{\chi_p}
-        = \bra{\chi_q} \hat{h} \ket{\chi_p} 
-        + \bra{\chi_q} \hat{v}_{\text{direct}} \ket{\chi_p}
-        - \bra{\chi_q} \hat{v}_{\text{exchange}} \ket{\chi_p},
+    f^\alpha_\beta = \bra{\chi_\alpha} \hat{f} \ket{\chi_\beta}
+        = \bra{\chi_\alpha} \hat{h} \ket{\chi_\beta} 
+        + \bra{\chi_\alpha} \hat{v}_{\text{direct}} \ket{\chi_\beta}
+        - \bra{\chi_\alpha} \hat{v}_{\text{exchange}} \ket{\chi_\beta},
 \end{equation}
 where
 \begin{align}
     &\begin{gathered}
-    \bra{\chi_q} \hat{v}_{\text{direct}} \ket{\chi_p}
-        = \sum_j \bra{\chi_q \phi_j} \hat{w} \ket{\chi_p \phi_j} 
-        = \sum_{p'q'j} U_{jq'} U^*_{jp'} 
-            \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_p \chi_{p'}} \\
-        = \sum_{p'q'} D_{p'q'} \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_p \chi_{p'}}
+    \bra{\chi_\alpha} \hat{v}_{\text{direct}} \ket{\chi_p}
+        = \sum_j \bra{\chi_\alpha \phi_j} \hat{u} \ket{\chi_p \phi_j} 
+        = \sum_{\beta'\alpha'j} U^{\alpha'}_j (U^j_{\beta'})^*
+            \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_p \chi_{\beta'}} \\
+        = \sum_{\beta'\alpha'} D^{\alpha'}_{\beta'} \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_p \chi_{\beta'}}
     \end{gathered} \\
     &\begin{gathered}
-    \bra{\chi_q} \hat{v}_{\text{exchange}} \ket{\chi_p}
-        = \sum_j \bra{\chi_q \phi_j} \hat{w} \ket{\phi_j \chi_p} 
-        = \sum_{p'q'j} U_{jq'} U^*_{jp'} 
-            \bra{\chi_q \chi_{q'}} \hat{w} \ket{\chi_{p'} \chi_p} \\
-        = \sum_{p'q'} D_{p'q'} \bra{\chi_q \chi_q'} \hat{w} \ket{\chi_p' \chi_p},  
+    \bra{\chi_\alpha} \hat{v}_{\text{exchange}} \ket{\chi_p}
+        = \sum_j \bra{\chi_\alpha \phi_j} \hat{u} \ket{\phi_j \chi_p} 
+        = \sum_{\beta'\alpha'j} U^{\alpha'}_j (U^j_{\beta'})^* 
+            \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_{\beta'} \chi_p} \\
+        = \sum_{\beta'\alpha'} D^{\alpha'}_{\beta'} \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_{\beta'} \chi_p},  
     \end{gathered}
 \end{align}
 giving us,
 \begin{equation}
-    F_{qp} = \bra{\chi_q}\hat{h} \ket{\chi_p} 
-        + \sum_{p'q'}D_{p'q'}(
-            \bra{\chi_q\chi_{q'}}\hat{w} \ket{\chi_p\chi_{p'}}
-            - \bra{\chi_q\chi_{q'}}\hat{w} \ket{\chi_{p'}\chi_p}
+    f^\alpha_\beta = \bra{\chi_\alpha}\hat{h} \ket{\chi_\beta} 
+        + \sum_{\beta'\alpha'}D^{\alpha'}_{\beta'}(
+            \bra{\chi_\alpha\chi_{\alpha'}}\hat{u} \ket{\chi_\beta\chi_{\beta'}}
+            - \bra{\chi_\alpha\chi_{\alpha'}}\hat{u} \ket{\chi_{p'}\chi_\beta}
         ),
 \end{equation}
-where $D = UU^H$, is the density matrix.
+where $D = CC^H$, is the density matrix.
 
 The benefit of the Roothan-Hall equations (\autoref{eq:roothan_hall_exp}), is that they 
 are represented by matrices, and therefore easy to implement on a computer. The
-Roothan-Hall equations are solved iterably, starting from an initial guess for $U$. 
+Roothan-Hall equations are solved iteratively, starting from an initial guess for $C$. 
 This guess can be used to compute the density matrix, 
-$D^(k) = \sum_i u_i^{(k)}(u_i^{(k)})^*$, where $k$ denotes the iteration. The density 
+$D^{(k)} = C^{(k)}(C^{(k)})^H$, where $k$ denotes the $k$th iteration. The density 
 matrix is used to compute the Fock matrix. This provides us with a general eigenvalue 
-problem, from which a new $U$ and $\epsilon$ can be found. This formula is then repeated
+problem, from which a new $C$ and $\epsilon$ can be found. This formula is then repeated
 until the the iterations converge. At this point we say that we have self-consitency 
 in the mean field, and this method is usually called the method of self-constistent
 field (SCF) iterations.
 
 \section{Restricted Hartree-Fock Theory}
 
-Consider some jolly band of $N$ electrons confined in a potential. 
-To begin with we will assumes that these are non-interacting, and can therefore be 
-described only by the one-body part of the Hamiltionian,
+Consider $N$ electrons confined in a potential. 
+To begin with we will assume that these are non-interacting, and can therefore be 
+described by the one-body part of the Hamiltionian, only
 \begin{equation}
     \hat{h}(\vb{r}) = \hat{t}(\vb{r}) + \hat{v}(\vb{r}),
 \end{equation}
 where $\hat{v}$ is potential set up by an atomic nucleus, or some other confining
 force. The one-body operators $\hat{h}$ does noe coupled to electron spin, so the 
-spinorbitals or single-particle eigenfunctions of $\hat{h}$ separate,
+spin-orbitals or single-particle eigenfunctions of $\hat{h}$ separate,
 \begin{equation}
     \phi_P(\vb{r}, \sigma) = \varphi_p(\vb{r})\chi_\alpha(\sigma),
 \end{equation}
-where $P = (p, \sigma)$ si the combined spin- and spatial index, $\alpha = \pm 1/2$
+where $P = (p, \alpha)$ si the combined spin- and spatial index, $\alpha = \pm 1/2$
 is the value of the projection of the electron spin along the $z$-axis. The spin 
-indcex/coordnitate can only take values $\sigma \pm 1$, and we have orthonormal 
+index/coordinate can only take values $\sigma \pm 1$, and we have orthonormal 
 spinorbitals, $\braket{\chi_\alpha}{\chi_\beta} = \delta_{\alpha\beta}$. 
 
 We restrict the orbitals to have the same spatial wavefunction for spin up and spin
@@ -355,8 +360,8 @@ commonly also written as
 \end{equation}
 The reasoning behind this restriction is that one would assume, for many systems, that 
 the exact wavefunctions has the same kind of structure. This is true for almost all 
-electronic systems in nature. We thererfore do not optimise all the $N$ single-particle 
-functions freely, but asume that they form sets fo doubly occupied spatial orbitals. 
+electronic systems in nature. We therefore do not optimise all the $N$ single-particle 
+functions freely, but asume that they form sets of doubly occupied spatial orbitals. 
 Matrix elements can now be computed more easily on the restricted form,
 \begin{equation}
     \mel*{\phi_{(p,\alpha)}}{\hat{h}}{\phi_{(q,\beta)}} 
@@ -365,10 +370,10 @@ Matrix elements can now be computed more easily on the restricted form,
 \end{equation}
 And similarly for two-body operators,
 \begin{equation}
-    \mel{\phi_{p\alpha}\phi_{q\beta}}{\hat{w}}{\phi_{r\gamma}\phi_{s\delta}}
+    \mel{\phi_{p\alpha}\phi_{q\beta}}{\hat{u}}{\phi_{r\gamma}\phi_{s\delta}}
     = \braket{\chi_\alpha}{\chi_\gamma}\braket{\chi_\beta}{\chi_\delta}
         \int \int d \vb{r}_1 d \vb{r}_2 \varphi_p(\vb{r}_1)\varphi_q(\vb{r}_2)
-            \hat{w}(\vb{r}_1 \vb{r}_2) \varphi_r(\vb{r}_1)\varphi_s(\vb{r}_2)
+            \hat{u}(\vb{r}_1 \vb{r}_2) \varphi_r(\vb{r}_1)\varphi_s(\vb{r}_2).
 \end{equation}
 
 Now we will find the special form of the Fock operator in restricted 
@@ -377,7 +382,7 @@ the Hartree-Fock equation
 \begin{equation}
     \begin{aligned}
         \hat{f}\phi_I(\vb{r}, \sigma) &= \epsilon_i \phi_I(\vb{r}, \sigma) \\
-        \hat{f}\varphi(\vb{r}) \chi_\alpha(\sigma)
+        \hat{f}\varphi_i(\vb{r}) \chi_\alpha(\sigma)
         &= \epsilon_i \varphi_i(\vb{r})\chi_\alpha(\sigma).
     \end{aligned}
 \end{equation}
@@ -390,22 +395,22 @@ We left multipy with $\chi_\alpha^*$, suppress indices for brevity and integrate
 \end{equation}
 Next we insert the Fock operator,
 \begin{equation*}
-    \hat{f} = \hat{h} + \sum_i\mel{\cdot\varphi_i}{(\hat{w} - \hat{P}_{12})}{\cdot\varphi_i}
+    \hat{f} = \hat{h} + \sum_i\mel{\cdot\varphi_i}{\hat{u}}{\cdot\varphi_i}_\text{AS}
 \end{equation*} 
 This special notation is means that we integrate over the second orbital in 
 the bra and ket only. After insertion we get
 \begin{equation}
    \begin{gathered}
         \mel{\chi_\alpha}{\hat{h}}{\chi_\alpha}\varphi_i
-        + \sum_J \mel{\chi_\alpha\phi_J}{(\hat{w} - \hat{P}_{12})}{\phi_I\phi_J}
+        + \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_I\phi_J}_\text{AS}
         = \epsilon_i\varphi_i \\
         \to\hat{h}\varphi_i 
-        + \sum_J \mel{\chi_\alpha\phi_J}{\hat{w}}{\phi_I\phi_J}
-        - \sum_J \mel{\chi_\alpha\phi_J}{\hat{w}}{\phi_J\phi_I}
+        + \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_I\phi_J}
+        - \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_J\phi_I}
         = \epsilon_i\varphi_i.
    \end{gathered} 
 \end{equation}
-Because if we have a closed-shell system, them over occupied spinorbitals include an 
+Because we have a closed-shell system, the sum over occupied spinorbitals include an 
 equal sum over spin up and spin down functions so that
 \begin{equation*}
     \sum_J^n = \sum_\beta\sum_j^{n/2}.
@@ -416,40 +421,40 @@ into separate spin- and spatial orbitals,
     \begin{gathered}
         \hat{h}\varphi_i 
         + \sum_\beta\sum_j^{n/2}
-            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{w}}{\varphi_i\chi_\alpha\varphi_j\chi_\beta} 
+            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{u}}{\varphi_i\chi_\alpha\varphi_j\chi_\beta} 
         - \sum_\beta\sum_j^{n/2}
-            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{w}}{\varphi_j\chi_\beta\varphi_i\chi_\alpha} \\
+            \mel{\chi_\alpha\varphi_j\chi_\beta}{\hat{u}}{\varphi_j\chi_\beta\varphi_i\chi_\alpha} \\
         = \hat{h}\varphi_i 
-        + 2\sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{w}}{\varphi_i\varphi_j}
-        +  \sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{w}}{\varphi_j\varphi_i}
+        + 2\sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{u}}{\varphi_i\varphi_j}
+        +  \sum_j^{n/2} \mel{\cdot \varphi_j}{\hat{u}}{\varphi_j\varphi_i}
         = \epsilon_i\varphi_i.
     \end{gathered}
 \end{equation}
-We now have the from of the Fock operator within the restricted Hartree-Fock theory,
+We now have the form of the Fock operator within the restricted Hartree-Fock theory,
 \begin{equation}
     \label{eq:RHF_fock_operator}
     \begin{aligned}
-    \hat{f} &= \hat{h} + \sum_i^{n/2} \mel{\cdot\varphi_i}{(2\hat{w} - \hat{P}_{12})}{\cdot\varphi_i} \\
-        &= \hat{h} + 2\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{w} \varphi_i(\vb{r}_2)
-        -\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{w} \varphi_j(\vb{r}_2)
+    \hat{f} &= \hat{h} + \sum_i^{n/2} \mel{\cdot\varphi_i}{(2\hat{u} - \hat{P}_{12})}{\cdot\varphi_i} \\
+        &= \hat{h} + 2\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{u} \varphi_i(\vb{r}_2)
+        -\sum_i^{n/2} \int d\vb{r}_2 \varphi_i^*(\vb{r}_2) \hat{u} \varphi_j(\vb{r}_2)
     \end{aligned}
 \end{equation}
 
-The Hartee-Fock energy also has a special form in the restricted Hartree-Fock realm,
+The Hartree-Fock energy also has a special form in the restricted Hartree-Fock domain,
 \begin{equation}
     \begin{aligned}
         \mel{\Phi}{\hat{H}}{\Phi}
         =& \sum_P \mel{\phi_P}{\hat{h}}{\phi_P}
-        + \frac{1}{2}\sum_P \sum_Q \mel{\phi_P \phi_Q}{(\hat{w} - \hat{P}_{12})}{\phi_P \phi_Q} \\
+        + \frac{1}{2}\sum_P \sum_Q \mel{\phi_P \phi_Q}{\hat{u}}{\phi_P \phi_Q}_\text{AS} \\
         =& \sum_\alpha \sum_p^{n/2} \mel{\phi_{(p,\alpha)}}{\hat{h}}{\phi_{(p,\alpha)}} \\
             &\quad + \sum_\alpha \sum_p^{n/2}\sum_\beta \sum_q^{n/2} 
-        \bra{\phi_{(p,\alpha)}\phi_{(q,\beta)}}\hat{w}
+        \bra{\phi_{(p,\alpha)}\phi_{(q,\beta)}}\hat{u}
         \left( 
             \ket{\phi_{(p,\alpha)}\phi_{(q,\beta)}} - \ket{\phi_{(q,\beta)}\phi_{(p,\alpha)}} 
         \right) \\
         =& 2\sum_p^{n/2} \mel{\varphi_p}{\hat{h}}{\varphi_q}
-        + 2 \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{w}}{\varphi_p\varphi_q}
-        - \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{w}}{\varphi_p\varphi_q}
+        + 2 \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{u}}{\varphi_p\varphi_q}
+        - \sum_{pq}^{n/2} \mel{\varphi_p\varphi_q}{\hat{u}}{\varphi_p\varphi_q}
     \end{aligned}
 \end{equation}
 
@@ -458,21 +463,21 @@ The Hartee-Fock energy also has a special form in the restricted Hartree-Fock re
 The restricted Hartree-Fock model i often a good enough approximation, but under some 
 circumstances it will fail to provide a good result. The unrestricted Hartree-Fock model 
 is an intermediate between the general Hartree-Fock model and the restricted Hatree-Fock 
-model. Compared with the restricted Hartre-Fock single-particle wavefunction form, the 
-unrestricted for is somewhat obviuous as we now allo the spins to be different,
+model. Compared with the restricted Hartre-Fock single-particle wavefunction form, what we do 
+in unrestricted form is somewhat obvious - we now allow the spins to be different,
 \begin{equation}
     \phi_P(\vb{r}, \sigma) = \varphi_p^{\alpha}(\vb{r})\chi_\alpha(\sigma),
 \end{equation}
-where we have given a the spatial orbitals a spin-index as well. As before, a capital index 
+where we have given the spatial orbitals a spin-index as well. As before, a capital index 
 is the combined spatial- and spin index $P=(p,\alpha)$, where $P \in [1,L]$, $p\in [1, L/2]$
 and $\alpha = \pm 1/2$. 
 Like before, we require the states to be orthonormal 
 \begin{equation}
     \braket{\phi_P}{\phi_Q} 
-    = \braket{\varphi^\alpha_p}{\varphi^\beta_q}\varphi{\chi_\alpha}{\chi_\beta}
+    = \braket{\varphi^\alpha_p}{\varphi^\beta_q}\braket{\chi_\alpha}{\chi_\beta}
     = \delta_{PQ}.
 \end{equation}
-we can write a general unrestricted Hartree-Fock state as 
+We can write a general unrestricted Hartree-Fock state as 
 \begin{equation}
     \ket{\Phi}_{\text{UHF}}
         =
@@ -504,18 +509,18 @@ the canonical Fock operator yields the following left-hand side
     \begin{aligned}
         \hat{f}^\alpha\varphi_p^\alpha 
         =& \hat{h}\varphi_p^\alpha 
-        + \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{w}}{\varphi_p^\alpha\chi_\alpha\phi_Q}q
-        - \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{w}}{\phi_Q\varphi_p^\alpha\chi_\alpha} \\
+        + \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{u}}{\varphi_p^\alpha\chi_\alpha\phi_Q}q
+        - \sum_Q^L \mel{\chi_\alpha \phi_Q}{\hat{u}}{\phi_Q\varphi_p^\alpha\chi_\alpha} \\
         =& \hat{h}\varphi_p^\alpha
         + \sum_\beta \sum_q^{L/2}
-            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{w}}{\varphi^\alpha_p\chi_\alpha\varphi^\beta_q\chi_\beta} \\
+            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{u}}{\varphi^\alpha_p\chi_\alpha\varphi^\beta_q\chi_\beta} \\
         & \quad - \sum_\beta \sum_q^{L/2}
-            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{w}}{\varphi^\beta_q\chi_\beta\varphi^\alpha_p\chi_\alpha} \\
+            \mel{\chi_\alpha\varphi^\beta_q\chi_\beta}{\hat{u}}{\varphi^\beta_q\chi_\beta\varphi^\alpha_p\chi_\alpha} \\
         =& \hat{h} \varphi_p^\alpha
         + \sum_\beta \sum_q^{L/2}
-            \mel{\cdot\varphi_q^\beta}{\hat{w}}{\cdot\varphi_q^\beta}\varphi_p^\alpha
+            \mel{\cdot\varphi_q^\beta}{\hat{u}}{\cdot\varphi_q^\beta}\varphi_p^\alpha
         - \sum_q^{L/2}
-            \mel{\cdot\varphi_q^\alpha}{\hat{w}}{\cdot\varphi_p^\alpha}\varphi_q^\beta
+            \mel{\cdot\varphi_q^\alpha}{\hat{u}}{\cdot\varphi_p^\alpha}\varphi_q^\beta
     \end{aligned}
 \end{equation} 
 This means that we get the following form for the spatial Fock operators in unrestricted Hartree-Fock 
@@ -529,12 +534,14 @@ This means that we get the following form for the spatial Fock operators in unre
     \hat{h} + \sum_p^{L/2}[\hat{v}^\downarrow_{\text{Coulomb}} - \hat{v}^\downarrow_{\text{exchange}}]
     + \sum_p^{L/2}\hat{v}^\uparrow_{\text{Coulomb}}
 \end{align}
-From the definition of the two spatial Fock operatiors in \autoref{eq:fock_up_uhf} and 
+From the definition of the two spatial Fock operators in \autoref{eq:fock_up_uhf} and 
 \autoref{eq:fock_down_uhf},
 we see that the two integro-differential eigenvalue equations that arises from inserting
 $\hat{f}^\uparrow$ and $\hat{f}^\downarrow$ into the canonical Hartree-Fock equation,
 \begin{align}
+    \label{eq:fock_eqn_up_uhf}
     \hat{f}^\uparrow \varphi_p^\uparrow &= \epsilon_p^\uparrow\varphi_p^\uparrow \\
+    \label{eq:fock_eqn_down_uhf}
     \hat{f}^\downarrow \varphi_p^\downarrow &= \epsilon_p^\downarrow\varphi_p^\downarrow,
 \end{align}
 are 
@@ -548,40 +555,41 @@ We can also derive an equation for the unrestricted Hartree-Fock energy,
     E_{UHF} =& \mel{\Phi_{\text{UHF}}}{\hat{H}}{\Phi_{\text{UHF}}}\\
     =& \sum_\alpha\sum_p^{L/2} \mel{\varphi_p^\alpha\chi_\alpha}{\hat{h}}{\varphi_p^\alpha\chi_\alpha}
     + \sum_\alpha\sum_p^{L/2}\sum_\beta\sum_q^{L/2}
-        \mel{\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta}{(\hat{w} - \hat{P}_{12})}
-            {\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta} \\
+        \mel{\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta}{\hat{u}}
+            {\varphi_p^\alpha\chi_\alpha\varphi_q^\beta\chi_\beta}_\text{AS} \\
     =& \sum_\alpha\sum_{pq}^{L/2} \mel{\varphi_p^\alpha}{\hat{h}}{\varphi_p^\alpha} 
     + \sum_{\alpha\beta}\sum_q^{L/2}
-        \mel{\varphi_p^\alpha\varphi_q^\beta}{\hat{w}}{\varphi_p^\alpha\varphi_q^\beta} 
+        \mel{\varphi_p^\alpha\varphi_q^\beta}{\hat{u}}{\varphi_p^\alpha\varphi_q^\beta} 
     - \sum_\alpha\sum_{pq}^{L/2}
-        \mel{\varphi_p^\alpha\varphi_q^\alpha}{\hat{w}}{\varphi_q^\alpha\varphi_p^\alpha}
+        \mel{\varphi_p^\alpha\varphi_q^\alpha}{\hat{u}}{\varphi_q^\alpha\varphi_p^\alpha}
     \end{aligned}
 \end{equation}
 
-
-\subsection{Pople-Nesbet-Bethier...}
-... would be nice to have here.
+If we were to expand the unrestricted Hartree-Fock equations, \autoref{eq:fock_eqn_up_uhf} and 
+\autoref{eq:fock_eqn_down_uhf}, in a basis like we did in \autoref{sec:roothan_hall_eqns}, we 
+would get the Pople-Nesbet-Bethier equations\cite{berthier1954extension,pople1954self}.
 
 \section{Time-Dependent Hartree-Fock}
 
-This section follows closesly the narrative of the gentlemen Hochstuhl, Hinz and 
-Bonitz\cite{hochstuhl2014time}. Deriving the time-dependent Hartree-Fock equations start,
+This section follows closesly the narrative of \citeauthor{hochstuhl2014time}\cite{hochstuhl2014time}.
+Deriving the time-dependent Hartree-Fock equations start,
 of course, with the time-dependent Schrödinger equation,
 \begin{equation}
     i\hbar \frac{\partial}{\partial t}\ket{\Phi(t)} = \hat{H}(t)\ket{\Phi(t)},
 \end{equation}
 where the Hamiltonian is 
 \begin{equation}
-    \hat{H}(t) = \hat{h}(t) + \hat{w}(t).
+    \hat{H}(t) = \hat{h}(t) + \hat{u}(t).
 \end{equation}
-This is very similar to the one used the same, except for the introduction of a 
+This is the same Hamiltonian that we started with in this chapter (\autoref{eq:hf_hamiltonian}),
+except for the introduction of a 
 time-dependence. We start by multiplying from the left with the reference Slater
 determinant $\bra{\Phi}$. The right-hand side of the Schrödinger equation becomes
 the familiar Hartree-Fock energy,
 \begin{equation}
     \mel{\Phi}{\hat{H}}{\Phi} 
     = \sum_p \mel{\phi_p}{\hat{h}}{\phi_p}
-    + \frac{1}{2} \sum_{pq}\mel{\phi_p\phi_q}{(\hat{w} + \hat{P}_{12})}{\phi_p\phi_q}.
+    + \frac{1}{2} \sum_{pq}\mel{\phi_p\phi_q}{\hat{u}}{\phi_p\phi_q}_\text{AS}.
 \end{equation}
 The left-hand side, is more interesting,
 \begin{equation}
@@ -597,7 +605,7 @@ First, the one-body matrix elements,
             \int dr \phi_p^* \hat{h} \phi_p 
         = \sum_p \delta_{pr} \hat{\phi} = \hat{h}\ket{\phi_r}.
 \end{equation}
-Second, the matrix elements of the time-derivate,
+Second, the matrix elements of the time-derivative,
 \begin{equation}
     \frac{\delta}{\delta \phi_r^*} \sum_p\mel{\phi_p}{\frac{\partial}{\partial t}}{\phi_p}
     = \frac{\partial}{\partial t} \ket{\phi_q},
@@ -608,17 +616,17 @@ Lastly, we have the two-body matrix elements,
 \begin{equation}
     \begin{aligned}
         \frac{\delta}{\delta \phi_r^*} &\sum_{pq}
-            \mel{\phi_p\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_p\phi_q} \\
+            \mel{\phi_p\phi_q}{\hat{u}}{\phi_p\phi_q}_\text{AS} \\
         &\ = \frac{\delta}{\delta \phi_r^*(r_1)} \sum_{pq} \int dr_1 dr_2 
-            \phi_p^*(r_1) \phi_q^*(r_2)(\hat{w} - \hat{P}_{12})\phi_p(r_1)\phi_q(r_2) \\
+            \phi_p^*(r_1) \phi_q^*(r_2)\hat{u}[\phi_p(r_1)\phi_q(r_2) - \phi_q(r_1)\phi_p(r_2)] \\
         &\ = \sum_{pq}\delta_{pq} \int dr_2 \phi_q^*(r_2) 
-            (\hat{w} - \hat{P}_{12}) \phi_p(r_1) \phi_q(r_2) 
-        = \sum_q \mel{\cdot \phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}.
+            \hat{u} [\phi_p(r_1) \phi_q(r_2) - \phi_q(r_1)\phi_p(r_2)]
+        = \sum_q \mel{\cdot \phi_q}{\hat{u}}{\phi_r\phi_q}_\text{AS}.
     \end{aligned}
 \end{equation}
 
 Now we want to vary the reference state to find the optimal one, 
-applying the so-called time-dependent variational principle,
+applying the so-called time-dependent variational principle\cite{dirac1930principles},
 \begin{equation}
     \mel{\delta\Phi}{(\hat{H} - i\hbar\frac{\partial}{\partial t})}{\Phi} = 0,
 \end{equation}
@@ -627,8 +635,8 @@ in time,
 \begin{equation}
     \braket{\phi_p(t)}{\phi_q(t)} = \delta_{pq}.
 \end{equation}
-Such an optimization problem under a constraint begs for the formulation of a Lagrangian,
-which we will let manifest itself,
+Such an optimization problem under a constraint begs the formulation of a Lagrangian,
+which we will allow to manifest,
 \begin{equation}
     \mathscr{L}(\Phi, \lambda_{pq}) = 
         \mel{\Phi}{(\hat{H} - i\hbar\frac{\partial}{\partial t})}{\Phi}
@@ -644,17 +652,17 @@ This is where we will make use of the functional derivatives we computed before,
     \label{eq:derivative_of_HF_time_lagrangian}
     \frac{\delta\mathscr{L}}{\delta \phi_r^*}
     = \hat{h}\ket{\phi_r} 
-        + \sum_q\mel{\cdot\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}
+        + \sum_q\mel{\cdot\phi_q}{\hat{u}}{\phi_r\phi_q}_\text{AS}
         - i\hbar\frac{\partial}{\partial t} \ket{\phi_r}
         - \sum_q \lambda_{rq} \ket{\phi_r} = 0.
 \end{equation}
-Now we want to solve for the Langrange mulitplier, we do this be left-projection of the 
-functional derivative above with $\bra{\phi_s}$ and move resulting multiplier $\lambda_{sq}$
+Now we want to solve for the Langrange mulitplier, we do this by left-projection of the 
+functional derivative above with $\bra{\phi_s}$ and move the resulting multiplier $\lambda_{sq}$
 to the left, and all other terms to the right. We 
 get the following expression for the Lagrange multiplier,
 \begin{equation}
     \lambda_{sq} = \mel{\phi_s}{\hat{h}}{\phi_r} 
-        + \mel{\phi_s\phi_q}{(\hat{w} - \hat{P}_{12})}{\phi_r\phi_q}
+        + \mel{\phi_s\phi_q}{\hat{u}}{\phi_r\phi_q}_\text{AS}
         - i\hbar \mel{\phi_s}{\frac{\partial}{\partial t}}{\phi_r}
 \end{equation}
 We insert this expression for the Lagrange multiplier into \autoref{eq:derivative_of_HF_time_lagrangian}
@@ -662,11 +670,10 @@ which results in,
 \begin{equation}
     \label{eq:projected_time_hf_eqn}
     \hat{P}\left[\hat{h}\ket{\phi_r}
-        + \sum_q\mel{\cdot\phi_q}{(\hat{w}, \hat{P}_{12})}{\phi_r\phi_q}
+        + \sum_q\mel{\cdot\phi_q}{\hat{u}}{\phi_r\phi_q}_\text{AS}
         - i\hbar\frac{\partial}{\partial t} \ket{\phi_k}\right] = 0,
 \end{equation}
-where we have the confusing operator $\hat{P}$, which is not a permutation operator 
-like $\hat{P}_{12}$, but a projection operator;
+where we have introduced the projection operator $\hat{P}$, 
 \begin{equation}
     \hat{P} = \hat{1} - \sum_p \outerproduct{\phi_p}.
 \end{equation}
@@ -675,12 +682,12 @@ Rearranging \autoref{eq:projected_time_hf_eqn} yields
     \label{eq:tdhf_before_Q}
     i\hbar \hat{P}\frac{\partial}{\partial t} \ket{\phi_r} 
     = \hat{P}\left[\hat{h}\ket{\phi_r} 
-        + \mel{\cdot\phi_q}{(\hat{w} - \hat{P}_{12})}{\cdot\phi_q} \right]\ket{\phi_r}
+        + \mel{\cdot\phi_q}{\hat{u}}{\cdot\phi_q} \right]\ket{\phi_r}_\text{AS}
     = \hat{P}\hat{f}\ket{\phi_r},
 \end{equation}
 where we see that Fock operator has appeared. This equation is an integro-differential 
 equation, as the projection operator $\hat{P}$ appear on both sides of the equality 
-sign, and a solution can be difficutl to find. Because the time-dependent Hartree-Fock 
+sign, and a solution can be difficult to find. Because the time-dependent Hartree-Fock 
 wavefunction is invariant under unitary transformation, we can obtain equations that are 
 numerically more apporiate, by applying a unitary transformation $\hat{Q}(t)$ which 
 satisfies
@@ -688,7 +695,7 @@ satisfies
     i\hbar\mel{\phi_p}{\frac{\partial}{\partial t}}{\phi_q}
     \equiv \mel{\phi_p}{\hat{Q}(t)}{\phi_q}.
 \end{equation}
-It turns out that a reasonable choice for $\hat{Q}(t)$ is $\hat{f}{t}$, in which case 
+It turns out that a reasonable choice for $\hat{Q}(t)$ is $\hat{f}(t)$, in which case 
 \autoref{eq:tdhf_before_Q} becomes
 \begin{equation}
     \label{eq:tdhf_eqn}
@@ -700,23 +707,23 @@ Hartree-Fock equation.
 Now we pick a specific, finite and static basis $\{\chi_p\}_{p=1}^{L}$ and expand the Hartree-Fock single-particle
 functions in this basis,
 \begin{equation}
-    \ket{\phi_p}(t) = \sum_q \ket{\chi_q} U_{qp}(t).
+    \ket{\phi_p(t)} = \sum_\alpha C^\alpha_p(t) \ket{\chi_\alpha}.
 \end{equation}
 Notice that the basis set is indeed static, with no time-dependence, only the coefficients 
-of the expansions $U_{pq}(t)$ evolve in time.  
+of the expansions $U^\alpha_p(t)$ evolve in time.  
 We insert the expansion into \autoref{eq:tdhf_eqn},
 \begin{equation}
-    i\hbar\frac{\partial}{\partial}\sum_q \ket{\chi_q}U_{pq}(t) = \hat{f}(t)\sum_q \ket{\chi_q} U_{pq}(t).
+    i\hbar\frac{\partial}{\partial}\sum_\alpha C^\alpha_p \ket{\chi_\alpha} = \hat{f}(t)\sum_\alpha C^\alpha_p \ket{\chi_\alpha}.
 \end{equation}
-We left-project this equation with $\bra{\chi_r}$,
+We left-project this equation with $\bra{\chi_\beta}$,
 \begin{equation}
     \begin{gathered}
-    i\hbar\frac{\partial}{\partial t} \sum_q U_{pq}(t)\braket{\chi_r}{\chi_q}
-        = \sum_q U_{pq}(t) \mel{\chi_r}{\hat{f}(t)}{\chi_q}  \\
-    \to i\hbar \sum_q \dot{U}_{pq} S_{rq} = \sum_q U_{pq} \hat{f}_{rq}(t),
+    i\hbar\frac{\partial}{\partial t} \sum_\alpha C^\alpha_p(t)\braket{\chi_\beta}{\chi_\alpha}
+        = \sum_\alpha C^\alpha_p(t) \mel{\chi_\beta}{\hat{f}(t)}{\chi_\alpha}  \\
+    \to i\hbar \sum_\alpha \dot{C}^\alpha_p S^\beta_\alpha = \sum_\alpha C^\alpha_p\hat{f}^\beta_\alpha(t),
     \end{gathered}
 \end{equation}
 which can be written as a matrix equation,
 \begin{equation}
-    i\hbar \vb{S}\dot{\vb{U}}(t) = \vb{F}(t)\vb{U}(t).
+    i\hbar \vb{S}\dot{\vb{C}}(t) = \vb{F}(t)\vb{C}(t).
 \end{equation}
