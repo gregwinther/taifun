@@ -1,11 +1,19 @@
 \chapter{Second Quantisation}
+ 
+The second-quantisation formalism is a very useful tool used in the description of 
+many-body systems. Here the particles themselves are discrete quanta created and 
+destroyed by \emph{creation}- and \emph{annihilation} operators. We start by introduction 
+of the Slater determinant, a very useful description of an anti-symmetric wavefunction,
+in order to build a nomenclutere for writing down describe the many-electron systems with 
+which we are concerned.
 
-We have already invested some time in what the wave-function is, but some more time 
-is necessary in order to build a nomenclature for writing down wavefunctions that
-actually describe many-electron systems with which we are concerned. For some smaller
+\section{Slater Determinants}
+
+For some smaller
 systems it can be satisfactory or even provident to use a single, special function 
-to describe the entire system. Here however, we introduce the Slater determinant as 
-we will only consider many-electron wavefunctions that can be written as a single 
+to describe the entire system. Here however, we introduce the Slater determinant which 
+is a way to write a product of wavefunctions.  
+We will only consider many-electron wavefunctions that can be written as a single 
 Slater determinant or as a linear combination of several Slater determinants.
 
 We define an \emph{orbital}\footnote{Sometimes also called a single-particle function,
@@ -17,43 +25,55 @@ we call the \emph{molecular orbital}. We also discriminate between
 spatial orbitals which are functions of spatial coordinates; and spinorbitals, which 
 are functions of the space and spin coordinates (typically a product of a spatial orbital
 and a spin function). A very complete description and thorough discussion of all things 
-concerning electronic sructure wavefunctions is given by Szabo and Ostlund\cite{szabo2012modern}. 
-
-\subsection{Slater Determinants}
+concerning electronic sructure wavefunctions is given 
+by \citeauthor{szabo2012modern}\cite{szabo2012modern}.
 
 The best description for a multiple-electron wavefunction, given by the independent-particle
 approximation is the Slater determinant,
 \begin{equation}
     \label{eq:general_slater_determinant}
     \Phi = \frac{1}{\sqrt{N!}} \begin{vmatrix}
-        \psi_1(1) & \psi_2(1) & \dots & \psi_N(1) \\
-        \psi_1(2) & \psi_2(2) & \dots & \psi_N(2) \\
+        \phi_1(1) & \phi_2(1) & \dots & \phi_N(1) \\
+        \phi_1(2) & \phi_2(2) & \dots & \phi_N(2) \\
         \vdots & \vdots & \ddots & \vdots \\
-        \psi_1(N) & \psi_2(N) & \dots & \psi_N(N)
+        \phi_1(N) & \phi_2(N) & \dots & \phi_N(N)
     \end{vmatrix}
-    = \mathscr{A}\psi_1 \psi_2 \dots \psi_N,
+    = \mathcal{A}\phi_1 \phi_2 \dots \phi_N,
 \end{equation}
-where $\psi_i(\mu)$ is a spinorbital and $\mathscr{A}$ is the antisymmetriser. The
-spinorbitals, are single-particle functions in $L^2(X)$, not necessarily orthonormal.
+where $\phi_i(\mu)$ is a spinorbital and $\mathcal{A}$ is the antisymmetriser. The
+spinorbitals, are single-particle functions in the proper two-dimensional 
+Hilbert space and they are not necessarily orthonormal.
 
 To illustrate why this is a good approximation of the electronic wave function,
 condiser first the two-electron case,
 \begin{equation}
-    \Phi_{N=2} = \frac{1}{\sqrt(2)}(\psi_1(1)\psi_2(2) - \psi_1(2)\psi_2(1)).
+    \Phi_{N=2} = \frac{1}{\sqrt{2}}(\phi_1(1)\phi_2(2) - \phi_1(2)\phi_2(1)).
 \end{equation}
-We see from this relatively simple expression that if the electrons where to occupy
-the same state. This ensures that the Pauli exclusion principle for 
+We see from this relatively simple expression that if the electrons were to occupy
+the same state the wavefunction would equal zero, in effect forbidding such a state.
+This ensures that the Pauli exclusion principle for 
 fermions\cite{pauli1925zusammenhang}. Moreover, if we switch coordinates of any two 
 single-particle functions (spinorbitals), corresponding to the interchange of rows in
 \autoref{eq:general_slater_determinant}, the result is a change of sign. This attribute
-accomodates the total anti-symmetry necessary for a fermionic wavefunction.       
+of a determinant accomodates the total anti-symmetry necessary for a fermionic wavefunction.
+Conversely, a bosonic wavefunction can be constructed as a \emph{permanent}.
 
-\section{Creation and Annihilation Operators}
-   
-    Some Slater determinant is written,
+We usually write a Slater determinant in a much more simple way,
     \begin{equation}
         \ket{\Phi} = \ket{\phi_i \phi_j \phi_k \dots \phi_z} = \ket{ijk \dots z}.
     \end{equation}
+The $N$ single-particle functions $\phi_i\dots\phi_z$, that make up this Slater determinant
+now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$. 
+
+\section{Creation and Annihilation Operators}
+   
+    The introduction of creation- and annihilation operators are what establishes
+    the second quantisation formalism. As we will see, such operators makes the 
+    construction of $N$-particle wavefunctions as symmetrised or anti-symmetrised
+    products, because these symmetry properties are encompassed in the 
+    anticommutation properties of the operators. This is a great advantage of the 
+    second quantisation framework. Another advantage is the relatively easy 
+    management of many-particle systems. 
 
     The notation of creation and annihilation operators vary,
     \begin{align*}
@@ -65,43 +85,56 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
     Herein, $\hat{a}_i^\dagger$, $\hat{a}_i$ is used and, if there is no change of 
     confusion, $\hat{i}^\dagger$, $\hat{i}$.
 
-    \paragraph{The Creation Operator}. For every single-particle index $q$,
+    \paragraph{The Creation Operator}
+    For every single-particle index $q$,
     we define the creation operator
-    $c_q^\dagger$ acting on the vacuum state by
+    $a_q^\dagger$ acting on the vacuum state by
     \begin{equation}
         \hat{a}_i^\dagger \ket{0} = \ket{q}.
     \end{equation}
-
     For any slater determinant with $N > 0$, the action is defined by
     \begin{align}
         \hat{a}_i^\dagger\ket{jk \dots z} &= \ket{ijk \dots z}, \\
-        \hat{a}_i^\dagger\ket{ijk \dots z} &= 0
+        \hat{a}_i^\dagger\ket{ijk \dots z} &= 0.
     \end{align}
+    We see that this the the same as inserting a column into the matrix-form of the 
+    Slater determinant in \autoref{eq:general_slater_determinant}.
 
-    \paragraph{The Annihilation Operator}. It i sufficient to state that the 
-    annihilation $c_i$ operator is the hermitian adjoint of the creation operator
-    $\hat{c}_i$, but to specify we have
+    \paragraph{The Annihilation Operator}
+    It i sufficient to state that the 
+    annihilation operator $a_i$ is the hermitian adjoint of the creation operator
+    $\hat{a}_i$, but to specify we have
     \begin{equation}
         \hat{a}_i\ket{0} = 0,
     \end{equation}
     as there is no particle in the vacuum state to annihilate. 
-
     For any arbitrary Slater determinant, we have 
     \begin{align}
         \hat{a}_i \ket{ijk \dots z} &= \ket{ij \dots z}, \\
         \hat{a}_i \ket{jk \dots z} &= 0       
     \end{align}
 
-    SOMETHING MORE ABOUT THE DIFFERENT PERMUTATIONS.
+    The creation- and annihilation operators map wavefunctions between Hilbert spaces of 
+    different dimensionality, or particle number;
+    \begin{align}
+        a^\dagger_i: &\quad \mathcal{H}_N \to \mathcal{H}_{N+1} \\
+        a_i: &\quad \mathcal{H}_N \to \mathcal{H}_{N-1},
+    \end{align}
+    where $\mathcal{H}_N$ is the Hilbert space for $N$ particles. The space comprising
+    all Hilbert spaces of of different particles numbers is called the Fock space, defined 
+    as a direct sum of all Hilbert spaces
+    \begin{equation}
+        \mathscr{F} = \bigoplus_{N=0}^\infty \mathcal{H}_N.
+    \end{equation}
+    The creation- and annihilation operate on this Fock space.
 
-    We can now build a Slater determinant as the result of successive operation of
-    several creation operators $\hat{a}_q^\dagger$ on the vacuum state,
+    We can now build a Slater determinant as the result of successive operations of
+    several creation operators $\hat{a}_q^\dagger$ on the vacuum state $\ket{0}$,
     \begin{equation}
         \label{eq:creation_annihilation_slater}
         \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}^\dagger_k \dots \hat{a}^\dagger_z
         \ket{0} = \ket{ijk \dots z}.
     \end{equation}
-
     It is convenient to arrange the spinorbitals in a Slater determinant in
     alphabetical order, as in \autoref{eq:creation_annihilation_slater}. This 
     makes it necessary to ascertain the effects a creation or annihilation
@@ -124,7 +157,8 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 
 \section{Anticommutator Relations}
 
-    Consider some creation operators acting on a Slater determinant,
+    To show how the anticommutator relations are built into the creation- and annihilation 
+    operators, we start by considering two arbitrary creation operators acting on a Slater determinant,
     \begin{equation}
         \begin{aligned}
             \hat{a}_p^\dagger \hat{a}_q^\dagger \ket{ijk \dots} &= \ket{pqijk \dots} \\
@@ -132,7 +166,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
                 = - \ket{pqijk \dots}.
         \end{aligned}
     \end{equation}
-    We demand that these two opartions be equivalent, or that 
+    We demand that these two operations be equivalent, or that 
     \begin{equation}
         \begin{aligned}
             \hat{a}_p^\dagger \hat{a}_q^\dagger &= 
@@ -142,10 +176,10 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
                 \hat{a}_q^\dagger \hat{a}_p^\dagger = \hat{0}.
         \end{aligned}
     \end{equation}
-    This is one of several important anti-commutator relations for creation and
-    annihilation operators.
+    Which is the first of three anti-commutator relations we are going to derive.
 
-    Similarly, for annihilation operators we have
+    The logical next step is to perform a similar operation with annihilation 
+    operators,
     \begin{equation}
         \begin{aligned}
             \hat{a}_p \hat{a}_q \ket{qpijk \dots} &= 
@@ -155,7 +189,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
                 - \hat{a}_q \ket{qijk \dots} = - \ket{ijk \dots}.
         \end{aligned}
     \end{equation}
-    These two operations must also be equivalent, 
+    We also require these two operations to be equivalent, 
     \begin{equation}
         \begin{aligned}
             \hat{a}_p \hat{a}_q &= 
@@ -219,12 +253,18 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
         \{\hat{a}_p, \hat{a}_q\} &= \hat{0}, \\
         \{\hat{a}_p^\dagger, \hat{a}_q^\dagger\} &= \hat{0}, \\
         \{\hat{a}_p^\dagger, \hat{a}_q\} &= \{\hat{a}_p, \hat{a}_q^\dagger\} 
-         = \hat{\delta}_{pq}.
+         = \delta_{pq},
     \end{align}
+    where $\delta_{pq}$ is the Kronecker delta.
 
 \section{Representation of Operators}
     
-    A second-qunatised one-body operator is written like
+    Here we shall see that it is very useful to express operators in terms of 
+    creation- and annihilation operators. We introduce a general one- and two-body 
+    operator. It is possible to create operators pertaining to any number of particles,
+    but these are very uncommon to see in quantum chemistry, which is our domain.
+
+    A second-quantised one-body operator is written like
     \begin{equation}
         \label{eq:one_body_operator}
         \hat{h} = \sum_{i=1}^N \hat{h}(i) 
@@ -233,7 +273,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
     where in general, $\bra{p} \hat{h} \ket{q}$ is the matrix element of the single-particle
     operator $\hat{h}$ in a given one-particle basis,
     \begin{equation}
-        \bra{p} \hat{h} \ket{q} = \int dx \phi_p(x)^* \hat{h} \phi_q(x).
+        h^p_q = \mel{p}{\hat{h}}{q} = \int dx \phi_p(x)^* \hat{h} \phi_q(x).
     \end{equation}
     More accurately, we see from \autoref{eq:one_body_operator}, that $\hat{h}$
     weighs each occupied orbital of a Slater determinant with the appropriate 
@@ -241,30 +281,35 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 
     A second-quantised two-body operator is written like
     \begin{equation}
-        \hat{w} = \sum_{i, j}^N\hat{w}(i,j) 
-        = \frac{1}{2} \sum_{ijkl} \bra{ij}\hat{w}\ket{kl} 
-            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k
-        = \frac{1}{4} \sum_{ijkl} \bra{ij}  \ket{kl} 
+        \label{eq:2nd_quant_two_body_operator}
+        \hat{u} = \sum_{i, j}^N\hat{u}(i,j) 
+       = \frac{1}{2} \sum_{ijkl} u^{pq}_{rs}
             \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k,
+        = \frac{1}{4} \sum_{ijkl} \bra{ij}\hat{u}\ket{kl}_\text{AS} 
+            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k
     \end{equation}
     where 
     \begin{equation}
-        \bra{ij}\hat{w} \ket{kl} \equiv \bra{i(1)j(2)} \hat{w}_{12} \ket{k(1)l(2)}
+        \mel{ij}{\hat{u}}{kl} 
+        \equiv \int \int \phi_i^*(x_1) \phi_j^*(x_2)u(x_1, x_2) \phi_k(x_1)\phi_(x_2)
+            dx_1 dx_2.
     \end{equation} 
-    and the antisymmetric two-eletron integral for $\hat{u}$ is abreviated,
+    Notice the transposed order of indices in \ref{eq:2nd_quant_two_body_operator}.
+    The interpretation fo the expression is that a fermion is removed from state 
+    $\ket{k}$ and $\ket{l}$ and created in state $\ket{i}$ and $\ket{j}$, with 
+    the probability $\mel{ij}{\hat{u}}{kl}$.
+    The antisymmetric two-eletron integral for $\hat{u}$ is abreviated,
     \begin{equation}
-        \bra{ij} \hat{w}\ket{kl} - \bra{ij}\hat{w} \ket{kl} 
-        = \bra{ij}\hat{w} \ket{kl} \equiv \bra{ij} \ket{kl}.
+        \bra{ij} \hat{u}\ket{kl} - \bra{ij}\hat{u} \ket{kl} 
+        = \bra{ij}\hat{u} \ket{kl}_\text{AS}
     \end{equation}
-    Similarly to the one-particle operator, the two-particle operator assigns
-    the correct matrix element to pairs of single particle functions.
 
-    The second-quantised Hamiltonian can therefore be written,
+    We see that a full second-quantised Hamiltonian can be written,
     \begin{equation}
         \label{eq:second_quant_hamiltionian}
-        \hat{H} = \hat{h} + \hat{w} 
+        \hat{H} = \hat{h} + \hat{u} 
         = \sum_{ij} \hat{h}_{ij}\hat{a}^\dagger_i \hat{a}_j
-            + \frac{1}{4} \bra{ij}\ket{kl} 
+            + \frac{1}{4} \mel{ij}{\hat{u}}{kl}_\text{AS}
             \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}_l \hat{a}_k.
     \end{equation}
 
@@ -274,10 +319,9 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
     of creation- and annihilation operators as well as a simple way of writing
     a general electronic Hamiltionian in the second-quantised manner. The following
     is a necessety to be able to compute vacuum expectation values 
-    ($\bra{-} \hat{A} \hat{B} \dots \ket{-}$) of products of creation- 
+    $\bra{-} \hat{A} \hat{B} \dots \ket{-}$ of products of creation- 
     and annihilation operators. Such expectation values are very important for 
-    several computational methods, see Harris, Monkhorst and Freeman 
-    (1992)\cite{harris1992algebraic}.
+    several computational methods, see \citeauthor{harris1992algebraic}\cite{harris1992algebraic}.
 
         \subsection{Normal ordering and contractions}
 
@@ -297,7 +341,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
             &= (-1)^{\abs{\sigma}}\hat{a}^\dagger \hat{b}^\dagger \dots \hat{u} \hat{v},
             \end{aligned}
         \end{equation}
-        where $\hat{P}$ is a permutation operator actiing on the product of operators, 
+        where $\hat{P}$ is a permutation operator acting on the product of operators, 
         and $\sigma$ is the parity of the permutation. One should bear in mind that this 
         definition is by no means unique. Here are some examples,
         \begin{gather*}
@@ -367,7 +411,6 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 	\subsection{Wick's Theorem}
 		Wick's theorem states that every string of creation and annihilation operators can
 		be written as a sum of normal-ordered products with all possible contractions,
-	
 		\begin{equation}
 			\begin{aligned}
 			\hat{A}\hat{B}\hat{C}\hat{D}\dots
@@ -387,12 +430,11 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 			+ \dots,
 		\end{aligned}
 		\end{equation}
-
 		where eventually all possible contractions of one, two pairs etc, are included.
 
-		Especially when computing vacuum expectation values of normal-ordred products is 
-		Wick's theorem very important. The reason for this is that each contraction will 
-		not contribute to the result, unless it is a fully contracted operator string,
+		Especially when computing vacuum expectation values of normal-ordred products 
+        Wick's theorem becomes very important. The reason for this is that each contraction
+        will not contribute to the result, unless it is a fully contracted operator string,
 		\begin{equation} 
 			\bra{}\hat{A} \dots \hat{B} \dots \hat{C} \dots \hat{D} \dots \ket{}
 				= \sum_{\substack{\text{all possible} \\ \text{contractions}}}
@@ -402,8 +444,8 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 				}.
 		\end{equation}
 
-		Most vacuum expectation values contain operators strings already have substrings
-		that are already normal-ordered. This warrants a very useful generalisation of
+		Most vacuum expectation values contain operator strings already have substrings
+		that are normal-ordered form. This warrants a very useful generalisation of
 		Wick's theorem for such strings,
 		\begin{equation}
 			\begin{aligned}
@@ -436,7 +478,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 
 		We see that a Slater determinant can be built recursively with creation operators,
 		\begin{equation}
-			\hat{I} = \hat{i_1i_2\dots i_N} 
+			\Phi = \hat{i_1i_2\dots i_N} 
 				= \hat{i}_1^\dagger \hat{i}_2^\dagger \dots \hat{i}_N^\dagger\ket{}.
 		\end{equation}
 		Instead of rewriting Slater determinants with operators applied to the vacuum 
@@ -469,8 +511,8 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 		\end{equation}
 		Take note of the specific letters used for creating and annihilating electrons 
 		in the example above. $i,j,k,l,\dots$ are letters restricted to indices of 
-		\emph{hole} states, $a,b,c,d,\dots$ are letters restriced to indices of
-		\emph{particle} states and the $p,q,r,\dots$ are for general use, indicating 
+		\emph{hole} states, and $a,b,c,d,\dots$ are letters restriced to indices of
+		\emph{particle} states, while $p,q,r,\dots$ are for general use, indicating 
 		any state. Notice that
 		\begin{equation}
 			\begin{aligned}
@@ -481,18 +523,16 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 		Whenever we try to insert an electron where there already is one, or when we 
 		try to remove an electron that is not there, we get zero as result.
 
-
 	\subsection{Wick's theorem relative to the Fermi vacuum}
 
 		Now we will modify the concepts of normal-ordering, contractions and Wick's 
-		theoreom so that the work better in conjunction with the Fermi vacuum, instead 
-		of the physical vacuum.
-
+        theoreom so that the work better in conjunction with the freshly defined Fermi
+        vacuum, instead of the physical vacuum.
 		First we introduce pseudo-operators,
 		\begin{equation}
 			\begin{aligned}
 				\hat{b}_i = \hat{i}^\dagger, &\quad \hat{b}_i^\dagger = \hat{i} \\
-				\hat{b}_a = \hat{a}^\dagger, &\quad \hat{b}_i^\dagger = \hat{a}^\dagger,
+				\hat{b}_a = \hat{a}, &\quad \hat{b}_a^\dagger = \hat{a}^\dagger,
 			\end{aligned}
 		\end{equation}
 		where $\hat{b}_i^\dagger$ is a hole creation operator and $\hat{b}_i$ is a particle
@@ -500,8 +540,8 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 		for introducing such operators is to be able to work with the fermi vacuum in the 
 		same manner as regular operators work with the physical vacuum.
 
-		We introduce a new type of normal ordering for the pseudo-operators (and for the
-		actual operators that the represent),
+		We introduce a new type of normal ordering for the pseudo-operators and for the
+		actual operators that the represent,
 		\begin{equation}
 			\{\hat{A}\hat{B}\hat{C} \} 
 				= (-1)\hat{b}_p^\dagger\hat{b}_q^\dagger \dots \hat{b}_u \hat{b}_v.
@@ -510,10 +550,8 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 		\begin{equation}
 			\wick{\c{\hat{A}}\c{\hat{B}}} = \hat{A}\hat{B} - \{\hat{A}\hat{B}\}.
 		\end{equation}
-		A normal-ordered product with contractions inside is also definede the same 
-		way.
-			
-		For contractions we see that the only non-zero contractions are
+		A normal-ordered product with contractions inside is also defined the same 
+		way. We see that the only non-zero contractions are
 		\begin{equation}
 			\wick{\c{\hat{b}_i}\c{\hat{b}_j^\dagger}} =	
 			\wick{\c{\hat{i}^\dagger}\c{\hat{j}}} = \delta_{ij}, \quad
@@ -524,7 +562,7 @@ accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 		we have the anticommutator relations
 		\begin{equation}
 			\{\hat{b}_p, \hat{b}_q^\dagger\} = \delta_{pq}, \quad
-			\{\hat{b}_p, b_q\} = 0
+			\{\hat{b}_p, \hat{b}_q\} = 0
 		\end{equation}
 
 		Excited Slater determinants can be written using pseudo-operators,
