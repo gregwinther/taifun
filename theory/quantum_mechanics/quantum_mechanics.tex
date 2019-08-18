@@ -791,4 +791,61 @@
     Jon Magne Leinaas and Jan Myrheim discovered that in one- and two dimensions, more 
     general permutation symmetries are possible. The dubbed this third class of
     fundamental particles "anyons"\cite{leinaas1977theory}.
-        
+
+\section{Density Operators}
+
+    Now we will take some time to consider situations when a system is described not by 
+    a single state vector, but by an ensemble of state vectors
+    $\{\ket{\psi}_1, \ket{\psi}_2, \dots ,\ket{\psi}_n\}$ with a probability distribution 
+    $\{p_1,p_2,\dots p_m \}$ defined over the ensemble. We may consider this ensemble to contain
+    \emph{quantum probabilites} carried by the state vectors $\{\ket{\psi}_k \}$ and classical 
+    propabilities carried by the distribution $\{p_k\}$. A stysten described by an ensemble 
+    state is said to be in a \emph{mixed} state.
+
+    The expectation value of a quantum observable in a state described by an ensemble of state
+    vectors is 
+    \begin{equation}
+        \ev{\hat{O}} = \sum_{k=1}^n p_k \ev{\hat{O}}_k = \sum_{k=1}^n p_k \mel{\psi_k}{\hat{O}}{\psi_k}.
+    \end{equation}
+    This expression motivates the introduction of the \emph{density operator} associated with 
+    the mixed state,
+    \begin{equation}
+        \hat{\rho} = \sum_{k=1}^n p_k \dyad{\psi_k}.
+    \end{equation}
+    The corresponding matrix, defined by reference to an orthogonal basis $\{\ket{\phi_i}\}$,
+    is called the \emph{density matrix},
+    \begin{equation}
+        \rho_{ij} = \sum_{i=1}^n p_k \bra{\phi_i}\dyad{\psi_k}\ket{\phi_j}.
+    \end{equation}
+    An important note is that all measurable information about the system is contained in its 
+    density operator. We can for instance compute expectation values using the density operator,
+    \begin{equation}
+        \begin{aligned}
+        \ev{\hat{O}}
+            =& \sum_{k=1}^n p_k \sum_i \mel{\psi_k}{\hat{O}}{\phi_i} \braket{\phi_i}{\psi_k} \\
+            =& \sum_i \sum_{k=1}^n p_k \braket{\phi_i}{\psi_k} \mel{\psi_k}{\hat{O}}{\phi_i}
+            = \tr{\hat{\rho}\hat{O}}.
+        \end{aligned}
+    \end{equation}
+    
+    There are certain general properties that any density operator has to satisfy,
+    \begin{equation}
+        \begin{aligned}
+        p_k = p_k^*\ \to\ \hat{\rho}=\hat{\rho}^\dagger &\quad
+            \text{Hermiticity} \\
+        p_k \geq 0\ \to\ \mel{\chi}{\hat{\rho}}{\chi} \forall \chi &\quad 
+            \text{Positive semi-definite} \\
+        \sum_k p_k = 1\ \to \ \tr{\hat{\rho}} = 1 &\quad 
+            \text{Normalisation}.
+        \end{aligned}
+    \end{equation}     
+
+    We also note that
+    \begin{equation}
+        \tr \hat{\rho}^2 = \sum p_k^2 \ \to \ \tr \hat{\rho}^2 \leq 1,
+    \end{equation}
+    because all eigenvalues are $p_k \leq 1$, which means that $\tr \hat{\rho}^2 \leq \tr \hat{\rho}$.
+    The pure state is a special case where one of the probabilities $p_k$ is equal to one, and the others 
+    are $0$. In this case, the density operator will ve equivalent to a projection opertor onto this singe 
+    state. Morover, $\tr\hat{\rho}^2 = 1$ for a pure state, while for a mixed state we have 
+    $\tr\hat{\rho}^2 <1$.
