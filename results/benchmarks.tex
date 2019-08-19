@@ -1,5 +1,17 @@
 \chapter{Benchmarks}
 
+Here we present a series of reproduced results from the scientific literature as 
+a validation of our computational implementation. We manage to reproduce the 
+instantaneous dipole results from the simulation of the 
+hydrogen molecule in \citeauthor{li2005time}\cite{li2005time},
+the time-dependent ground state probability of a quantum dot in 
+\citeauthor{Zanghellini04}\cite{Zanghellini04}
+and the spectrum of Helium from ?????INSERT REFERENCE.
+The simulation of the ionisation of beryllium 
+from ????INSERT REFERENCE????, serves as an illustration of the advantage of
+adaptive orbitals versus static orbitals in a time-dependent coupled cluster method.
+
+
 \section{Instantaneous dipole in $H_2$}
 
 \citeauthor{li2005time}\cite{li2005time} employ a time-dependent Hartree-Fock 
@@ -99,7 +111,8 @@ Hartree-Fock scheme convergences as the number of configurations is
 $\eta \geq15$, up to the resulotion of their figures.
 We are able to reproduce this result precisesly by employing the 
 time-dependent coupled cluster method with singles and double excitations (TDCCSD).
-We have used $l=20$ spin-orbitals
+We have used our own one-dimensional quantum dot class, \lstinline{ODQD}, with 
+a harmonic potential and $l=20$ spin-orbitals
 in the basis set for this simulation.
 
 \begin{figure}
