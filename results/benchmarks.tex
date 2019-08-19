@@ -9,8 +9,12 @@ the time-dependent ground state probability of a quantum dot from
 and the spectrum of Helium from
 \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}.
 The simulation of the ionisation of beryllium 
-from ????INSERT REFERENCE????, serves as an illustration of the advantage of
+from \citeauthor{miyagi2013time}\cite{miyagi2013time},
+serves as an illustration of the advantage of
 adaptive orbitals versus static orbitals in a time-dependent coupled cluster method.
+For all time-dependent studies in this chapter we have employed the symplectic 
+\lstinline{GaussIntegrator} integrator class, as it has shown to be most stable in 
+preliminary studies.
 
 
 \section{Instantaneous dipole in $H_2$}
@@ -211,7 +215,132 @@ depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figur
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
     \caption{Dipole spectrum of He at field strength $10\text{ au}$ using 
-        OATCCCD and a \lstinline{cc-pVDZ} basis set.      
+        OATDCCD and a \lstinline{cc-pVDZ} basis set.      
     }
     \label{fig:helium_spectrum}
 \end{figure}
+
+
+\section{Ionisation of 1D Beryllium}
+
+\citeauthor{miyagi2013time}\cite{miyagi2013time} implement the time-dependent 
+restricted-active-space self-consistent field singles (TD-RASSCF-S) method 
+and compare it with time-dependent configuration interaction singles (TDCIS) and 
+the multi-configurational time-dependent Hartree-Fock (MCTDHF) method. A simulation they 
+perform in this study is the simulation of the ionisation of beryllium. This 
+simulation is performed by applying an oscillating field defined by the following 
+vector potential,
+\begin{equation}
+    \vb{A}(t) = \frac{\vb{E}_\text{max}}{\omega}\sin\left(\frac{\pi t}{T} \right),
+\end{equation}
+giving the following field
+\begin{equation}
+    \vb{e}(t) = - \vb{E}_\text{max}\sin\left(\frac{\pi t}{T} \right)
+    \left[
+        \frac{2\pi}{T\omega} \cos\left(\frac{\pi t}{T} \right) \sin\left(\omega t \right)
+        + \sin\left(\frac{\pi t}{T} \right) \cos(\omega t)
+    \right].
+\end{equation}
+We reproduce the one-dimensional beryllium model with our \lstinline{AtomicPotential}
+class, which can be passed as a potential to the \lstinline{ODQD}
+(one-dimensional quantum dot) class when setting up the system,
+\begin{python}
+potential = AtomicPotential(Z, c)
+odbe = ODQD(n, l, grid_length, num_grid_points, a, alpha)
+odbe.setup_system(potential=potential)
+\end{python}
+where \lstinline{Z} are the number of protons, \lstinline{n} is the number of electrons,
+\lstinline{l} is the number of spinorbitals, \lstinline{c} is the position of the nucleus,
+\lstinline{a} is the Coulomb screening parameter and \lstinline{alpha} is the strength of the 
+Coulomb interaction. We pick a wide grid of $300 \text{ au}$, with $5001$ points.
+
+The idea behind the simulation is to comptute the particle density over time, and see if 
+there is more than significantly high probability to see an electron very far away from the 
+nucleus. The total time of the simulation is $T=331 \text{ au}$, and the particle density 
+$\rho(x, t)$ is computated at the very beginning of the simulation, halfway through 
+and at the end of the simulation. We do this both with our time-dependent coupled 
+cluster singles doubles (TDCCSD) method with static orbitials and 
+the orbital-adaptive time-dependent 
+coupled cluster doubles method (OATDCCD). 
+The results of the simulations are shown in 
+\autoref{fig:miyagi_fig4}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{results/figures/miyagi/fig4_miqyagi.png} 
+    \caption{Snapshots of the electron density $\rho(x, t)$ in the 1D beryllium atom 
+        at $t=0$, $t=T/2$ and $T$, computed with TDCCSD and OATDCCD. 
+    }
+    \label{fig:miyagi_fig4}
+\end{figure}
+
+In the top subfigure in \autoref{fig:miyagi_fig4} we see the electron density before 
+the system is developed in time, and the two methods are in good agreement. In 
+the middle subfigure the simulation is halfway through its course and the two methods
+both appear to show the same effects, but with 
+slight discrepancies. In the bottom subfigure, we see that the OATDCCD method is doing
+fine, but the TDCCSD is absolutely non-sensible. We can conclude that the propagating 
+obitals in time enables us to get the same qualitative result as \citeauthor{miyagi2013time}
+in figure 4 from their study. Keeping the orbitals static as in the TDCCSD method makes 
+us unable to model the same behaviour. We will delve a bit deeper to try to shed 
+some light on why the TDCCSD method fails.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{results/figures/miyagi/amplitude_norm_tdccsd.png} 
+    \caption{Norm of the amplitudes over time in the 1D beryllium atom, computed 
+        with TDCCSD. We see unreasonably high amplitude norms.
+    }
+    \label{fig:miyagi_tddccsd_amplitude}
+\end{figure}
+
+If we compute the norm of the amplitudes over the course of the simulation for 
+the time-dependent coupled cluster singles doubles (TDCCSD) method, we get the 
+result shown in \autoref{fig:miyagi_tddccsd_amplitude}. In essence, the amplitudes 
+in any coupled cluster computation provides a linear combination of orbitals 
+from the reference state $\ket{\Phi_0}$ which should provide the best representation of the 
+exact state $\ket{\Psi}$. For this reason one would not expect the norm of the 
+amplitudes to be greater than $1$. In \autoref{fig:miyagi_tddccsd_amplitude} we see
+that the amplitudes stay within a reasonable magnitude for up to about halfway through 
+the simulation, after which the which we see the method struggling greatly to 
+represent the current state with the basis it has been given. In figure 
+\autoref{fig:miyagi_tdccsd_overlap}, a plot of the 
+overlap of the current, time-dependent state with the initial ground state
+helps to underline this point. The inset figure in \autoref{fig:miyagi_tdccsd_overlap}
+shows the area of the figure with the highest value for the overlap, at a larger scale.
+We see that the ground state probability reaches values of more than $300$, which is 
+most definitely unreasonable.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/miyagi/overlap_tdccsd.png}
+    \caption{Probability of being in the ground state over time 
+        $|\braket{\Psi(0)}{\Psi(t)}|$ in the 1D beryllium atom, computed with TDCCSD. 
+        We see impossibly unreasonable probabilities.
+    }
+    \label{fig:miyagi_tdccsd_overlap}
+\end{figure}
+
+It is difficult to draw a clear conclusion as to when the time-dependent coupled cluster 
+method with static orbitals breaks down and is unfeasible for use. However, we can 
+draw some broader, qualitative strokes towards a diagnosis of the problem. Any coupled 
+cluster method is supposed to provide the best representation of a system's exact 
+wavefunction by picking fitting parts of the basis set contained in the reference 
+state for that system. If the exact wavefunction exists in a very different basis 
+space than the reference state, it stands to reason that it is very difficult, if 
+not impossible to find a mapping between the two. This problem stems from the foundations 
+of the approximative nature of the coupled cluster method as it has a truncated basis set. 
+
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} draw a similar 
+conlusion, highlighting there appears to be system-dependent upper limit for 
+the strenght of the external field. They underline the improvement in the computations 
+by using a symplectic integrator instead of a standard fourth-order Runge-Kutta method.
+We use the exact same integrator as the one \citeauthor{pedersen2019symplectic} outline.
+
+Lastly with regards to the ionisation study from \citeauthor{miyagi2013time}\cite{miyagi2013time},
+we would like to emphasise how well the orbital-adaptive time-dependent coupled cluster 
+doubles (OATDCCD) method performs. OATDCCD manages to replicate the desired results 
+to a significant degree, giving relatively high values for the entire grid 
+of the particle density represented in \autoref{fig:miyagi_tdccsd_overlap}. This is 
+normally interpreted as a free praticle because one would expect the wavefunction of 
+a free particle to spread out in space as time progresses.
