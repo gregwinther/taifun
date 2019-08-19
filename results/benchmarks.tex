@@ -4,9 +4,10 @@ Here we present a series of reproduced results from the scientific literature as
 a validation of our computational implementation. We manage to reproduce the 
 instantaneous dipole results from the simulation of the 
 hydrogen molecule in \citeauthor{li2005time}\cite{li2005time},
-the time-dependent ground state probability of a quantum dot in 
+the time-dependent ground state probability of a quantum dot from 
 \citeauthor{Zanghellini04}\cite{Zanghellini04}
-and the spectrum of Helium from ?????INSERT REFERENCE.
+and the spectrum of Helium from
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}.
 The simulation of the ionisation of beryllium 
 from ????INSERT REFERENCE????, serves as an illustration of the advantage of
 adaptive orbitals versus static orbitals in a time-dependent coupled cluster method.
@@ -43,7 +44,7 @@ but basis set configurations looks like incantantions from a spellbook to a phys
 In their simulations \citeauthor{li2005time} have used a linearly polarised and 
 spatially homogenous external field, 
 \begin{equation}
-    \vb{e}(\vb{r}, t) = \vb{E}(t)\sin(\omega t).
+    \vb{e}(t) = \vb{E}(t)\sin(\omega t).
 \end{equation}
 The field envelope $|\vb{E}|$ is linearly increased with time to a maximum value 
 $|\vb{E}_\text{max}|$ at the end of the first cycle and remains at $|\vb{E}_\text{max}|$
@@ -102,7 +103,7 @@ maximum intensity of $\vb{E} = 1$ and a laser frequency of $\omega = 8 \Omega = 
 The oscillating field is described much more simply than in
 \citeauthor{li2005time}\cite{li2005time}, using a simple sine function,
 \begin{equation}
-    \vb{e}(\vb{r}, t) = \vb{E}\sin(\omega t),
+    \vb{e}(t) = \vb{E}\sin(\omega t),
 \end{equation}
 where the envelope $\vb{E}$ does not vary in time.
 
@@ -155,3 +156,62 @@ We see that our coupled cluster scheme corresponds to the multi-configurational 
 scheme employed by \citeauthor{Zanghellini04} when $\eta\to\infty$, as
 \autoref{fig:zanghellini_fig2} match figure 2 in
 \citeauthor{Zanghellini04}\cite{Zanghellini04} precicely.
+
+
+\section{Dipole Spectrum of Helium}
+
+In their comparison study of symplectic and regular Runge-Kutta type integrators, 
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} produce a dipole 
+spectrum of helium. 
+
+The basis set employed by \citeauthor{pedersen2019symplectic} is a cc-pVDZ 
+basis set which we extract from \lstinline{Psi4},
+\begin{python}
+He = "
+    He 0.0 0.0 0.0
+    symmetry c1
+"
+options = {"basis": "cc-pvdz", "scf_type": "pk", "e_convergence": 1e-8}
+system = construct_psi4_system(He, options)
+\end{python}
+The \lstinline{cc-pVDZ} basis set is a correlation consistent, polarised, valence-only 
+basis set with double zeta-functions. For hydrogen this basis set amounts to five 
+orbitals in total.
+
+In their study \citeauthor{pedersen2019symplectic} use an oscillating field with 
+frequency $\omega=2.8735643 \text{ au}$ and maximum intensity
+$\vb{E}_\text{max} = 10 \text{ au}$. This frequency corresponds to the lowest-lying 
+electric-dipole allowed transition from the ground state of helium. The oscillating 
+field can be described as 
+\begin{equation}
+    \vb{e}(t) = \vb{E}(t) \cos(\omega t),
+\end{equation}
+with a sinusoidal envelope
+\begin{equation}
+    \vb{E}(t) = \vb{E}_\text{max}\sin^2\left(\frac{\pi t}{t_d}\right) H(t_d - t),
+\end{equation}
+where $H$ is the Heaviside step function designed to return zero when the field 
+has reached its designated halting time $t_d$. This envelope is similar in behaviour 
+to the one in the study by \citeauthor{li2005time}\cite{li2005time} - it 
+increaes gradually at first, and then gradually decreases. 
+
+The oscillation field is only meant to ``disturb'' the ground state of the atom,
+as it is quickly 
+switched off at $t_d=5$. Then the system is allowed to propagate in time for 
+a long period. In our reproduction of the system, we have let the system 
+evolve for a total time $T=1500 \text{ au}$. For each time step we compute the 
+dipole in the same direction as the polarisation of the oscillating field. The 
+fourier transform of this signal will then yield the dipole spectrum of the 
+atom. The time-development is performed with the orbital-adaptive time-dependent 
+coupled cluster method with double excitations. The result from this simulation is 
+depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figure 
+7 in \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
+    \caption{Dipole spectrum of He at field strength $10\text{ au}$ using 
+        OATCCCD and a \lstinline{cc-pVDZ} basis set.      
+    }
+    \label{fig:helium_spectrum}
+\end{figure}
