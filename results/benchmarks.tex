@@ -76,28 +76,31 @@ the results of the three methods.
 \end{figure}
 
 
-\section{Zanghellini}
+\section{Ground State Probability in 1D Quantum Dot}
 
-Zanghellini et al.\cite{Zanghellini04} calculate the time development of a 
+\citeauthor{Zanghellini04}\cite{Zanghellini04} calculate the time development of a 
 one-dimensional quantum dot with two electrons using the multi-configurational 
 time-dependent Hartree-Fock method (MCTDHF). This method yields excact results for 
 a very large number of configurations, $\eta \to \infty$. This study would provide a 
 proper benchmark for our implementation because the coupled cluster method with singles and 
 doubles excitations (CCSD) is excact for $n=2$ particles. 
 The harmonic oscillator potential applied in
-their study had a frequency of $\omega=0.25$, used a strong laser-like field with 
-maximum intensity of $E = 1$ and a laser frequency of $\Omega = 8 \omega = 2$.
-Their MCTDHF scheme convergences with $\eta=15$
-configurations up to the resulotion of their figures.
-We are able to reproduce their results precisesly by employing the 
-time-dependent coupled cluster method with singles and double excitations (TDCCSD) with 
-static orbitals, using $l=20$ spin-orbitals in the basis set.
+their study had a frequency of $\Omega=0.25$, used a strong laser-like field with 
+maximum intensity of $\vb{E} = 1$ and a laser frequency of $\omega = 8 \Omega = 2$.
+The oscillating field is described much more simply than in
+\citeauthor{li2005time}\cite{li2005time}, using a simple sine function,
+\begin{equation}
+    \vb{e}(\vb{r}, t) = \vb{E}\sin(\omega t),
+\end{equation}
+where the envelope $\vb{E}$ does not vary in time.
 
-In \autoref{fig:zanghellini_fig1} we see the ground state electron density for the 
-ground state wavefunction computed with CCSD. Zanghellini et al. computed the electron
-density for an increasing number of configurations $\eta$ using multi-configurational
-Hartree-Fock (MCHF). This figure matches the convergent electron density found by Zanghellini et al. 
-as $\eta \to \infty$, in figure 1 from their article. 
+\citeauthor{Zanghellini04}\cite{Zanghellini04} find that their multi-configurational time-dependent
+Hartree-Fock scheme convergences as the number of configurations is 
+$\eta \geq15$, up to the resulotion of their figures.
+We are able to reproduce this result precisesly by employing the 
+time-dependent coupled cluster method with singles and double excitations (TDCCSD).
+We have used $l=20$ spin-orbitals
+in the basis set for this simulation.
 
 \begin{figure}
     \centering
@@ -107,15 +110,10 @@ as $\eta \to \infty$, in figure 1 from their article.
         Electron density for the ground state wavefunction of a quantum dot with 
         $n=2$ eletrons and $l=20$ spin-orbitals in the basis set computed with
         CCSD. This plot 
-        corresponds precisely with figure 1 in Zanghellini et al.\cite{Zanghellini04}.
+        corresponds precisely with figure 1 in
+        \citeauthor{Zanghellini04}\cite{Zanghellini04}.
     }
 \end{figure}
-
-\autoref{fig:zanghellini_fig2} depicts the probability fo the system being in the ground 
-state as a function of time. Here we have included both a time-dependent Hartree-Fock
-computation, corresponding to a MCTDHF computation with $\eta=1$ configurations, and 
-a TDCCSD computation, corresponding to MCTDHF when $\eta\to\infty$. We find that our plots
-matches Zanghellin et ali's plots in their figure 2 precicely. 
 
 \begin{figure}
     \centering
@@ -125,6 +123,22 @@ matches Zanghellin et ali's plots in their figure 2 precicely.
         Probability of being in the ground state $|\braket{\Phi(0)}{\Phi(t)}|$
         using both TDHF and TDCCSD, for a one-dimensional quantum dot with $n=2$
         particles and $l=20$ spin-orbitals. This plot corresponds precisely with 
-        figure 2 in Zanghellini el al.\cite{Zanghellini04}.
+        figure 2 in \citeauthor{Zanghellini04}\cite{Zanghellini04}.
     }           
 \end{figure}
+
+In \autoref{fig:zanghellini_fig1} we see the ground state electron density for the 
+ground state wavefunction computed with CCSD. \citeauthor{Zanghellini04} computed the electron
+density for an increasing number of configurations $\eta$ using multi-configurational
+Hartree-Fock (MCHF). This figure matches the convergent electron density found by
+\citeauthor{Zanghellini04} as $\eta \to \infty$, in figure 1 from their article. 
+
+\autoref{fig:zanghellini_fig2} depicts the probability fo the system being in the ground 
+state as a function of time. Here we have included both a time-dependent Hartree-Fock
+computation, corresponding to a multi-configurational time-dependent 
+Hartree-Focke computation with $\eta=1$ configurations, and 
+a time-depenedent coupled cluster computation with single and double excitations.
+We see that our coupled cluster scheme corresponds to the multi-configurational Hartree-Fock 
+scheme employed by \citeauthor{Zanghellini04} when $\eta\to\infty$, as
+\autoref{fig:zanghellini_fig2} match figure 2 in
+\citeauthor{Zanghellini04}\cite{Zanghellini04} precicely.
