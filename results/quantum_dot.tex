@@ -1,30 +1,76 @@
 \chapter{Quantum Dots}
 
-\section{One Dimension}
+Here we present results related to time-dependent simulations of parabolic quantum
+wells. We have simulated the behaviour of such quantum dots in both one- and two 
+dimensions, producing time dependent energies and ground state probabilities over
+time as the system is under the influence of oscilalting fields. We also present 
+dipole spectra of the one- and two-dimensional quantum dot as well as the 
+two-dimensional double dot and a two-dimensional double dot under the influence of
+a homogenous, static magnetic field. We find that the \emph{harmonic potential theorem}
+holds for all simulations.
 
-We blast the guy with 
+The \emph{harmonic potential theorem}\cite{kohn1961cyclotron}
+states that electrons trapped in a parabolic quantum well shows behaviour as if it 
+was one large quantum oscilaltor, instead of consisting of many smaller parts. This 
+includes exhibiting only one frequency it the dipole spectrum of the system. If one 
+were to compute the Fourier transform of the dipole of an $n$-electron quantum dot with 
+parabolic potential the result would be one line in the spectrum corresponding to the
+oscillator frequency of the spectrum. This means that there are no many-body effects 
+in a harmonic quantum dot.
+
+An extension of the theorem to systems under the influence 
+of a magntic field\cite{brey1989optical}. State that one would expect to see a shift,
+both up and down, creating two frequencies $\Omega_+$ and $\Omega_-$ in the dipole 
+spectrum. The resulting dipole spectrum would show two frequencies with a difference 
+equalling the Larmor frequency $\omega_c = \Omega_+ - \Omega_-$.
+
+\section{Harmonic Oscillators in One Dimension}
+
+For the one-dimensional quantum dot with a harmonic potential we simulate a laser by 
+adding an oscillating 
+field with a sinusoidal envelope, similar to the one in
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic},
 \begin{equation}
-    E(t) = E_0\sin^2\left(\frac{t\pi}{T}\right)\cos(\omega t),
+    \vb{e}(t) = \vb{E}_\text{max}\sin^2\left(\frac{t\pi}{T}\right)\cos(\omega t).
 \end{equation}
-which defines a laser pulse, consisting of several parts. 
+We set the period of the envelope equal to the duration of the entire simulation,
+$T=20$, so that we have a field that at first will gradually increase, then decrease.
+The oscillator frequency for all simulations are set to $\Omega=1$, and at first we 
+set the frequency of the oscillating field to twice this, $\omega = 2$. We do this 
+to make sure that we are far from the resonant frequency of the system, and we pick 
+relatively high laser frequency in order to enforce a more dynamic system. We use the 
+more standard time-dependent coupled cluster singles doubles (TDCCSD) method, for 
+these simulations, with the symplectic Gaussian integrator and a time step of $dt=0.01$.
+The simulations are performed for an increasing number of electrons
+$n = \{2,4,6,8,10,12\}$. We have computed the energy and the time-dependent overlap,
+i.e. the time-dependent probability of being in the ground state, for each simulation.
+We repeat the simulations for a wide range of different number of spin-orbitals 
+to the convergent properties of the simulations as the number of spin-orbitals increase.
 
-For the following plots, laser frequency is set to $\omega_L$ = 2, while the 
-oscillator frequencies of the parabolic potentials are $\omega = 1$. $T=20$ with 
-a time step of $dt=0.01$.
-
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{results/figures/1D/n=2energy.png} 
-    \caption{Energy of a one-dimensional quantum dot with $n=2$ electrons
+    \includegraphics[width=0.75\textwidth]{results/figures/1D/n=2energy.png} 
+    \caption{Time-dependent energy of a one-dimensional harmonic oscialltor 
+        with $n=2$ electrons
         under the influence of a laser field for different number of spinorbitals
         $l\in\{6,8,10,12,20\}$.
     }
     \label{fig:1d_n2_E}
 \end{figure}
 
-\begin{figure}
+First we study the time-dependent energy of a quantum dot acted upon by an oscillating 
+field. The result for $n=2$ electrons is shown in \autoref{fig:1d_n2_E}. We have 
+produced comparative results for other number of particles $n=\{4,6,8,10,12\}$,
+which can be found in \autoref{app:1d_qd}. We see an apparent convergence in the 
+time-dependent energy as we increase the number of spin-orbitals in the basis set.
+For larger systems with more electrons it reasonably becomes necessary to also increase
+the size of the basis set. As is the tendency with ground state coupled cluster computations
+for quantum dots\cite{jorgensen2011many,lohne2010coupled}, the time dependent energy 
+of a quantum dot is decreasing until convergence for increasing basis set size.
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{results/figures/1D/n=2overlap.png} 
+    \includegraphics[width=0.75\textwidth]{results/figures/1D/n=2overlap.png} 
     \caption{Probability of being in the ground state $|\braket*{\Psi(0)}{\Psi(t)}|^2$
         for a one-dimensional quantum dot with $n=2$ electrons under 
         the influence of a laser field for different number of spinorbitals 
@@ -33,9 +79,9 @@ a time step of $dt=0.01$.
     \label{fig:1d_n2_overlap}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{results/figures/1D/n_compare_overlap.png} 
+    \includegraphics[width=0.75\textwidth]{results/figures/1D/n_compare_overlap.png} 
     \caption{Probability of being in the ground state for $|\braket*{\Psi(0)}{\Psi(t)}|^2$
         for a one-dimensional quantum dot for different number of electrons 
         $n\in\{2,4,6,8,10,12\}$.
