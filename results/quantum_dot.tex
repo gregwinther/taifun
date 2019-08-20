@@ -31,6 +31,7 @@ adding an oscillating
 field with a sinusoidal envelope, similar to the one in
 \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic},
 \begin{equation}
+    \label{eq:results_1d_field}
     \vb{e}(t) = \vb{E}_\text{max}\sin^2\left(\frac{t\pi}{T}\right)\cos(\omega t).
 \end{equation}
 We set the period of the envelope equal to the duration of the entire simulation,
@@ -68,7 +69,12 @@ the size of the basis set. As is the tendency with ground state coupled cluster 
 for quantum dots\cite{jorgensen2011many,lohne2010coupled}, the time dependent energy 
 of a quantum dot is decreasing until convergence for increasing basis set size.
 
-\begin{figure}[ht]
+We see the same general convergent tendency when computing the time-dependent ground 
+state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$, shown in \autoref{fig:1d_n2_overlap} for $n=2$ electrons. We see that 
+for lower number of spin-orbitals, the computation of overlap with 
+the ground state tends to return a lower value than for a higher number of spin-orbitals.
+
+\begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/1D/n=2overlap.png} 
     \caption{Probability of being in the ground state $|\braket*{\Psi(0)}{\Psi(t)}|^2$
@@ -79,15 +85,40 @@ of a quantum dot is decreasing until convergence for increasing basis set size.
     \label{fig:1d_n2_overlap}
 \end{figure}
 
-\begin{figure}[ht]
+Since the ground state probability is a number between zero and one, the results for systems 
+of different number of electrons are comparable. We have produced such a comparison in 
+\autoref{fig:1d_ground_state_prob_compare}. In this figure we have chosen the number of
+spin-orbitals that would produce a convergent plot for the given system size. The general 
+tendency is that a system with more electrons is less likely to be in the ground state 
+over time, than a system with less electrons.
+
+\begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/1D/n_compare_overlap.png} 
     \caption{Probability of being in the ground state for $|\braket*{\Psi(0)}{\Psi(t)}|^2$
         for a one-dimensional quantum dot for different number of electrons 
         $n\in\{2,4,6,8,10,12\}$.
     }
-    \label{}
+    \label{fig:1d_ground_state_prob_compare}
 \end{figure}
+
+\subsection{Dipole spectrum}
+
+We now turn to a somewhat different kind of simulation. We keep the 
+base system the same, a one-dimensional quantum dot with harmonic potential and oscillator 
+frequency $\Omega=1$. We also apply an external oscillating field like in
+\autoref{eq:results_1d_field}, which will this time be resonant with the frequency of the 
+oscillator $\omega=\Omega=1$, to ensure population of excited states. In this simuation 
+we set the field to zero at $T_d = 5 \text{ au}$, by the use of a Heaviside function in a 
+similar manner as \citeauthor{pedersen2019symplectic}\citeauthor{pedersen2019symplectic}
+in \autoref{eq:pedersen_2019_envelope}. After the field has been switched off we propagate 
+the system in time for a total of $T = 500 \text{ au}$ with a time step size of $dt=0.01$.
+The same procedure is repeated for systems with $n=\{2,4,6,8,10,12\}$ electrons with 
+respective number of spin-orbitals $l=\{20,20,20,30,30,40\}$. These system and basis 
+sizes correspond to the ones used in \autoref{fig:1d_ground_state_prob_compare}.
+For each time step we collect the dipole, i.e. $\ev{\hat{x}} = \tr{\rho x}$, and compute the 
+Fourier transform of the entire collected array. The results are presented in 
+\autoref{fig:1d_dipole_spectra}.
 
 \begin{figure}
     \centering
@@ -96,11 +127,16 @@ of a quantum dot is decreasing until convergence for increasing basis set size.
     }
     \caption{Fourier transform of expected value of dipole moment for 
         a one-dimensional quantum dot with different number of electrons
-        $n\in\{2,4,6,8,10\}$.
+        $n=\{2,4,6,8,10\}$ with respective number of spin-orbitals 
+        $l=\{20,20,20,30,30,40\}$.
     }
-    \label{}
+    \label{fig:1d_dipole_spectra}
 \end{figure}
 
+We see that the result is in accordance with the harmonic potential theorem, as the 
+simulations have produced dipole spectra that show only one line corresponding to the 
+frequency of the confining potential. Morover, we see that the relative intensity of 
+the spectra increases with the number of particles.
 
 \section{Magnetic Field}
 
