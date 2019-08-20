@@ -26,9 +26,9 @@
 
     In Hamilton's formulation of classical mechanics, a complete description of a system
     of N particles is described by a set of canonical coordinates 
-    $q = (\vec{q}_1, \dots, \vec{p}_N)$ and corresponding conjugate momenta
+    $q = (\vec{q}_1, \dots, \vec{q}_N)$ and corresponding conjugate momenta
     $p = (\vec{p}_1, \dots \vec{p}_N)$. Together, each pair of coordinate and momentum
-    form a point $\xi = (q, p)$ in phase space, which is a space of all possible states
+    form a point $\xi = (q, p)$ in phase space, which is the space of all possible states
     of the system. Moreover, pairs of generalised coordinates and conjugate
     momenta are canonical if they satisfy the Poisson brackets so that 
     $\{q_i, p_k\} = \delta_{ij}$. The Poisson bracket of two functions is defined as 
@@ -53,9 +53,9 @@
         \frac{dp_i}{dt} = \{p_i, \mathscr{H}\}, \ \frac{dq_i}{dt} = \{q_i, \mathscr{H}\}.
     \end{equation}
 
-    A system consisting of $N$ of equal mass $m$, subject forces caused by an external
+    A system consisting of $N$ of equal mass $m$, subject to forces caused by an external
     potential, as well as acting on each other with forces stemming from a central
-    potetntial $w(q_ij)$ has the following Hamiltonian,
+    potential $w(q_{ij})$ has the following Hamiltonian,
 
     \begin{equation}
         \mathscr{H}(q, p) = \mathscr{T}(q) + \mathscr{V}(p) + \mathscr{W}(p) 
@@ -70,7 +70,7 @@
 \section{Canonical Quantisation}
 
     In order to transition from a classical system to a quantum system, we move from 
-    the classucal phase space to the Hilbert space, through the procedure known as 
+    the classical phase space to the Hilbert space, through the procedure known as 
     canonical, or first\footnote{Second quantisation comes later.}-, quantisation.
     Whilst the state of a classical system is a point in phase space, a quantum state
     is a complex-valued state vector in discrete, infinite-dimensional, Hilbert space,
@@ -126,7 +126,7 @@
     \end{equation}
     instead of the Poisson bracket (\autoref{eq:poisson_bracket}). Here $\hbar$ is the 
     reduced Planck's constant. For any general variables $A$ and $B$, this 
-    transition can be expressed by subsition between Poission brackets for the 
+    transition can be expressed by substitution between Poisson brackets for the 
     classical variables and commutators for the quantum observables,
     \begin{equation}
         \{A, B\} \to \frac{1}{i\hbar}[\hat{A},\hat{B}].
@@ -135,7 +135,7 @@
     This correspondence between the classical and quantum dynamical equations is 
     directly related to \emph{Ehrenfest's therom}, which states that the classical 
     dynamical equations keep their validity also in the quantum theory, with the 
-    classical variables repaced by their corresponding quantum expectation
+    classical variables replaced by their corresponding quantum expectation
     values\cite{ehrenfest1927bemerkung}.
 
 \subsection{The Dirac-von Neumann Postulates}
@@ -160,8 +160,8 @@
     where $\psi^*$ is the complex conjugate of $\psi$. Here we have introduced 
     Dirac notation, which is very common when describing quantum states. For each 
     quantum state $\ket{\psi_\alpha}$ there exists a dual state $\bra{\psi_\alpha}$.
-    We refers to these two vectors as \emph{bra} and \emph{ket} vectors, respectably.
-    Some properties of a Dirac-style inner product read
+    We refer to these two vectors as \emph{bra} and \emph{ket} vectors, respectively.
+    Some properties of an inner product, written in Dirac's style, read
     \begin{align}
         \braket{\psi_\alpha}{\psi_\beta} =& \braket{\psi_\beta}{\psi_\alpha}^* \\
         \bra{\psi_\alpha}\left(z_1\ket{\psi_\beta} + z_2 \ket{\psi_\beta}\right)
@@ -193,10 +193,10 @@
     \subsubsection{Observables}
     Each physical observable of a system is accociated with a \emph{hermitian}
     operator acting on the Hilbert space. The eigenstates of each such
-    an operator define a \emph{complete}, \emph{orthonormal} basis set of vectors
+    operator define a \emph{complete}, \emph{orthonormal} basis set of vectors
     $\mathcal{B}$ for the $d$-dimensional Hilbert space,
     \begin{equation}
-        \mathcal{B} = \{\ket{i}\}_{i=1}^d
+        \mathcal{B} = \{\ket{i}\}_{i=1}^d.
     \end{equation}
     Completeness of the basis set $\mathcal{B}$ means,
     \begin{equation}
@@ -240,7 +240,7 @@
     \subsubsection{Time Evolution}
     In the \emph{Schrödinger picture}
     time evolution of the state vector, $\ket{\psi} = \ket{\psi (t)}$, is given by the Schrödinger
-    equation\footnote{In the Schrödinger picture.}.
+    equation\footnote{In the Schrödinger picture.},
     \begin{equation}
         i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
     \end{equation}
@@ -256,7 +256,7 @@
         \ket{\psi(t)} =  \hat{\mathcal{U}}(t, t_0) \ket{t_0}.
     \end{equation}
     The time evolution operator $\hat{\mathcal{U}}$ is determined by the Hamiltonian 
-    through the equaton 
+    through the equation 
     \begin{equation}
         i\hbar \frac{\partial}{\partial t} \hat{\mathcal{U}}(t, t_0)
             = \hat{H}\hat{\mathcal{U}}(t, t_0),
@@ -272,7 +272,7 @@
         = \hat{\mathcal{U}}^\dagger \hat{\mathcal{U}} = 1.
     \end{equation}
     If however $\hat{H}$ is time-dependent, so that the operator at different times do 
-    not commute, we may use a mroe general integral expression for the time-propagator,
+    not commute, we may use a more general integral expression for the time-propagator,
     \begin{equation}
         \hat{\mathcal{U}}(t, t_0)
          = \sum_{n=0}^\infty (-\frac{i}{\hbar})^n
@@ -297,10 +297,10 @@
     the time-dependence
     \begin{equation}
         \ket{\psi}_\text{H} 
-        = \hat{\mathcal{U}}^\dagger(t, t_0) \ket{\psi(t)}_\text{S}. 
-        = \ket{\psi(t_0)}_\text{S}
+        = \hat{\mathcal{U}}^\dagger(t, t_0) \ket{\psi(t)}_\text{S}
+        = \ket{\psi(t_0)}_\text{S}.
     \end{equation}
-    The time-dependece is now carried by the observables, rather than the state 
+    The time-dependence is now carried by the observables, rather than the state 
     vectors,
     \begin{equation}
         \hat{O}_\text{H} 
@@ -328,7 +328,7 @@
     Born-Oppenheimer approximation and treat the nuclei as stationary particles, thereby
     refraining from introducing terms that involve the motion of nuclei.
 
-    The full  molecular electronic Breit-Pauli Hamiltionian, throrougly described in 
+    The full  molecular electronic Breit-Pauli Hamiltionian, thoroughly described in 
     Helgaker et al.\cite{helgaker2012recent}, contains the following types of terms
     \begin{equation}
         \label{eq:breit_pauli_hamiltonian}
@@ -344,8 +344,8 @@
             + \hat{H}_{\text{dia}} &\leftarrow \alpha^4 \text{ diamagnetic interactions}
         \end{cases}
     \end{equation}
-    We will not be working with this giant beast, but will go into some of the most  
-    import terms that an electronic Hamiltonian can constitute. 
+    We will not be working with this enormous Hamiltionian, but we will go into some of the
+    most import terms that an electronic Hamiltonian can constitute. 
     
     \paragraph{Kinetic energy}
 
@@ -357,7 +357,7 @@
     \end{equation}
     where $\nabla$ is the differential operator and the sum is over all electrons in 
     the system. This term is an example of a one-particle operator as it remains the 
-    same for all eletrons and has is contains to terms that would constitute interaction 
+    same for all eletrons and contains no terms that would constitute interaction 
     between particles. For a free particle or a gas of non-interacting particles, 
     \autoref{eq:kinetic_energy_term} is sufficient to describe the system. 
 
@@ -368,7 +368,7 @@
     \begin{equation}
         \hat{H} \supset \hat{H}_\text{kin} + \hat{V}
     \end{equation}
-    gives rise to much more intersting systems and are the beginning of an approximation 
+    gives rise to much more interesting systems and are the beginning of an approximation 
     of reality. Perhaps the most common is the harmonic oscillator potential, which 
     in one dimension reads 
     \begin{equation}
@@ -397,10 +397,13 @@
     nuclei. In the Born-Oppenheimer approximaton we ignore the first and third term.
 
     \paragraph{External electric field interactions}
-    
+   
+    This section goes through, in broadest of strokes, a quantisation of an electromagnetic 
+    field. For a thorough derivation see for instance 
+    \citeauthor{joachain2012atoms}\citeauthor{joachain2012atoms}.
     Applying an electromagnetic field we need to include terms in the Hamiltonian that 
-    model the effects of externally applied scalar potential $\phi = \phi(\vb{r}, t)$
-    and vector potential $\vb{A} = \vb{A}(\vb{r}, t)$. This will also affect the 
+    model the effects of an externally applied scalar potential $\phi = \phi(\vb{r}, t)$
+    and a vector potential $\vb{A} = \vb{A}(\vb{r}, t)$. This will also affect the 
     kinetic energy of the particles, which we therefore include at first,
     \begin{equation}
         \hat{H}_\text{ef} 
@@ -408,8 +411,8 @@
             = \frac{\hat{\vb{p}}}{2m} + \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
                 + \frac{e^2}{2m}\vb{A}^2 - e\phi.
     \end{equation}
-    This Hamiltonian now describes a free partice subject to an external 
-    electro field. Since we have already included a term for kinetic energy we 
+    This Hamiltonian now describes a free particle subject to an external 
+    electric field. Since we have already included a term for kinetic energy we 
     now wish to remove it,
     \begin{equation}
         \hat{H}_\text{ef} 
@@ -417,8 +420,8 @@
                 + \frac{e^2}{2m}\vb{A}^2 - e\phi.
     \end{equation}
 
-    We assume that the external field has sufficiently large wavelenght compared to the 
-    system, making the vector potential uniform in space $\vb{A}(\vb{r}, t) = \vb{A}(t)$
+    We assume that the external field has sufficiently large wavelength compared to the 
+    system, making the vector potential uniform in space $\vb{A}(\vb{r}, t) = \vb{A}(t)$.
     This approximation is very reasonable, because visible light has a wavelength of 
     $\lambda \sim 5000 \text{Å}$ and an atom is around $1 \text{Å}$. In the dipole 
     approximation we can write the vector potential as 
@@ -427,8 +430,8 @@
     \end{equation}
     where $\vb{A}_0$ and $\vb{A}_0^*$ are photon creation and annihilation operators. 
     These allow for spontaneous emission and absorption of photons without the presence 
-    of a field, but we will stick to a semi-classical world where such things are 
-    impossible. We therefore rewrite the vector potential to 
+    of a field, but we will disregard such phenomena and stick to a semi-classical 
+    description. We therefore rewrite the vector potential to 
     \begin{equation}
         \vb{A}(t) = \epsilon A_0\sin(\omega_k t),
     \end{equation}
@@ -443,7 +446,7 @@
     where $\mathscr{E}_0 = -\omega_k A_0$ and we can approximate the external electric 
     field time-dependent field by 
     \begin{equation}
-        \hat{H}_\text{ef} = - \hat{d} \cdot \epsilon \mathscr{E}_0 \cos{\omega_k t},
+        \hat{H}_\text{ef} = - \hat{\vb{d}} \cdot \epsilon \mathscr{E}_0 \cos{\omega_k t},
     \end{equation}
     where $\hat{\vb{d}} = q\hat{\vb{r}}$, is the dipole operator, dictating the 
     allowed transitions.
@@ -457,7 +460,7 @@
     We will spend some time here elaborating on such terms.
 
     \subsubsection{Angular momentum}
-    The angular momentum in a classical system the angular momentum of a particle with 
+    In a classical system, the angular momentum of a particle with 
     resepct to the orign is given as
     \begin{equation}
         \vb{L} = \vb{r} \times \vb{p},
@@ -468,7 +471,7 @@
         L_y = y p_x - x p_z,\ 
         L_z = x p_y - y p_x.
     \end{equation}
-    From this we can obtain the quanutm mechanical description by promotion to operators,
+    From this we can obtain the quantum mechanical description by promotion to operators,
     and inserting the representaion for the momentum operator in position space,
     $p_x \to i\hbar \partial / \partial x$.
 
@@ -520,7 +523,7 @@
         \right).
         \end{aligned}
     \end{equation}
-    Now, with an algebraic spinning backflip kick and 
+    Now, with a bit of algebra we get
     \begin{align}
         \hat{L}_x &= i\hbar \left(
             \sin\phi \frac{\partial}{\partial\theta}
@@ -532,14 +535,13 @@
         \right) \\
         \hat{L}_z &= -i\hbar \frac{\partial}{\partial \phi}
     \end{align}
-    falls out of the piñata.
     The squared operator becomes
     \begin{equation}
         \hat{L}^2 = -\hbar^2 \left[
         \frac{1}{\sin\theta}\frac{\partial}{\partial\theta}
             \left(\sin\theta\frac{\partial}{\partial\theta} \right)
         + \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
-        \right]
+        \right].
     \end{equation}
     The eigenvalue equations of $\hat{L}^2$ and $\hat{L}_z$ are
     \begin{equation}
@@ -557,7 +559,7 @@
     \subsubsection{Spin}
 
     In classical mechanics, intrinsic spin ($\vb{S} = I\omega$) is associated with
-    an objects mortion aboth its centre of mass. A similar thing goes on in quantum 
+    an objects motion about its centre of mass. A similar thing goes on in quantum 
     mechanics, but it has nothing to do with motion in space. In quantum mechanics spin 
     is seen as a property that particles can carry, but i analoguous with its classical 
     counterpart only in name.
@@ -576,7 +578,7 @@
     \end{equation}
    
     Because the quantum mechanical spin has nothing to do with motion in space and 
-    is independent of any coordinates $r$, $\theta$ or $\phi$m there is no reason to 
+    is independent of any coordinates $r$, $\theta$ or $\phi$, there is no reason to 
     exclude half-integer values of $s$ and $m_s$,
     \begin{equation}
         s=0,\frac{1}{2},1,\frac{3}{2},\dots, \quad m_s\in[-s, s].
@@ -588,7 +590,7 @@
     \begin{equation}
         s = \frac{1}{2}, \quad m_s = \pm \frac{1}{2}.
     \end{equation}
-    In such a system there are only two eigenstates,
+    In such a system there are only two spin eigenstates,
     \begin{equation}
         \ket{\frac{1}{2},+\frac{1}{2}} = \ket{\uparrow} = \ket{+}, \quad
         \ket{\frac{1}{2},-\frac{1}{2}} = \ket{\downarrow} = \ket{-}.
@@ -702,7 +704,7 @@
     the other hand, a permutation is not regarded as giving rise to a new 
     arrangement. It follows that quantum objects are very different from anything else we
     know from everyday life, and must be considered ``non-individual''. This 
-    idea has its origin from the uncertainty principle, sating that no sharply defined 
+    idea has its origin from the uncertainty principle, stating that no sharply defined 
     particle exist. If we take this idea
     to its extreme one may postulate that all particles of a given type are one and the
     same. Here from Richard Feynman's Nobel lecture:
@@ -720,7 +722,7 @@
         = 
         \abs{\Psi(x_1, x_2, \dots, x_j, x_i, \dots, x_N)}^2,
     \end{equation}
-    Where $\Psi$ represents a wavefunction description of many particles 
+    where $\Psi$ represents a wavefunction description of $N$ particles 
     For any arbitrary permutation, this is equivalent to 
     \begin{equation}
         \Psi(x_1, \dots x_N) 
@@ -739,14 +741,14 @@
     to a state representing an assembly of particles, there is no way of distinguishing
     between the permuted state and the original, by means of an observation at any time.
 
-    One can show that the resulting wavefunction that has undergon a permutation operation 
+    One can show that the resulting wavefunction that has undergone a permutation operation 
     falls into two categories,
     \begin{equation}
         \hat{P}_\sigma\Psi = 
         \begin{cases}
             \Psi &\\
             (-1)^{\abs{\sigma}}\Psi& 
-        \end{cases} \forall \sigma \in S_N
+        \end{cases} \forall \sigma \in S_N,
     \end{equation}
     where $\abs{\sigma}$ is the number of transpositions in $\sigma$ and the sign 
     will be $(-1)^{\abs{\sigma}} = \pm 1$. In the former case, when the sign is $+$,
@@ -776,8 +778,8 @@
         \Psi = \hat{P}_{ij}^2 \Psi = \lambda_{ij}^2\Psi\ \to \  \lambda_{ij}^2 = 1.
     \end{equation}
 
-    This leads us to another postulate in quantum theory that we have only two types of 
-    basic particles, \emph{bosons} have totally symmetric wavefunctions only, while 
+    This leads us to another postulate in quantum theory, that we have only two types of 
+    basic particles. \emph{Bosons} have totally symmetric wavefunctions only, while 
     \emph{fermions} have totally anti-symmetric wavefunctions only. ``The physical 
     consequences of this postulate seems to be in good agreement with experimental data''
     \cite{leinaas1977theory}. Moreover, all particles with integer spin are bosons, 
@@ -800,17 +802,19 @@
 
     To this day, particles with no other spin has been found, but norwegian physicists
     Jon Magne Leinaas and Jan Myrheim discovered that in one- and two dimensions, more 
-    general permutation symmetries are possible. The dubbed this third class of
+    general permutation symmetries are possible. They dubbed this third class of
     fundamental particles "anyons"\cite{leinaas1977theory}.
 
 \section{Density Operators}
 
-    Now we will take some time to consider situations when a system is described not by 
+    Density operators will become very useful, especially later when we use them to compute 
+    expectation values. A formal introduction to this concept is therefor warranted.
+    Consider a system that is described not by 
     a single state vector, but by an ensemble of state vectors
     $\{\ket{\psi}_1, \ket{\psi}_2, \dots ,\ket{\psi}_n\}$ with a probability distribution 
     $\{p_1,p_2,\dots p_m \}$ defined over the ensemble. We may consider this ensemble to contain
     \emph{quantum probabilites} carried by the state vectors $\{\ket{\psi}_k \}$ and classical 
-    propabilities carried by the distribution $\{p_k\}$. A stysten described by an ensemble 
+    propabilities carried by the distribution $\{p_k\}$. A system described by an ensemble 
     state is said to be in a \emph{mixed} state.
 
     The expectation value of a quantum observable in a state described by an ensemble of state
@@ -857,6 +861,6 @@
     \end{equation}
     because all eigenvalues are $p_k \leq 1$, which means that $\tr \hat{\rho}^2 \leq \tr \hat{\rho}$.
     The pure state is a special case where one of the probabilities $p_k$ is equal to one, and the others 
-    are $0$. In this case, the density operator will ve equivalent to a projection opertor onto this singe 
+    are $0$. In this case, the density operator will ve equivalent to a projection opertor onto this single 
     state. Morover, $\tr\hat{\rho}^2 = 1$ for a pure state, while for a mixed state we have 
     $\tr\hat{\rho}^2 <1$.
