@@ -1,4 +1,4 @@
-\chapter{Benchmarks}
+\chapter{Validation}
 
 Here we present a series of reproduced results from the scientific literature as 
 a validation of our computational implementation. We manage to reproduce the 
@@ -43,10 +43,11 @@ to multiples of Bohr radii here. As the naming suggests, the basis set is a spli
 triple-zeta basis set, with one added s-type diffuse function and a set of p-type
 polarisation 
 functions for each Hydrogen atom\footnote{This would be obvious for a quantum chemist,
-but basis set configurations looks like incantantions from a spellbook to a physicist}.
+but basis set configurations looks like incantantions from a spellbook to the 
+uninitiated physicist}.
 
 In their simulations \citeauthor{li2005time} have used a linearly polarised and 
-spatially homogenous external field, 
+spatially homogenous external field aligned along the $z$-axis, 
 \begin{equation}
     \vb{e}(t) = \vb{E}(t)\sin(\omega t).
 \end{equation}
@@ -65,7 +66,7 @@ for one cycle and then decreases linearly to zero by the end of the next cycle,
             t < 0 \text{ and } t > 6\pi / \omega,
     \end{aligned}
 \end{equation}
-where the maximum field intensity if $1.72\times10^14 \text{ W} \text{cm}^{-2}$ 
+where the maximum field intensity if $1.72\times10^{14} \text{ W} \text{cm}^{-2}$ 
 ($E_\text{max} = 0.07 \text{ au}$). \citeauthor{li2005time} also run a simulation 
 for a lower intensity, but we are conecerned only with this relatively more intensive 
 pulse. The entire simulation lasts for $T=225 \text{ au}$.
@@ -78,7 +79,7 @@ which it appear to be. For comparrison we have computed the result with both of
 our time-dependent coupled cluster methods. The result of the time-dependent 
 coupled cluster method with single and double excitations are showed in the top subfigure,
 and the result of the orbital-adaptive coupled cluster method with double excitations 
-are shown in the middel subfigure. We see that there is no perceptible difference between 
+are shown in the middle subfigure. We see that there is no perceptible difference between 
 the results of the three methods.
 
 \begin{figure}
@@ -138,7 +139,7 @@ in the basis set for this simulation.
     \includegraphics[width=0.75\textwidth]{results/figures/zanghellini_fig2.png}
     \caption{
         \label{fig:zanghellini_fig2}
-        Probability of being in the ground state $|\braket{\Phi(0)}{\Phi(t)}|$
+        Probability of being in the ground state $|\braket{\Psi(0)}{\Psi(t)}|$
         using both TDHF and TDCCSD, for a one-dimensional quantum dot with $n=2$
         particles and $l=20$ spin-orbitals. This plot corresponds precisely with 
         figure 2 in \citeauthor{Zanghellini04}\cite{Zanghellini04}.
@@ -148,10 +149,10 @@ in the basis set for this simulation.
 In \autoref{fig:zanghellini_fig1} we see the ground state electron density for the 
 ground state wavefunction computed with CCSD. \citeauthor{Zanghellini04} computed the electron
 density for an increasing number of configurations $\eta$ using multi-configurational
-Hartree-Fock (MCHF). This figure matches the convergent electron density found by
+time-dependent Hartree-Fock (MCTDHF). This figure matches the convergent electron density found by
 \citeauthor{Zanghellini04} as $\eta \to \infty$, in figure 1 from their article. 
 
-\autoref{fig:zanghellini_fig2} depicts the probability fo the system being in the ground 
+\autoref{fig:zanghellini_fig2} depicts the probability for the system being in the ground 
 state as a function of time. Here we have included both a time-dependent Hartree-Fock
 computation, corresponding to a multi-configurational time-dependent 
 Hartree-Focke computation with $\eta=1$ configurations, and 
@@ -159,7 +160,7 @@ a time-depenedent coupled cluster computation with single and double excitations
 We see that our coupled cluster scheme corresponds to the multi-configurational Hartree-Fock 
 scheme employed by \citeauthor{Zanghellini04} when $\eta\to\infty$, as
 \autoref{fig:zanghellini_fig2} match figure 2 in
-\citeauthor{Zanghellini04}\cite{Zanghellini04} precicely.
+\citeauthor{Zanghellini04}\cite{Zanghellini04} precisely.
 
 
 \section{Dipole Spectrum of Helium}
@@ -200,7 +201,7 @@ has reached its designated halting time $t_d$. This envelope is similar in behav
 to the one in the study by \citeauthor{li2005time}\cite{li2005time} - it 
 increaes gradually at first, and then gradually decreases. 
 
-The oscillation field is only meant to ``disturb'' the ground state of the atom,
+The oscillating field is only meant to ``disturb'' the ground state of the atom,
 as it is quickly 
 switched off at $t_d=5$. Then the system is allowed to propagate in time for 
 a long period. In our reproduction of the system, we have let the system 
@@ -246,6 +247,7 @@ We reproduce the one-dimensional beryllium model with our \lstinline{AtomicPoten
 class, which can be passed as a potential to the \lstinline{ODQD}
 (one-dimensional quantum dot) class when setting up the system,
 \begin{python}
+Z = 4; n = 4; l = 40; c = 1; a = 1; alpha = 1;
 potential = AtomicPotential(Z, c)
 odbe = ODQD(n, l, grid_length, num_grid_points, a, alpha)
 odbe.setup_system(potential=potential)
@@ -253,12 +255,13 @@ odbe.setup_system(potential=potential)
 where \lstinline{Z} are the number of protons, \lstinline{n} is the number of electrons,
 \lstinline{l} is the number of spinorbitals, \lstinline{c} is the position of the nucleus,
 \lstinline{a} is the Coulomb screening parameter and \lstinline{alpha} is the strength of the 
-Coulomb interaction. We pick a wide grid of $300 \text{ au}$, with $5001$ points.
+Coulomb interaction. We pick a wide grid of $300 \text{ au}$, with $5001$ points, and 
+a time step size of $dt=0.01$.
 
-The idea behind the simulation is to comptute the particle density over time, and see if 
+The idea behind the simulation is to compute the particle density over time, and see if 
 there is more than significantly high probability to see an electron very far away from the 
 nucleus. The total time of the simulation is $T=331 \text{ au}$, and the particle density 
-$\rho(x, t)$ is computated at the very beginning of the simulation, halfway through 
+$\rho(x, t)$ is computed at the very beginning of the simulation, halfway through 
 and at the end of the simulation. We do this both with our time-dependent coupled 
 cluster singles doubles (TDCCSD) method with static orbitials and 
 the orbital-adaptive time-dependent 
@@ -299,18 +302,22 @@ If we compute the norm of the amplitudes over the course of the simulation for
 the time-dependent coupled cluster singles doubles (TDCCSD) method, we get the 
 result shown in \autoref{fig:miyagi_tddccsd_amplitude}. In essence, the amplitudes 
 in any coupled cluster computation provides a linear combination of orbitals 
-from the reference state $\ket{\Phi_0}$ which should provide the best representation of the 
+from the reference state $\ket{\Phi_0}$, in order to provide the best representation of the 
 exact state $\ket{\Psi}$. For this reason one would not expect the norm of the 
-amplitudes to be greater than $1$. In \autoref{fig:miyagi_tddccsd_amplitude} we see
+amplitudes to be realtively low for an exact that is close to the reference state.
+We encounter problems with the static orbitals because we are dealing with a system that
+moves very far 
+from its inital state. In \autoref{fig:miyagi_tddccsd_amplitude} we see
 that the amplitudes stay within a reasonable magnitude for up to about halfway through 
-the simulation, after which the which we see the method struggling greatly to 
+the simulation, after which we see the method is struggling greatly to 
 represent the current state with the basis it has been given. In figure 
 \autoref{fig:miyagi_tdccsd_overlap}, a plot of the 
 overlap of the current, time-dependent state with the initial ground state
 helps to underline this point. The inset figure in \autoref{fig:miyagi_tdccsd_overlap}
 shows the area of the figure with the highest value for the overlap, at a larger scale.
 We see that the ground state probability reaches values of more than $300$, which is 
-most definitely unreasonable.
+most definitely unreasonable, because a probability like this should always be between 
+$0$ and $1$.
 
 \begin{figure}
     \centering
@@ -332,11 +339,14 @@ space than the reference state, it stands to reason that it is very difficult, i
 not impossible to find a mapping between the two. This problem stems from the foundations 
 of the approximative nature of the coupled cluster method as it has a truncated basis set. 
 
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} draw a similar 
-conlusion, highlighting there appears to be system-dependent upper limit for 
-the strenght of the external field. They underline the improvement in the computations 
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} provide a similar 
+deduction, highlighting there appears to be system-dependent upper limit for 
+the strength of the external field. They underline the improvement in the computations 
 by using a symplectic integrator instead of a standard fourth-order Runge-Kutta method.
 We use the exact same integrator as the one \citeauthor{pedersen2019symplectic} outline.
+\citeauthor{pedersen2019symplectic} argue that a large amplitude norm should make one 
+question the validity of the result. It is difficult to gauge what constitutes a ``large''
+amplitude norm, however.
 
 Lastly with regards to the ionisation study from \citeauthor{miyagi2013time}\cite{miyagi2013time},
 we would like to emphasise how well the orbital-adaptive time-dependent coupled cluster 
