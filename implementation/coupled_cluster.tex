@@ -604,6 +604,7 @@ can be found at \url{www.coupled-cluster.com}.
     an inner product of two state vectors, in the normal coupled cluster scheme
     with static orbitals, can be computed in the following manner
     \begin{equation}
+        \label{eq:inner_product_td_overlap}
         \begin{aligned}
             \braket{\Psi'}{\Psi} 
             =& \mel{\Phi}
@@ -817,7 +818,44 @@ can be found at \url{www.coupled-cluster.com}.
     a time-dependent overlap in an orbital-adaptive scheme, because of the 
     computation increase due to the basis transformations.
 
-    IS THERE A WAY TO SHOW THIS BRIEFLY AND CLEARLY?
+    Computing the inner product of two state vector at the \emph{same} point in 
+    time would be unproblematic, and would result in the same kind of 
+    computation as in \autoref{eq:inner_product_td_overlap}. Moreover, in this 
+    inner product with static orbitals, many terms evaluate to zero. At two different 
+    times, as in a computation of the ground state probability
+    $|\braket*{\tilde{\Psi}(0)}{\Psi(t)}|^2$ this would not be the case, and we need 
+    to keep all terms,
+    \begin{equation}
+        \begin{aligned}
+        \braket*{\tilde{\Psi}}{\Psi}
+            =& \mel*{\tilde{\Phi}}{(1 + \Lambda) e^{\hat{T}'}e^{\hat{T}}}{\Phi} \\
+            =& \mel*{\tilde{\Phi}}
+            {
+               \left(1 + \Lambda_2\right)
+               \left(1 - \hat{T}'_2 + \frac{1}{2}\hat{T}'^2_2\right) 
+               \left(1 + \hat{T}_2 + \frac{1}{2}\hat{T}^2_2\right)
+            }
+            {\Phi} \\
+            =& \braket*{\tilde{\Phi}}{\Phi} - \mel*{\tilde{\Phi}}{\hat{T}'_2}{\Phi} 
+                + \frac{1}{2}\mel*{\tilde{\Phi}}{\hat{T}'^2_2}{\Phi}
+                + \mel*{\tilde{\Phi}}{\Lambda_2}{\Phi}
+                - \mel*{\tilde{\Phi}}{\Lambda_2\hat{T}'_2}{\Phi} \\
+            &\ + \frac{1}{2} \mel*{\tilde{\Phi}}{\Lambda_2\hat{T}'^2_2}{\Phi}
+                + \mel*{\tilde{\Phi}}{\hat{T}_2}{\Phi}
+                - \mel*{\tilde{\Phi}}{\hat{T}'_2\hat{T}_2}{\Phi}
+                + \frac{1}{2}\mel*{\tilde{\Phi}}{\hat{T}'^2_2\hat{T}_2}{\Phi} \\
+            &\  + \mel*{\tilde{\Phi}}{\Lambda_2\hat{T}_2}{\Phi}
+                - \mel*{\tilde{\Phi}}{\Lambda_2\hat{T}'_2\hat{T}_2}{\Phi}
+                + \frac{1}{2}\mel*{\tilde{\Phi}}{\Lambda_2\hat{T}'^2_2\hat{T}_2}{\Phi} \\
+            &\ + \text{six more terms}.
+        \end{aligned}
+    \end{equation}
+    With static orbital, only terms that have the same number of excitations and relaxations would 
+    give a contribution to the final result. Now, because the orbitals have evolved in time, 
+    we don't have the same orthogonal properties that would cancel the other terms. Because we must 
+    include \emph{everything} it becomes unfeasible to compute the time-dependent overlap in the 
+    orbital-adaptive scheme. The computation cost would scale at the same level as direct diagonalisation 
+    methods does, i.e. full configuration interactions schemes.
 
 \subsection{Integrators and ODE Solvers}
 
