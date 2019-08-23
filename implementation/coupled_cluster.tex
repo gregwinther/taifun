@@ -814,7 +814,7 @@ can be found at \url{www.coupled-cluster.com}.
     \subsubsection{Problematic Overlap}
 
     Notice the absence of a \lstinline{compute_time_dependent_overlap()} function
-    int the \lstinline{OATDCCD} class specification. It is unfeasible to compute 
+    in the \lstinline{OATDCCD} class specification. It is unfeasible to compute 
     a time-dependent overlap in an orbital-adaptive scheme, because of the 
     computation increase due to the basis transformations.
 
@@ -855,7 +855,7 @@ can be found at \url{www.coupled-cluster.com}.
     we don't have the same orthogonal properties that would cancel the other terms. Because we must 
     include \emph{everything} it becomes unfeasible to compute the time-dependent overlap in the 
     orbital-adaptive scheme. The computation cost would scale at the same level as direct diagonalisation 
-    methods does, i.e. full configuration interactions schemes.
+    methods does, i.e. full configuration interaction schemes.
 
 \subsection{Integrators and ODE Solvers}
 
