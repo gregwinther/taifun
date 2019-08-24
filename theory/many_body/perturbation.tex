@@ -2,11 +2,11 @@
 
 Perturbation theory is a very powerful method and a generic method applicable to all 
 matrix problems. Additionally, perturbation theory is relatively cheap in terms of computing
-time especially compared with coupled cluster theory. As the method provides a different 
+time, especially compared with coupled cluster theory. The method provides a different 
 route to the solution of the Schrödinger equation, by approaching the exact solution 
-systematically, based on an order-by-order expansion of the energy and wave function. 
-Therefore, perturbation theory is often used to improve the results from other computation 
-schemes. What is more, the exponential form of the wave function in coupled cluster theory 
+systematically, based on an order-by-order expansion of the energy and wavefunction. 
+Therefore, perturbation theory is often used to improve the results from other computational
+schemes. What is more, the exponential form of the wavefunction in coupled cluster theory 
 stems from the non-degenerate Rayleigh-Schrödinger perturbation theory (RSPT) expansion.
 
 \section{Formal perturbation theory}
@@ -27,14 +27,17 @@ The exact solution is given by
     \label{eq:perturbation_schrodinger}
     \begin{gathered}
         \hat{H} \Psi_n = E_n \Psi_n \\
-        (\hat{H}_0 + \hat{V}) \Psi_n = E_n \Psi_n, \quad \Psi_n = \Phi_n + \chi_n
+        (\hat{H}_0 + \hat{V}) \Psi_n = E_n \Psi_n, \quad \Psi_n = \Phi_n + \chi_n,
     \end{gathered}
 \end{equation}
 while the solvable and simple zero order problem is given by
 \begin{equation}
     \label{eq:zero_order_perturbed_schrodinger}
-    \hat{H}_0 \Phi_n = E_n^{(0)} \Phi_n
+    \hat{H}_0 \Phi_n = E_n^{(0)} \Phi_n.
 \end{equation}
+The set $\{\Phi_n\}$ is assumed to be an orthonormal basis for the Hilbert space. The 
+excat wavefunction $\Psi_n$ is split into a zero-order part $\Phi_n$ and the 
+perturbative part $\chi_n$.
 
 By projecting \autoref{eq:perturbation_schrodinger} with $\bra{\Phi_0}$ we get
 \begin{equation}
@@ -48,8 +51,8 @@ By projecting \autoref{eq:perturbation_schrodinger} with $\bra{\Phi_0}$ we get
 where we have used that 
 \begin{gather}
     \label{eq:intermediate_normalisation}
-    \braket{\Phi_m}{\Phi_n} = \delta_{mn} \\
-    \braket{\Psi_n}{\Phi_n} = \braket{\Phi_n + \chi_n}{\Phi_n} = 1 \\
+    \braket{\Phi_m}{\Phi_n} = \delta_{mn}, \\
+    \braket{\Psi_n}{\Phi_n} = \braket{\Phi_n + \chi_n}{\Phi_n} = 1, \\
     \braket{\Psi_n} = 1 + \braket{\chi_n}.
 \end{gather}
 This is called the intermediate normalisation assumption.
@@ -106,12 +109,12 @@ For $\lambda^1$ (\autoref{eq:perturbation_lambda_power_first}) we get,
         = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
     \bra{(\hat{H}_0 - E_n^{(0)})\Phi_n} \ket{\Psi_n^{(1)}}
         = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
-    \to E_n^{(1)} = \bra{\Phi_n} \hat{V} \ket{\Phi_n} = \hat{V}_{nn}
+    \to E_n^{(1)} = \bra{\Phi_n} \hat{V} \ket{\Phi_n} = \hat{V}_{nn}.
     \end{gathered}
 \end{equation}
 Since we have an expression for $E_n^{(1)}$, we can solve the inhomogeneous 
 differential equation for $\Psi_n^{(1)}$, by also requiring the intermediate
-normalisation condition $\braket{\Phi_n}{\Psi_n^{(1)}} = \delta_{l0}$. For 
+normalisation condition $\braket{\Phi_n}{\Psi_n^{(1)}} = 0$. For 
 the general $m$th-order expression (\autoref{eq:perturbation_lambda_power_mth}),
 \begin{equation}
     \begin{gathered}
@@ -125,14 +128,15 @@ In principle, we can obtain every next-order energy contribution $E_n^{(m)}$ fro
 the previous-order wavefunctions $\Psi_n^{(m-1)}$ and then solve for $\Psi_n^{(m)}$.
 
 \subsection{Projection Operators}
-We define the projection operators in terms of the zero-order wave functions,
+We define the projection operators, $\hat{P}$ and $\hat{Q}$, in terms of the
+zero-order wavefunctions,
 \begin{equation}
     \begin{aligned}
         \hat{P} &= \ket{\Phi_0} \bra{\Phi_0} \\
         \hat{Q} &= \hat{1} - \hat{P} = \sum_{i=1}^N \ket{\Phi_i} \bra{\Phi_i}.
     \end{aligned}
 \end{equation}
-The projecton operators have the following conventient properties,
+The projecton operators have the following convenient properties,
 \begin{equation}
     \begin{gathered}
     \hat{P}^2 =  \ket{\Phi_0}\bra{\Phi_0}\ket{\Phi_0}\bra{\Phi_0} 
@@ -148,15 +152,15 @@ If we write the wavefunction as a linear expansion in terms of $\Phi_i$,
 \begin{equation}
     \Phi = \sum_i a_i \Phi_i,
 \end{equation}
-acting on it with the projection operators will yield
+acting on it with the projection operators yields
 \begin{equation}
     \hat{P} \Psi = \sum_i a_i \ket{\Phi_0}\bra{\Phi_0}\ket{\Phi_i}
         = \sum_i a_i\ket{\Phi_0}\delta_{0i} = a_0\Phi_0.
 \end{equation}
-In not so many greek letters, the operator $\hat{P}$ will extract $\Phi_0$ from 
-$\Psi$, while $\hat{Q}$ annihilates $\hat{Q}$,
+For sake of specificity, the operator $\hat{P}$ will extract $\Phi_0$ from 
+$\Psi$, while $\hat{Q}$ annihilates $\Phi_0$,
 \begin{equation}
-    \hat{Q}\Psi = (\hat{1} - \hat{P}) = \Psi - a_0\Phi_0 
+    \hat{Q}\Psi = (\hat{1} - \hat{P})\Psi = \Psi - a_0\Phi_0 
         = \sum_{i=1}^N a_i\Phi_i,
 \end{equation}
 meaning we can write
@@ -176,9 +180,10 @@ Starting from a rearrangment of the Schrödinger equation,
         \to -\hat{H}_0 \Phi = (\hat{V} - E)\Psi,
     \end{gathered}
 \end{equation}
-we introduce a seemingly arbitrary parameter $\zeta$ by adding $\zeta\Phi$ to both sides,
+we introduce a seemingly arbitrary parameter $\zeta$, the purpose of which will be 
+apperent later. This parameter is introduced by adding $\zeta\Phi$ to both sides,
 \begin{equation}
-    (\xi - \hat{H}_0)\Phi = (\hat{V} - E + \xi)\Phi.
+    (\zeta - \hat{H}_0)\Phi = (\hat{V} - E + \zeta)\Phi.
 \end{equation}
 Next, we apply $\hat{Q}$ to both sides,
 \begin{equation}
@@ -201,7 +206,7 @@ The right-hand side of this expression can be rewritten as,
 \end{equation}
 
 By restricting to choice of $\zeta$, so they do not coincide with the eigenvalues
-of $\hat{H}_0$ in $\hat{Q}$-space, we ensure that the inverse of 
+of $\hat{H}_0$ in $\hat{Q}$-space, i.e. $\{\Phi_i | i \neq 0\}$, we ensure that the inverse of 
 $\hat{Q}(\zeta - \hat{H}_0)\hat{Q}$ exists. This inverse is the \emph{resolvent} of
 $\hat{H}_0$,
 \begin{equation}
@@ -277,7 +282,7 @@ choices for $\zeta$ that give rise to two important theories,
 \begin{align*}
     \zeta = E &\leftarrow \text{Brillouin-Wigner Perturbation} \\
     \zeta = E^{(0)}_0 \to -E + \zeta = -\Delta E 
-        &\leftarrow \text{Rayleigh-Schrödinger Perturbation}
+        &\leftarrow \text{Rayleigh-Schrödinger Perturbation}.
 \end{align*}
 
 \section{Brillouin-Wigner Perturbation Theory}
@@ -291,13 +296,13 @@ The wavefunction- and energy expression becomes the following,
     \Delta E = \sum_{m=0}^\infty 
         \mel*{\Phi_0}{\hat{V}[\hat{R}_0(E)\hat{V}]^m}{\Phi_0}.
 \end{gather}
-Moreover, the resolvent now looks like 
+Moreover, the resolvent is given by 
 \begin{equation}
     \hat{R}_0 = \sum_i \frac{\dyad{\Phi_i}{\Phi_i}}{E - E_i^{(0)}}.
 \end{equation}
-As we can the, these equations are still explicity, i.e. $E$ appears on the 
+As we can see, these equations are still implicit, i.e. $E$ appears on the 
 right-hand side. In order to compute corrections in the energy and wavefunctions 
-estimates, we need an estimate for $E$. A common estimate is for the first-order 
+estimates, we need an estimate for $E$. A common estimate for the first-order 
 energy is $E^{(0)}_0 + \mel*{\Phi_0}{\hat{V}}{\Phi_0}$. From this we can continue 
 computing the second-order energy,
 \begin{equation}
@@ -317,19 +322,19 @@ Similiarly for the third-order energy,
 
 These expressions are somewhat simple, but Brilloun-Wigner is plagued by a fundamental
 problem as it does not provide a true order-by-order expansion of the energy. This is 
-due to the stil prevalent presence of the infinite-order $E$-term in the right-hand 
+due to the systematically prevalent presence of the infinite-order $E$-term in the right-hand 
 sides of the equations. Related to this problem, is the lack of extensivity if the 
 perturbation is truncated at any finite order. See 
 \citeauthor{shavitt2009many}\cite{shavitt2009many} for a derivation of this
 non-extensivity of finite-order Brilloun-Wigner perturbation theory. For this 
-reason, we move on to Raylei-Schrödinger perturbation theory.
+reason, we move on to Rayleigh-Schrödinger perturbation theory.
 
 \section{Rayleigh-Schrödinger Perturbation Theory}
 
 By setting $\zeta = E_0^{(0)}$ in \autoref{eq:perturbation_wavefunction} and
 \autoref{eq:perturbation_energy} we get Rayleigh-Schrödinger perturbation
 theory\cite{rayleigh1894theory,schrodinger1926quantisierung}. This parametrisation 
-gives means that $\zeta - E = - \Delta E$, which gives us 
+means that $\zeta - E = - \Delta E$, which gives us 
 \begin{gather}
     \label{eq:rspt_wavefunction}
     \Psi = \sum_{m=0}^\infty \left[ 
@@ -345,7 +350,7 @@ where the resolvent becomes
 \begin{equation}
     \hat{R}_0(E^{(0)}_0) = \sum_i \frac{\dyad{\Phi_i}{\Phi_i}}{E^{(0)} - E^{(0)}_i}.
 \end{equation}
-The keen reader will have notices that these expressions are lacking the unknown 
+The keen reader will have noticed that these expressions are lacking the unknown 
 $E$, but we still have an expression for $\Delta E$ in the right-hand side of the
 expressions.
 
@@ -372,16 +377,18 @@ For the third-order energy correction we need the second-order wavefunction corr
         = \hat{R}_0(\hat{V} - \mel{\Phi_0}{\hat{V}}{\Phi_0})\hat{R}\hat{V} \Phi_0,
 \end{equation}
 where we have started to treat the stepwise expansions as a recursive relation, by 
-inserting the first-ordere energy corrections for $\Delta E$. Generally, we can 
+inserting the first-order energy corrections for $\Delta E$. Generally, we can 
 write this recursive relation as
 \begin{gather}
     E^{(n)} = \mel{\Psi_k}{\hat{V}}{\Psi^{(n-1)}_k}, \\
+    \label{eq:recursive_relation_RSPT_wavefunction}
     \Psi^{n} = \hat{R}_0 \hat{V}\Psi^{(n-1)} - \sum_{j=1}^{n-1}E^{(n-j)} \Psi^{(j)}.
 \end{gather}
 The third order-energy correction becomes
 \begin{equation}
     \begin{aligned}
-    E^{(0)} =& \mel{\Phi_0}{\hat{V}\hat{R}_0[\hat{V} - \mel{\Phi_0}{\hat{V}}{\Phi_0}]}{\Phi_0} \\
+    \label{eq:third_order_RSPT_energy}
+    E^{(3)} =& \mel{\Phi_0}{\hat{V}\hat{R}_0[\hat{V} - \mel{\Phi_0}{\hat{V}}{\Phi_0}]}{\Phi_0} \\
         =& \mel{\Phi_0}{\hat{V}\hat{R}\hat{V}\hat{R}\hat{V}}{\Phi}
             - \mel{\Phi_0}{\hat{V} \hat{R}^2\hat{V}}{\Phi_0}
     \end{aligned}
@@ -423,5 +430,25 @@ For example, for $n=4$ we have four possibilities,
         =& - \mel{\Phi_0}{\hat{V}\hat{R}_0\hat{V}}{\Phi_0}
             \mel{\Phi_0}{\hat{V}\hat{R}_0^2\hat{V}}{\Phi_0}.
 \end{align}
-For higher order energies, we would see brackets within brackets, leading to an increating 
+For higher order energies, we would see brackets within brackets, leading to an increasing 
 growth rate in the number of terms.
+
+We will end our discussion of many-body perturbation theory presently. In closing, 
+one should take notice of the special form the second term in $E^{(3)}$
+(\autoref{eq:third_order_RSPT_energy}) takes. These kinds of terms, called \emph{unlinked} terms, 
+becomes more and more prevalent as the series expansion continues. This is apparent from 
+the fourth-order energy term derived from the bracketing technique above. A very powerful theorem 
+called the \emph{linked-diagram theorem}, derived by
+\citeauthor{goldstone1957derivation}\cite{goldstone1957derivation}, states that the 
+energy and the wavefunctions can be expressed as a sum of \emph{linked} terms only (!),
+because all the 
+unlinked diagrams in a Rayleigh-Schrödinger perturbation series cancels against the 
+renormalisation terms\footnote{Additional sums in the  wavefunction expression 
+involving lower-order energies in RSPT,
+see \autoref{eq:recursive_relation_RSPT_wavefunction}}. Proving the linked-diagram 
+theorem requires a herculean effort, and we will refrain from doing so. The entirety 
+of chapter 6 in \citeauthor{shavitt2009many}\cite{shavitt2009many} is devoted to 
+a proof of the linked-diagram theorem. What we will take with us is that the linked-diagram
+theorem forms the foundation for the 
+coupled cluster ``ansatz'' wavefunction, which we will introduce at the very beginning 
+of the next chapter.
