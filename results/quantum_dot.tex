@@ -110,7 +110,7 @@ frequency $\Omega=1$. We also apply an external oscillating field like in
 \autoref{eq:results_1d_field}, which will this time be resonant with the frequency of the 
 oscillator $\omega=\Omega=1$, to ensure population of excited states. In this simuation 
 we set the field to zero at $T_d = 5 \text{ au}$, by the use of a Heaviside function in a 
-similar manner as \citeauthor{pedersen2019symplectic}\citeauthor{pedersen2019symplectic}
+similar manner as \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}
 in \autoref{eq:pedersen_2019_envelope}. After the field has been switched off we propagate 
 the system in time for a total of $T = 500 \text{ au}$ with a time step size of $dt=0.01$.
 The same procedure is repeated for systems with $n=\{2,4,6,8,10,12\}$ electrons with 
@@ -138,7 +138,94 @@ simulations have produced dipole spectra that show only one line corresponding t
 frequency of the confining potential. Morover, we see that the relative intensity of 
 the spectra increases with the number of particles.
 
+\subsection{Resonance Sensitivity}
+
 \section{Two-dimensional Quantum Dot}
+
+The two-dimensional quantum dot arguably paints a somewhat more interesting picture 
+than the one-dimensional quantum dot, as we shall see. We construct several 
+harmonic potential systems using the  \lstinline{TwoDimensionalharmonicOscillator}.
+Similarly to the one-dimensional case, we simulate a laser by adding an 
+oscillation field of the kind used by
+\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}, shown 
+in \autoref{eq:results_1d_field}. Because we have added a dimension, we must 
+choose a direction of polarisation. This choice is arbitrary because of the 
+symmertry of the quantum dots. We therefore arbitrarily pick the $x$-direction.
+Unlike the one-dimensional dot, we are restricted to only a certan selection of 
+systems, namely systems of $n\in\{2,6,12\}$ electrons, that ensure full shells.
+
+Like in our simulations of a one-dimensional harmonic quantum dot we have at first 
+sought to show that convergence in the computations by applying an oscillating 
+field far from the resonant frequency of the system. We set the oscilaltor frequency 
+to $\Omega=1$ and the frequency of the eletric field to $\omega=2\Omega=2$. We 
+perform a simulation over a period $T = 20 \text{ au}$, for an increasing 
+number of spin-orbitals $l$. The maximum intensity of the laser field is set to 
+$\vb{E}_\text{max} = 1 \text{ au}$. For these initial computations we use the 
+time-dependent coupled cluster singles doubles (TDCCSD) method with static 
+orbitals. The simulations for two and six eletrons show expected results and have
+therefore been consigned to \autoref{app:supp_2d_qd_results}, while the results for
+twelve electrons appear to be on the brink of what the TDCCSD method 
+can handle. In order to ensure convergence at every time step for the simulations 
+with $n=12$ electrons the maximum intensity of the laser field had to be reduces to 
+$\vb{E}_\text{max} = 0.5$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/2D/n12_energy.png} 
+    \caption{Time-dependent energy of a two-dimensional harmonic oscillator 
+        with $n=12$ electrons under the influence of a laser field for different 
+        spinorbitals $l\in\{42,56,72\}$.
+    }
+    \label{fig:n12_2d_energy}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/2D/n12_overlap.png} 
+    \caption{Ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$ for two-dimensional
+        quantum dot with $n=12$ electrons under the influence of a laser field for 
+        different number of spinorbitals $l=\{42,56,72\}$. 
+    }
+    \label{fig:n12_2d_overlap}
+\end{figure}
+
+The time-dependent energy of a two-dimensional harmonic quantum dot with $n=12$
+electrons under influence of the oscillating field described above is shown in 
+\autoref{fig:n12_2d_energy}. In this figure we have run the same simulation for 
+$l\in\{42,56,72\}$ spin-orbitals, and we see that onnly for the very largest of the 
+basis set to we see a behaviour conforming with our expectations. We expect the 
+energy to be close to the ground state energy after the laser-field has died down.
+
+The ground state probability if the same simulation is shown in
+\autoref{fig:n12_2d_overlap}. We see immediately that the probability becomes 
+non-sensical at some time step after $t=6 \text{ au}$. This result is similar to
+the sort of break-down that occured for the TDCCSD method in the attempt to 
+replicate the results of \citeauthor{miyagi2013time}\cite{miyagi2013time} in
+\autoref{sec:miyagi_replication}. The probable cause of the non-sensible 
+ground state probability is the need for the amplitudes of the system to acquire 
+relatively high values, in order to compensate for the inadequateness of the 
+reference state to describe the exact time-dependent state. This is underlined 
+by the norm of the amplitudes, displayed in \autoref{fig:n12_2d_amp_norms}. As 
+is apparent, the lambda amplitudes shows an upwards trend throughout the 
+simulation.
+This should be unnecessary because the system would revert back to a state 
+similar to the ground state at the end of the simulation. It appears that 
+some ``tipping point'' is reached halfway around $t=T/2$ when instabillty 
+increases. The tau amplitudes are more or less well-behaved, at least for 
+the largest basis set, showing some correlation in amplitude with the
+sinusoidal envelope of the oscillating field.
+
+\begin{figure}
+    \centering
+    \includegraphics{results/figures/2D/n=12_amplitudes.png}
+    \caption{Norm of amplitudes in a $n=12$ electron two-dimensional quantum 
+        dot influenced by an oscilalting field, for several number of 
+        spin-orbitals $l=\{42,56,72\}$.
+    }
+    \label{fig:n12_2d_amp_norms}
+\end{figure}
+
+\subsection{Dipole Spectrum}
 
 \section{Two-dimensional Double Dot}
 
