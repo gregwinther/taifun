@@ -228,7 +228,7 @@ therefore been consigned to \autoref{app:supp_2d_qd_results}, while the results 
 twelve electrons appear to be on the brink of what the TDCCSD method 
 can handle. In order to ensure convergence at every time step for the simulations 
 with $n=12$ electrons the maximum intensity of the laser field had to be reduced to 
-$\vb{E}_\text{max} = 0.5$.
+$\vb{E}_\text{max} = 0.5$. ??????
 
 \begin{figure}
     \centering
@@ -288,6 +288,24 @@ sinusoidal envelope of the oscillating field.
 
 \subsection{Dipole Spectrum}
 
+We have for the two-dimensional quantum dot computed dipole spectrum for systems of 
+different size, like we did fro the one-dimensiaonal quantum dot. We did this for 
+quantum dots with oscillator frequencies $\Omega=1$ with $n\in\{2,6,12\}$ electrons.
+We used $l\in\{42,42,56\}$ as the number of spinorbitals for the respective systems.
+In order to excite and disturb the systems from the inial ground state we applied 
+an oscillating field with a resonant frequency $\omega=\Omega=1$ and a somewhat low 
+maximum intensity $\vb{E}_\text{max}=0.1$, with a three-step linear envelope as 
+in \autoref{eq:li_laser}. The systems were allowed to develop in time for 
+$T = 500 \text{ au}$. The results of computing the Fourier transform of the 
+dipole $\vb{x} = \tr{\rho x}$ is depicted in \autoref{fig:2d_dipole_spectra}. 
+In this figure we see that the result is qualtitatively in accordance with the 
+harmonic potential theorem - the dipole freqcuencies of all the systems are the 
+same, with an intensity that increases with the number of particles in the system.
+For the two larger systems with $n=6$ and $n=12$ electrons we see some slight 
+inccuracies. These are attributable to the time constraint of this study - 
+a simulation with larger number of spinorbitals would have remedies these 
+inaccuracies, but would have needed more time to complete.
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{results/figures/2D/2d_spectrum.png} 
@@ -304,20 +322,22 @@ sinusoidal envelope of the oscillating field.
 We have simulated two different two-dimensional double dot systems, one with $n=2$ electrons 
 and 
 one system with $n=4$ electrons, using the \lstinline{TwoDimensionalDoubleWell} class described
-in \autoref{sec:2d_double_well}. We use $l=40$ spin-orbitals for the two-electron system 
+in \autoref{sec:2d_double_well}. We use $l=20$ spin-orbitals for the two-electron system 
 and $l=56$ spin-orbitals for the four-electron system. The class requires two special parameters, 
 \lstinline{l_ho_factor} and \lstinline{barrier_strength}, that define the 
 number of regular harmonic oscillator functions to map to and the height of the 
 barrier in the middle of the well, respectively. We set the barrier strength to $2$ 
 and the harmonic oscillator factor to $2$ for both systems. The oscillator frequency 
-of the double dot is set to $\Omega=1$.
+of the double dot is set to $\Omega=1$. As a visual confirmation of the systems, a 
+one-electron density plot is provided for the $n=2$ electrons system (left) and 
+the $n=4$ electron system (right) in \autoref{fig:2d_dw_rho}.
 
 The double dot is in essence a perturbation of the regular two-dimensional quantum dot, and we are seeking to uncover any many-body 
 effects that such a perturbation could lead to. In order to do this we would like to 
 compute the dipole spectrum of both systems. The time-propagation is done using the 
 orbital-adaptive time-dependent coupled cluster doubles (OATDCCD) method, as it has shown 
 the best stability of our time-dependent methods. Both systems are under the influence of an 
-oscillating field with a linearly increasing- and increasing envelope of the type used by 
+oscillating field with a linearly decreasing- and increasing envelope of the type used by 
 \citeauthor{li2005time}\cite{li2005time} (\autoref{fig:li_compare}). We have chosen a 
 frequency of this field that corresponds to the resonant of the first transition energy 
 of the system $\omega = 0.43 \text{ au}$, and an intensity yielding a maximum amplitude
@@ -338,6 +358,24 @@ of the one-body matrix produced by the system class \lstinline{TwoDimensionalDou
     \label{fig:2d_dw_rho}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/DW/dw_n2_n4_spectrum.png} 
+    \caption{Dipole spectrum of two-dimensional double dot system with $n\in\{2,4\}$
+        electrons and $l\in\{20, 56\}$ spinorbitals. 
+    }
+    \label{fig:2d_dw_n2_n4_spectra}
+\end{figure}
+
+The system is allowed to develop in time for $T = 100 \hat{ au}$ and complute the Fourier 
+transform of the dipole moment $\ev{x} = \tr{\rho x}$, the results of which are shown 
+in \autoref{fig:2d_dw_n2_n4_spectra}. We immediately see that there is only one frequency 
+apparent in the spectra for each of the systems, meaning that the quantum double dots
+have a position operators that behaves as if it was the centre of mass of the system. We 
+see that the larger system has a somewhat more rapid movement relative to the smaller 
+system. We also see that the larger system has lower intensity compared with the smaller 
+system. This mya be because there is relatively more mass in the system to move, and the 
+intensity of the laser field is unchanged.
 
 \section{Two-dimensional Magnetic Quantum Dot}
 
