@@ -140,6 +140,67 @@ the spectra increases with the number of particles.
 
 \subsection{Resonance Sensitivity}
 
+In order to test the response of a quantum dot as the frequency of the oscillating 
+field apporaches the oscillator frequency, we have run simulations for a selection 
+of laser frequencies $\omega$ with the field described by \autoref{eq:results_1d_field}.
+We chose frequencies $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ and set the 
+oscillator freqcuencies of the quantum dot systems to $\Omega=1$. The laser pulse 
+had a set period of $T_l=20 \text{ au}$, starting from $t=0$, while time-development 
+of the system was allowed to continue to $T=30 \text{ au}$. The results of these 
+simulations are shown for $n=2$ particles in \autoref{fig:n2_1d_resonance_energy}
+and \autoref{fig:n2_1d_resonance_overlap}, which show the time-dependent energy 
+and the time-dependendent ground state probabilities
+$|\braket{\Psi(0)}{\Psi(t)}|^2$ respectively.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/1D/n2_resonance_energy.png} 
+    \caption{Time-dependent energy of a one-dimensional quantum dot with
+        oscillator frequency $\Omega=1$ and $n=2$ electrons.
+        The quantum dot is influenced by an oscillating field of different 
+        frequencies $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum 
+        intensity of $\vb{E}_\text{max} = 0.25$.
+    }
+    \label{fig:n2_1d_resonance_energy}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/1D/n2_resonance_overlap.png} 
+    \caption{Time-dependendent ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$
+        of a one-dimensional quantum dot with
+        oscillator frequency $\Omega=1$ and $n=2$ electrons.
+        The quantum dot is influenced by an oscillating field of different 
+        frequencies $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum 
+        intensity of $\vb{E}_\text{max} = 0.25$.
+    }
+    \label{fig:n2_1d_resonance_overlap}
+\end{figure}
+
+The results are as expected, but interesting nonetheless. We see that the quantum dots 
+behave very much as a classical driven harmonic oscillator. If the frequency of the driving
+force, in this case the oscillating field, is far from the resonant frequency of the 
+system the system falls back to the inital position after the force subsides. Only when we 
+get closer to the resonant system do we see an excitation in energy of the system as 
+a whole after the laser field is switched off (\autoref{fig:n2_1d_resonance_energy}).
+In the case for the exact resonant frequency,
+such that $\omega=\Omega$, we se that the energy of the system is increased even at the very 
+end of the simulation, when the amplitude of the oscillating field is miniscule.
+The same effects are apparent when studying the overlap of the time-developed system 
+with the initial ground state in \autoref{fig:n2_1d_resonance_overlap}. Closer to the
+resonant frequency we see a much lower probability of being in the ground state. For 
+frequencies far away from the resonant frequency we see that the system falls back to 
+the exact ground state or a state close to the ground state.
+
+We have run similar simulations to the one described above, in order to study the 
+resonant properties of a quantum dot, for $n=4,6,8,10$ electrons in a one-dimensional 
+quantum dots. Figures with the results from these simulations can be found in 
+\autoref{app:1d_qd}. In the ground state probability plots for these simulations, 
+one would notice non-sensible probabiliy values $|\braket{\Psi(0)}{\Psi(t)}|^2 > 1$.
+This is an issue we have adressed in the following sections, when reviewing the results 
+of the two-dimensional quantum dot results.
+
+
 \section{Two-dimensional Quantum Dot}
 
 The two-dimensional quantum dot arguably paints a somewhat more interesting picture 
@@ -166,7 +227,7 @@ orbitals. The simulations for two and six eletrons show expected results and hav
 therefore been consigned to \autoref{app:supp_2d_qd_results}, while the results for
 twelve electrons appear to be on the brink of what the TDCCSD method 
 can handle. In order to ensure convergence at every time step for the simulations 
-with $n=12$ electrons the maximum intensity of the laser field had to be reduces to 
+with $n=12$ electrons the maximum intensity of the laser field had to be reduced to 
 $\vb{E}_\text{max} = 0.5$.
 
 \begin{figure}
@@ -217,7 +278,7 @@ sinusoidal envelope of the oscillating field.
 
 \begin{figure}
     \centering
-    \includegraphics{results/figures/2D/n=12_amplitudes.png}
+    \includegraphics[width=0.9\textwidth]{results/figures/2D/n=12_amplitudes.png}
     \caption{Norm of amplitudes in a $n=12$ electron two-dimensional quantum 
         dot influenced by an oscilalting field, for several number of 
         spin-orbitals $l=\{42,56,72\}$.
