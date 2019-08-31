@@ -333,6 +333,26 @@ inaccuracies, but would have needed more time to complete.
 
 \subsection{Resonance Sensitivity}
 
+For the two-dimensiona quantum dot we have also conducted a resonance sensitivity analysis,
+similar to the one we performed for the one-dimensional quantum dot. The results for 
+$n=2$ electrons and $n=6$ electrons are displayed in \autoref{fig:2d_resonance_n2}
+and \autoref{fig:2d_resonance_n6} respectively. The quantum dots in these simualtions 
+had an oscillator frequency of $\Omega=1$ and where subjected to an oscillating 
+field with a sinusoidal envelope of the type in \autoref{eq:results_1d_field} of 
+different frequencies $\omega\in\{1.0,1.25,1.5,1.75,2.0\}$ and a maximum intensity of 
+$\vb{E}_\text{max}=0.25$. The simulations were done with the time-dependent coupled 
+cluster doubles (TDCCSD) method with static orbitals.
+
+Like in the one-dimensional analysis we see that the systems are much more prone to 
+excitation as the frequency of the laser field approaches that of the quantum harmonic 
+oscillator. This is apparent both for the energy of the quantum dot systems and the 
+ground state probabilites displayed in the left and right subfigures of
+\autoref{fig:2d_resonance_n2} and \autoref{fig:2d_resonance_n6}, respectively. In the 
+six-particle case we again see the problems with the TDCCSD method when computing the 
+ground state overlap, as the amplitudes acquire higher and higher values, resulting 
+in non-sensical probability values. However, in this case we do belive that the 
+energy plots to be qualitatively correct.
+
 \begin{figure}
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -345,7 +365,7 @@ inaccuracies, but would have needed more time to complete.
         (right) for a two-dimensional quantum dot with $n=2$ electrons. The quantum dot 
         is affected by an oscillating field of different frequencies
         $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum inntensity
-        $\vb{E}_\text{max} = 0.25$.
+        $\vb{E}_\text{max} = 0.25$. The confining harmonic potential has frequency $\Omega=1$.
     }
     \label{fig:2d_resonance_n2}
 \end{figure}
@@ -362,7 +382,7 @@ inaccuracies, but would have needed more time to complete.
         (right) for a two-dimensional quantum dot with $n=6$ electrons. The quantum dot 
         is affected by an oscillating field of different frequencies
         $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum inntensity
-        $\vb{E}_\text{max} = 0.25$.
+        $\vb{E}_\text{max} = 0.25$. The confining harmonic potential has frequency $\Omega=1$.
     }
     \label{fig:2d_resonance_n6}
 \end{figure}
