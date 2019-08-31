@@ -226,9 +226,7 @@ time-dependent coupled cluster singles doubles (TDCCSD) method with static
 orbitals. The simulations for two and six eletrons show expected results and have
 therefore been consigned to \autoref{app:supp_2d_qd_results}, while the results for
 twelve electrons appear to be on the brink of what the TDCCSD method 
-can handle. In order to ensure convergence at every time step for the simulations 
-with $n=12$ electrons the maximum intensity of the laser field had to be reduced to 
-$\vb{E}_\text{max} = 0.5$. ??????
+can handle, within the given basis set size.
 
 \begin{figure}
     \centering
@@ -253,16 +251,32 @@ $\vb{E}_\text{max} = 0.5$. ??????
 The time-dependent energy of a two-dimensional harmonic quantum dot with $n=12$
 electrons under influence of the oscillating field described above is shown in 
 \autoref{fig:n12_2d_energy}. In this figure we have run the same simulation for 
-$l\in\{42,56,72\}$ spin-orbitals, and we see that onnly for the very largest of the 
+$l\in\{42,56,72\}$ spin-orbitals with the time-dependent coupled cluster 
+singles doubles (TDCCSD) method, and we see that only for the very largest of the 
 basis set to we see a behaviour conforming with our expectations. We expect the 
 energy to be close to the ground state energy after the laser-field has died down.
 
-The ground state probability if the same simulation is shown in
+In the same figure (\autoref{fig:n12_2d_energy}) we have also included
+the computed energy over time for the system using the
+orbital-adaptive time-dependent coupled cluster doubles (OATDCCD) method and the 
+same number if spin-orbitals.
+We see that the two methods dont't agree completely, and we are prone to trust 
+the OATDCCSD method more than the TDCCSD method in this case, because the energy at 
+the end of the simulations is lower than the initial energy for the TDCCSD method.
+The reason for the problems the TDCCSD method shows are likely caused by our attempt 
+to represent a state with the basis functions contained in the reference,
+which is very dissimilar to said reference function. We will outline this problem 
+further as we study the time-dependent ground state probability of the simulation.
+
+The ground state probability of the same simulation with the TDDCCSD method 
+is shown in
 \autoref{fig:n12_2d_overlap}. We see immediately that the probability becomes 
 non-sensical at some time step after $t=6 \text{ au}$. This result is similar to
 the sort of break-down that occured for the TDCCSD method in the attempt to 
 replicate the results of \citeauthor{miyagi2013time}\cite{miyagi2013time} in
-\autoref{sec:miyagi_replication}. The probable cause of the non-sensible 
+\autoref{sec:miyagi_replication}.
+
+The probable cause of the non-sensible 
 ground state probability is the need for the amplitudes of the system to acquire 
 relatively high values, in order to compensate for the inadequateness of the 
 reference state to describe the exact time-dependent state. This is underlined 
@@ -315,7 +329,8 @@ inaccuracies, but would have needed more time to complete.
         $l=\{40,40,56\}$.
     }
     \label{fig:2d_dipole_spectra}
-\end{figure}    
+\end{figure}
+
 
 \section{Two-dimensional Double Dot}
 
