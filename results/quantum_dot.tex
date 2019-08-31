@@ -322,13 +322,49 @@ inaccuracies, but would have needed more time to complete.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{results/figures/2D/2d_spectrum.png} 
+    \includegraphics[width=0.9\textwidth]{results/figures/2D/2d_spectrum.png} 
     \caption{Fourier transform of expected value of dipole moment for a
         two-dimensional quantum dot with different number of electrons 
         $n=\{2,6,12\}$ and respective number of spin-orbitals 
         $l=\{40,40,56\}$.
     }
     \label{fig:2d_dipole_spectra}
+\end{figure}
+
+\subsection{Resonance Sensitivity}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[trim=2em 0em 5em 0em, width=\textwidth]{results/figures/2D/resonance/n2resonance.png} 
+    \end{minipage}\hfill
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[trim=0em 0em 5em 0em, width=\textwidth]{results/figures/2D/resonance/n2overlap_res.png} 
+    \end{minipage}
+    \caption{Time dependent energy (left) and ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$
+        (right) for a two-dimensional quantum dot with $n=2$ electrons. The quantum dot 
+        is affected by an oscillating field of different frequencies
+        $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum inntensity
+        $\vb{E}_\text{max} = 0.25$.
+    }
+    \label{fig:2d_resonance_n2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[trim=2em 0em 5em 0em, width=\textwidth]{results/figures/2D/resonance/n6resonance.png} 
+    \end{minipage}\hfill
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[trim=0em 0em 5em 0em, width=\textwidth]{results/figures/2D/resonance/n6_overlap_res.png} 
+    \end{minipage}
+    \caption{Time dependent energy (left) and ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$
+        (right) for a two-dimensional quantum dot with $n=6$ electrons. The quantum dot 
+        is affected by an oscillating field of different frequencies
+        $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ with a maximum inntensity
+        $\vb{E}_\text{max} = 0.25$.
+    }
+    \label{fig:2d_resonance_n6}
 \end{figure}
 
 
