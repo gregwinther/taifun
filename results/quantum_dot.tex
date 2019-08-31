@@ -623,14 +623,14 @@ and the addition of a possible transition between state 4 and 6.
 
 \begin{figure}
     \begin{center}
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{results/figures/dipole_no_b.png}
         \caption{Transition matrix dictating the allowed transitions for a
             2D quantum dot.}
         \label{fig:transition_no_b}
     \end{minipage}
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \includegraphics[width=\textwidth]{results/figures/dipole_yes_b.png}
         \caption{transition matrix for a 2D quantum dot when a magnetic field
             is applied.}
@@ -652,6 +652,54 @@ of a magnetic field in experiments\cite{heitmann1993spectroscopy,meurer1992singl
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/transmission_spectrum.png}
-    \caption{Spectrum of a 2D quantum dot both with and without a magnetic field.}
+    \caption{Spectrum of a single-electron two-dimensional quantum dot both with and
+        without a magnetic field.
+    }
     \label{fig:transmission_spectrum_b_field}
+\end{figure}
+
+\subsection{Many-particle Magnetic Quantum Dot}
+
+We will now show that the dipole spectrum splitting holds for a quantum dot of 
+several electrons. To do this we conduct sevarl simulations of quantum dots consisting 
+of both $n=2$ and $n=4$ electrons. Because of the reordering of quantum degeneracies 
+that occurs by introducing a magnetic field, we will not run into any multi-reference 
+problems for the $n=4$ electron case.
+
+The quantum dot systems are each excited by a laser pulse with the linearly increasing 
+and decreasing envelope, as defined by \citeauthor{li2005time}\cite{li2005time}, in 
+equation \autoref{eq:li_laser}. The laser of this oscillating field is set to the 
+same frequency as the system $\omega=\omega_0=1$ and the maximum intensity of the field 
+is $\vb{E}_\text{max} = 0.1$. The Larmor frequency of the magnetic field that the 
+quantum dots are subjected to is varied, $\omega_c\in\{0.25, 0.5, 0.75, 1.0\}$.
+For each of these simulations we compute the Fourier transform of the dipole in 
+the same direction as the polarisation of the laser field, $\ev{x} =\tr{\rho x}$.
+In the simulations with $n=2$ electrons we used $l=30$ spinorbitals,
+and in the simulations with $n=4$ spinorbitals we used $l=56$ spinorbitals.
+We let the systems propagate for $T = 1000 \text{ au}$\footnote{With the notable 
+exception of the $n=4$ electron simulation for $\omega_c=0.25$, which was terminated 
+at $T=700$.}
+
+We present some selected results here, for Larmor frequency $\omega_c=0.25$ for 
+$n=2$ and $n=4$ electrons, shown in figure \autoref{fig:b_omc025}. The results for 
+the rest of the different Larmor frequencies are consigned to \autoref{app:b_field}.
+All results of these simualtions conform with the harmonic potential theorem. The 
+distance between the two lines of the spectrum si approximately equal to the 
+Larmor frequency. What little error is seen can be attributed to numerical errors,
+most likely caused by basis set truncations or premature termination of the
+time-propagation.
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[clip=2em 0em 10em 0em, width=\textwidth]
+        {results/figures/B_field/n=2/b_spectrum_omc025.png}
+    \end{minipage}\hfill 
+    \begin{minipage}{0.49\textwidth}
+        \includegraphics[clip=0em 0em 10em 0em, width=\textwidth]
+        {results/figures/B_field/n=4/b_spectrum_n=4_omc=025.png}
+    \end{minipage}
+    \caption{Dipole spectrum of a quantum dot with $n=2$ (left), and $n=4$ electron 
+    subjected to a magnetic field with Larmor frequency $\omega_c=0.25$.}
+    \label{fig:b_omc025}
 \end{figure}
