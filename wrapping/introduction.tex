@@ -112,19 +112,26 @@
 
 \section{Goals}
 
-    \paragraph{Methods}
-    \begin{enumerate}
-        \item Write a Coupled Cluster Solver including singles and doubles excitations.
-        \item Extend Coupled Cluster sovler to include time evolution.
-        \item Include orbital dependencies in the coupled cluster solver, as 
-            discussed by \citeauthor{kvaal2012ab}\cite{kvaal2012ab}.
-    \end{enumerate}
+    The specific task of this thesis is to study the time evolution of quantum 
+    mechanical systems using the Coupled Cluster method. In particular this 
+    pertains to the study of the time-dependent electronic systems, with an emphasis 
+    of quantum dots. By use of proper object-orientation the implementation should 
+    also be used to study simple atoms in three dimensions. The aim should be to 
+    extend the formalism and algorithms developed in the thesis of 
+    \citeauthor{haakon2017time}\citeauthor{haakon2017time}.
 
-    \paragraph{Systems}
+    The these progression milestones have been split into the following steps,
+
     \begin{enumerate}
-        \item Harmonic quantum dots in one and two dimensions.
-        \item Atoms and molecules.
-        \item Magnetic fields. 
+        \item Write a Coupled Cluster Doubles code with double exciations (CCD)
+            capable of solving a system of two electrons in two or three dimensions 
+            in a single harmonic oscillator well.
+        \item Extend Coupled Cluster solver to include singles excitations (CCSD)
+            and time evolution with static orbitals (TDCCSD). Moreover, expand system
+            implementations to include more interesting systems, for example double
+            potential wells or simple atoms.
+        \item Include orbital dependencies in the time-dependent coupled cluster solver, as 
+            discussed by \citeauthor{kvaal2012ab}\cite{kvaal2012ab}.
     \end{enumerate}
 
 \section{Our Contributions}
