@@ -1,0 +1,100 @@
+\chapter{Introduction}
+
+    The aim and raison d'étre of this thesis is to implement methods that enables the 
+    study of many-body quantum systems in time. The word `ìmplement'' entails construction 
+    of numerical solvers on a computer. Such computational modelling have since its 
+    inception around the middle of the last century become present in all of the natural 
+    sciences, and have since made its foray in the social sciences as well. In the 
+    natural sciences, one could argue that computation plays as big a role as the two 
+    conventional congregations of theory and experiment. In physics, computations are 
+    a central component in a vast area of fields so diverse as
+    quantum chromodynamics\cite{pederiva2018computing,vege2019solving} to 
+    molecular dynamics\cite{stende2017constructing,treider2017speeding}.
+
+    Quantum mechanics is the description of the behaviour of matter and light in all 
+    its details, and in particular of the happenings on an atomic scale. A state of 
+    a quantum system is described by a wavefunction $\Psi(\vb{r}, t)$, which provides 
+    us with all there is to know about a particular system. If we have a sufficient 
+    initial condition for the wavefunctions we can determine $\Psi(\vb{r}, t)$
+    at any point in the future by solving the Schrödinger equations,
+    \begin{equation}
+        i\hbar \frac{\partial}{\partial t} \Psi(\vb{r}, t) = \hat{H} \Psi(\vb{r}, t).
+    \end{equation}
+    Our ability to solve the Schrödinger equations analytically is constrained to only 
+    a few quantum systems, and vanishes rapidly as the number of constituent particles in 
+    such a system exceed just a few. It has therefore been necessary to extend the chalk and 
+    the blackboard with numerics and a computer. The underlying theory for all of chemistry 
+    is well-known and has been known for more than half a century, but the only element 
+    we are able to \emph{solve} the very simples element, hydrogen, on the blackboard.
+    Adding an electron to the quantum hydrogren atom results in an analytically 
+    unsolvable Schrödinger equation. As such, in order to \emph{solve chemistry} we 
+    need numerical approximations.
+
+
+\section{The Quantum Many-Body Problem}
+
+    We have established that solving the Schrödinger equations exactly by hand is 
+    impossible in the overwhelming majority of interesting cases. For this reason, 
+    a plethora of computational, approximative methods have been developed aiming 
+    to solve the many-body Schrödinger equation. Starting from firt principles,
+    or \emph{ab initio}, the goal of such algorithms is to procure some informations 
+    about as quantum system in a reasonable amount of time. In order to accomplish 
+    this some sacrifices must be made in the form of simplifications. 
+
+    The Hartree-Fock
+    method\cite{hartree1928wave,fock1930naherungsmethode,szabo2012modern} which 
+    has seen extensive use since its inception in 1930
+    employs a mean-field appriximation, which provides an efficiently computed result, 
+    but it is not very accurate. The most popular approximative method is without doubt 
+    the density functional theory (DFT), devloped by Kohn and Sham in
+    1965\cite{kohn1965self}, simplifies the quantum many-body problem by reformulating 
+    it in terms of eletron number density. DFT is also insufficient if one requires a 
+    high degree of accuracy, however.
+
+    It is possible to solve a quantum many-body problem correctly by direct diagonalisation 
+    of the Hamiltionian, often called Full Configuration Interaction (FCI). Such a method 
+    will yield an absolutely accurate result in the limit of an infinite orbital basis set,
+    but it suffers from exponential complexity scaling\cite{helgaker2014molecular}.
+    A sophisticate Monte-Carlo scheme, like Diffusion Monte-Carlo (DMC) can in principle 
+    provide the exact solution to the Schrödinger equation by imaginary time-evolution 
+    of an inital wave function ansatz\cite{hammond1994monte}. The high dependence of the 
+    initial guess and often require the input of another less accurate method. Another 
+    example of a similar method is the Variational Monte-Carlo (VMC) method, which is
+    simpler and faster than DMC, but not as accurate.
+
+    The improvement in the 
+
+    \begin{itemize}
+        \item Size-extensivity and -consistency.
+        \item FCI really f-s things up.
+        \item Why is CC good?
+    \end{itemize}
+
+\section{Goals}
+
+    \paragraph{Methods}
+    \begin{enumerate}
+        \item Write a Coupled Cluster Solver including singles and doubles excitations.
+        \item Extend Coupled Cluster sovler to include time evolution.
+        \item Include orbital dependencies in the coupled cluster solver, as 
+            discussed by \citeauthor{kvaal2012ab}\cite{kvaal2012ab}.
+    \end{enumerate}
+
+    \paragraph{Systems}
+    \begin{enumerate}
+        \item Harmonic quantum dots in one and two dimensions.
+        \item Atoms and molecules.
+        \item Magnetic fields. 
+    \end{enumerate}
+
+\section{Our Contributions}
+
+    \begin{itemize}
+        \item Two modules
+        \item Why python? Speed of development. Actually quite fast. 
+            Problems: memory control.
+    \end{itemize}
+
+\section{Structure of This Thesis}
+
+Just look at contents.

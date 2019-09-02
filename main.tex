@@ -20,11 +20,21 @@
 \frontmatter
     \maketitle
 
+    \begin{abstract}
+    \include{wrapping/abstract.tex}
+    \end{abstract}
+    
+    \begin{acknowledgements}
+    \include{wrapping/acknowledgements.tex}
+    \end{acknowledgements} 
+
     %\setcounter{tocdepth}{1}
     \tableofcontents
     %\listoffigures
 
 \mainmatter
+
+    \input{wrapping/introduction.tex}
 
     \part{Fundamentals}
 
@@ -43,8 +53,13 @@
         \input{implementation/coupled_cluster.tex} 
     
     \part{Results}
+   
         \input{results/benchmarks.tex}
         \input{results/quantum_dot.tex}
+
+    \part{Conclusion}
+
+        \input{wrapping/conclusion.tex} 
 
     \part{Appendices}
     \appendix
