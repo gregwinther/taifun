@@ -8,24 +8,26 @@
     natural sciences, one could argue that computation plays as big a role as the two 
     conventional congregations of theory and experiment. In physics, computations are 
     a central component in a vast area of fields so diverse as
-    quantum chromodynamics\cite{pederiva2018computing,vege2019solving} to 
-    molecular dynamics\cite{stende2017constructing,treider2017speeding}.
+    quantum chromodynamics\cite{pederiva2018computing,vege2019solving},
+    molecular dynamics\cite{stende2017constructing,treider2017speeding} and 
+    astrophysics\cite{sand2016massive}.
 
     Quantum mechanics is the description of the behaviour of matter and light in all 
     its details, and in particular of the happenings on an atomic scale. A state of 
     a quantum system is described by a wavefunction $\Psi(\vb{r}, t)$, which provides 
-    us with all there is to know about a particular system. If we have a sufficient 
-    initial condition for the wavefunctions we can determine $\Psi(\vb{r}, t)$
-    at any point in the future by solving the Schrödinger equations,
+    us with all there is to know about a particular system. We can determine
+    $\Psi(\vb{r}, t)$
+    at any point in the future by solving the Schrödinger equation, given the inital 
+    state of the system $\Psi(\vb{r}, t_0)$,
     \begin{equation}
         i\hbar \frac{\partial}{\partial t} \Psi(\vb{r}, t) = \hat{H} \Psi(\vb{r}, t).
     \end{equation}
-    Our ability to solve the Schrödinger equations analytically is constrained to only 
+    Our ability to solve the Schrödinger equation analytically is constrained to only 
     a few quantum systems, and vanishes rapidly as the number of constituent particles in 
     such a system exceed just a few. It has therefore been necessary to extend the chalk and 
     the blackboard with numerics and a computer. The underlying theory for all of chemistry 
     is well-known and has been known for more than half a century, but the only element 
-    we are able to \emph{solve} the very simples element, hydrogen, on the blackboard.
+    we are able to solve on the blackboard is the the very simplest element, hydrogen.
     Adding an electron to the quantum hydrogren atom results in an analytically 
     unsolvable Schrödinger equation. As such, in order to \emph{solve chemistry} we 
     need numerical approximations.
@@ -36,37 +38,38 @@
     We have established that solving the Schrödinger equations exactly by hand is 
     impossible in the overwhelming majority of interesting cases. For this reason, 
     a plethora of computational, approximative methods have been developed aiming 
-    to solve the many-body Schrödinger equation. Starting from firt principles,
-    or \emph{ab initio}, the goal of such algorithms is to procure some informations 
-    about as quantum system in a reasonable amount of time. In order to accomplish 
-    this some sacrifices must be made in the form of simplifications. 
+    to solve the many-body Schrödinger equation. Starting from first principles,
+    or \emph{ab initio}, the goal of such algorithms is to procure some information
+    about a quantum system in a reasonable amount of time. In order to accomplish 
+    this, some sacrifices must be made in the form of simplifications. 
 
     The Hartree-Fock
     method\cite{hartree1928wave,fock1930naherungsmethode,szabo2012modern} which 
     has seen extensive use since its inception in 1930
     employs a mean-field appriximation, which provides an efficiently computed result, 
     but it is not very accurate. The most popular approximative method is without doubt 
-    the density functional theory (DFT), devloped by Kohn and Sham in
-    1965\cite{kohn1965self}, simplifies the quantum many-body problem by reformulating 
-    it in terms of eletron number density. DFT is also insufficient if one requires a 
-    high degree of accuracy, however.
+    the density functional theory (DFT), developed by Kohn and Sham in
+    1965\cite{kohn1965self}, which simplifies the quantum many-body problem by reformulating 
+    it in terms of eletron number density. However, DFT is also insufficient if one requires a 
+    high degree of accuracy.
 
     It is possible to solve a quantum many-body problem  ``correctly'' by direct diagonalisation 
     of the Hamiltionian, often called Full Configuration Interaction (FCI). Such a method 
     will yield an absolutely accurate result in the limit of an infinite orbital basis set,
     but it suffers from exponential complexity scaling\cite{helgaker2014molecular}.
-    A sophisticate Monte-Carlo scheme, like Diffusion Monte-Carlo (DMC) can in principle 
+    A sophisticated Monte-Carlo scheme, like Diffusion Monte-Carlo (DMC) can in principle 
     provide the exact solution to the Schrödinger equation by imaginary time-evolution 
     of an inital wave function ansatz\cite{hammond1994monte}. The high dependence of the 
-    initial guess and often require the input of another less accurate method. Another 
+    initial guess is problematic. What is more, the method often require the input of
+    another less accurate method as a starting point. Another 
     example of a similar method is the Variational Monte-Carlo (VMC) method, which is
     simpler and faster than DMC, but not as accurate.
 
     Since the Hartree-Fock method is the earliest of methods designed to solve the quantum 
-    many-body proble, it has become the purpose of all other many-body methods to describe 
+    many-body problem, it has become the purpose of all other many-body methods to describe 
     \emph{electron correlation}, defined as representing the difference between the 
     Hartree-Fock description of the electronic wavefunction and the exact solution of 
-    the Schrödinger eqution. The simples approach to treat the electron correlation
+    the Schrödinger eqution. The simplest approach to treat the electron correlation
     is by performing a Configurations Interaction (CI) expansion,
     \begin{equation}
         \Psi = \Phi_\text{HF} 
@@ -83,11 +86,11 @@
     and \emph{size-consistency}. A quantum-mechanical model is said to be \emph{extensive}
     if the energy of the system computed with this model scales with the size of the 
     system\cite{bartlett1978many}. For systems of non-interacting helium atoms, for instance,
-    we must have that $E(N\text{He}) = NE(\text{He})$. Moreover, a mo:del is \emph{consistency}
+    we must have that $E(N\text{He}) = NE(\text{He})$. Moreover, a model is \emph{size-consistent}
     if the energies of two systems $A$ and $B$ and of the combined system $AB$, with 
     $A$ and $B$ very far apart, computed in equivalent ways, satify
-    $E(AB) = E(A) + E(B)$\citeauthor{pople1976theoretical}. It can be shown that 
-    trucated CI does \emph{not} comply with the concept of
+    $E(AB) = E(A) + E(B)$\cite{pople1976theoretical}. It can be shown that 
+    truncated CI does \emph{not} comply with the concept of
     extensivity\cite{shavitt2009many}.
 
     A class of methods of which most constituents provide proper \emph{extensive} model
@@ -98,15 +101,15 @@
     particular perturbation expansion can be expressed by ``linked terms''
     only\footnote{A thorough treatment of these terms are found in the end of
     \autoref{ch:perturbation}},
-    leading to the Coupled Cluster method\cite{coester1958bound,coester1960short},
-    which has become one of the most prevalent methods in quantum chemistry,
-    as it very accurate, but maintains size-consistency and -extensivity.
+    leading to the Coupled Cluster method\cite{coester1958bound,coester1960short}.
+    Coupled Cluster has become one of the most prevalent methods in quantum chemistry,
+    as it is very accurate, whilst maintaining size-consistency and -extensivity.
     The Coupled Cluster method also has elegant truncation levels, similar to the 
     truncated Configuration Interaction method\footnote{Coupled Cluster and
     Configuration Interaction has an elegant correspondence,
     see \autoref{app:cc_vs_ci}}.
 
-    Computational scaling of \emph{ap initio} quantum mechanical models range from 
+    Computational scaling of \emph{ab initio} quantum mechanical models range from 
     $\mathcal{O}(N!)$ for Full Configuration Interaction (FCI), via $\mathcal{O}(N^6)$ 
     for Coupled Cluster Singled Doubles with Perturbed Triples (CCSD(T)) to 
     $\mathcal{O}(N^4)$ for formal Hartree-Fock (HF)\cite{ratcliff2017challenges}.
@@ -117,10 +120,11 @@
     The specific task of this thesis is to study the time evolution of quantum 
     mechanical systems using the Coupled Cluster method. In particular this 
     pertains to the study of the time-dependent electronic systems, with an emphasis 
-    of quantum dots. By use of proper object-orientation the implementation should 
-    also be used to study simple atoms in three dimensions. The aim should be to 
+    on quantum dots. By use of proper object-orientation the implementation should 
+    also be used to study simple atoms and molecules in three dimensions.
+    The aim should be to 
     extend the formalism and algorithms developed in the thesis of 
-    \citeauthor{haakon2017time}\citeauthor{haakon2017time}.
+    \citeauthor{haakon2017time}\cite{haakon2017time}.
 
     The these progression milestones have been split into the following steps,
 
@@ -140,16 +144,16 @@
 
     There already exists an abundance of optimised and well-tested ab inito quantum chemistry 
     software packages. As such we have not sought to build software meant to compete 
-    with such software, but function as a supplement. As far as we know there are know 
+    with such software, but function as a supplement. As far as we know 
     there is currently no software that allows for time-dependent Coupled Cluster 
     computations in widespread use, making our contribution worthwhile. The interest 
     we have seen for our work at the Hylleraas centre at the University of Oslo 
-    is testament to this
+    is testament to this\cite{islandwind2019numerically}.
 
     We have constructed two modules in the Python programming language that works
     well in conjunction, but 
     can also be used separately. The module \lstinline{coupled_cluster}, as the  
-    name suggests contains all our Coupled Cluster solver, both ground state and 
+    name suggests contains all our Coupled Cluster solvers, both ground state and 
     time-dependent. The module \lstinline{quantum_systems} provides basis sets
     designed to work with the \lstinline{coupled_cluster} module. The 
     \lstinline{quantum_systems} module also contains functions for extracting basis sets 
@@ -157,12 +161,12 @@
     and Psi4\cite{parrish2017psi4}. The source code for the \lstinline{coupled_cluster} module 
     can be found at
     \url{github.com/Schoyen/coupled-cluster}\footnote{At the time this document is 
-    first printed, the source code may not be public. We plan to make the soruce code 
+    first printed, the source code may not be public. We plan to make the source code 
     open and public as soon as possible.} and documentation at 
     \url{www.coupledcluster.com}.
     The source code for the \lstinline{quantum_systems} module 
     can be found at
-    \url{github.com/Schoyen/quantum-systems}and documentation at 
+    \url{github.com/Schoyen/quantum-systems} and documentation at 
     \url{Schoyen.github.io/quantum-systems}.
 
     We have chosen Python as a development language for a couple of reasons. 
@@ -174,17 +178,17 @@
     and Linear Algebra PACKage (LAPACK).
     Both implemented in Fortran, BLAS consists of a low-level matrix and vector 
     arithmetic operations, while LAPACK is a collection of common algorithms 
-    used in linear alebra such as routines for solving systems of linear 
-    equations. For heavy operations that are not vectorisable, we have have  
+    used in linear algebra such as routines for solving systems of linear 
+    equations. For heavy operations that are not vectorisable, we have found
     just-in-time compilations with numba very beneficial.
 
     Second, Python is a high level language which has sped up development greatly 
-    compared to developing in a lower level language. For this reasong we 
+    compared to developing in a lower level language. For this reason we 
     have a feeling that we have accomplished more than we would have 
     otherwise. The drawback of developing in a higher level language is the 
     lack of low level control, like memory management. 
 
-\section{Structure of This Thesis}
+\section{Structure of this Thesis}
 
     This thesis consists of five main parts. The first part, \emph{Fundamentals} 
     introduces the basis of quantum mechanics as well as the second quantisation 
@@ -197,17 +201,17 @@
     also because the Lagrange multiplier path we take to derive the method is 
     similar to what we will do later, when we talk about Lagrangian Coupled Cluster.
     We also introduce a time-dependent Hartree-Fock scheme here.
-    Next, we present many-body \emph{Perturbation Theory}, which is often uses as
-    an supplement to other many-body methods, but it also highlights the origins 
+    Next, we present many-body \emph{Perturbation Theory}, which is often used as
+    a supplement to other many-body methods, but it also highlights the origins 
     of the Coupled Cluster method, the topic of the next chapter.
     We derive both Brillouin-Wigner- and Rayleigh-Schrödinger Perturbation theory. 
-    In the chapter on \emph{Coupled Cluster} we provide a detailed derivations 
+    In the chapter on \emph{Coupled Cluster} we provide a detailed derivation
     of the Coupled Cluster equations, before detailing the problems caused 
     by the method's non-variational nature. This leads naturally to 
     the Lagrangian formulation of Coupled Cluster\cite{helgaker1988analytical}
-    and the bivariational principle\citeauthor{arponen1983variational}. Lastly,
-    we introduce time-dependent Coupled Cluster theory, with static and 
-    adaptive\cite{kvaal2012ab}.
+    and the bivariational principle\cite{arponen1983variational}. Lastly,
+    we introduce time-dependent Coupled Cluster theory, with both static and 
+    adaptive orbitals\cite{kvaal2012ab}.
 
     In \emph{Implementation}, the third part of the thesis, we bestow upon the reader 
     a specification of the two python modules, \lstinline{quantum_systems} 
@@ -220,7 +224,7 @@
     the reproduction of several results from relatively well-known articles. 
     The second and last chapter in this part contains the central results of 
     this thesis. Here we provide results from simulations of one- and two-dimensional 
-    quantum dots, two-dimensional quantum dots, as well as two-dimensional quantum 
+    quantum dots, as well as two-dimensional quantum 
     dots acted on by an approximation of a magnetic field. Becuase this study 
     has been conducted in close conjunction with
     \citeauthor{islandwind2019}, more results that are computed with the 
