@@ -681,7 +681,7 @@ of a magnetic field in experiments\cite{heitmann1993spectroscopy,meurer1992singl
     \label{fig:transmission_spectrum_b_field}
 \end{figure}
 
-\subsection{Many-particle Magnetic Quantum Dot}
+\subsection{Many-particle Magnetic Quantum Dots}
 
 We will now show that the dipole spectrum splitting holds for a quantum dot of 
 several electrons. To do this we conduct several simulations of quantum dots consisting 
@@ -704,7 +704,9 @@ exception of the $n=4$ electron simulation for $\omega_c=0.25$, which was termin
 at $T=700$.}.
 
 We present some selected results here, for Larmor frequency $\omega_c=0.25$ for 
-$n=2$ and $n=4$ electrons, shown in figure \autoref{fig:b_omc025}. The results for 
+$n=2$ and $n=4$ electrons, shown in figure \autoref{fig:b_n2_omc025}
+and \autoref{fig:b_n4_omc025}, respectively.
+The results for 
 the rest of the different Larmor frequencies are consigned to \autoref{app:b_field}.
 All results of these simualtions conform with the harmonic potential theorem. The 
 distance between the two lines of the spectrum is approximately equal to the 
@@ -714,15 +716,18 @@ time-propagation.
 
 \begin{figure}
     \centering
-    \begin{minipage}{0.49\textwidth}
-        \includegraphics[clip=2em 0em 10em 0em, width=\textwidth]
+    \includegraphics[width=0.75\textwidth]
         {results/figures/B_field/n=2/b_spectrum_omc025.png}
-    \end{minipage}\hfill 
-    \begin{minipage}{0.49\textwidth}
-        \includegraphics[clip=0em 0em 10em 0em, width=\textwidth]
+    \caption{Dipole spectrum of a quantum dot with $n=2$ electrons
+    subjected to a magnetic field with Larmor frequency $\omega_c=0.25$.} 
+    \label{fig:b_n2_omc025}
+\end{figure}
+
+\begin{figure}
+    \centering    
+    \includegraphics[width=0.75\textwidth]
         {results/figures/B_field/n=4/b_spectrum_n=4_omc=025.png}
-    \end{minipage}
-    \caption{Dipole spectrum of a quantum dot with $n=2$ (left), and $n=4$ electron 
+    \caption{Dipole spectrum of a quantum dot with $n=2$ electrons
     subjected to a magnetic field with Larmor frequency $\omega_c=0.25$.}
-    \label{fig:b_omc025}
+    \label{fig:b_n4_omc025}
 \end{figure}
