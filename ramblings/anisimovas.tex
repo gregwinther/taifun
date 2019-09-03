@@ -68,20 +68,16 @@ def coulomb_ho(n_i, m_i, n_j, m_j, n_l, m_l, n_k, m_k):
                                     temp += (
                                         -2
                                         * (int(g[1] + g[2] - l[1] - l[2]) & 0x1)
-                                        + 1
-                                    ) * np.exp(
+                                        + 1) 
+                                        * np.exp(
                                         log_product_3(l, g)
                                         + math.lgamma(1.0 + 0.5 * L)
-                                        + math.lgamma(0.5 * (G - L + 1.0))
-                                    )
-
+                                        + math.lgamma(0.5 * (G - L + 1.0)))
                     element += (
                         (-2 * (int(np.sum(j)) & 0x1) + 1)
                         * np.exp(ratio_1 + prod_2 + ratio_2)
-                        * temp
-                    )
+                        * temp)
 
     element *= log_product_1(n, m)
-
     return element
 \end{python}
