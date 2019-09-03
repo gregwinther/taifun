@@ -136,12 +136,94 @@
 
 \section{Our Contributions}
 
-    \begin{itemize}
-        \item Two modules
-        \item Why python? Speed of development. Actually quite fast. 
-            Problems: memory control.
-    \end{itemize}
+    There already exists an abundance of optimised and well-tested ab inito quantum chemistry 
+    software packages. As such we have not sought to build software meant to compete 
+    with such software, but function as a supplement. As far as we know there are know 
+    there is currently no software that allows for time-dependent Coupled Cluster 
+    computations in widespread use, making our contribution worthwhile. The interest 
+    we have seen for our work at the Hylleraas centre at the University of Oslo 
+    is testament to this
+
+    We have constructed two modules in the Python programming language that works
+    well in conjunction, but 
+    can also be used separately. The module \lstinline{coupled_cluster}, as the  
+    name suggests contains all our Coupled Cluster solver, both ground state and 
+    time-dependent. The module \lstinline{quantum_systems} provides basis sets
+    designed to work with the \lstinline{coupled_cluster} module. The 
+    \lstinline{quantum_systems} module also contains functions for extracting basis sets 
+    from the very popular quantum chemistry modules \lstinline{PySCF}\cite{PYSCF}
+    and Psi4\cite{parrish2017psi4}. The source code for the \lstinline{coupled_cluster} module 
+    can be found at
+    \url{github.com/Schoyen/coupled-cluster}\footnote{At the time this document is 
+    first printed, the source code may not be public. We plan to make the soruce code 
+    open and public as soon as possible.} and documentation at 
+    \url{www.coupledcluster.com}.
+    The source code for the \lstinline{quantum_systems} module 
+    can be found at
+    \url{github.com/Schoyen/quantum-systems}and documentation at 
+    \url{Schoyen.github.io/quantum-systems}.
+
+    We have chosen Python as a development language for a couple of reasons. 
+    First, even though Python is essently a  ``scripting language'', in the sense 
+    that it is usually slower than a compiled language like \CC,
+    most of our computations are matrix or tensor computations which are very fast
+    in Python. We do matrix multiplications and linear algebra in NumPy, which 
+    is very fast because of its use of Basic Liner Algebra Subprograms (BLAS) 
+    and Linear Algebra PACKage (LAPACK).
+    Both implemented in Fortran, BLAS consists of a low-level matrix and vector 
+    arithmetic operations, while LAPACK is a collection of common algorithms 
+    used in linear alebra such as routines for solving systems of linear 
+    equations. For heavy operations that are not vectorisable, we have have  
+    just-in-time compilations with numba very beneficial.
+
+    Second, Python is a high level language which has sped up development greatly 
+    compared to developing in a lower level language. For this reasong we 
+    have a feeling that we have accomplished more than we would have 
+    otherwise. The drawback of developing in a higher level language is the 
+    lack of low level control, like memory management. 
 
 \section{Structure of This Thesis}
 
-Just look at contents.
+    This thesis consists of five main parts. The first part, \emph{Fundamentals} 
+    introduces the basis of quantum mechanics as well as the second quantisation 
+    formalism.
+    
+    In the second part, \emph{Quantum Many-Body Approximation}, we 
+    thoroughly present three many-body methods, each in its own chapter.
+    We start with a chapter on \emph{Hartree-Fock Theory}, because this is 
+    the first ab initio many-body method that saw truly widespread use, but 
+    also because the Lagrange multiplier path we take to derive the method is 
+    similar to what we will do later, when we talk about Lagrangian Coupled Cluster.
+    We also introduce a time-dependent Hartree-Fock scheme here.
+    Next, we present many-body \emph{Perturbation Theory}, which is often uses as
+    an supplement to other many-body methods, but it also highlights the origins 
+    of the Coupled Cluster method, the topic of the next chapter.
+    We derive both Brillouin-Wigner- and Rayleigh-Schrödinger Perturbation theory. 
+    In the chapter on \emph{Coupled Cluster} we provide a detailed derivations 
+    of the Coupled Cluster equations, before detailing the problems caused 
+    by the method's non-variational nature. This leads naturally to 
+    the Lagrangian formulation of Coupled Cluster\cite{helgaker1988analytical}
+    and the bivariational principle\citeauthor{arponen1983variational}. Lastly,
+    we introduce time-dependent Coupled Cluster theory, with static and 
+    adaptive\cite{kvaal2012ab}.
+
+    In \emph{Implementation}, the third part of the thesis, we bestow upon the reader 
+    a specification of the two python modules, \lstinline{quantum_systems} 
+    and \lstinline{coupled_cluster}. Furthermore, we seek to explain the machinery
+    in the two python modules, and their functionality. 
+
+    In the fourth part of the thesis, we provide \emph{Results} generated with the
+    coupled cluster solvers we have implemented. We start by a validation against
+    some existing literature on time-dependent ab initio solvers. This includes 
+    the reproduction of several results from relatively well-known articles. 
+    The second and last chapter in this part contains the central results of 
+    this thesis. Here we provide results from simulations of one- and two-dimensional 
+    quantum dots, two-dimensional quantum dots, as well as two-dimensional quantum 
+    dots acted on by an approximation of a magnetic field. Becuase this study 
+    has been conducted in close conjunction with
+    \citeauthor{islandwind2019}, more results that are computed with the 
+    same solvers, relating to atoms and molecules can be found in Ref.
+    \cite{islandwind2019}.
+   
+    Lastly, in the fifth and final section we impart a \emph{Conclusion} and 
+    some suggestions for future work in the same field of study.
