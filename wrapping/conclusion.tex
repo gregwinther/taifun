@@ -1,7 +1,7 @@
 \chapter{Summary Remarks}
 
 The aim of this thesis was to develop and test numerical methods for 
-soling the time-dependent Schrödinger equation. In particular, we 
+solving the time-dependent Schrödinger equation. In particular, we 
 wanted to develop the Orbital Adaptive Time-Dependent Coupled Cluster 
 (OATDCC) method introduced by \citeauthor{kvaal2012ab}\cite{kvaal2012ab}.
 
@@ -38,19 +38,19 @@ ordinary harmonic quantum dots. For the two-dimensional double dot system,
 we also see only one spectral line, but a shift in frequency. By adding a homogenous,
 static magnetic field to the quantum dot, we see a split in the dipole spectrum 
 resulting in two spectral lines at a distance equal to the Larmor frequency of 
-the applied magnetic field.
+the applied magnetic field, also in agreement with the harmonic potential theorem.
 
 In assesment of the time-dependent coupled cluster method with static orbitals,
 we found that the solver struggles to correctly represent the current state if 
 the system progresses too far away from the inital reference state. As such the 
-method is not a method that one can trusts blindly, as the method returns
-inaccurate results in these sitations. This phenomenon manisfests most clearly as 
+method is not a method that one can trust blindly, as it returns
+inaccurate results in these situations. This phenomenon manisfests most clearly as 
 non-sensical ground state overlap values, but also as exceedingly high amplitude 
 values. The orbital-adaptive solver will remedy this problem, but has a drawback 
 in that it cannot feasibly produce inner products of two states in time, and therefore 
 is unable to compute time-dependent ground state probabilities.
 
-This study, with the addition the the study by \citeauthor{islandwind2019}\cite{islandwind2019},
+This study, with the addition of the study by \citeauthor{islandwind2019}\cite{islandwind2019},
 have only scratched the surface with regards to the cornucopia of results that our 
 code base is able to produce. The reason for this is for the most part attributed to 
 the time spent in development and the amount in wall clock time necessary to 
@@ -73,14 +73,14 @@ As of now, the apparatus we have manufactured can easily be used to model
 the time-dependent behaviour of additional systems. In fact, one could even 
 easily argue that the complete investigation of the systems we have implemented 
 ourselves in \lstinline{quantum_dots} is far from over. We have already begun
-the implementation of a smoother two-dimensional double well potential, and 
-improved and more interesting well potentials such as the double double dot 
+the implementation of a smoother two-dimensional double well potential, as well as 
+more interesting well potentials such as the double double dot 
 from \citeauthor{nielsen2012configuration}\cite{nielsen2012configuration}. Another 
 idea is the construction of potential that are not circular-symmetric.
 That said, we regrattably only had time to study \emph{one} of the
 \emph{five} potentials we have implemented for the one-dimensional quantum dot.
 The addition of a three-dimensional quantum dot system would also be essential 
-in any further studies. Hre, the integral elements provided by
+in any further studies. Here, the integral elements provided by
 \citeauthor{vorrath2003electronic}\cite{vorrath2003electronic} would be useful.
 
 We would also like to see the addition of more exotic terms to the Hamiltian in the 
@@ -88,13 +88,13 @@ quantum dot systems. We think it would not be too difficult to add a spin-operat
 terms $\hat{S}_x$, $\hat{S}_y$, $\hat{S}_z$, spin-spin coupling terms
 $\hat{S}\cdot\hat{S}$, and spin-orbit
 coupling terms $\hat{J}^2$, $\hat{L}\cdot\hat{S}$. We belive that these would provide 
-very interesting results and enables us to model resplendent physical effects. We are 
-confident that hte 
+very interesting results and enables us to model more resplendent physical effects. We are 
+confident that the 
 mere addition of a $\hat{S}_z$ operator would enable us to see Zeeman splitting in 
 the dipole spectrum of quantum dots, for instance. Eventually, one could hope to 
 implement much more complicated operators, such as quantum logic gates, with the 
 hope of consequent simulation of quantum circuitry.
 
-Richer physics can also be modelled by a the implementation of higher order 
+Richer physics can also be modelled by the implementation of higher order 
 multi-pole terms for the oscillating laser field. Moving beyond the allowed transitions
-dictated by the dipole approximation could yield some interesting results.
+dictated by the dipole approximation could yield interesting results.
