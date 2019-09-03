@@ -199,9 +199,8 @@ It is common to substract $E_{\text{ref}}$ to get,
 \begin{equation}
     \hat{H}_N \Psi_{\text{CCD}} = \Delta E_{\text{CCD}} \Psi_{\text{CCD}},
 \end{equation}
-where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Now follows a series of expressions
-intended to show the correspondence between coupled cluster- and perturbation theory,
-HOPEFULLY THIS WILL BE CLEARER WHEN THE CHAPTER ON PERTURBATION THEORY IS COMPLETE
+where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Here follows definitions of 
+all the operators we will be dealing with in this derivation,
 \begin{equation}
     \hat{H}_N = \hat{F} - \hat{U} + \hat{H}_2 - E_{\text{ref}}
         = \hat{H}_0 + \hat{F}^0 - \hat{U} + \hat{H}_2 - E_{\text{ref}},
@@ -311,50 +310,6 @@ and there is one term for the case where all indices are equal,
 \begin{equation}
     \sum_{k>l} \bra{kl} \ket{kl} t^{ab}_{ij} = \frac{1}{2} \sum_{kl} \bra{kl} \ket{kl} t^{ab}_{ij}.
 \end{equation}
-
-\begin{tcolorbox}[title={Difference between Coupled Cluster and Configuration Interaction}, 
-    colback={white},
-    colbacktitle={pink},
-    coltitle={black}]
-
-    THIS BOX MAY BELONG SOMEWHERE ELSE (or may not be in a box)
-
-    Monkhorst\cite{monkhorst1977calculation} gives a general formuala for transferring 
-    back and forth between CC operators $\hat{T}_m$ and CI operators $\hat{C}_m$,
-    \begin{equation}
-        \hat{C}_m = \sum_{k}^m\frac{1}{k!}\sum_{|m_\mu|}
-            \delta(m_1 + m_2 + \dots + m_k, m) \prod_{\mu=1}^k\hat{T}_{m_\mu},
-    \end{equation}
-    where the second sum is over all sets of $k$ $m_\mu$-values that sum up to $m$.
-    The first four of the terms are,
-    \begin{align}
-        \hat{C}_1 &= \hat{T}_1 \\
-        \hat{C}_2 &= \hat{T}_2 + \frac{1}{2} \hat{T}_1^2 \\
-        \hat{C}_3 &= \hat{T}_3 + \hat{T}_1\hat{T}_2 + \frac{1}{3!} T_1^3 \\
-        \hat{C}_4 &= \hat{T}_4 + \frac{1}{2}\hat{T}_2
-            + \frac{1}{2}\hat{T}_2\hat{T}_1^2 + \frac{1}{4!}\hat{T}_1^4.
-    \end{align}
-    For the CCSD and CISDTQ wavfunctions we have,
-    \begin{gather}
-        \ket{\Psi_{\text{CCSD}}} = \left(
-            1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3 
-            + \hat{T}_2 + \frac{1}{2}\hat{T}_2^2 + \frac{1}{4!}\hat{T}_1^4 
-            + \hat{T}_1\hat{T}_2 
-        \right) \ket{\Phi_0} \\
-        \ket{\Psi_{\text{CISDTQ}}} = \left(
-            1 + \hat{C}_1 + \hat{C}_2  + \hat{C}_3 + \hat{C}_4
-        \right)\ket{\Phi_0}
-    \end{gather}
-    which provides us with a relation between the two,
-    \begin{equation}
-        \ket{\Psi_{\text{CCSD}}} 
-            = \ket{\Psi_{\text{CISDTQ}}} - (\hat{T}_3 + \hat{T}_4)\ket{\Phi_0}.
-    \end{equation}
-    Moreover, we see that for a system of $n=2$ particles, that
-    \begin{equation}
-        \ket{\Psi_{\text{CCSD}}} = \ket{\Psi_{\text{CISD}}}.
-    \end{equation}
-\end{tcolorbox}
 
 These last three- and four-index equality terms are expressible in terms of $\hat{u}$,
 and will cancel the first term in $L_1$ together with the $\hat{u}$ term from $L_0$.

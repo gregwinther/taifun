@@ -5,13 +5,9 @@
 
     \vspace{1em}
     Implementation of the orbital-adaptive coupled cluster method with double excitation
-    (OACCD),
-    also called the nonorthogonal orbital-optimized coupled cluster model with double 
-    excitations (NOCCD).
+    (OACCD).
     This algorithm require orthonormal basis functions. Based on work by Rolf H. 
-    Myhre\cite{myhre2018demonstrating}.
-
-    Inherits from the \textbf{CoupledClusterDoubles} class.
+    Myhre\cite{myhre2018demonstrating}. Inherits from the \textbf{CoupledClusterDoubles} class.
 
     \vspace{1em}
     \textbf{Parameters}
@@ -42,13 +38,13 @@
             Tolerance of convergence.
 
             \hspace{1.5em}\textbf{termination\_tol} (\emph{float, default $1e^{-4}$})
-            Give up if tolerance is below this.
+            Break if tolerance below this.
 
             \hspace{1.5em}\textbf{tol\_factor} (\emph{float, default $0.1$})
             Stricter for each $\kappa$-iteration.
 
             \hspace{1.5em}\textbf{change\_system\_basis} (\emph{bool, default False})
-            Changes basis after calculation.
+            Changes basis.
 
         \end{adjustwidth}
 

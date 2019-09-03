@@ -86,8 +86,6 @@ can be found at \url{www.coupled-cluster.com}.
     This method in turn calls the \lstinline{iterate_t_amplitudes()} and 
     \lstinline{iterate_l_amplitudes()} successively. 
 
-    \input{implementation/doc/coupled_cluster.tex}
-
     As we have outlined in 
     \autoref{ch:coupled_cluster_theory}, the $\tau$ amplitudes are only dependent on 
     $\tau$, while the $\lambda$ amplitudes are dependent on both $\tau$ and $\lambda$.
@@ -125,6 +123,8 @@ can be found at \url{www.coupled-cluster.com}.
     name, and with the goal of brevity we proceed to a study of the simplest 
     ground state coupled cluster solver, namely CCD, implemented in the 
     \lstinline{CoupledClusterDoubles} class. 
+
+    \input{implementation/doc/coupled_cluster.tex}
 
     \subsection{Coupled Cluster Doubles}
     
@@ -182,8 +182,6 @@ can be found at \url{www.coupled-cluster.com}.
         \end{aligned}
     \end{equation}
 
-    \input{implementation/doc/ccd.tex}
-   
     The initial guess in equation \autoref{eq:ccd_inital_guess} is terms 2 and 3
     from \autoref{eq:ccd_tau}. These terms also form the basis of the iterative scheme,
     if we move them to the left of the equal sign in \autoref{eq:ccd_tau}, 
@@ -195,7 +193,11 @@ can be found at \url{www.coupled-cluster.com}.
     \begin{equation}
         t^{(k+1)} = \frac{g(u,\tau^{(k)})}{D^{ab}_{ij}}.
     \end{equation}
-    
+
+    \input{implementation/doc/ccd.tex}
+    \vfill
+    \pagebreak
+
     An example of a computation of one term from \autoref{eq:ccd_tau} is,
     \begin{python}
     def add_d2e_t(u, t, o, v, out, np):
@@ -242,7 +244,8 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/oaccd.tex}
 
-    Our implementation of the NOCC ground state solver is inherited from code written by Rolf Myhre and 
+    Our implementation of the NOCC ground state solver is inherited from code written by
+    \citeauthor{myhre2018demonstrating} and 
     adapted to our 
     framework. We supply a brief overview of the algorithm here. The starting point for the 
     NOCC model is the bivariational Lagrangian
@@ -465,6 +468,9 @@ can be found at \url{www.coupled-cluster.com}.
 
     \input{implementation/doc/diis.tex}
 
+    \vfill
+    \pagebreak
+
 \section{Time Development}
 
     We have sought to formulate the time-dependent coupled cluster methods
@@ -488,7 +494,7 @@ can be found at \url{www.coupled-cluster.com}.
     to time development begins with an abstract base class,
     \lstinline{TimeDependentCoupledCluster}
     functioning as an interface for the rest of the classes. At construction, the 
-    \lstinline{TimeDependentCoupledCluster} class is passed an affiliated 
+    \lstinline{TimeDependent}- \lstinline{CoupledCluster} class is passed an affiliated 
     ground state solver in the form of a \lstinline{CoupledCluster} object, a 
     \lstinline{QuantumSystems} object and an \lstinline{Integrator} object. All these 
     are necessary in order to compute a time-development. The starting point for 
@@ -508,8 +514,6 @@ can be found at \url{www.coupled-cluster.com}.
     the equations of motion with a numerical integrator.  We will consider 
     integrators separately in the next section.
 
-    \input{implementation/doc/tdcc.tex}
-
     The bare minimum that a time-dependent coupled cluster scheme needs to implement 
     in order to function is the methods \lstinline{rhs_t_amplitudes()} and 
     \lstinline{rhs_l_amplitudes()}, which should return the right-hand side of 
@@ -523,7 +527,11 @@ can be found at \url{www.coupled-cluster.com}.
     of time steps supplied, this method propagates with the integrator member of the 
     class for all amplitudes. This method remains the same for all time-propagation 
     schemes, and is therefore implemented in the base class for inheritance in 
-    sub-classes. This method in full is
+    sub-classes. 
+
+    \input{implementation/doc/tdcc.tex}
+
+    The \lstinline{solve} method in full is
     \begin{python}
     def solve(self, time_points, timestep_tol=1e-8):
         n = len(time_points)
@@ -573,8 +581,11 @@ can be found at \url{www.coupled-cluster.com}.
     for instance \lstinline{compute_time_dependent_overlap()} which computes the 
     probability of the system being in the ground state, and \lstinline{compute_energy()} 
     which computes the energy of the system in the current time-dependent state.
+
+    \input{implementation/doc/tdccsd.tex}
+
     The ground state probability, i.e. \lstinline{compute_time_dependent_overlap()}, is 
-    given by a general time-dependent auto-correlation function,
+    based on a general time-dependent auto-correlation function,
     \begin{equation}
         \label{eq:td_autocorr_1}
         A(t', t) \equiv \braket{S(t')}{S(t)}.
@@ -597,8 +608,6 @@ can be found at \url{www.coupled-cluster.com}.
     Here we would set $t'=0$, because we are
     interested in the ground state overlap, translating to the state before developement 
     in time.
-
-    \input{implementation/doc/tdccsd.tex}
 
     Within our truncation to include only single- and double excitations,
     an inner product of two state vectors, in the normal coupled cluster scheme

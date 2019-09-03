@@ -259,14 +259,16 @@ Additionally, we have implemented the potentials defined in \autoref{tab:1d_pote
     \caption{One-dimensional potential classes in \lstinline{quantum_systems}.}
     \centering
     \begin{tabular}{l c}
+        \\
+        \hline\hline \\ 
         \lstinline[]$DWPotential$         & 
-        $\frac{1}{2}\omega^2\left(x^2 + \frac{1}{4}l^2 - l|x| \right)$ \\
+        $\frac{1}{2}\omega^2\left(x^2 + \frac{1}{4}l^2 - l|x| \right)$ \\ [1em]
         \lstinline[]$DWPotentialSmooth$   &
-        $\frac{1}{2a^2}\left(x + \frac{a}{2}\right)^2\left(x - \frac{a}{2}\right)^2$ \\
+        $\frac{1}{2a^2}\left(x + \frac{a}{2}\right)^2\left(x - \frac{a}{2}\right)^2$ \\ [1em]
         \lstinline[]$GaussianPotential$   &
-        $Ae^{-\frac{(x-\mu)^2}{2\sigma^2}}$ \\
+        $Ae^{-\frac{(x-\mu)^2}{2\sigma^2}}$ \\ [1em]
         \lstinline[]$AtomicPotential$     &
-        $- \frac{Z_a}{\sqrt{x^2 + c}}$ 
+        $- \frac{Z_a}{\sqrt{x^2 + c}}$ \\ [1em] \hline\hline
     \end{tabular} 
     \label{tab:1d_potentials}
 \end{table}
@@ -514,6 +516,8 @@ The integrals we need to compute are
         \int_0^{2\pi} \sin\theta Y^*_{m}(\theta)Y_{m}(\theta)d\theta.
 \end{gather}
 
+\input{implementation/doc/two_dim_quantum_dot.tex}
+
 The radially dependent integrals are the most difficult to compute, and we compute this 
 symbolically with \lstinline{sympy}. For the angular integrals, we can find analytical 
 expressions that can be evaluated quickly,
@@ -546,11 +550,6 @@ Similarly,
 \end{equation}
 This is a very nice result, as it conforms with the selection rule related to the 
 azimutal quantum number $m$.
-
-The final specification of the two-dimensional harmonic oscillator basis set class, which 
-is everything the user sees is the following,
-
-\input{implementation/doc/two_dim_quantum_dot.tex}
 
 \subsection{Two-Dimensional Double Well}
 \label{sec:2d_double_well}
@@ -719,22 +718,21 @@ and ensuring that we keep a closed-shell structure.
 Notice in \autoref{fig:magnetic_spaghetti}, that there are lengthy intervals of 
 b-field strength were there is no degeneracy in the eigenenergies. Conversely, 
 for certain specific field strengths there are very interesting shell structures with 
-diverse energies. For $\omega_c/\omega=1/\sqrt{2}$ we get the interesting shell structure
-depicted in \autoref{fig:b_field_degeneracy}. Such accidental bunching also occurs 
-for $\omega_c/\omega=2/\sqrt{3}, 3/2, 4/\sqrt{5}\dots$. We also see from figure 
+diverse energies and new degeneracies. Such accidental bunching occurs 
+for $\omega_c/\omega=1/\sqrt{2}, 2/\sqrt{3}, 3/2, 4/\sqrt{5}\dots$.
+We also see from figure 
 \autoref{fig:magnetic_spaghetti} that for an infinitely strong magnetic field as 
 $\omega_c/\omega \to \infty$, in the free particle limit, that the energy levels 
 form a sequence of so-called Landau bands. 
 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\textwidth]{implementation/figures/omega_inv_square_root_2_degeneracy.png}
-    \caption{Illustration of eigenenergy degeneracies for two-dimensional quantum 
-    dot for transverse magnetic field of strength $\omega_c=1/\sqrt{2}$.
-    Each dot 
-    \label{fig:b_field_degeneracy}}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=0.75\textwidth]{implementation/figures/omega_inv_square_root_2_degeneracy.png}
+%    \caption{Illustration of eigenenergy degeneracies for two-dimensional quantum 
+%    dot for transverse magnetic field of strength $\omega_c=1/\sqrt{2}$.
+%    Each dot 
+%    \label{fig:b_field_degeneracy}}
+%\end{figure}
 
 As for the computation of the basis set, not much needs to be added in the computation 
 than the extra energy to the diagonal part of the one-body matrix elements $h^p_q$, as 
@@ -745,8 +743,6 @@ cross over one another. The magnetic field has the effect of decreasing the ener
 a state with $m>0$ and increasing the energy of a state with $m<0$. This means that 
 it is necessary to sort the eigenvalues after they have been computed. 
 
-The class specification of the two-dimensional quantum dot subjected to a transverse,
-homogeneous, static magnetic field is below.
 \input{implementation/doc/two_dim_dot_B.tex}
 
 \section{Constructing a Custom System}
@@ -756,6 +752,8 @@ class called \lstinline{CustomSystem} with the intent of interfacing with
 other quantum chemistry libraries. This interfacing allows us to extract basis 
 sets for other systems, like atoms and molecules, that will function with the
 coupled cluster solvers we have implemented.
+
+\input{implementation/doc/custom_system.tex}
 
 The function of the member methods in the \lstinline{CustomSystem} class
 should be evident from their names. One can set the one-body matrix elements with 
@@ -775,13 +773,12 @@ quantum chemistry community. Psi4 has 354 stars and 235 forks, while PySCF has 3
 and 175 forks on GitHub. Arguably this can be considered  widely popular considering 
 the specificity of the topic.
 
-\input{implementation/doc/custom_system.tex}
-
 \section{Time Evolution}
 
 In order to compute the time-development of a quantum system, we add a
 time-dependent term to the Hamiltonian that describes the system. The class 
-\lstinline{TimeEvolutionOperator} is an abstract base class, which defines
+\lstinline{TimeEvolution}- \lstinline{Operator}
+is an abstract base class, which defines
 components necessary to make such time-dependent operators. A time-dependent 
 operator usually applies solely the one- or two-body part of the Hamiltonian, and 
 more often just the non-interacting one-body operator. For this reason we have implemented 
@@ -789,7 +786,7 @@ abstract attributes in the \lstinline{TimeEvolutionOperator} which will make it
 possible for the time-dependent coupled cluster solver to determine what parts 
 of the Hamiltonian is necessary to update for each time step.
 
-\input{implementation/doc/time_evolution_operator.tex}
+\input{implementation/doc/laser_field.tex}
 
 A common time evolution operator used in the study is a dipole approximation of 
 a laser field. We have implemented a class \lstinline{LaserField}, which makes 
@@ -801,7 +798,8 @@ the method \lstinline{h_t(current_time)}. The time-dependent pulse, incorporatin
 shape and frequency of the laser is passed as a parameter to the class. This can be 
 any callable type. The polarisation of the field is also passed to the class 
 as a simple static vector, meaning that as of now the class only allows for 
-linear polarisation. The electric field in the dipole appriximation typically 
+linear polarisation. 
+The electric field in the dipole approximation typically 
 reads
 \begin{equation}
     \vb{E}(t) = \vb{\epsilon} \mathscr{E}_0 F(t)\cos{(\omega_k t)},
@@ -811,4 +809,4 @@ for the maximum amplitude (strength) of the field, $F(t)$ defines the time-depen
 envelope of the laser pulse, the cosine term is there to make sure it's a waveform and
 $\omega_k$ is the angular frequency of the laser.
 
-\input{implementation/doc/laser_field.tex}
+\input{implementation/doc/time_evolution_operator.tex}
