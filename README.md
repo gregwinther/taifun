@@ -6,19 +6,11 @@ orbital time-dependent coupled cluster solver with single and double excitations
 (TDCCSD) and an oarbital-adaptive scheme with double excitations (OATDCCD). To
 supplement the time-dependent methods we implement several ground state solvers based
 on the Lagrangian Coupled Cluster formulation, with single and double excitations, as
-<<<<<<< HEAD
 well as a non-orthogonal orbital-optimised Coupled Cluster (NOCC) solver.
 
 We construct several quantum dot basis sets with different potential functions in
 one- and two dimensions, including interactions with magnetic fields. What is more, we
 also implemet an interface with popular quantum chemistry software modules PySCF and
-=======
-well as a non-orthogonal orbital-optimised Coupled Cluster (NOCC) solver[2].
-
-We construct several quantum dot basis sets with different potential functions in
-one- and two dimensions, including interactions with magnetic fields. What is more, we
-also implemet an interface with popular quantum chemistry software modules PySCF[3] and
->>>>>>> eea362db1dbcd98c3217d8c0c8d53340fdef6114
 Psi4 for extraction of additional basis sets for atoms and molecules. The quantum
 systems are allowed to vary with time by addition of a time-dependent addition to the
 Hamiltonian, with which we simulate a laser field in the dipole approximation.
