@@ -299,31 +299,48 @@ can be found at \url{www.coupled-cluster.com}.
         \frac{\partial \mathscr{L}}{\partial \lambda_{\mu_n}}
             &= \mel*{\tilde{\phi}}
             {\tilde{X}_{\mu_n} e^{-\hat{T}}\hat{H}e^{\hat{T}}}
-            {\phi}, \\
+            {\phi}, 
+            \label{eq:nocc_1} \\
         \frac{\partial \mathscr{L}}{\partial \tau_{\mu_n}}
             &= \mel*{\tilde{\phi}}
             {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_{\mu_n}]e^{\hat{T}}}
-            {\phi}, \\
+            {\phi}, 
+            \label{eq:nocc_2} \\
         \frac{\partial \mathscr{L}}{\partial \kappa^u_{\mu_1}}
             &= \mel*{\tilde{\phi}}
             {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, X_{\mu_1}]e^{\hat{T}}}
-            {\phi}, \\
+            {\phi}, 
+            \label{eq:nocc_3} \\
         \frac{\partial \mathscr{L}}{\partial \kappa^d_{\mu_1}}
             &= \mel*{\tilde{\phi}}
             {(1 + \Lambda)e^{-\hat{T}}[\hat{H}, \tilde{X}_{\mu_1}]e^{\hat{T}}}
             {\phi}.
+            \label{eq:nocc_4}
     \end{align}
+    The first two equations, \autoref{eq:nocc_1} and \autoref{eq:nocc_2},
+    are the Lagrangian Coupled Cluster stationary points, i.e. the $\tau$ 
+    amplitude equations and the $\lambda$ amplitude equations respectively. 
+    The last two equations, \autoref{eq:nocc_3} and \autoref{eq:nocc_4},
+    we call the $\kappa$ equations. These equations dictate the orbital rotations,
+    and we have provided the full $\kappa$ equations for doubles excitations 
+    in \autoref{app:kappa_equations}.
 
     We are now ready to outline the full algorithm of the 
-    \lstinline{compute_ground_state()} in what we have called the \lstinline{OACCD}.
-    The method is iterating over the the norm of $\kappa^u$ and $\kappa^d$, called the 
-    residuals of $\kappa$, until consistency compared to a tolerance value is achieved. 
-    For each such iteration, iteration over the $\tau$ and $\lambda$ double excitation
-    amplitudes is performed, but at a much less strict tolerance value than under the 
-    \lstinline{CoupledClusterDoubles} scheme. After the iteration over $\tau$ and $\lambda$ 
-    is achieved, the values for $\kappa^u$ and $\kappa^d$ are recalculated, in order to 
-    compute the aggragate $\kappa$ (\autoref{eq:agg_kappa}), 
-    which in turn can be used to transform the orbitals,
+    \lstinline{compute_ground_state()} in the \lstinline{OACCD}
+    class.
+    The method iterates over the $\kappa$ equations, computing the norm of
+    the right-hand side 
+    of \autoref{eq:nocc_3}, and \autoref{eq:nocc_4} for each step. 
+    We call these norms the $\kappa$ residuals, and we continue this iteration until 
+    the $\kappa$ residuals are low enough, compared to a preset tolerance level. 
+    For each $\kappa$ iteration, we also iterate over the $\tau$ and $\lambda$ doubles 
+    amplitude, exactly as in a regular Coupled Cluster ground state computation,
+    but at a less strict tolerance value than we would in the
+    \lstinline{CoupledClusterDoubles} class.
+    After the iteration over $\tau$ and $\lambda$ 
+    has converged, the values for $\kappa^u$ and $\kappa^d$ are recalculated, in order to 
+    compute the aggregate $\kappa$ given by \autoref{eq:agg_kappa}. 
+    This aggregate value can then in turn be used to transform the orbitals,
     \begin{equation*}
         \begin{gathered}
             h^{(k + 1)} = e^{-\kappa} h^{(k)} e^{\kappa}, \\
@@ -333,9 +350,11 @@ can be found at \url{www.coupled-cluster.com}.
             (e^{\kappa})^d_s (e^{\kappa})^c_r,
         \end{gathered}
     \end{equation*}
-    which (in addition to being written with incomprehensible notation) is used to compute 
+    which is used to compute 
     a new Fock operator. The resulting rotation of the orbitals will aid in better 
     convergence towards the ground state.
+
+    \input{implementation/doc/oaccvector.tex}
 
     \subsubsection{Specialised Orbital-Adaptive \lstinline{AmplitudeContainer}}
 
@@ -345,10 +364,14 @@ can be found at \url{www.coupled-cluster.com}.
     data structure which also contains the coefficient matrices necessary to perform the 
     required orbital transformations.
 
-    \input{implementation/doc/oaccvector.tex}
-
     Like the \lstinline{AmplitudeContainer} class, this data structure also implements 
-    fuctionality for addition, multiplications and iteration.
+    fuctionality for addition, multiplications and iteration. The \lstinline{OACCVector}
+    class adds some components 
+    that are very important to the orbital-adaptive Coupled Cluster schemes, namely 
+    the coefficient matrices that defines the orbital rotations, $\vb{C}$ for the 
+    ket-side state vectors and $\tilde{\vb{C}}$ for the bra-side state vectors. This class 
+    would also function as a regular \lstinline{AmplitudeContainer} by setting the 
+    coefficient matrices equation to the unity operator.
     
 \subsection{Mixing of Amplitude Vectors}
 
@@ -358,7 +381,7 @@ can be found at \url{www.coupled-cluster.com}.
     where generalisations of the variational theory dictate inifitesimal variations, which 
     is not always feasible to implement.
     Moreover, an iterative optimisation scheme may not always converge properly at all. 
-    Luckily, there exists numerous techniques both for controlling and acceleration 
+    Luckily, there exists numerous techniques both for controlling and accelerating 
     convergence.
 
     \subsubsection{Alpha mixer}
