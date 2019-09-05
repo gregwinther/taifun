@@ -3,7 +3,7 @@ We advance the Coupled Cluster method’s foray into the time-dependent realm,
 byplementing a robust solver based on the orbital-adaptive time-dependent
 Coupled Cluster (OATDCC) method. This involves implementing both a simplified static
 orbital time-dependent coupled cluster solver with single and double excitations
-(TDCCSD) and an oarbital-adaptive scheme with double excitations (OATDCCD). To
+(TDCCSD) and an orbital-adaptive scheme with double excitations (OATDCCD). To
 supplement the time-dependent methods we implement several ground state solvers based
 on the Lagrangian Coupled Cluster formulation, with single and double excitations, as
 well as a non-orthogonal orbital-optimised Coupled Cluster (NOCC) solver.
