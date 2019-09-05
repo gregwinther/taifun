@@ -144,7 +144,7 @@ up by electron-pair interactions.
 \end{tcolorbox}
 
 
-\section{Coupled-Cluster Doubles (CCD)}
+\section{Coupled-Cluster Doubles}
 
 As a good starting point for understanding the coupled cluster scheme and especially
 where the coupled-cluster equations come from, we now constrain the cluster
@@ -174,21 +174,21 @@ do so with the aid of a symbolic calculater. For higher-order schemes we have us
 
 In this derivation we make great use of second quantisation formalism and Wick's 
 theorem. We start with the normal-ordered Hamiltionian,
+%\begin{equation}
+%    \begin{aligned}
+%    \hat{H}_N &= (\hat{H}_0)_N + \hat{F}^0_N  + \hat{W} \\
+%        &= \sum_p \varepsilon_p \{ \hat{p}^\dagger \hat{p} \}
+%            + \sum_{p\neq q} f_{pq} \{ \hat{p}^\dagger \hat{q} \}
+%            + \frac{1}{4} \sum_{pqrs} \bra{pq} \ket{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}.
+%    \end{aligned}
+%\end{equation}
+%The one-particle terms $(\hat{H}_0)_N$ and $\hat{F}^0_N$ can be combined by setting
+%$\varepsilon_{p} = f_{pp}$, reducing the normal-ordered Hamilionian to
 \begin{equation}
     \begin{aligned}
-    \hat{H}_N &= (\hat{H}_0)_N + \hat{F}^0_N  + \hat{W} \\
-        &= \sum_p \varepsilon_p \{ \hat{p}^\dagger \hat{p} \}
-            + \sum_{p\neq q} f_{pq} \{ \hat{p}^\dagger \hat{q} \}
-            + \frac{1}{4} \sum_{pqrs} \bra{pq} \ket{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}.
-    \end{aligned}
-\end{equation}
-The one-particle terms $(\hat{H}_0)_N$ and $\hat{F}^0_N$ can be combined by setting
-$\varepsilon_{p} = f_{pp}$, reducing the normal-ordered Hamilionian to
-\begin{equation}
-    \begin{aligned}
-    \hat{H}_N &= \hat{F}_N  + \hat{W} \\
+    \hat{H}_N &= \hat{F}_N  + \hat{W}_N \\
         &= \sum_{pq} f_{pq} \{ \hat{p}^\dagger \hat{q} \}
-            + \frac{1}{4} \sum_{pqrs} \bra{pq} \ket{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}.
+            + \frac{1}{4} \sum_{pqrs} u^{pq}_{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}.
     \end{aligned}
 \end{equation}
 
@@ -204,7 +204,7 @@ of just the Hamiltonian is zero. Inserting for the operators,
     \Delta E_{\text{CCD}} 
         = \sum_{\substack{i>j \\ a>b}}\bra{0}\left[ 
         \sum_{pq} f_{pq} \{\hat{p}^\dagger \hat{q}\}
-        + \frac{1}{4}\sum_{pqrs}\bra{pq} \ket{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}
+        + \frac{1}{4}\sum_{pqrs} u^{pq}_{rs} \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}
         \right] 
         \{\hat{a}^\dagger\hat{b}^\dagger\hat{j}\hat{i} \}
         \ket{0}t^{ab}_{ij}.
@@ -214,7 +214,7 @@ operators in this term without using an internal contraction in the normal-order
 product. It is also useful to convert the first sum to an unrestricted sum,
 \begin{equation}
     \Delta E_{\text{CCD}}
-        = \frac{1}{16}\sum_{ijab}\sum_{pqrs}\bra{pq} \ket{rs} 
+        = \frac{1}{16}\sum_{ijab}\sum_{pqrs} u^{pq}_{rs} 
            \bra{0} 
            \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\} 
            \{\hat{a}^\dagger\hat{b}^\dagger\hat{j}\hat{i} \}
@@ -255,21 +255,21 @@ We contract the operators in the normal-ordered products,
 All these products of delta functions give us a reduction in the sums and the CCD
 energy becomes,
 \begin{equation}
-    \Delta E_{\text{CCD}} = \frac{1}{4}\sum_{ijab}\bra{ij} \ket{ab} t^{ab}_{ij}.
+    \Delta E_{\text{CCD}} = \frac{1}{4}\sum_{ijab} u^{ij}_{ab} t^{ab}_{ij}.
 \end{equation}
 
 The natural next step is to find the amplitude equations,
 \begin{equation}
-    \bra{\Phi^{ab}_{ij}}\hat{H}_N\left(1 + \hat{T}_2 + \frac{1}{2}\hat{T}^2\right) \ket{0}
+    \bra*{\Phi^{ab}_{ij}}\hat{H}_N\left(1 + \hat{T}_2 + \frac{1}{2}\hat{T}^2\right) \ket{0}
         = \Delta E_{\text{CCD}} t^{ab}_{ij}.
 \end{equation}
 We compute this expression in steps, starting with the lone normal-ordred Hamiltonian,
 \begin{equation}
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N \ket{0}
+    \bra*{\Phi^{ab}_{ij}} \hat{H}_N \ket{0}
         = \frac{1}{4}\sum_{pqrs} \bra{0}
         \{\hat{a}\hat{b}\hat{j}^\dagger\hat{i}^\dagger\}
         \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}
-        \ket{0}\bra{pq} \ket{rs},
+        \ket{0} u^{pq}_{rs},
 \end{equation}
 here we also have to compute a few contractions,
 \begin{gather}
@@ -302,24 +302,24 @@ here we also have to compute a few contractions,
 \end{gather}
 This will leave us with a similar expression as the one in the energy equation,
 \begin{equation}
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N \ket{0} = \bra{ab} \ket{ij}.
+    \bra*{\Phi^{ab}_{ij}} \hat{H}_N \ket{0} = u^{ab}_{ij}.
 \end{equation}
 
 Now for the linear terms,
 \begin{equation}
     \begin{aligned}
-         \bra{\phi^{ab}_{ij}} \hat{H}_N \hat{T}_2 \ket{0} 
-            = &\sum_{\substack{k>l \\ c>d}} \bra{\phi^{an}_{ij}} \hat{H}_n 
+        \bra*{\phi^{ab}_{ij}} \hat{H}_N \hat{T}_2 \ket{0} 
+            = &\sum_{\substack{k>l \\ c>d}} \bra*{\Phi^{an}_{ij}} \hat{H}_N
                 \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \} \ket{0}t^{cd}_{kl} \\
-            = \frac{1}{4} &\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N + \hat{W}\ket{\Phi^{cd}_{kl}}t^{cd}_{kl}
+            = \frac{1}{4} &\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N + \hat{W}_N\ket{\Phi^{cd}_{kl}}t^{cd}_{kl}
     \end{aligned}
 \end{equation}
 Starting with the first term,
 \begin{equation}
     \begin{aligned}
-         L_1 &= \frac{1}{4}\sum_{klcd} \bra{\phi^{ab}_{ij}} \hat{F}_N \ket{\phi^{cd}_{kl}} t^{cd}_{kl} \\
-            &= \frac{1}{4}\sum_{klcd} \sum{pq} f_{pq} \bra{\phi^{ab}_{ij}}
-                \{ \hat{p}^\dagger \hat{q}\} \ket{\phi^{cd}_{kl}} t^{cd}_{kl} \\
+         L_1 &= \frac{1}{4}\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
+            &= \frac{1}{4}\sum_{klcd} \sum_{pq} f_{pq} \bra{\Phi^{ab}_{ij}}
+                \{ \hat{p}^\dagger \hat{q}\} \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
             &= \frac{1}{4} \sum_{klcd}\sum_{pq} f_{pq} \bra{0}
                 \{\hat{i}^\dagger \hat{j}^\dagger \hat{b} \hat{a} \}
                 \{\hat{p}^\dagger \hat{q}\} 
@@ -371,8 +371,8 @@ of the $\frac{1}{4}$-prefactor, yielding
 Proceeding to the second linear term,
 \begin{equation}
     \begin{aligned}
-    L_2 &= \frac{1}{4}\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{W} \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
-        &= \frac{1}{16}\sum_{pqrs} \sum_{klcd} \bra{pq} \ket{rs} \bra{0}
+    L_2 &= \frac{1}{4}\sum_{klcd} \bra*{\Phi^{ab}_{ij}} \hat{u} \ket*{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
+        &= \frac{1}{16}\sum_{pqrs} \sum_{klcd} u^{pq}_{rs} \bra{0}
             \{\hat{j}^\dagger \hat{b} \hat{i}^\dagger  \hat{a} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{d}^\dagger \hat{k} \hat{l} \}
@@ -387,14 +387,14 @@ hole-particle contractions,
 \begin{align}
     &\begin{aligned}
         L_{2a}
-        &= \frac{1}{8}\sum_{pqrs} \sum_{klcd} \bra{pq} \ket{rs} \bra{0}
+        &= \frac{1}{8}\sum_{pqrs} \sum_{klcd} u^{pq}_{rs} \bra{0}
             \wick{
             \{\c2{\hat{i}}^\dagger \c1{\hat{j}}^\dagger \hat{b} \hat{a} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{d}^\dagger \c1{\hat{k}} \c2{\hat{l}} \}
             }
             \ket{0}t^{cd}_{kl} \\
-        &= \frac{1}{8}\sum_{pqrs} \sum_{cd} \bra{pq} \ket{rs} \bra{0}
+        &= \frac{1}{8}\sum_{pqrs} \sum_{cd} u^{pq}_{rs} \bra{0}
             \{ \hat{b} \hat{a} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{ \hat{c}^\dagger \hat{d}^\dagger \}
@@ -402,14 +402,14 @@ hole-particle contractions,
     \end{aligned} \\
     &\begin{aligned}
         L_{2b}
-        &= \frac{1}{8}\sum_{pqrs} \sum_{klcd} \bra{pq} \ket{rs} \bra{0}
+        &= \frac{1}{8}\sum_{pqrs} \sum_{klcd} u^{pq}_{rs} \bra{0}
             \wick{
             \{\hat{i}^\dagger \hat{j}^\dagger \c2{\hat{b}} \c1{\hat{a}} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\c1{\hat{c}}^\dagger \c2{\hat{d}}^\dagger \hat{l} \hat{k} \}
             }
             \ket{0}t^{cd}_{kl} \\
-        &= \frac{1}{8}\sum_{pqrs} \sum_{kl} \bra{pq} \ket{rs} \bra{0}
+        &= \frac{1}{8}\sum_{pqrs} \sum_{kl} u^{pq}_{rs} \bra{0}
             \{\hat{i}^\dagger \hat{j}^\dagger \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{l} \hat{k} \}
@@ -417,7 +417,7 @@ hole-particle contractions,
     \end{aligned} \\
     &\begin{aligned}
         L_{2c}
-            = \frac{1}{4}\sum_{pqrs} \sum_{klcd} \bra{pq} \ket{rs} \bra{0}
+            = \frac{1}{4}\sum_{pqrs} \sum_{klcd} u^{pq}_{rs} \bra{0}
             &\wick{
             \{\c2{\hat{i}}^\dagger \hat{j}^\dagger \c1{\hat{b}} \hat{a} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
@@ -442,7 +442,7 @@ hole-particle contractions,
             \{\hat{c}^\dagger \c1{\hat{d}^\dagger} \c2{\hat{l}} \hat{k} \}
             }
             \ket{0}t^{cd}_{kl} \\
-        = \frac{1}{4} \sum_{pqrs} \sum_{kc} \bra{pq} \ket{rs} \bra{0}
+        = \frac{1}{4} \sum_{pqrs} \sum_{kc} u^{pq}_{rs} \bra{0}
             &\{\hat{i}^\dagger \hat{a}\}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{k} \} 
@@ -497,26 +497,26 @@ The vacuum expectation value in $L_{2a}$ can be evaluated as,
 Inserting this result into the original expression and substituting to similar indicies
 will yield,
 \begin{equation}
-    L_{2a} = \frac{1}{2} \sum_{cd}\bra{ab} \ket{cd} t^{cd}_{ij}.
+    L_{2a} = \frac{1}{2} \sum_{cd} u^{ab}_{cd} t^{cd}_{ij}.
 \end{equation}
 A very similar computation will yield the following result for the next linear term,
 \begin{equation}
-    L_{2b} = \frac{1}{2} \sum_{kl} \bra{kl} \ket{ij} t^{ab}_{kl}.
+    L_{2b} = \frac{1}{2} \sum_{kl} u^{kl}_{ij} t^{ab}_{kl}.
 \end{equation}
 The last linear term is somewhat different, however,
 \begin{equation}
     L_{2c} = - \sum_kc \left( 
-        \bra{bk} \ket{cj} t^{ac}_{ik}
-       -\bra{bk} \ket{ci} t^{ac}_{jk} 
-       -\bra{ak} \ket{cj} t^{bc}_{ik}
-       +\bra{ak} \ket{ci} t^{bc}_{jk}. 
+         u^{bk}_{cj} t^{ac}_{ik}
+       - u^{bk}_{ci} t^{ac}_{jk} 
+       - u^{ak}_{cj} t^{bc}_{ik}
+       + u^{ak}_{ci} t^{bc}_{jk}. 
     \right)
 \end{equation}
 
 After long last, we have only the quadratic term to deal with,
 \begin{equation}
     Q = \frac{1}{8}\sum_{pqrs}\sum_{\substack{k>l \\ c>d}} \sum_{\substack{m>n \\ e>f}}
-        \bra{pq} \ket{rs} \bra{0}
+        u^{pq}_{rs} \bra{0}
             \{\hat{i}^\dagger \hat{j}^\dagger \hat{b} \hat{a} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
@@ -534,7 +534,7 @@ with all the operators in the fourth normal-ordered string,
 \begin{equation}
     \begin{gathered}
     \frac{1}{8}\sum_{pqrs}\sum_{\substack{k>l \\ c>d}} \sum_{\substack{m>n \\ e>f}}
-    \bra{pq} \ket{rs} \bra{0}
+    u^{pq}_{rs} \bra{0}
       \wick{ 
             \{\c4{\hat{i}}^\dagger \c3{\hat{j}}^\dagger \c2{\hat{b}} \c1{\hat{a}} \}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
@@ -544,7 +544,7 @@ with all the operators in the fourth normal-ordered string,
         } \\
     =
     \frac{1}{8}\sum_{pqrs}\sum_{\substack{k>l \\ c>d}}
-    \bra{pq} \ket{rs} \bra{0}
+    u^{pq}_{rs} \bra{0}
         \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
         \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
     \ket{0} t^{cd}_{kl} t^{ab}_{ij}.
@@ -553,7 +553,7 @@ with all the operators in the fourth normal-ordered string,
 There are four possible ways to contract this last term, resulting in
 \begin{equation}
     \frac{1}{2}\sum_{\substack {k>l \\ c >d }}
-        \bra{kl} \ket{cd} t^{cd}_{kl} t^{ab}_{ij}.
+        u^{kl}_{cd} t^{cd}_{kl} t^{ab}_{ij}.
 \end{equation}
 We get the same result by contracting the four operators in the first 
 string with the four operators in the third string, cancelling the
@@ -584,25 +584,25 @@ compute, yielding the following,
 \begin{align}
     &\begin{gathered}
         Q_a = \frac{1}{16}\sum_{pqrs}\sum_{klcd} 
-        \bra{pq} \ket{rs}\bra{0}
+        u^{pq}_{rs} \bra{0}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{l} \hat{k} \}
             \{\hat{c}^\dagger \hat{d}^\dagger \}
         \ket{0} t^{cd}_{ij} t^{ab}_{kl} \\
         = \frac{1}{4} \sum_{klcd}
-        \bra{kl} \ket{rs} t^{cd}_{ij} t^{ab}_{kl}
+        u^{kl}_{rs} t^{cd}_{ij} t^{ab}_{kl}
     \end{gathered} \\
     &\begin{gathered}
         Q_b = \frac{1}{4}\sum_{pqrs} \sum_{klcd}
-        \bra{pq} \ket{rs} \bra{0}
+        u^{pq}_{rs} \bra{0}
             \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
             \{\hat{c}^\dagger \hat{k} \}
             \{\hat{d}^\dagger \hat{l} \}
             \ket{0}
             (t^{ac}_{ik}t^{bd}_{jl} - t^{bc}_{ik}t^{ad}_{jl}) \\
-        = \sum_{klcd} \bra{kl} \ket{cd}
+        = \sum_{klcd} u^{kl}_{cd}
             (t^{ac}_{ik}t^{bd}_{jl} - t^{bc}_{ik}t^{ad}_{jl})
-        = \sum_{klcd} \bra{kl} \ket{cd}
+        = \sum_{klcd} u^{kl}_{cd}
             (t^{ac}_{ik}t^{bd}_{jl} - t^{bd}_{ik}t^{ac}_{jl})
     \end{gathered}
 \end{align}
@@ -621,7 +621,7 @@ $Q_c$ term,
 \begin{equation}
     \begin{gathered}
     \frac{1}{8} \sum_{pqrs} \sum_{klcd} \sum_{mnef}
-    \bra{pq} \ket{rs} \bra{0}
+    u^{pq}_{rs} \bra{0}
         \wick{
         \{\c4{\hat{i}}^\dagger \c3{\hat{j}}^\dagger \c2{\hat{b}} \c1{\hat{a}} \}
         \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \} 
@@ -630,7 +630,7 @@ $Q_c$ term,
         }
     \ket{0} t^{cd}_{kl} t^{ef}_{mn} \\
     = - \frac{1}{8} \sum_{pqrs} \sum_{klcd}
-    \bra{pq} \ket{rs} \bra{0} 
+    u^{pq}_{rs} \bra{0} 
         \{\hat{p}^\dagger \hat{q}^\dagger \hat{s} \hat{r} \}
         \{\hat{c}^\dagger \hat{d}^\dagger \hat{k} \}
         \{\hat{l} \}
@@ -673,28 +673,30 @@ The remainding operators in this expression can be contracted in four ways,
 \end{align}
 Some algebraic extertion will eventually lead to,
 \begin{equation}
-    - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+    - \frac{1}{2} \sum_{klcd} u^{kl}_{cd}
         t^{ab}_{ik} t^{cd}_{jl}.
 \end{equation}
 A similar computation provides the second $Q_c$ term,
 \begin{equation}
-    - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+    - \frac{1}{2} \sum_{klcd} u^{kl}_{cd}
         t^{cd}_{ik} t^{ab}_{jl}.
 \end{equation}
 These two terms give us,
 \begin{equation}
-    Q_c = - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+    Q_c = - \frac{1}{2} \sum_{klcd} u^{kl}_{cd}
         (t^{ab}_{ik}t^{cd}_{jl} - t^{cd}_{ik}t^{ab}_{jl})
 \end{equation}
 Treating the class d terms gives,
 \begin{equation}
-    Q_d - \frac{1}{2} \sum_{klcd} \bra{kl} \ket{cd}
+    Q_d - \frac{1}{2} \sum_{klcd} u^{kl}_{cd}
         (t^{ac}_{ij}t^{bd}_{kl} - t^{bd}_{ij}t^{ac}_{kl}).
 \end{equation}
 Combining all the quadratic terms will now yield the same as in 
 \autoref{eq:quad_term}, and we can conclude that an algebraic 
 derivation of the coupled cluster method is equivalent to the 
 configuration space derivation.
+
+INSERT CCD EXPRESSION HERE!
 
 \section{The Coupled Cluster Equations}
 
