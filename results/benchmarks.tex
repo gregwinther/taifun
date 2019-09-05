@@ -259,7 +259,10 @@ where \lstinline{Z} are the number of protons, \lstinline{n} is the number of el
 \lstinline{l} is the number of spinorbitals, \lstinline{c} is the position of the nucleus,
 \lstinline{a} is the Coulomb screening parameter and \lstinline{alpha} is the strength of the 
 Coulomb interaction. We pick a wide grid of $300 \text{ au}$, with $5001$ points, and 
-a time step size of $dt=0.01$.
+a time step size of $\Delta t=0.01$. The maximum field strength is set to
+$\vb{E}_\text{max} = 0.0755 \text{ au}$ and the frequency of the laser field is set to
+$\omega = 0.057 \text{ au}$. This corresponds to a peak intensity of 
+$2.0 \times 10^{14} \text{ W cm}^{-2}$ and a laser wavelength of $800 \text{ nm}$.
 
 The idea behind the simulation is to compute the particle density over time, and see if 
 there is more than significantly high probability to see an electron very far away from the 
@@ -343,7 +346,7 @@ not impossible to find a mapping between the two. This problem stems from the fo
 of the approximative nature of the coupled cluster method as it has a truncated basis set. 
 
 \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} provide a similar 
-deduction, highlighting there appears to be system-dependent upper limit for 
+deduction, highlighting there what appears to be a system-dependent upper limit for 
 the strength of the external field. They underline the improvement in the computations 
 by using a symplectic integrator instead of a standard fourth-order Runge-Kutta method.
 We use the exact same integrator as the one \citeauthor{pedersen2019symplectic} outline.
