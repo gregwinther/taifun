@@ -691,12 +691,24 @@ Treating the class d terms gives,
     Q_d - \frac{1}{2} \sum_{klcd} u^{kl}_{cd}
         (t^{ac}_{ij}t^{bd}_{kl} - t^{bd}_{ij}t^{ac}_{kl}).
 \end{equation}
-Combining all the quadratic terms will now yield the same as in 
-\autoref{eq:quad_term}, and we can conclude that an algebraic 
-derivation of the coupled cluster method is equivalent to the 
-configuration space derivation.
 
-INSERT CCD EXPRESSION HERE!
+Collecting all terms yields the complete Coupled Cluster Doubles (CCD) amplitude equation,
+\begin{equation}
+    \begin{aligned} 
+        &u^{ab}_{ij} + f^b_c t^{ac}_{ij} P(ab) - f^k_j t^{ab}_{ik} P(ij)
+        + \frac{1}{4}t^{cd}_{ij}t^{ab}_{mn} u^{mn}_{cd} + \frac{1}{2}t^{cd}_{ij}u^{ab}_{cd} \\
+        &\ + \frac{1}{2}t^{cd}_{jm}t^{ab}_{in}u^{mn}_{cd}P(ij)
+        - \frac{1}{2}t^{ac}_{nm}t^{bd}_{ij}u^{nm}_{cd}P(ab) 
+        + t^{ac}_{im}t^{bd}_{jn}u^{mn}_{cd}P(ij) \\
+        &\ + t^{ac}_{im}u^{bm}_{jc}P(ab)P(ij)
+        + \frac{1}{2}t^{ab}_{mn}u^{mn}_{ij} = 0,
+    \end{aligned}
+\end{equation}
+where we have introduced exchange operators $P(ab)$ and $P(ij)$ which interchanges two 
+particles with indices $a$, $b$ and $i$, $j$, respectively. Here we have also removed 
+the summation signs for simplicity, and taken advantage of Einstein notation, where 
+summation of equal indices is implied.
+
 
 \section{The Coupled Cluster Equations}
 
