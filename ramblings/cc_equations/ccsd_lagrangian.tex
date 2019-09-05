@@ -1,0 +1,85 @@
+\section{CCSD Lagrangian}
+\label{app:ccsd_lagrangian}
+
+\begin{equation}
+    \begin{aligned}
+    \mathscr{L}(\tau, \lambda)
+    &=
+    f^{a}_{i} \lambda^{i}_{a}
+    + f^{i}_{a} \tau^{a}_{i}
+    + \frac{1}{4}\lambda^{ij}_{ab} u^{ab}_{ij}
+    + \frac{1}{4}\tau^{ab}_{ij} u^{ij}_{ab}
+    + f^{a}_{b} \lambda^{i}_{a} \tau^{b}_{i}
+    \\
+    &\qquad
+    + f^{i}_{a} \lambda^{j}_{b} \tau^{ab}_{ij}
+    + \frac{1}{2}f^{a}_{b} \lambda^{ij}_{ac} \tau^{bc}_{ij}
+    + \frac{1}{2}\lambda^{i}_{a} \tau^{ab}_{jk} u^{jk}_{bi}
+    + \frac{1}{2}\lambda^{i}_{a} \tau^{bc}_{ij} u^{aj}_{bc}
+    \\
+    &\qquad
+    + \frac{1}{2}\lambda^{ij}_{ab} \tau^{a}_{k} u^{bk}_{ij}
+    + \frac{1}{2}\lambda^{ij}_{ab} \tau^{c}_{i} u^{ab}_{cj}
+    - f^{j}_{i} \lambda^{i}_{a} \tau^{a}_{j}
+    - \lambda^{i}_{a} \tau^{b}_{j} u^{aj}_{bi}
+    \\
+    &\qquad
+    - \lambda^{ij}_{ab} \tau^{ac}_{ik} u^{bk}_{cj}
+    - \frac{1}{2}f^{j}_{i} \lambda^{ik}_{ab} \tau^{ab}_{jk}
+    - \frac{1}{2}\tau^{a}_{j} \tau^{b}_{i} u^{ij}_{ab}
+    + \frac{1}{8}\lambda^{ij}_{ab} \tau^{ab}_{kl} u^{kl}_{ij}
+    \\
+    &\qquad
+    + \frac{1}{8}\lambda^{ij}_{ab} \tau^{cd}_{ij} u^{ab}_{cd}
+    + \lambda^{i}_{a} \tau^{a}_{j} \tau^{b}_{k} u^{jk}_{bi}
+    + \lambda^{i}_{a} \tau^{b}_{i} \tau^{c}_{j} u^{aj}_{bc}
+    + \lambda^{i}_{a} \tau^{b}_{j} \tau^{ac}_{ik} u^{jk}_{bc}
+    \\
+    &\qquad
+    + \lambda^{ij}_{ab} \tau^{a}_{k} \tau^{c}_{i} u^{bk}_{cj}
+    - f^{i}_{a} \lambda^{j}_{b} \tau^{a}_{j} \tau^{b}_{i}
+    - \lambda^{ij}_{ab} \tau^{a}_{k} \tau^{bc}_{il} u^{kl}_{cj}
+    - \lambda^{ij}_{ab} \tau^{c}_{i} \tau^{ad}_{jk} u^{bk}_{cd}
+    \\
+    &\qquad
+    - \frac{1}{2}f^{i}_{a} \lambda^{jk}_{bc} \tau^{a}_{j} \tau^{bc}_{ik}
+    - \frac{1}{2}f^{i}_{a} \lambda^{jk}_{bc} \tau^{b}_{i} \tau^{ac}_{jk}
+    - \frac{1}{2}\lambda^{i}_{a} \tau^{a}_{j} \tau^{bc}_{ik} u^{jk}_{bc}
+    - \frac{1}{2}\lambda^{i}_{a} \tau^{b}_{i} \tau^{ac}_{jk} u^{jk}_{bc}
+    \\
+    &\qquad
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{c}_{k} \tau^{ab}_{il} u^{kl}_{cj}
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{c}_{k} \tau^{ad}_{ij} u^{bk}_{cd}
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{ac}_{jk} \tau^{bd}_{il} u^{kl}_{cd}
+    \\
+    &\qquad
+    - \frac{1}{4}\lambda^{ij}_{ab} \tau^{a}_{l} \tau^{b}_{k} u^{kl}_{ij}
+    - \frac{1}{4}\lambda^{ij}_{ab} \tau^{c}_{j} \tau^{d}_{i} u^{ab}_{cd}
+    - \frac{1}{4}\lambda^{ij}_{ab} \tau^{ac}_{kl} \tau^{bd}_{ij} u^{kl}_{cd}
+    \\
+    &\qquad
+    + \frac{1}{4}\lambda^{ij}_{ab} \tau^{a}_{k} \tau^{cd}_{ij} u^{bk}_{cd}
+    + \frac{1}{4}\lambda^{ij}_{ab} \tau^{c}_{i} \tau^{ab}_{kl} u^{kl}_{cj}
+    + \frac{1}{8}\lambda^{ij}_{ab} \tau^{ab}_{il} \tau^{cd}_{jk} u^{kl}_{cd}
+    \\
+    &\qquad
+    + \frac{1}{8}\lambda^{ij}_{ab} \tau^{ab}_{jk} \tau^{cd}_{il} u^{kl}_{cd}
+    + \frac{1}{16}\lambda^{ij}_{ab} \tau^{ab}_{kl} \tau^{cd}_{ij} u^{kl}_{cd}
+    - \lambda^{i}_{a} \tau^{a}_{k} \tau^{b}_{j} \tau^{c}_{i} u^{jk}_{bc}
+    \\
+    &\qquad
+    - \lambda^{ij}_{ab} \tau^{a}_{k} \tau^{c}_{i} \tau^{bd}_{jl} u^{kl}_{cd}
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{a}_{k} \tau^{c}_{j} \tau^{d}_{i} u^{bk}_{cd}
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{a}_{k} \tau^{c}_{l} \tau^{bd}_{ij} u^{kl}_{cd}
+      \\
+    &\qquad
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{a}_{l} \tau^{b}_{k} \tau^{c}_{i} u^{kl}_{cj}
+    - \frac{1}{2}\lambda^{ij}_{ab} \tau^{c}_{i} \tau^{d}_{k} \tau^{ab}_{jl} u^{kl}_{cd}
+    - \frac{1}{8}\lambda^{ij}_{ab} \tau^{a}_{l} \tau^{b}_{k} \tau^{cd}_{ij} u^{kl}_{cd}
+    \\
+    &\qquad
+    - \frac{1}{8}\lambda^{ij}_{ab} \tau^{c}_{j} \tau^{d}_{i} \tau^{ab}_{kl} u^{kl}_{cd}
+    \frac{1}{4}\lambda^{ij}_{ab} \tau^{a}_{l} \tau^{b}_{k}
+    \tau^{c}_{j} \tau^{d}_{i} u^{kl}_{cd}.
+    \end{aligned}
+\end{equation}
