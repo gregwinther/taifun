@@ -164,8 +164,8 @@ There are several methods with which to arrive at the coupled-cluster equations.
 Here we will give an example derivation of how to derive the coupled cluster doubles
 equations, using the ``algebraic method'',
 employing second quantisation and Wick's theorem. As an alternative,
-in \autoref{app:conf_derivation_ccd}, we use
-configuration-interaction techniques and the Slater-Condon rules (\autoref{app:slater_condon}).
+in \autoref{app:conf_derivation_ccd}, we use the
+configuration-space technique and the Slater-Condon rules (\autoref{app:slater_condon}).
 A third way is with the aid of
 diagrams, which is done in \citeauthor{shavitt2009many}\cite{shavitt2009many}, for instance.
 Instead of deriving coupled cluster equations by hand it is often prudent to 
@@ -558,8 +558,7 @@ There are four possible ways to contract this last term, resulting in
 We get the same result by contracting the four operators in the first 
 string with the four operators in the third string, cancelling the
 factor $\frac{1}{2}$, eventually yielding a result equal to
-$\Delta E_{\text{CCD}} t^{ab}_{ij}$, which we see by 
-comparing this result to \autoref{eq:ccd_energy2}.
+$\Delta E_{\text{CCD}} t^{ab}_{ij}$.
 
 There are four remaining reasonable classes in which to sort the
 permutations of contractions that remain;
@@ -714,15 +713,14 @@ summation of equal indices is implied.
 
 In general there is a more useful and compact approach that can be used to derive 
 the coupled cluster equations, compared to the lengthy derivation of the CCD 
-equations above. We start by inserting the coupled cluster wavefunctions into the 
+equations above. We start by inserting the coupled cluster wavefunction into the 
 time-independent Schrödinger equation,
 \begin{equation}
     \hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = \Delta E e^{\hat{T}}\ket{\Phi_0}.
 \end{equation} 
 In order to find an expression for the energy and amplitude equations one could 
 try to left-project with $\bra{\Phi_0}$. This would propel us in the same 
-direction as in the previous section, i.e. \autoref{eq:ccd_energy} and onwards.
-Instead, we multipy 
+direction as in the previous section. Instead, we multipy 
 from the left with $e^{-\hat{T}}$ first, and then left-project with $\bra{\Phi_0}$,
 \begin{equation}
     \label{eq:cc_energy}
@@ -733,11 +731,11 @@ from the left with $e^{-\hat{T}}$ first, and then left-project with $\bra{\Phi_0
     = \Delta E.
     \end{gathered}
 \end{equation}
-Left-projecting with an excited state, $\bra{\Phi^{ab\dots}_{ij\dots}}$ will give us 
+Left-projecting with an excited state, $\bra*{\Phi^{ab\dots}_{ij\dots}}$ will give us 
 an expression for the corresponding amplitude $t^{ab\dots}_{ij\dots}$,
 \begin{equation}
     \label{eq:cc_amplitude}
-    \bra{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = 0.
+    \bra*{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_Ne^{\hat{T}}\ket{\Phi_0} = 0.
 \end{equation}
 Now we have obtained a \emph{non-Hermitian}\footnote{We will show later that this 
 non-Hermiticity is somewhat problematic.}, similarity-transformed Hamiltonian,
@@ -746,9 +744,8 @@ non-Hermiticity is somewhat problematic.}, similarity-transformed Hamiltonian,
 \end{equation}
 which has $\ket{\Phi_0}$ as right eigenfunction and $E$ as the corresponding eigenvalue.
 Importantly, a similarity-transformation will not change the eigenvalue spectrum of the 
-operator. This holds for any operator or matrix. 
+operator. This holds for any operator or matrix, and is easy to show.
 
-Proving this is not an exercise in perseverance and toil.
 Consider some matrix $A$, and the matrix $C$ which is a square, non-singular 
 matrix of the same order as $A$. We say that the matrices $A$ and
 $C^{-1}AC$ are \emph{similar}, and $C^{-1}AC$ is the \emph{similarity transformation}
@@ -758,6 +755,8 @@ eigenvalue-eigenvector pair for $C^{-1}AC$,
 \begin{equation}
     (C^{-1}AC)C^{-1}\vb{x} = C^{-1}A\vb{x} = \lambda C^{-1}\vb{x}.
 \end{equation}
+Thus, we have shown that the eigenvalue spectrum of an operator is unchanged by a 
+similarity transformation.
 
 A benefit of the similarity-transformed Hamiltionians that we will take advantage of,
 is that we can write the operators
@@ -803,7 +802,7 @@ Hamiltonians yields
 \end{equation}
 Notice the absence of an ``and so on''-operator ($\dots$) in this expression. The Baker-Campbell-Hausdorff expansion 
 for the electronic Hamiltionian, containing at most two-particle interactions, will 
-terminate with the four-fold commutator. We will show this shortly.
+terminate with the four-fold commutator. We will show this presently.
 
 By applying the generalised Wick's theorem to the Baker-Campbell-Hausdorff 
 expansion of the Hamiltonian in \autoref{eq:bch_hamiltonian}, we will be 
@@ -869,11 +868,11 @@ amplitude equations, which may be written
     \bra{\Phi_0} e^{-\hat{T}}\hat{H}_N e^{\hat{T}} \ket{\Phi_0}
     &= \bra{\Phi_0} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}_C = \Delta E \\
     \bra{\Phi^{ab\dots}_{ij\dots}} e^{-\hat{T}}\hat{H}_N e^{\hat{T}} \ket{\Phi_0}
-    &= \bra{\Phi^{ab\dots}_{ij\dots}} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}_C = 0,
+    &= \bra*{\Phi^{ab\dots}_{ij\dots}} \hat{H}_N e^{\hat{T}} \ket{\Phi_0}_C = 0,
 \end{align}
 where the inclusion of only connected terms is underlined.
 
-The CCSD equations take the form 
+The Coupled Cluster Singles Doubles (CCSD) equations take the form 
 \begin{gather}
     \bra{\Phi_0} \hat{H}_N
         \Big(\hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \hat{T}_2\Big)
@@ -882,21 +881,21 @@ The CCSD equations take the form
         1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
         + \hat{T}_1\hat{T}_2 + \hat{T}_2
     \Big) \ket{\Phi_0}_C = 0 \\
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N \Big(
+    \bra*{\Phi^{ab}_{ij}} \hat{H}_N \Big(
         1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
         + \frac{1}{4!}\hat{T}_1^4 + \hat{T}_2 + \frac{1}{2}\hat{T}_2^2
         + \hat{T}_1 \hat{T}_2 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
     \Big) \ket{\Phi_0}_C = 0.
 \end{gather}
-For CCSDT, the energy expression is the same, while the amplitude equations take
-the form 
+For Coupled Cluster Singles Doubles Triples (CCSDT), the energy expression is the same,
+while the amplitude equations take the form 
 \begin{gather}
     \bra{\Phi^a_i} \hat{H}_N \Big(
         1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
         + \hat{T}_1\hat{T}_2 + \hat{T}_2 + \hat{T}_3
     \Big) \ket{\Phi_0}_C = 0 \\
     \begin{aligned}
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N& \Big(
+    \bra*{\Phi^{ab}_{ij}} \hat{H}_N& \Big(
         1 + \hat{T}_1 + \frac{1}{2}\hat{T}_1^2 + \frac{1}{3!}\hat{T}_1^3
         + \frac{1}{4!}\hat{T}_1^4 + \hat{T}_2 \\ &+ \frac{1}{2}\hat{T}_2^2
         + \hat{T}_1 \hat{T}_2 + \frac{1}{2}\hat{T}_1^2 \hat{T}_2
@@ -904,7 +903,7 @@ the form
     \Big) \ket{\Phi_0}_C = 0  
     \end{aligned} \\
     \begin{aligned}
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N& \Big(
+    \bra*{\Phi^{abc}_{ijk}} \hat{H}_N& \Big(
         \hat{T}_2 + \hat{T}_3 + \frac{1}{2}\hat{T}_2^2 + \hat{T}_1\hat{T}_2
         + \hat{T}_2\hat{T}_3 + \hat{T}_1\hat{T}_3 \\
         &+ \frac{1}{2}\hat{T}_1^2\hat{T}_2 + \frac{1}{2}\hat{T}_1\hat{T}_2^2
@@ -912,7 +911,8 @@ the form
     \big) \ket{\Phi_0}_C = 0  
     \end{aligned}
 \end{gather}
-The coupled cluster with singles and doubles equations are provided
+
+The Coupled Cluster Singles Doubles (CCSD) amplitude equations, fully written out are provided
 in \autoref{app:ccsd_equations}.
 
 \section{A Variational Formulation of Coupled Cluster}
