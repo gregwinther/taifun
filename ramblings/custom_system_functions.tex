@@ -55,7 +55,7 @@ def construct_psi4_system(
 \label{sec:custom_system_pyscf}
 
 \begin{python}
-def construct_pyscf_system(molecule, basis="cc-pvdz", np=None, verbose=False):
+def construct_pyscf_system(molecule, basis="cc-pvdz", np, verbose=False):
     import pyscf
 
     if np is None:
@@ -78,10 +78,10 @@ def construct_pyscf_system(molecule, basis="cc-pvdz", np=None, verbose=False):
     if verbose:
         print(f"UHF energy: {hf.e_tot}")
 
-    # Build the coefficient matrix from the occupied and virtual integrals. As
-    # we have done a UHF-calculation, we stack the two spin-directions on top
-    # of each other. That is, instead of using odd or even indices for each spin
-    # direction, we set up two separate blocks.
+    # Build the coefficient matrix from the occupied and virtual integrals.
+    # As we have done a UHF-calculation, we stack the two spin-directions 
+    # on top of each other. That is, instead of using odd or even indices
+    # for each spin direction, we set up two separate blocks.
     C_o = np.hstack(
         (
             # Fetch occupied coefficients for both spin-directions
@@ -108,8 +108,8 @@ def construct_pyscf_system(molecule, basis="cc-pvdz", np=None, verbose=False):
 
     # Check that the number of occupied molecular orbitals is correct
     assert n == sum(hf.mo_occ[0] > 0) + sum(hf.mo_occ[1] > 0)
-    # Check that the number of molecular orbitals is twice of that of the number
-    # of atomic orbitals.
+    # Check that the number of molecular orbitals is twice of that of
+    # the number of atomic orbitals.
     assert l == C.shape[0] * 2
 
     # Note: Should the dipole moments have a negative sign?
@@ -123,7 +123,11 @@ def construct_pyscf_system(molecule, basis="cc-pvdz", np=None, verbose=False):
     u_shape = (mol.nao for i in range(4))
 
     h = transform_one_body_elements(hf.get_hcore(), C, np)
-    u = transform_two_body_elements(mol.intor("int2e").reshape(*u_shape), C, np)
+    u = transform_two_body_elements(
+        mol.intor("int2e").reshape(*u_shape),
+        C,
+        np,
+    )
 
     noa = sum(hf.mo_occ[0] > 0)
     nva = sum(hf.mo_occ[0] == 0)
@@ -140,8 +144,8 @@ def construct_pyscf_system(molecule, basis="cc-pvdz", np=None, verbose=False):
     a_slices = [oa, va]
     b_slices = [ob, vb]
 
-    # Create a combination of slices that should be zero in all matrix elements,
-    # due to unequal spin-direction.
+    # Create a combination of slices that should be zero in
+    # all matrix elements due to unequal spin-direction.
     zero_slices = [(a, b) for a in a_slices for b in b_slices]
     zero_slices += [(b, a) for a in a_slices for b in b_slices]
 

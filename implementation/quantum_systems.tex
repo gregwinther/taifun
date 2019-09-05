@@ -59,7 +59,7 @@ to the superclass.
 
 In the \lstinline{QuantumSystem} abstract base class we have included a
 method that changes the basis of the system according to some coefficient matrix 
-$\vb{C}$ and $\tilde{\vb{C}}$, the \lstinline{change_basis(c, c_tilde)} method.
+$\vb{C}$ and $\tilde{\vb{C}}$, the \lstinline{change_basis} method.
 This method will be useful later, especially when 
 computing the basis for the double well system. In the time-dependent coupled cluster 
 scheme with adaptive oribtals, this method is also very useful. 
@@ -782,7 +782,8 @@ is an abstract base class, which defines
 components necessary to make such time-dependent operators. A time-dependent 
 operator usually applies solely the one- or two-body part of the Hamiltonian, and 
 more often just the non-interacting one-body operator. For this reason we have implemented 
-abstract attributes in the \lstinline{TimeEvolutionOperator} which will make it 
+abstract attributes in the \lstinline{TimeEvolution}- \lstinline{Operator}
+which will make it 
 possible for the time-dependent coupled cluster solver to determine what parts 
 of the Hamiltonian is necessary to update for each time step.
 

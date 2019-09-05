@@ -67,7 +67,7 @@ def coulomb_ho(n_i, m_i, n_j, m_j, n_l, m_l, n_k, m_k):
 
                                     temp += (
                                         -2
-                                        * (int(g[1] + g[2] - l[1] - l[2]) & 0x1)
+                                        * (int(g[1]+g[2]-l[1]-l[2]) & 0x1)
                                         + 1) 
                                         * np.exp(
                                         log_product_3(l, g)
