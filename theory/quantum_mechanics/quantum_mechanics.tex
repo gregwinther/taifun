@@ -91,7 +91,7 @@
     \end{equation}
 
     It has been widely discussed how such an object can represent the state of a 
-    particle. The answer is provided by Max Born's probabilistic interpretation,
+    particle. One answer is provided by Max Born's probabilistic interpretation,
     which says that $\abs{\Psi(x_1, \dots, x_N)}^2$, gives the probability of finding
     the particle at a certain position. For a situation with one particle in one
     dimension we have,
@@ -124,7 +124,7 @@
     \begin{equation}
         [\hat{q}_i, \hat{p}_j] = i \hbar \delta_{ij},
     \end{equation}
-    instead of the Poisson bracket (\autoref{eq:poisson_bracket}). Here $\hbar$ is the 
+    instead of the Poisson bracket from \autoref{eq:poisson_bracket}. Here $\hbar$ is the 
     reduced Planck's constant. For any general variables $A$ and $B$, this 
     transition can be expressed by substitution between Poisson brackets for the 
     classical variables and commutators for the quantum observables,
@@ -142,9 +142,9 @@
 
     The following postulates, or axioms, provide a precise and concise description 
     of quantum mechanics in terms of operators on the Hilbert space. There are
-    many variations of these postulates, introduced both by their namesakes 
-    Paul Adriene Maurice Dirac\cite{dirac1930principles} and John von 
-    Neumann\cite{vonNeumann1932foundations}.
+    many variations of these postulates, two of which were introduced by the
+    namesakes of the postulates, Paul Adriene Maurice Dirac\cite{dirac1930principles}
+    and John von Neumann\cite{vonNeumann1932foundations}.
 
     \subsubsection{Hilbert Space}
     A quantum state of an isolated physical system is described by a vector
@@ -168,7 +168,7 @@
             =& z_1 \braket{\psi_\alpha}{\psi_\beta} + z_2\braket{\psi_\alpha}{\psi_\beta} \\
         \braket{\psi_\alpha} \geq& 0,
     \end{align}
-    where $z_n = a_n + ib_n$ is some complex number. Notice that in these properties, a 
+    where $z_n = a_n + ib_n$ is a complex number. Notice that in these properties, a 
     superposition of a state wavefunction in the form of linear combination of two other 
     states have appeared. Such superpositions are generally written
     \begin{equation}
@@ -176,14 +176,14 @@
         \ket{\psi_\gamma} = z_1\ket{\psi_\alpha} + z_2\ket{\psi_\beta},
     \end{equation}
     where we have produced a new quantum state from two other states. Any two or more
-    states may be superposed to produce a new state. Superposition is of fundamental 
+    states may be superposed to produce a new state in this manner. Superposition is of fundamental 
     importance to quantum mechanics, and even though the concept is similar to the 
     classical superposition principle for waves in classical physics, "the superposition 
     that occurs in quantum mechanics is of an essentially different nature from any 
     occuring in the classical theory" according 
     to \citeauthor{dirac1930principles}\cite{dirac1930principles}.
 
-    Proceeding with the description of quantum states, a state function $\psi$ is said 
+    To conlcude the description of quantum states for now; a state function $\psi$ is said 
     to be \emph{normal} if its innerproduct with itself is one, $\braket{\psi}{\psi} = 1$.
     Two different state functions are \emph{orthogonal} if their inner product is zero. 
     We have orthogonal functions if $\braket{\psi_\alpha}{\psi_\beta} = \delta_{\alpha\beta}$,
@@ -191,7 +191,7 @@
 
 
     \subsubsection{Observables}
-    Each physical observable of a system is accociated with a \emph{hermitian}
+    Each physical observable of a system is accociated with a \emph{Hermitian}
     operator acting on the Hilbert space. The eigenstates of each such
     operator define a \emph{complete}, \emph{orthonormal} basis set of vectors
     $\mathcal{B}$ for the $d$-dimensional Hilbert space,
@@ -207,14 +207,14 @@
     \begin{equation}
         \bra{\phi}\hat{O}\psi\rangle = \langle\hat{O}\phi\ket{\psi} \equiv \bra{\phi} \hat{O} \ket{\psi}.
     \end{equation}
-    This means that the operator $\hat{O}$ is its own Hermitian conjugate,
+    This implies that the operator $\hat{O}$ must be its own Hermitian conjugate,
     \begin{equation}
         \hat{O}^\dagger = \hat{O}.
     \end{equation}
     Some properties of the Hermitian conjugate reads,
     \begin{align}
        (z\hat{O})^\dagger =& z^*\hat{O}^\dagger \\
-       (\hat{O}_1 + \hat{O}_2)^\dagger =& \hat{O}_1^\dagger \hat{O}_2^\dagger \\
+       (\hat{O}_1 + \hat{O}_2)^\dagger =& \hat{O}_1^\dagger + \hat{O}_2^\dagger \\
        (\hat{O}_1\hat{O_2})^\dagger =& \hat{O}_2^\dagger \hat{O}_1^\dagger.
     \end{align}
 
@@ -222,8 +222,9 @@
     Physically measurable values, associated with an observable $\hat{O}$ are defined by the 
     eigenvalues $o_n$ of the observable,
     \begin{equation}
-        \hat{O}\ket{n} = o_n\ket{n}.
+        \hat{O}\ket{n} = o_n\ket{n},
     \end{equation}
+    where $\ket{n}$ are the eigenvectors of the same observable $\hat{O}$.
     The probability for finding a particular eigenvalue in the measurement is
     \begin{equation}
         p_n = \abs{\braket{n}{\psi}}^2,
@@ -240,7 +241,7 @@
     \subsubsection{Time Evolution}
     In the \emph{Schrödinger picture}
     time evolution of the state vector, $\ket{\psi} = \ket{\psi (t)}$, is given by the Schrödinger
-    equation\footnote{In the Schrödinger picture.},
+    equation,
     \begin{equation}
         i\hbar \frac{d}{dt} \ket{\psi (t)} = \hat{H} \ket{\psi (t)}.
     \end{equation}
@@ -266,7 +267,7 @@
     \begin{equation}
         \hat{\mathcal{U}}(t, t_0) = e^{-i \hat{H}(t - t_0/\hbar)}.
     \end{equation}
-    We see that this time-propagater is Hermitian 
+    We see that this time-propagator is Hermitian 
     \begin{equation}
         \hat{\mathcal{U}}\hat{\mathcal{U}}^\dagger 
         = \hat{\mathcal{U}}^\dagger \hat{\mathcal{U}} = 1.
@@ -286,7 +287,7 @@
         \hat{O} \to \hat{O}' = \hat{U}\hat{O}\hat{U}^\dagger, \ 
         \hat{U}^\dagger\hat{U} = 1.
     \end{equation}
-    leads to a different, but equivalent representation of a quantum system.
+    leads to a different, but equivalent representations of a quantum system.
     The transition to the \emph{Heisenberg picture} is defined by a special
     time-dependent unitary transformation,
     \begin{equation}
@@ -323,9 +324,9 @@
 
     The full Hamiltionian for a quantum many-body system can be a large 
     and unwieldy thing. In this study we will constrain ourselves to the study of
-    electronic systems. Purely on a phenomenological basis, one would include nuclear
+    electronic systems. On a phenomenological basis, one would include nuclear
     terms in the Hamiltonian as well. In this study however, we will stay within the
-    Born-Oppenheimer approximation and treat the nuclei as stationary particles, thereby
+    Born-Oppenheimer approximation and treat the nuclei as stationary, thereby
     refraining from introducing terms that involve the motion of nuclei.
 
     The full  molecular electronic Breit-Pauli Hamiltionian, thoroughly described in 
@@ -356,28 +357,30 @@
             = - \frac{\hbar}{2m}\sum_i \nabla^2_i,
     \end{equation}
     where $\nabla$ is the differential operator and the sum is over all electrons in 
-    the system. This term is an example of a one-particle operator as it remains the 
+    the system. This term is an example of what we call a one-particle operator as
+    it remains the 
     same for all eletrons and contains no terms that would constitute interaction 
     between particles. For a free particle or a gas of non-interacting particles, 
-    \autoref{eq:kinetic_energy_term} is sufficient to describe the system. 
+    \autoref{eq:kinetic_energy_term} is sufficient to describe the entire system. 
 
     \paragraph{Potential terms}
 
-    By adding a confining potential to the Hamiltonian in addition to the kinetic 
-    energy term \autoref{eq:kinetic_energy_term},
+    Adding a confining potential to the Hamiltonian in addition to the kinetic 
+    energy term in \autoref{eq:kinetic_energy_term},
     \begin{equation}
         \hat{H} \supset \hat{H}_\text{kin} + \hat{V}
     \end{equation}
-    gives rise to much more interesting systems and are the beginning of an approximation 
+    gives rise to much more interesting systems and is the beginning of an approximation 
     of reality. Perhaps the most common is the harmonic oscillator potential, which 
     in one dimension reads 
     \begin{equation}
         \hat{V}(x) = \frac{1}{2}m\omega^2x^2.
     \end{equation}
-    This is a very popular confining potential because virtually any oscilaltory motion can 
-    be approximated by it, if the amplitude of the oscillations are small. The parabolic 
+    This is a very popular confining potential because virtually any oscillatory motion can 
+    be approximated by it, if the amplitude of the oscillations is sufficiently small.
+    This parabolic, harmonic
     potential is the basis of a quantum dot which is a central part of this study. 
-    In quantum chemistry we only consider potentials derived from particle-particle 
+    In quantum chemistry we only consider potentials derived from particle-particle
     interactions, and not such external potentials.
 
     \paragraph{Coulomb interactions}
@@ -394,14 +397,15 @@
     Coulomb constant.
     The first term is the potential between nuclei and electrons, the second term is
     the potential between electrons and the last term is the potential between 
-    nuclei. In the Born-Oppenheimer approximaton we ignore the first and third term.
+    nuclei.
 
     \paragraph{External electric field interactions}
    
-    This section goes through, in broadest of strokes, a quantisation of an electromagnetic 
+    Now comes the time to go through, in broadest of strokes, a quantisation of an electromagnetic 
     field. For a thorough derivation see for instance 
-    \citeauthor{joachain2012atoms}\citeauthor{joachain2012atoms}.
-    Applying an electromagnetic field we need to include terms in the Hamiltonian that 
+    \citeauthor{joachain2012atoms}\cite{joachain2012atoms}.
+    When we include an electromagnetic field in the model it is necessary to include terms in
+    the Hamiltonian that 
     model the effects of an externally applied scalar potential $\phi = \phi(\vb{r}, t)$
     and a vector potential $\vb{A} = \vb{A}(\vb{r}, t)$. This will also affect the 
     kinetic energy of the particles, which we therefore include at first,
@@ -413,7 +417,7 @@
     \end{equation}
     This Hamiltonian now describes a free particle subject to an external 
     electric field. Since we have already included a term for kinetic energy we 
-    now wish to remove it,
+    now wish to remove it, keeping only the new terms,
     \begin{equation}
         \hat{H}_\text{ef} 
             = - \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
@@ -422,10 +426,11 @@
 
     We assume that the external field has sufficiently large wavelength compared to the 
     system, making the vector potential uniform in space $\vb{A}(\vb{r}, t) = \vb{A}(t)$.
-    This approximation is very reasonable, because visible light has a wavelength of 
+    This approximation is very reasonable, considering visible light has a wavelength of 
     $\lambda \sim 5000 \text{Å}$ and an atom is around $1 \text{Å}$. In the dipole 
     approximation we can write the vector potential as 
     \begin{equation}
+        \label{eq:photon_kill_create}
         \vb{A}(t) = \vb{A}_0e^{-i \omega_k t} + \vb{A}_0^*e^{i\omega_k t}a,
     \end{equation}
     where $\vb{A}_0$ and $\vb{A}_0^*$ are photon creation and annihilation operators. 
@@ -435,18 +440,18 @@
     \begin{equation}
         \vb{A}(t) = \epsilon A_0\sin(\omega_k t),
     \end{equation}
-    which is the same up to a phase. In the Coulomb gauge we have 
+    which is the same as \autoref{eq:photon_kill_create} up to a phase. In the Coulomb gauge we have 
     \begin{equation}
         \vb{E} = - \frac{d}{dt}\vb{A},
     \end{equation}
     which gives us an expression for the E-field 
     \begin{equation}
-        \vb{E} = \epsilon \mathscr{E}_0 \cos(\omega_k t),
+        \vb{E}(t) = \epsilon \vb{E}_0 \cos(\omega_k t),
     \end{equation}
-    where $\mathscr{E}_0 = -\omega_k A_0$ and we can approximate the external electric 
-    field time-dependent field by 
+    where $\vb{E}_0 = -\omega_k A_0$ and we can approximate the external
+    field time-dependent electric field by 
     \begin{equation}
-        \hat{H}_\text{ef} = - \hat{\vb{d}} \cdot \epsilon \mathscr{E}_0 \cos{\omega_k t},
+        \hat{H}_\text{ef} = - \hat{\vb{d}} \cdot \epsilon \vb{E}_0 \cos{\omega_k t},
     \end{equation}
     where $\hat{\vb{d}} = q\hat{\vb{r}}$, is the dipole operator, dictating the 
     allowed transitions.
@@ -454,8 +459,8 @@
     \subsection{Angular Momentum and Intrinsic Spin}
 
     In general, modelling of interaction with magnetic fields necessitates the 
-    use of operators for intrinsic angular momentum ($\vb{S}$) and extrinsic 
-    angular momentum ($\vb{L}$). These are often referred to as \emph{spin} 
+    use of operators for intrinsic angular momentum ($\hat{\vb{S}}$) and extrinsic 
+    angular momentum ($\hat{\vb{L}}$). These are often referred to as \emph{spin} 
     and \emph{angular momentum}, respectively.
     We will spend some time here elaborating on such terms.
 
@@ -576,12 +581,13 @@
         \hat{S}^2\ket{s\ m_s} = \hbar^2 s(s + 1)\ket{s\ m_s}, \quad
         \hat{S}_z\ket{s\ m_s} = \hbar m \ket{s\ m_s}.
     \end{equation}
+    Here,$\ket{s\ m_s}$ is a eigenstate determined by the quantum numbers $s$ and $m_s$.
    
     Because the quantum mechanical spin has nothing to do with motion in space and 
     is independent of any coordinates $r$, $\theta$ or $\phi$, there is no reason to 
     exclude half-integer values of $s$ and $m_s$,
     \begin{equation}
-        s=0,\frac{1}{2},1,\frac{3}{2},\dots, \quad m_s\in[-s, s].
+        s=0,\frac{1}{2},1,\frac{3}{2},\dots, \quad m_s = -s, s + 1, \dots s - 1, s.
     \end{equation}
     As it would turn out, every elemental particle as a specific and immutable value of 
     $s$, and the most important one is $s=\frac{1}{2}$ (!) as it is the spin-value for 
@@ -596,7 +602,7 @@
         \ket{\frac{1}{2},-\frac{1}{2}} = \ket{\downarrow} = \ket{-}.
     \end{equation}
     This means that the Hilbert space $\mathcal{H}$ for spin-half particles has 
-    two dimensions. This means that any state can be expressed as a two-dimensional 
+    two dimensions, and that any state can be expressed as a two-dimensional 
     vectors called spinors,
     \begin{equation}
         \ket{\chi} = \begin{pmatrix}
@@ -612,7 +618,7 @@
     \end{equation}
     The probability of finding a particle represented by the state vector $\ket{\chi}$
     in the spin up or spin down state is $|a|^2$ and $|b|^2$, respectively. This requires 
-    a normalisation, $|a|^2 + |b|^2 = 1$.
+    a normalisation, such that $|a|^2 + |b|^2 = 1$.
 
     In the basis of $\ket{\uparrow}$ and $\ket{\downarrow}$ the operators $\hat{S}^2$, 
     $\hat{S}_x$, $\hat{S}_y$ and $\hat{S}_z$ are represented by two-dimensional matrices,
@@ -636,7 +642,7 @@
     \subsection{Atomic Units}
 
         It is common practice to switch to a set of units that are easier to work with,
-        i.e. setting $\hbar = m_e = e = \dots = 1$. In this study we use atomic units, a
+        in essence setting $\hbar = m_e = e = \dots = 1$. In this study we use atomic units, a
         form of such dimensionless units. To see how these units arise, consider
         the time-independent Schrödinger equation for a Hydrogen atom,
 
@@ -707,12 +713,11 @@
     idea has its origin from the uncertainty principle, stating that no sharply defined 
     particle exist. If we take this idea
     to its extreme one may postulate that all particles of a given type are one and the
-    same. Here from Richard Feynman's Nobel lecture:
-    Feynman\cite{feynman1965nobel},
+    same. Here from Richard Feynman's Nobel lecture\cite{feynman1965nobel}:
     \say{I received a telephone call one day at the graduate college at Princeton from 
     Professor Wheeler, in which he said, \say{Feynman, I know why all electrons have
     the same charge and the same mass} \say{Why?} \say{Because, they are all the same 
-   electron!} }
+    electron!} }
 
     Following the brief discussion above one may begin to postulate that, the probability density
     for the location of particles in a system must be permutation invariant,
