@@ -64,13 +64,15 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsection{Representation of Amplitudes}
 
+    \begin{figure}[h]
+    \input{implementation/doc/amplitude_container.tex}
+    \end{figure}
+
     The most central structure in any coupled cluster solver are the amplitudes. The 
     amplitudes are what defines the true structure of the wavefunction as a linear 
     combination of single-particle functions contained in the reference Slater 
     determinant. We have found it beneficial to implement a special container 
     class for the amplitudes, aptly called \lstinline{AmplitudeContainer}.
-
-    \input{implementation/doc/amplitude_container.tex}
 
     The \lstinline{AmplitudeContainer} class is built as a data structure for 
     the amplitude functions, and comprises all methods and attributes to serve this 
@@ -84,6 +86,10 @@ can be found at \url{www.coupled-cluster.com}.
     cluster solver, with both $\tau$ and $\lambda$ amplitudes.
 
     \subsection{Coupled Cluster Base Class}
+
+    \begin{figure}
+    \input{implementation/doc/coupled_cluster.tex}
+    \end{figure}
 
     All ground state solvers within the \lstinline{coupled_cluster} module are built 
     as sub-classes of the abstract base class \lstinline{CoupledCluster}. The most
@@ -129,9 +135,11 @@ can be found at \url{www.coupled-cluster.com}.
     ground state coupled cluster solver, namely CCD, implemented in the 
     \lstinline{CoupledClusterDoubles} class. 
 
-    \input{implementation/doc/coupled_cluster.tex}
-
     \subsection{Coupled Cluster Doubles}
+
+    \begin{figure}
+    \input{implementation/doc/ccd.tex}
+    \end{figure}
     
     Starting from construction, the \lstinline{CoupledClusterDoubles} class passes 
     the system, defined through a \lstinline{QuantumSystem} object to the 
@@ -199,10 +207,6 @@ can be found at \url{www.coupled-cluster.com}.
         t^{(k+1)} = \frac{g(u,\tau^{(k)})}{D^{ab}_{ij}}.
     \end{equation}
 
-    \input{implementation/doc/ccd.tex}
-    \vfill
-    \pagebreak
-
     An example of a computation of one term from \autoref{eq:ccd_tau} is,
     \begin{python}
     def add_d2e_t(u, t, o, v, out, np):
@@ -217,14 +221,21 @@ can be found at \url{www.coupled-cluster.com}.
     This function particular computes the $D_{2e}$ diagram\footnote{After the labelling from 
     \autoref{ch:coupled_cluster_theory} and Shavitt \& Bartlett\cite{shavitt2009many}}.
 
-    \subsection{Coupled Cluster Singles Doubles}
-
     Most of the rest of the methods in the \lstinline{CoupledClusterDoubles} class are there 
     for the use of other methods, or for extracting observables. Moving to the next logical 
-    coupled cluster solver scheme; the coupled cluster method with single- and double 
+    coupled cluster solver scheme.
+
+    \subsection{Coupled Cluster Singles Doubles}
+
+    \begin{figure}[h]
+    \input{implementation/doc/ccsd.tex}
+    \end{figure}
+
+    The coupled cluster method with single- and double 
     excitations is now a matter of taking into account the extra computations needed in 
     this scheme, for each method in the abstract base clase \lstinline{CoupledCluster}. 
-    There are indeed many more computations, but the code will structurally be the same. 
+    There are indeed many more computations, but the code in this class will structurally
+    be the same as the Coupled Cluster Doubles class. 
     The class specification for \lstinline{CoupledClusterSinglesDoubles} is therefore 
     given here without specification of the methods as they are excactly the same. For testing 
     purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the option 
@@ -233,9 +244,11 @@ can be found at \url{www.coupled-cluster.com}.
     (\autoref{eq:cc_energy_lagrangian}) in \lstinline{sympy} and differentiating 
     it symbolically. The resulting equations can be found in \autoref{app:ccsd_equations}.
 
-    \input{implementation/doc/ccsd.tex}
-
     \subsection{Orbital-Adaptive Coupled Cluster}
+
+    \begin{figure}
+    \input{implementation/doc/oaccd.tex}
+    \end{figure}
 
     The algorithm applied when computing the ground state in the orbital-adaptive sphere 
     is the nonorthogonal orbital-optimised coupled cluster (NOCC) method, developed by 
@@ -247,8 +260,6 @@ can be found at \url{www.coupled-cluster.com}.
     is strong indication that NOCC would be equivalent to a OACC ground state solver. What is 
     more, NOCC does vary the orbitals as well as iterate over amplitude, and we have therefore 
     opted to call it OACC.
-
-    \input{implementation/doc/oaccd.tex}
 
     Our implementation of the NOCC ground state solver is inherited from code written by
     \citeauthor{myhre2018demonstrating} and 
@@ -359,9 +370,11 @@ can be found at \url{www.coupled-cluster.com}.
     a new Fock operator. The resulting rotation of the orbitals will aid in better 
     convergence towards the ground state.
 
-    \input{implementation/doc/oaccvector.tex}
-
     \subsubsection{Specialised Orbital-Adaptive \lstinline{AmplitudeContainer}}
+
+    \begin{figure}[h]
+    \input{implementation/doc/oaccvector.tex}
+    \end{figure}
 
     Because of the nature of the orbital-adaptive coupled cluster scheme, it is no 
     longer sufficient to store just the amplitudes as representation of the exact 
@@ -391,6 +404,10 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsubsection{Alpha mixer}
 
+    \begin{figure}
+    \input{implementation/doc/mixer_alpha.tex}
+    \end{figure}
+
     The simplest way to ``massage'' convergence out of the coupled cluster ground state methods
     to use a dampening, where one would include a part of the result from the previous 
     iteration, here applied to the $\tau$ amplitudes,
@@ -404,10 +421,11 @@ can be found at \url{www.coupled-cluster.com}.
     very simple mixing scheme in the \lstinline{AlphaMixer} class, which also serves as 
     a base class for further mixer implementations.
 
-    \input{implementation/doc/mixer_alpha.tex}
-
-
     \subsubsection{The Quasi-Newton method with DIIS acceleration}
+
+    \begin{figure}
+    \input{implementation/doc/diis.tex}
+    \end{figure}
 
     A more sophisticated method to aid in convergence, and perhaps the most popular,
     is by performing a direct inversion of iterative subspace (DIIS). The DIIS method 
@@ -495,12 +513,11 @@ can be found at \url{www.coupled-cluster.com}.
     how many vectors to store and compute a linear interpolation of, with a default 
     value of $10$ vectors.
 
-    \input{implementation/doc/diis.tex}
-
-    \vfill
-    \pagebreak
-
 \section{Time Development}
+
+    \begin{figure}
+    \input{implementation/doc/tdcc.tex}
+    \end{figure}
 
     We have sought to formulate the time-dependent coupled cluster methods
     in the abstraction of very general differential equations. By doing this we 
@@ -558,8 +575,6 @@ can be found at \url{www.coupled-cluster.com}.
     schemes, and is therefore implemented in the base class for inheritance in 
     sub-classes. 
 
-    \input{implementation/doc/tdcc.tex}
-
     The \lstinline{solve} method in full is
     \begin{python}
     def solve(self, time_points, timestep_tol=1e-8):
@@ -589,6 +604,10 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsection{TDCCSD}
 
+    \begin{figure}
+    \input{implementation/doc/tdccsd.tex}
+    \end{figure}
+
     We have implemented both a time-dependent CCD (TDCCD) solver and a time-dependent CCSD
     (TDCCSD)
     solver. For the sake of brevity, we present only the TDCCSD here as their appearance 
@@ -610,8 +629,6 @@ can be found at \url{www.coupled-cluster.com}.
     for instance \lstinline{compute_time_dependent_overlap()} which computes the 
     probability of the system being in the ground state, and \lstinline{compute_energy()} 
     which computes the energy of the system in the current time-dependent state.
-
-    \input{implementation/doc/tdccsd.tex}
 
     The ground state probability, i.e. \lstinline{compute_time_dependent_overlap()}, is 
     based on a general time-dependent auto-correlation function,
@@ -752,6 +769,10 @@ can be found at \url{www.coupled-cluster.com}.
     will simplify greatly under the assumption of a complete basis, but the $P$-space 
     equations will differ depending on the excitation level.
 
+    \begin{figure}[h]
+    \input{implementation/doc/oatdccd.tex}
+    \end{figure}
+
     \subsubsection{Disappearing RHS of Q-space equations.}
 
     A necessary additon to an orbital-adaptive time-dependent coupled cluster framework 
@@ -850,8 +871,6 @@ can be found at \url{www.coupled-cluster.com}.
     to update the one- and two-body parts of the Hamiltonian $\hat{h}$ and $\hat{u}$,
     respectively.
 
-    \input{implementation/doc/oatdccd.tex}
-
     \subsubsection{Problematic Overlap}
 
     Notice the absence of a \lstinline{compute_time_dependent_overlap()} function
@@ -900,6 +919,10 @@ can be found at \url{www.coupled-cluster.com}.
 
 \subsection{Integrators and ODE Solvers}
 
+    \begin{figure}
+    \input{implementation/doc/integrator.tex}
+    \end{figure}
+
     Most, if not all, physical systems that evolve in time can be described 
     as set of equations that we call the equations of motion. These can be usually 
     be formulated as a single- or a set of ordinary differential equations written 
@@ -945,9 +968,11 @@ can be found at \url{www.coupled-cluster.com}.
     abstract base class \lstinline{Integrator}, which defines a general integrator for 
     eventual future additons.
 
-    \input{implementation/doc/integrator.tex}
-
     \subsubsection{The Runge-Kutta Method}
+
+    \begin{figure}
+    \input{implementation/doc/RK4.tex}
+    \end{figure}
 
     The Runge-Kutta methods are a large family of implicit and iterative methods of 
     increasing order. The first-order Runge-Kutta method is the same as the forward 
@@ -984,8 +1009,6 @@ can be found at \url{www.coupled-cluster.com}.
     \lstinline{RungeKutta4}. This is the most common of the Runge-Kutta method, and is 
     often sometimes referred to as simply ``the Runge-Kutta method''. 
 
-    \input{implementation/doc/RK4.tex}
-
     A step of size $h$ in the fourth order Runge-Kutta method is defined by 
     \begin{equation}
        \begin{aligned}
@@ -1011,6 +1034,10 @@ can be found at \url{www.coupled-cluster.com}.
     \end{python}
 
     \subsubsection{Symplectic Gauss Integrator}
+
+    \begin{figure}
+    \input{implementation/doc/gauss_integrator.tex}
+    \end{figure}
 
     The Runge-Kutta method, as described above, will be unstable for most systems
     becuase of its inability to preserve structure and energy of the system. It is 
@@ -1143,5 +1170,3 @@ can be found at \url{www.coupled-cluster.com}.
     than dealing with the derivations of the method, because its opeartion
     are the same, as evidenced by the \lstinline{GaussIntegrator}
     class specification. 
-
-    \input{implementation/doc/gauss_integrator.tex}
