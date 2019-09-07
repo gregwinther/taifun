@@ -47,6 +47,10 @@ conda activate quantum-systems
 
 \section{Quantum System Abstract Base Class} 
 
+\begin{figure}
+\input{implementation/doc/quantumsystem.tex}
+\end{figure}
+
 Here we present the abstract base class that every system class in the
 \lstinline{QuantumSystems} model is built upon. This base class forms the foundation 
 of any quantum system, in order to make a system specification function together with 
@@ -59,8 +63,6 @@ quantum system classes can inherit from. Examples of such functionality is
 setting up the Fock matrix. The one- and two-body operators are necessary to set up 
 for a specific system, but the Fock matrix computations can be abstracted away 
 to the superclass.
-
-\input{implementation/doc/quantumsystem.tex}
 
 In the \lstinline{QuantumSystem} abstract base class we have included a
 method that changes the basis of the system according to some coefficient matrix 
@@ -233,7 +235,9 @@ Needless to say, computing the coulomb integrals is one of the more intensive ta
 and we therefore make great use of just-in-time compulation from the \lstinline{numba} 
 module for python.
 
+\begin{figure}
 \input{implementation/doc/one_dim_quantum_dot.tex}
+\end{figure}
 
 \subsubsection{One-dimensional potentials}
 \label{sec:1d_potentials}
@@ -316,7 +320,6 @@ factor given by,
     N_{nm} = a\sqrt{\frac{n!}{\pi(n + \abs{m})!}}.
 \end{equation}
 
-
 The energy eigenvalues of a two-dimensional harmonic oscillator is given by 
 \begin{equation}
     \epsilon_{nm} = \hbar\omega(2n + \abs{m} + 1).
@@ -331,6 +334,10 @@ potential energy matrix element. If we were dealing with completely none-interac
 particles not much more would be needed.
 We see, however, that this form of one-body matrix elements necessitates a mapping from 
 the general coordinates $p,q$, as used above, and the quantum numbers $n,m$.
+
+\begin{figure}[h]
+\input{implementation/doc/two_dim_quantum_dot.tex}
+\end{figure}
 
 This functionality $(n,m)\mapsto p$ is 
 achieved by the following python function
@@ -404,6 +411,40 @@ including it in the orthonormality conditions of the wavefunctions,
 \end{equation}
 where $\sigma$ is the spin.
 
+Because the electrons we will be studying are interacting, we need two-body matrix elements 
+as well. The analytical formula for the Coulomb interaction integrals, provided by Anisimovas and 
+Matulis\cite{anisimovas1998energy} is
+\begin{equation}
+    \begin{aligned}
+        \langle \phi_1\phi_2| \hat{W} | \phi_3\phi_4 \rangle =& 
+        \delta_{s_1, s_4} \delta_{s_2, s_3} \delta_{m_1 + m_2, m_3 + m_4}
+        \left[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \right]^{1/2}
+        \sum_{(4)j=0}^n \frac{(-1)^{j_1+j_2+j_3+j_4}}{j_1!j_2!j_3!j_4!} \\
+        &\times \left[\prod_{i=1}^n \binom{n_i + |m_i|} {n_i + j_i} \right]
+        \frac{1}{2^{(G+1)/2}} \sum_{(4)l=0}^\gamma (-1)^{\gamma_2 + \gamma_3 - l_2 - l_3} \\
+        &\times \delta_{l_1 + l_2, l_3 + l_4} \left[\prod_{i=1}^4 \binom{\gamma_i}{l_i} \right] 
+        \Gamma\left(1 + \frac{L}{2} \right)\Gamma\left(\frac{G - L + 1}{2}\right).
+    \end{aligned}
+\end{equation}
+The symbols $j_i$ are integer summation indices (regular indices) running from $0$ to $n_i$.
+The symbols $\gamma_i$ stand for numbers,
+\begin{align*}
+\gamma_1 &= j_1 + j_4 + (|m_1| + m_1)/2 + (|m_4| - m_4)/2 \\
+\gamma_4 &= j_1 + j_4 + (|m_1| - m_1)/2 + (|m_4| + m_4)/2
+\end{align*}
+$\gamma_2$ and $\gamma_3$ can be obtained by replacing indices $1 \to 2$ and $4 \to 3$.
+Moreover,
+\begin{align*}
+\sum_{(4)j=0}^n =
+\sum_{j_1=0}^{n_1}\sum_{j_2=0}^{n_2}\sum_{j_3=0}^{n_3}\sum_{j_4=0}^{n_4},
+\quad 
+G = \sum_i \gamma_i, 
+\quad
+L = \sum_i l_i
+\end{align*}
+For the implementation of this expression for the purpose of computing the two-dimensional 
+quantum dot basis sets, we refer the reader to the appendices (\autoref{app:anisimovas}).
+
 \begin{figure}
     \begin{center}
         \begin{tikzpicture}[scale=0.9, background rectangle/.style={fill=grey},
@@ -456,40 +497,6 @@ where $\sigma$ is the spin.
     \label{fig:2d_basis_states}
 \end{figure}
 
-Because the electrons we will be studying are interacting, we need two-body matrix elements 
-as well. The analytical formula for the Coulomb interaction integrals, provided by Anisimovas and 
-Matulis\cite{anisimovas1998energy} is
-\begin{equation}
-    \begin{aligned}
-        \langle \phi_1\phi_2| \hat{W} | \phi_3\phi_4 \rangle =& 
-        \delta_{s_1, s_4} \delta_{s_2, s_3} \delta_{m_1 + m_2, m_3 + m_4}
-        \left[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \right]^{1/2}
-        \sum_{(4)j=0}^n \frac{(-1)^{j_1+j_2+j_3+j_4}}{j_1!j_2!j_3!j_4!} \\
-        &\times \left[\prod_{i=1}^n \binom{n_i + |m_i|} {n_i + j_i} \right]
-        \frac{1}{2^{(G+1)/2}} \sum_{(4)l=0}^\gamma (-1)^{\gamma_2 + \gamma_3 - l_2 - l_3} \\
-        &\times \delta_{l_1 + l_2, l_3 + l_4} \left[\prod_{i=1}^4 \binom{\gamma_i}{l_i} \right] 
-        \Gamma\left(1 + \frac{L}{2} \right)\Gamma\left(\frac{G - L + 1}{2}\right).
-    \end{aligned}
-\end{equation}
-The symbols $j_i$ are integer summation indices (regular indices) running from $0$ to $n_i$.
-The symbols $\gamma_i$ stand for numbers,
-\begin{align*}
-\gamma_1 &= j_1 + j_4 + (|m_1| + m_1)/2 + (|m_4| - m_4)/2 \\
-\gamma_4 &= j_1 + j_4 + (|m_1| - m_1)/2 + (|m_4| + m_4)/2
-\end{align*}
-$\gamma_2$ and $\gamma_3$ can be obtained by replacing indices $1 \to 2$ and $4 \to 3$.
-Moreover,
-\begin{align*}
-\sum_{(4)j=0}^n =
-\sum_{j_1=0}^{n_1}\sum_{j_2=0}^{n_2}\sum_{j_3=0}^{n_3}\sum_{j_4=0}^{n_4},
-\quad 
-G = \sum_i \gamma_i, 
-\quad
-L = \sum_i l_i
-\end{align*}
-For the implementation of this expression for the purpose of computing the two-dimensional 
-quantum dot basis sets, we refer the reader to the appendices (\autoref{app:anisimovas}).
-
 \subsubsection{Dipole Moments}
 For our implementation of time dependent Hamiltonians, outlined below, we make use of 
 a dipole approximation of an electric field. For this reason it is necessary to compute 
@@ -520,8 +527,6 @@ The integrals we need to compute are
         \int_0^\infty r^2 R^*_{nm}(r)R_{nm}(r) dr
         \int_0^{2\pi} \sin\theta Y^*_{m}(\theta)Y_{m}(\theta)d\theta.
 \end{gather}
-
-\input{implementation/doc/two_dim_quantum_dot.tex}
 
 The radially dependent integrals are the most difficult to compute, and we compute this 
 symbolically with \lstinline{sympy}. For the angular integrals, we can find analytical 
@@ -558,6 +563,10 @@ azimutal quantum number $m$.
 
 \subsection{Two-Dimensional Double Well}
 \label{sec:2d_double_well}
+
+\begin{figure}
+\input{implementation/doc/two_dim_double_dot.tex}
+\end{figure}
 
 The extension from a single two-dimensional quantum dot to a double 
 quantum dot is a relatively straight-forward procedure, as it is 
@@ -671,9 +680,11 @@ can subsequently be applied to the two-body operator,
 \end{equation}
 where summation over same indices is assumed.
 
-\input{implementation/doc/two_dim_double_dot.tex}
+\subsection{Two-Dimensional Magnetic Quantum dots}
 
-\subsection{Magnetic field}
+\begin{figure}[h]
+\input{implementation/doc/two_dim_dot_B.tex}
+\end{figure}
 
 Extending the two-dimensional quantum dot to be under the influence of a 
 static, transverse magnetic field consitutes not much more than adding constant 
@@ -748,17 +759,17 @@ cross over one another. The magnetic field has the effect of decreasing the ener
 a state with $m>0$ and increasing the energy of a state with $m<0$. This means that 
 it is necessary to sort the eigenvalues after they have been computed. 
 
-\input{implementation/doc/two_dim_dot_B.tex}
-
 \section{Constructing a Custom System}
+
+\begin{figure}
+\input{implementation/doc/custom_system.tex}
+\end{figure}
 
 We have constructed a subclass of the \lstinline{QuantumSystem} base 
 class called \lstinline{CustomSystem} with the intent of interfacing with 
 other quantum chemistry libraries. This interfacing allows us to extract basis 
 sets for other systems, like atoms and molecules, that will function with the
 coupled cluster solvers we have implemented.
-
-\input{implementation/doc/custom_system.tex}
 
 The function of the member methods in the \lstinline{CustomSystem} class
 should be evident from their names. One can set the one-body matrix elements with 
@@ -778,6 +789,10 @@ quantum chemistry community. Psi4 has 354 stars and 235 forks, while PySCF has 3
 and 175 forks on GitHub. Arguably this can be considered  widely popular considering 
 the specificity of the topic.
 
+\begin{figure}
+\input{implementation/doc/laser_field.tex}
+\end{figure}
+
 \section{Time Evolution}
 
 In order to compute the time-development of a quantum system, we add a
@@ -791,8 +806,6 @@ abstract attributes in the \lstinline{TimeEvolution}- \lstinline{Operator}
 which will make it 
 possible for the time-dependent coupled cluster solver to determine what parts 
 of the Hamiltonian is necessary to update for each time step.
-
-\input{implementation/doc/laser_field.tex}
 
 A common time evolution operator used in the study is a dipole approximation of 
 a laser field. We have implemented a class \lstinline{LaserField}, which makes 
@@ -808,11 +821,13 @@ linear polarisation.
 The electric field in the dipole approximation typically 
 reads
 \begin{equation}
-    \vb{E}(t) = \vb{\epsilon} \mathscr{E}_0 F(t)\cos{(\omega_k t)},
+    \vb{E}(t) = \vb{\epsilon} \vb{E}_0(t)\cos{(\omega t)},
 \end{equation}
-where $\vb{\epsilon}$ is the polarisation vector, $\mathscr{E}_0$ is a parameter 
-for the maximum amplitude (strength) of the field, $F(t)$ defines the time-dependent 
-envelope of the laser pulse, the cosine term is there to make sure it's a waveform and
-$\omega_k$ is the angular frequency of the laser.
+where $\vb{\epsilon}$ is the polarisation vector, $\vb{E}_0(t)$ defines a time-dependent 
+envelope of the laser pulse, the cosine term makes sure the laser pulse is
+a waveform and
+$\omega$ is the angular frequency of the laser light.
 
+\begin{figure}    
 \input{implementation/doc/time_evolution_operator.tex}
+\end{figure}
