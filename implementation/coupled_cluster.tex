@@ -5,7 +5,7 @@ module for Python. This module is designed to fit together with the
 \lstinline{quantum_systems} module described in the previous chapter. We have tried to 
 make this module easy to extend, resulting in a framework where every solver scheme 
 inherits from an abstract parent class that specifies what must be implemented in order 
-to make a supplemental solver or class operational in conjunction with the rest of the 
+to make a supplemental solver class operational in conjunction with the rest of the 
 framework.
 
 As a beginning to this project, which we hope will continue to grow and be used, 
@@ -50,27 +50,27 @@ can be found at \url{www.coupled-cluster.com}.
 
 \section{Ground State Computations}
 
-    Before any development in time can be performed, we need to derive configurations 
+    Before any development in time can be performed, we need to arrive at configurations 
     of systems that 
-    we can be pretty certain exist in nature. This makes the implementation of ground 
-    state solvers necessary. We have implemented ground state solvers; the
+    we can be somewhat certain exist in nature. This makes the implementation of ground 
+    state solvers necessary. We have implemented several ground state solvers; the
     \lstinline{CoupledClusterDoubles} and \lstinline{CoupledClusterSinglesDoubles} 
-    are based on the theoretical framework form of the Lagrangian formulation of coupled 
-    cluster, while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
+    are based on the theoretical framework from the Lagrangian formulation of Coupled 
+    Cluster, while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
     ground state coupled cluster solver with double excitations. Moreover, we constructed 
     a data structure for the amplitudes in the \lstinline{AmplitudeContainer} class and 
     we have implemented two ``mixer'' classes that help with convergences of the ground
     state solvers, \lstinline{AlphaMixer} and \lstinline{DIIS}.
 
-    \subsection{Representation of Amplitudes}
-
     \begin{figure}[h]
     \input{implementation/doc/amplitude_container.tex}
     \end{figure}
 
-    The most central structure in any coupled cluster solver are the amplitudes. The 
+    \subsection{Representation of Amplitudes}
+
+    The most central structure in any Coupled Cluster solver are the amplitudes. The 
     amplitudes are what defines the true structure of the wavefunction as a linear 
-    combination of single-particle functions contained in the reference Slater 
+    combination of single-particle functions contained in the reference state Slater 
     determinant. We have found it beneficial to implement a special container 
     class for the amplitudes, aptly called \lstinline{AmplitudeContainer}.
 
