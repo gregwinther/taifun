@@ -19,7 +19,7 @@
     principle. Later, Hartree reformulated the method for 
     calculation\cite{hartree1935self}.
 
-    The Hartree-Fock methods makes the following simplications to the multi-electron 
+    The Hartree-Fock methods makes the following simplifications to the multi-electron 
     atomic (molecular) problem,
     \begin{itemize}
         \item The full molecular wavefunction is constrained to a function of the
@@ -85,10 +85,10 @@
     \end{equation*}
 
     Now we want to minimise the energy (\autoref{eq:hf_hamiltonian}) under the
-    contraint of orthonormal single-particle functions, id est
+    constraint of orthonormal single-particle functions, id est
     $\braket{\phi_i}{\phi_k} = \delta_{ij}$. The minimum solution is called the 
-    Hatree-Fock state, $\ket{\Phi_{\text{HF}}}$. An optimisation problem with a 
-    constraint begs the formualtion of a Lagrangian functional with a Lagrange
+    Hartree-Fock state, $\ket{\Phi_{\text{HF}}}$. An optimisation problem with a 
+    constraint begs the formulation of a Lagrangian functional with a Lagrange
     multiplier for each constraint,
     \begin{equation}
         \label{eq:hf_lagrangian}
@@ -231,10 +231,10 @@ transformation of the single particle functions. Consider
 \begin{equation}
     \tilde{\phi}_k = \sum_j C^j_k\phi_j ,
 \end{equation}
-where $C$ is a unitary matrix. This implies that $\ket{\tilde{\Phi}} = \det(C)\ket{\Phi}$,
+where $C$ is a unitary matrix. This implies that $\ket*{\tilde{\Phi}} = \det(C)\ket{\Phi}$,
 is the same state and the energy must be the same as well. We choose a particular
 unitary transformation $C$, rotating the single particle functions in a certain 
-manner so that $\lambda = CEC^H$, where $E_{jk} = \delta_{jk}\epsilon_k$ are the 
+manner so that $\lambda = CEC^\dagger$, where $E_{jk} = \delta_{jk}\epsilon_k$ are the 
 elements of a diagonal matrix (the eigenvalues of $\lambda$). This provides us with 
 a new set of eigenvalue equations,
 \begin{equation}
@@ -259,10 +259,10 @@ define the overlap matrix,
 The Hartree-Fock single-particle functions are expanded in this basis,
 \begin{equation}
     \label{eq:roothan_hall_exp}
-    \ket{\phi_p} = \sum_\alpha U^\alpha_p \ket{\chi_\alpha},
+    \ket{\phi_p} = \sum_\alpha C^\alpha_p \ket{\chi_\alpha},
 \end{equation}
 where $C$ is not necessarily unitary, because the basis is not necessarily 
-orthongonal. However, we do have $C^HSC = 1$.
+orthongonal. However, we do have $C^\dagger SC = 1$.
 
 We insert the expansion from \autoref{eq:roothan_hall_exp} into the expression 
 for the canonical Hartree-Fock equations from \autoref{eq:canonical_hf_eqns},
@@ -272,13 +272,14 @@ for the canonical Hartree-Fock equations from \autoref{eq:canonical_hf_eqns},
 Then we left project with an arbitrary function from our new basis,
 \begin{equation}
     \begin{gathered}
-        \bra{\chi_\beta} \hat{f} \sum_\alpha U^\alpha_p \ket{\chi_\alpha}
+        \bra{\chi_\beta} \hat{f} \sum_\alpha C^\alpha_p \ket{\chi_\alpha}
             = \epsilon_\alpha \braket{\chi_\beta}{\chi_\alpha} \sum_r C^\alpha_p \\
         \sum_\alpha f^\beta_\alpha C^\alpha_p = \epsilon_p \sum_\alpha S^\beta_\alpha C^\alpha_p \\
         F(D) C = S C \epsilon.
     \end{gathered}
 \end{equation}
-where the last line is the Roothan-Hall equations.
+where the last line is the Roothan-Hall equations, and $D=CC^\dagger$ is 
+the density matrix.
 
 Elaborating on the computation of the Fock matrix element,
 \begin{equation}
@@ -292,14 +293,14 @@ where
     &\begin{gathered}
     \bra{\chi_\alpha} \hat{v}_{\text{direct}} \ket{\chi_p}
         = \sum_j \bra{\chi_\alpha \phi_j} \hat{u} \ket{\chi_p \phi_j} 
-        = \sum_{\beta'\alpha'j} U^{\alpha'}_j (U^j_{\beta'})^*
+        = \sum_{\beta'\alpha'j} C^{\alpha'}_j (C^j_{\beta'})^*
             \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_p \chi_{\beta'}} \\
         = \sum_{\beta'\alpha'} D^{\alpha'}_{\beta'} \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_p \chi_{\beta'}}
     \end{gathered} \\
     &\begin{gathered}
     \bra{\chi_\alpha} \hat{v}_{\text{exchange}} \ket{\chi_p}
         = \sum_j \bra{\chi_\alpha \phi_j} \hat{u} \ket{\phi_j \chi_p} 
-        = \sum_{\beta'\alpha'j} U^{\alpha'}_j (U^j_{\beta'})^* 
+        = \sum_{\beta'\alpha'j} C^{\alpha'}_j (C^j_{\beta'})^* 
             \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_{\beta'} \chi_p} \\
         = \sum_{\beta'\alpha'} D^{\alpha'}_{\beta'} \bra{\chi_\alpha \chi_{\alpha'}} \hat{u} \ket{\chi_{\beta'} \chi_p},  
     \end{gathered}
@@ -310,9 +311,8 @@ giving us,
         + \sum_{\beta'\alpha'}D^{\alpha'}_{\beta'}(
             \bra{\chi_\alpha\chi_{\alpha'}}\hat{u} \ket{\chi_\beta\chi_{\beta'}}
             - \bra{\chi_\alpha\chi_{\alpha'}}\hat{u} \ket{\chi_{p'}\chi_\beta}
-        ),
+        ).
 \end{equation}
-where $D = CC^H$, is the density matrix.
 
 The benefit of the Roothan-Hall equations (\autoref{eq:roothan_hall_exp}), is that they 
 are represented by matrices, and therefore easy to implement on a computer. The
@@ -321,8 +321,8 @@ This guess can be used to compute the density matrix,
 $D^{(k)} = C^{(k)}(C^{(k)})^H$, where $k$ denotes the $k$th iteration. The density 
 matrix is used to compute the Fock matrix. This provides us with a general eigenvalue 
 problem, from which a new $C$ and $\epsilon$ can be found. This formula is then repeated
-until the the iterations converge. At this point we say that we have self-consitency 
-in the mean field, and this method is usually called the method of self-constistent
+until the the iterations converge. At this point we say that we have self-consistency 
+in the mean field, and this method is usually called the method of self-consistent
 field (SCF) iterations.
 
 \section{Restricted Hartree-Fock Theory}
@@ -334,12 +334,12 @@ described by the one-body part of the Hamiltionian, only
     \hat{h}(\vb{r}) = \hat{t}(\vb{r}) + \hat{v}(\vb{r}),
 \end{equation}
 where $\hat{v}$ is potential set up by an atomic nucleus, or some other confining
-force. The one-body operators $\hat{h}$ does noe coupled to electron spin, so the 
+force. The one-body operators $\hat{h}$ does not couple to electron spin, so the 
 spin-orbitals or single-particle eigenfunctions of $\hat{h}$ separate,
 \begin{equation}
     \phi_P(\vb{r}, \sigma) = \varphi_p(\vb{r})\chi_\alpha(\sigma),
 \end{equation}
-where $P = (p, \alpha)$ si the combined spin- and spatial index, $\alpha = \pm 1/2$
+where $P = (p, \alpha)$ is the combined spin- and spatial index, $\alpha = \pm 1/2$
 is the value of the projection of the electron spin along the $z$-axis. The spin 
 index/coordinate can only take values $\sigma \pm 1$, and we have orthonormal 
 spinorbitals, $\braket{\chi_\alpha}{\chi_\beta} = \delta_{\alpha\beta}$. 
@@ -352,7 +352,7 @@ are two spin values for each of the $n=N/2$ spatial orbitals. The $N$-electron
 ground state of $\hat{h}$ is given by the first $N$ eigenfunctions $\phi_{(p,\sigma)}$
 occupied,
 \begin{equation}
-    \ket{\Phi} = \ket{\phi_{1,+}\phi_{1,-}\dots \phi_{\frac{N}{2},+}\phi_{\frac{N}{2},-}},
+    \ket{\Phi} = \ket*{\phi_{1,+}\phi_{1,-}\dots \phi_{\frac{N}{2},+}\phi_{\frac{N}{2},-}},
 \end{equation}
 commonly also written as 
 \begin{equation}
@@ -388,7 +388,7 @@ the Hartree-Fock equation
     \end{aligned}
 \end{equation}
 Here we have joined the spatial- and spin index with a capital letter $I = (i, \alpha)$.
-We left multipy with $\chi_\alpha^*$, suppress indices for brevity and integrate over spin,
+We left multiply with $\chi_\alpha^*$, suppress indices for brevity and integrate over spin,
 \begin{equation}
     \mel{\chi_\alpha}{\hat{f}}{\varphi_i\chi_\alpha}
     = \mel{\chi_\alpha}{\hat{f}}{\phi_{I = (i,\alpha)}}
@@ -398,14 +398,14 @@ Next we insert the Fock operator,
 \begin{equation*}
     \hat{f} = \hat{h} + \sum_i\mel{\cdot\varphi_i}{\hat{u}}{\cdot\varphi_i}_\text{AS}
 \end{equation*} 
-This special notation is means that we integrate over the second orbital in 
+This special notation means that we integrate over the second orbital in 
 the bra and ket only. After insertion we get
 \begin{equation}
    \begin{gathered}
         \mel{\chi_\alpha}{\hat{h}}{\chi_\alpha}\varphi_i
         + \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_I\phi_J}_\text{AS}
         = \epsilon_i\varphi_i \\
-        \to\hat{h}\varphi_i 
+        \to\cancel{\braket{\chi_\alpha}}\hat{h}\varphi_i 
         + \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_I\phi_J}
         - \sum_J \mel{\chi_\alpha\phi_J}{\hat{u}}{\phi_J\phi_I}
         = \epsilon_i\varphi_i.
@@ -414,7 +414,7 @@ the bra and ket only. After insertion we get
 Because we have a closed-shell system, the sum over occupied spinorbitals include an 
 equal sum over spin up and spin down functions so that
 \begin{equation*}
-    \sum_J^n = \sum_\beta\sum_j^{n/2}.
+    \sum_J^N = \sum_\beta\sum_j^{n/2}.
 \end{equation*} 
 We next insert this into our eigenvalue equation and split the single-particle functions 
 into separate spin- and spatial orbitals,
@@ -461,7 +461,7 @@ The Hartree-Fock energy also has a special form in the restricted Hartree-Fock d
 
 \section{Unrestricted Hartree-Fock Theory}
 
-The restricted Hartree-Fock model i often a good enough approximation, but under some 
+The restricted Hartree-Fock model is often a good enough approximation, but under some 
 circumstances it will fail to provide a good result. The unrestricted Hartree-Fock model 
 is an intermediate between the general Hartree-Fock model and the restricted Hatree-Fock 
 model. Compared with the restricted Hartre-Fock single-particle wavefunction form, what we do 
@@ -494,7 +494,7 @@ canonical Hartree-Fock equation,
     \hat{f}\phi_P = \epsilon_p\phi_P, \ \to \ 
     \hat{f}\varphi_p^\alpha \chi_\alpha = \epsilon_p\varphi_p^\alpha \chi_\alpha. 
 \end{equation}
-Now we left multiply by $\chi_\alpha^*$ and itegrate over spin,
+Now we left multiply by $\chi_\alpha^*$ and integrate over spin,
 \begin{gather}
     \mel{\chi_\alpha}{\hat{f}}{\varphi_p^\alpha\chi_\alpha}
     = \mel{\chi_\alpha}{\epsilon_p}{\varphi_p^\alpha\chi_\alpha} \\
@@ -572,7 +572,7 @@ would get the Pople-Nesbet-Bethier equations\cite{berthier1954extension,pople195
 
 \section{Time-Dependent Hartree-Fock}
 
-This section follows closesly the narrative of \citeauthor{hochstuhl2014time}\cite{hochstuhl2014time}.
+This section follows closely the narrative of \citeauthor{hochstuhl2014time}\cite{hochstuhl2014time}.
 Deriving the time-dependent Hartree-Fock equations start,
 of course, with the time-dependent Schrödinger equation,
 \begin{equation}
@@ -657,7 +657,7 @@ This is where we will make use of the functional derivatives we computed before,
         - i\hbar\frac{\partial}{\partial t} \ket{\phi_r}
         - \sum_q \lambda_{rq} \ket{\phi_r} = 0.
 \end{equation}
-Now we want to solve for the Langrange mulitplier, we do this by left-projection of the 
+Now we want to solve for the Langrange multiplier, we do this by left-projection of the 
 functional derivative above with $\bra{\phi_s}$ and move the resulting multiplier $\lambda_{sq}$
 to the left, and all other terms to the right. We 
 get the following expression for the Lagrange multiplier,
@@ -726,5 +726,17 @@ We left-project this equation with $\bra{\chi_\beta}$,
 \end{equation}
 which can be written as a matrix equation,
 \begin{equation}
+    \label{eq:tdhf}
     i\hbar \vb{S}\dot{\vb{C}}(t) = \vb{F}(t)\vb{C}(t).
 \end{equation}
+
+We have landed at the time-dependent Hartree-Fock equations. These 
+are a set of elegant equations of motion that dictate
+the time-development of 
+the system by simple propagation of the Hartree-Fock coefficients. 
+Moreover, we come to the surprising realisiation that it is necessary 
+to compute the Hatree-Fock self-consistent field iterations only once, 
+and after that we can treat \autoref{eq:tdhf} as set of ordinary 
+differential equations, which can solved numerically without great 
+effort. The only consideration 
+one must make is to update the Fock matrix at each time step.
