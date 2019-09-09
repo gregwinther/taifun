@@ -73,8 +73,9 @@
     the classical phase space to the Hilbert space, through the procedure known as 
     canonical, or first\footnote{Second quantisation comes later.}-, quantisation.
     Whilst the state of a classical system is a point in phase space, a quantum state
-    is a complex-valued state vector in discrete, infinite-dimensional, Hilbert space,
-    that is a complete vector space equipped with an inner product. This space
+    is a complex-valued state vector in discrete, infinite-dimensional, Hilbert space.
+    A physicist would define a Hilbert psace as a complete vector space equipped
+    with an inner product. This space
     is most commonly chosen to be the space of square-integrable functions $\Psi$,
     dependent on all coordinates
     
@@ -183,7 +184,7 @@
     occuring in the classical theory" according 
     to \citeauthor{dirac1930principles}\cite{dirac1930principles}.
 
-    To conlcude the description of quantum states for now; a state function $\psi$ is said 
+    To conclude the description of quantum states for now; a state function $\psi$ is said 
     to be \emph{normal} if its innerproduct with itself is one, $\braket{\psi}{\psi} = 1$.
     Two different state functions are \emph{orthogonal} if their inner product is zero. 
     We have orthogonal functions if $\braket{\psi_\alpha}{\psi_\beta} = \delta_{\alpha\beta}$,
@@ -287,7 +288,7 @@
         \hat{O} \to \hat{O}' = \hat{U}\hat{O}\hat{U}^\dagger, \ 
         \hat{U}^\dagger\hat{U} = 1.
     \end{equation}
-    leads to a different, but equivalent representations of a quantum system.
+    leads to a different, but equivalent representation of a quantum system.
     The transition to the \emph{Heisenberg picture} is defined by a special
     time-dependent unitary transformation,
     \begin{equation}
@@ -359,7 +360,7 @@
     where $\nabla$ is the differential operator and the sum is over all electrons in 
     the system. This term is an example of what we call a one-particle operator as
     it remains the 
-    same for all eletrons and contains no terms that would constitute interaction 
+    same for all electrons and contains no terms that would constitute interaction 
     between particles. For a free particle or a gas of non-interacting particles, 
     \autoref{eq:kinetic_energy_term} is sufficient to describe the entire system. 
 
@@ -466,7 +467,7 @@
 
     \subsubsection{Angular momentum}
     In a classical system, the angular momentum of a particle with 
-    resepct to the orign is given as
+    respect to the origin is given as
     \begin{equation}
         \vb{L} = \vb{r} \times \vb{p},
     \end{equation}
@@ -477,7 +478,7 @@
         L_z = x p_y - y p_x.
     \end{equation}
     From this we can obtain the quantum mechanical description by promotion to operators,
-    and inserting the representaion for the momentum operator in position space,
+    and inserting the representation for the momentum operator in position space,
     $p_x \to i\hbar \partial / \partial x$.
 
     The commutators of the angular momentum operators follows a nice cyclic permutation 
@@ -566,7 +567,7 @@
     In classical mechanics, intrinsic spin ($\vb{S} = I\omega$) is associated with
     an objects motion about its centre of mass. A similar thing goes on in quantum 
     mechanics, but it has nothing to do with motion in space. In quantum mechanics spin 
-    is seen as a property that particles can carry, but i analoguous with its classical 
+    is seen as a property that particles can carry, but is analoguous with its classical 
     counterpart only in name.
 
     Algebraically, \emph{spin} is the same as \emph{angular momentum}, beginning with 
@@ -589,7 +590,7 @@
     \begin{equation}
         s=0,\frac{1}{2},1,\frac{3}{2},\dots, \quad m_s = -s, s + 1, \dots s - 1, s.
     \end{equation}
-    As it would turn out, every elemental particle as a specific and immutable value of 
+    As it would turn out, every elemental particle has a specific and immutable value of 
     $s$, and the most important one is $s=\frac{1}{2}$ (!) as it is the spin-value for 
     all leptons, including the electron, all quarks as well as protons and neutrons. Since 
     our particle of scrutiny is the electron our interest lies in spin-half systems, i.e. 
@@ -668,7 +669,7 @@
             \to \lambda \frac{4\pi\epsilon_0\hbar^2}{m_e e^2} = a_0
         \end{equation}
 
-        where $E_a$ is the atomic unit of energy that chemists call Hartree. Incidently,
+        where $E_a$ is the atomic unit of energy that chemists call Hartree. Incidentally,
         we see that $\lambda$ is just the Bohr radius, $a_0$. If we let $E' = E/E_a$, we 
         obtain the dimensionless Schrödinger equation,
 
@@ -791,7 +792,7 @@
     and all particles with half-integer spin are fermions
     \cite{fierz1939relativistische,pauli1940connection}. This can be proved in relativistic
     quantum mechanics, but must be accepted as an axiom in nonrelativistic 
-    theory\cite{hilborn1995atoms}.Generally, the degeneracy of a state for a given 
+    theory\cite{hilborn1995atoms}. Generally, the degeneracy of a state for a given 
     energy $\epsilon$ is divided into three categories,
     \begin{equation}
         n(\epsilon) = \begin{cases}
@@ -866,6 +867,6 @@
     \end{equation}
     because all eigenvalues are $p_k \leq 1$, which means that $\tr \hat{\rho}^2 \leq \tr \hat{\rho}$.
     The pure state is a special case where one of the probabilities $p_k$ is equal to one, and the others 
-    are $0$. In this case, the density operator will ve equivalent to a projection opertor onto this single 
-    state. Morover, $\tr\hat{\rho}^2 = 1$ for a pure state, while for a mixed state we have 
+    are $0$. In this case, the density operator will be equivalent to a projection operator onto this single 
+    state. Moreover, $\tr\hat{\rho}^2 = 1$ for a pure state, while for a mixed state we have 
     $\tr\hat{\rho}^2 <1$.
