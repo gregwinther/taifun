@@ -10,7 +10,7 @@ well as a non-orthogonal orbital-optimised Coupled Cluster (NOCC) solver.
 
 We construct several quantum dot basis sets with different potential functions in
 one- and two dimensions, including interactions with magnetic fields. What is more, we
-also implemet an interface with popular quantum chemistry software modules PySCF and
+also implement an interface with popular quantum chemistry software modules PySCF and
 Psi4 for extraction of additional basis sets for atoms and molecules. The quantum
 systems are allowed to vary with time by addition of a time-dependent addition to the
 Hamiltonian, with which we simulate a laser field in the dipole approximation.
