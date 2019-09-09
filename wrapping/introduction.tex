@@ -55,7 +55,7 @@
     but not a very accurate one. The most popular approximative method is without doubt 
     the density functional theory (DFT), developed by Kohn and Sham in
     1965\cite{kohn1965self}, which simplifies the quantum many-body problem by reformulating 
-    it in terms of eletron number density. However, DFT is also insufficient if one requires a 
+    it in terms of electron number density. However, DFT is also insufficient if one requires a 
     high degree of accuracy.
 
     It is possible to solve a quantum many-body problem  ``correctly'' by direct diagonalisation 
@@ -209,18 +209,21 @@
     
     In the second part, \emph{Quantum Many-Body Approximation}, we 
     thoroughly present three many-body methods, each in its own chapter.
-    We start with a chapter on \emph{Hartree-Fock Theory}, because this is 
+    We start with \autoref{ch:hartree_fock} on \emph{Hartree-Fock Theory},
+    because this is 
     the first ab initio many-body method that saw truly widespread use, but 
     also because the Lagrange multiplier path we take to derive the method is 
     similar to what we will do later, when we introduce the Lagrangian formulation 
     of Coupled Cluster.
     We also introduce a time-dependent Hartree-Fock scheme in this chapter.
-    Next, we present many-body \emph{Perturbation Theory}, which is often used as
+    Next, we present many-body \emph{Perturbation Theory} in \autoref{ch:perturbation},
+    which is a method often used as
     a supplement to other many-body methods as well as on its own. Deriving 
     the Rayleigh-Schrödinger perturbation theory also highlights the origins 
     of the Coupled Cluster method, the topic of the following chapter.
     
-    In the chapter on \emph{Coupled Cluster} we provide a detailed derivation
+    In \autoref{ch:coupled_cluster_theory}
+    we provide a detailed derivation
     of the Coupled Cluster equations, before detailing the problems caused 
     by the method's non-variational nature. This leads naturally to 
     the Lagrangian formulation of Coupled Cluster\cite{helgaker1988analytical}
@@ -229,25 +232,29 @@
     adaptive orbitals\cite{kvaal2012ab}.
 
     In \emph{Implementation}, the third part of the thesis, we bestow upon the reader 
-    a specification of the two python modules, \lstinline{quantum_systems} 
-    and \lstinline{coupled_cluster}. Furthermore, we seek to explain the machinery
+    a specification of the two python modules, \lstinline{quantum_systems} in 
+    \autoref{ch:impl_quantum_systems}
+    and \lstinline{coupled_cluster} in \autoref{ch:impl_coupled_cluster}.
+    Furthermore, we seek to explain the machinery
     in the two python modules, and their functionality. As the code base is somewhat 
-    extensive, it is not feasibly to go through every aspect of the modules, but we 
+    extensive, it is not feasible to go through every aspect of the modules, but we 
     provide a sufficient overview of the ideologies used in developments, the class
     structure hierarchy and the possibilites available to the user and future developer.
 
     In the fourth part of the thesis, we provide \emph{Results} generated with the
     coupled cluster solvers we have implemented. We start by a validation against
-    some existing literature on time-dependent ab initio solvers. This includes 
+    some existing literature on time-dependent ab initio solvers in \autoref{ch:validation}.
+    This includes 
     the reproduction of several results from relatively well-known articles. 
-    The second and last chapter in this part contains the central results of 
+    Chapter \ref{ch:quantum_dots} contains the central results of 
     this thesis. Here we provide results from simulations of one- and two-dimensional 
     quantum dots, as well as two-dimensional quantum 
-    dots affected by a homogenous, static magnetic field. Becuase this study 
+    dots affected by a homogenous, static magnetic field. Because this study 
     has been conducted in close conjunction with
     \citeauthor{islandwind2019}, more results that are computed with the 
     same solvers, relating to atoms and molecules can be found in ref.
     \cite{islandwind2019}.
    
-    Lastly, in the fifth and final section we present a \emph{Conclusion} and 
-    some suggestions for future work in the same field of study.
+    Finally, in the fifth and final section we present a \emph{Conclusion} 
+    in \autoref{ch:conclusion}. Here we also put forward
+    some suggestions for future work in the same field of study as this thesis.
