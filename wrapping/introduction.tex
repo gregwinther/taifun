@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-    The aim and raison d'étre of this thesis is to implement methods that enables the 
+    The aim and raison d'étre of this thesis is to implement methods that enable the 
     study of many-body quantum systems in time. The word `ìmplement'' entails construction 
     of numerical solvers on a computer. Such computational modelling have since its 
     inception around the middle of the last century become present in all of the natural 
@@ -49,12 +49,12 @@
     this, some sacrifices must be made in the form of simplifications. 
 
     The Hartree-Fock
-    method\cite{hartree1928wave,fock1930naherungsmethode,szabo2012modern} which 
+    method \cite{hartree1928wave,fock1930naherungsmethode,szabo2012modern} which 
     has seen extensive use since its inception in 1930
     employs a mean-field appriximation, which provides an efficiently computed result, 
     but not a very accurate one. The most popular approximative method is without doubt 
     the density functional theory (DFT), developed by Kohn and Sham in
-    1965\cite{kohn1965self}, which simplifies the quantum many-body problem by reformulating 
+    1965 \cite{kohn1965self}. Density functional theory simplifies the quantum many-body problem by reformulating 
     it in terms of electron number density. However, DFT is also insufficient if one requires a 
     high degree of accuracy.
 
@@ -62,10 +62,10 @@
     of the matrix representation of the Hamiltionian, best known as a Full Configuration Interaction
     (FCI) computation. Such a method 
     will yield an absolutely accurate result in the limit of an infinite orbital basis set,
-    but it suffers from exponential complexity scaling\cite{helgaker2014molecular}.
+    but it suffers from exponential complexity scaling \cite{helgaker2014molecular}.
     A sophisticated Monte-Carlo scheme, like Diffusion Monte-Carlo (DMC) can in principle 
     also provide the exact solution to the Schrödinger equation by imaginary time-evolution 
-    of an inital wave function ansatz\cite{hammond1994monte}. However, the high dependence on the 
+    of an inital wave function ansatz \cite{hammond1994monte}. However, the high dependence on the 
     initial guess is problematic. What is more, the method often requires the input of
     another less accurate method as a starting point. Another 
     example of a similar method is the Variational Monte-Carlo (VMC) method, which is
@@ -95,23 +95,23 @@
     Two important properties that a many-body method must incorporate is \emph{size-extensivity}
     and \emph{size-consistency}. A quantum-mechanical model is said to be \emph{extensive}
     if the energy of the system computed with this model scales with the size of the 
-    system\cite{bartlett1978many}. For systems of non-interacting helium atoms, for instance,
+    system \cite{bartlett1978many}. For systems of non-interacting helium atoms, for instance,
     we must have that $E(N\text{He}) = NE(\text{He})$. Moreover, a model is \emph{size-consistent}
     if the energies of two systems $A$ and $B$ and of the combined system $AB$, with 
     $A$ and $B$ very far apart, computed in equivalent ways, satify
-    $E(AB) = E(A) + E(B)$\cite{pople1976theoretical}. It can be shown that 
+    $E(AB) = E(A) + E(B)$ \cite{pople1976theoretical}. It can be shown that 
     truncated Configuration Interaction does \emph{not} comply with the concept of
-    extensivity\cite{shavitt2009many}.
+    extensivity \cite{shavitt2009many}.
 
     A class of methods of which most constituents provide proper \emph{extensive} model
-    descriptions is Many Body Perturbation Theory (MBPT)\cite{brueckner1955approximate}.
-    MBPT can also be truncated at a certain 
+    descriptions is Many Body Perturbation Theory (MBPT) \cite{brueckner1955approximate}.
+    Many-body perturbation theory can also be truncated at a certain 
     excitation level, in the same manner as truncated Configuration Interaction. 
-    The linked-diagram theorem\cite{goldstone1957derivation}, states that a 
+    The linked-diagram theorem \cite{goldstone1957derivation}, states that a 
     particular perturbation expansion can be expressed by ``linked terms''
     only\footnote{A thorough treatment of these terms are found in the end of
     \autoref{ch:perturbation}},
-    leading to the Coupled Cluster method\cite{coester1958bound,coester1960short}.
+    leading to the Coupled Cluster method \cite{coester1958bound,coester1960short}.
     Coupled Cluster has become one of the most prevalent methods in quantum chemistry,
     as it is very accurate, whilst maintaining size-consistency and size-extensivity.
     The Coupled Cluster method also has elegant truncation levels, similar to the 
@@ -122,19 +122,20 @@
     Computational scaling of \emph{ab initio} quantum mechanical models range from 
     $\mathcal{O}(N!)$ for Full Configuration Interaction (FCI), via $\mathcal{O}(N^6)$ 
     for Coupled Cluster Singled Doubles with Perturbed Triples (CCSD(T)) to 
-    $\mathcal{O}(N^4)$ for formal Hartree-Fock (HF)\cite{ratcliff2017challenges}.
+    $\mathcal{O}(N^4)$ for formal Hartree-Fock (HF) \cite{ratcliff2017challenges}.
 
 
 \section{Goals}
 
     The specific task of this thesis is to study the time evolution of quantum 
     mechanical systems using the Coupled Cluster method. In particular this 
-    pertains to the study of the time-dependent electronic systems, with an emphasis 
-    on quantum dots. By use of proper object-orientation the implementation should 
+    pertains to the study of time-dependent electronic systems, with an emphasis 
+    on quantum dots \cite{ashoori1996electrons}.
+    By use of proper object-orientation the implementation can 
     also be used to study simple atoms and molecules in three dimensions.
-    The aim should be to 
+    The aim was to 
     extend the formalism and algorithms developed in the thesis of 
-    \citeauthor{haakon2017time}\cite{haakon2017time}.
+    \citeauthor{haakon2017time} \cite{haakon2017time}.
 
     The thesis progression milestones have been split into the following steps,
 
@@ -185,19 +186,20 @@
     that it is usually slower than a compiled language like \CC,
     most of our computations are matrix or tensor computations which are very fast
     in Python. We do matrix multiplications and linear algebra in NumPy, which 
-    is highly optimised because of its use of Basic Liner Algebra Subprograms (BLAS) 
-    and Linear Algebra PACKage (LAPACK).
+    is highly optimised because of its use of Basic Liner Algebra Subprograms
+    (BLAS) \cite{BLAS}
+    and Linear Algebra PACKage (LAPACK) \cite{LAPACK}.
     Both implemented in Fortran, BLAS consists of a low-level matrix and vector 
     arithmetic operations, while LAPACK is a collection of common algorithms 
     used in linear algebra, such as routines for solving systems of linear 
     equations. For heavy operations that are not vectorisable, we have found
-    just-in-time compilations with numba very beneficial.
+    just-in-time compilations with \lstinline{Numba} very beneficial \cite{numba}.
 
     Second, Python is a high level language which has sped up development greatly 
     compared to developing in a lower level language. For this reason we 
     have a feeling that we have accomplished more than we would have 
     otherwise. The drawback of developing in a higher level language is the 
-    lack of low level control, like memory management. All thing considered,
+    lack of low level control, like memory management. All things considered,
     we are satisfied with the choice of development language, with the benefits 
     outweighing the necessary sacrifices.
 
@@ -258,3 +260,5 @@
     Finally, in the fifth and final section we present a \emph{Conclusion} 
     in \autoref{ch:conclusion}. Here we also put forward
     some suggestions for future work in the same field of study as this thesis.
+
+    \clearemptydoublepage

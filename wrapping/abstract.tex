@@ -1,4 +1,4 @@
-We advance the Coupled Cluster method's foray into the time-dependent realm, 
+We advance the Coupled Cluster method's in the time-dependent realm, 
 by implementing a robust solver based on the orbital-adaptive time-dependent 
 Coupled Cluster (OATDCC)\cite{kvaal2012ab} method.
 This involves implementing both a simplified static
@@ -15,22 +15,22 @@ What is more, we also implement an
 interface with popular quantum chemistry software modules PySCF\cite{PYSCF}
 and Psi4\cite{parrish2017psi4} for extraction of additional 
 basis sets for atoms and molecules. The quantum systems are allowed to vary with time 
-by addition of a time-dependent addition to the Hamiltonian, with which we simulate 
+by addition of a time-dependent term to the Hamiltonian, with which we simulate 
 a laser field in the dipole approximation.
 
 As a validation we reproduce results from the scientific literature, both for 
-atoms, molecules and quantum dots. We show that our methods leads to convergence in 
+atoms, molecules and quantum dots. We show that our methods lead to convergence in 
 the ever-increasing basis set size limit, for simple quantum dot systems. For the 
 same quantum dot system, we show how sensitive a system is to changes in the frequency
 of 
 a driving oscillating field. Frequencies closer to the resonant frequency 
-leads to exctiations and increased energy. We are able to simulate systems that 
+lead to exctiations and increased energy. We are able to simulate systems that 
 are fairly large - quantum dots in one- and two dimensions with up to twelve 
 electrons. For systems that meander far from the reference state, we show that 
 the orbital-adaptive method has far superior stability, compared with the 
 method with static orbitals.
 
-For all quantum dot system we find 
+For all quantum dot systems we find 
 strong comformity with the harmonic potential theorem\cite{kohn1961cyclotron},
 yet we see a slight many-body 
 effect for a two-dimensional double dot system. By subjecting the two-dimensional

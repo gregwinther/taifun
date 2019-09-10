@@ -5,12 +5,13 @@
     % aufzufassen.}
     % {--- Max Planck}
 
-    Here we present basic and foundational quantum theory, a theory that seek to 
+    Here we present basic and foundational quantum theory, a theory that seeks to 
     describe the nature at the smallest scales of energy. The name ``quantum'' stems 
-    from the need to see energy not as a continuous and unbroken expanse, but rather 
+    from the need to see energy not as continuous and infinitely divisible 
+    , but rather 
     as a sum of discrete quantities of equal size. Quantum mechanics came to the 
     rescue when classical physics was unable to explain phenomena such as the mysterious 
-    sodium line, the ulatraviolet catastrophe, and the bewildering photo-electric effect.
+    sodium line, the ultraviolet catastrophe, and the bewildering photo-electric effect.
     With the new theory came new challenges like an axiomatic uncertainty, 
     the wave-particle duality of light and a 
     probabilistic interpretation of nature. In this chapter we will not be so hubristic 
@@ -25,10 +26,10 @@
     a quantum mechanical model.
 
     In Hamilton's formulation of classical mechanics, a complete description of a system
-    of N particles is described by a set of canonical coordinates 
+    of $N$ particles is described by a set of canonical coordinates 
     $q = (\vec{q}_1, \dots, \vec{q}_N)$ and corresponding conjugate momenta
-    $p = (\vec{p}_1, \dots \vec{p}_N)$. Together, each pair of coordinate and momentum
-    form a point $\xi = (q, p)$ in phase space, which is the space of all possible states
+    $p = (\vec{p}_1, \dots \vec{p}_N)$. Together, each coordinate-momentum pair
+    forms a point $\xi = (q, p)$ in phase space, which is the space of all possible states
     of the system. Moreover, pairs of generalised coordinates and conjugate
     momenta are canonical if they satisfy the Poisson brackets so that 
     $\{q_i, p_k\} = \delta_{ij}$. The Poisson bracket of two functions is defined as 
@@ -53,16 +54,16 @@
         \frac{dp_i}{dt} = \{p_i, \mathscr{H}\}, \ \frac{dq_i}{dt} = \{q_i, \mathscr{H}\}.
     \end{equation}
 
-    A system consisting of $N$ of equal mass $m$, subject to forces caused by an external
+    A system consisting of $N$ particles of equal mass $m$, subject to forces caused by an external
     potential, as well as acting on each other with forces stemming from a central
-    potential $w(q_{ij})$ has the following Hamiltonian,
+    potential $w(q_i, q_j)$ has the following Hamiltonian,
 
     \begin{equation}
-        \mathscr{H}(q, p) = \mathscr{T}(q) + \mathscr{V}(p) + \mathscr{W}(p) 
-            = \frac{1}{2m}\sum_{i} \abs{\vec{p}_i}^2 + \sum_{i} v(\vec{r}_i)
-                + \frac{1}{2}\sum_{i<j} w(\vec{r_{ij}}).
+        \mathscr{H}(\vb{q}, \vb{p}) = \mathscr{T} + \mathscr{V} + \mathscr{W} 
+            = \frac{1}{2m}\sum_{i} \abs{\vec{p}_i}^2 + \sum_{i} v(\vec{q}_i)
+                + \frac{1}{2}\sum_{i<j} w(\vec{q_i}, \vec{q_j}),
     \end{equation}
-
+    where the sum over $i<j$ implies sum over different indices. 
     This Hamiltonian conveniently contains several parts - the kinetic energy, the
     external potential energy and the interaction energy; denoted by $\mathscr{T}$,
     $\mathscr{V}$ and $\mathscr{W}$ respectively.
@@ -113,7 +114,7 @@
         \int_{X^N} \abs{\Psi(x_1, x_2, \dots, x_N)}^2 dx_1 dx_2\dots dx_N = \mathds{1}.
     \end{equation}
 
-    The relation between a classical- and quantum decsription of a mechanical system 
+    The relation between a classical- and quantum description of a mechanical system 
     is most clearly seen when the two descriptions are expressed in terms of the same 
     variables. In fact, we may apply \emph{quantisation} of the classical variables to 
     produce the quantum equivalent of the system. The classical phase space variables 
@@ -144,8 +145,8 @@
     The following postulates, or axioms, provide a precise and concise description 
     of quantum mechanics in terms of operators on the Hilbert space. There are
     many variations of these postulates, two of which were introduced by the
-    namesakes of the postulates, Paul Adriene Maurice Dirac\cite{dirac1930principles}
-    and John von Neumann\cite{vonNeumann1932foundations}.
+    namesakes of the postulates, Paul Adriene Maurice Dirac \cite{dirac1930principles}
+    and John von Neumann \cite{vonNeumann1932foundations}.
 
     \subsubsection{Hilbert Space}
     A quantum state of an isolated physical system is described by a vector
@@ -182,7 +183,7 @@
     classical superposition principle for waves in classical physics, "the superposition 
     that occurs in quantum mechanics is of an essentially different nature from any 
     occuring in the classical theory" according 
-    to \citeauthor{dirac1930principles}\cite{dirac1930principles}.
+    to \citeauthor{dirac1930principles} \cite{dirac1930principles}.
 
     To conclude the description of quantum states for now; a state function $\psi$ is said 
     to be \emph{normal} if its innerproduct with itself is one, $\braket{\psi}{\psi} = 1$.
@@ -192,7 +193,7 @@
 
 
     \subsubsection{Observables}
-    Each physical observable of a system is accociated with a \emph{Hermitian}
+    Each physical observable of a system is associated with a \emph{Hermitian}
     operator acting on the Hilbert space. The eigenstates of each such
     operator define a \emph{complete}, \emph{orthonormal} basis set of vectors
     $\mathcal{B}$ for the $d$-dimensional Hilbert space,
@@ -212,7 +213,7 @@
     \begin{equation}
         \hat{O}^\dagger = \hat{O}.
     \end{equation}
-    Some properties of the Hermitian conjugate reads,
+    Some properties of the Hermitian conjugate read,
     \begin{align}
        (z\hat{O})^\dagger =& z^*\hat{O}^\dagger \\
        (\hat{O}_1 + \hat{O}_2)^\dagger =& \hat{O}_1^\dagger + \hat{O}_2^\dagger \\
@@ -249,7 +250,7 @@
     Note that any superposed state, as described by \ref{eq:superposition}, will also be 
     a solution to the Schrödinger equation due to its linearity.
 
-    The Schrödinger equation is first order in the time derivate, meaning that the time 
+    The Schrödinger equation is first order in the time derivative, meaning that the time 
     evolution $\ket{\psi} = \ket{\psi(t)}$ is uniquely determined by some initial 
     condition $\ket{\psi_0} = \ket{\psi(t_0)}$. $\hat{H}$ is the Hamiltonian of the system,
     which is a \emph{linear}, \emph{hermitian} operator. The Hamiltonian gives rise to the 
@@ -346,7 +347,7 @@
             + \hat{H}_{\text{dia}} &\leftarrow \alpha^4 \text{ diamagnetic interactions}
         \end{cases}
     \end{equation}
-    We will not be working with this enormous Hamiltionian, but we will go into some of the
+    We will not be working the full Breit-Pauli Hamiltionian, but we will go into some of the
     most import terms that an electronic Hamiltonian can constitute. 
     
     \paragraph{Kinetic energy}
@@ -360,7 +361,7 @@
     where $\nabla$ is the differential operator and the sum is over all electrons in 
     the system. This term is an example of what we call a one-particle operator as
     it remains the 
-    same for all electrons and contains no terms that would constitute interaction 
+    same for all electrons and contains no terms that would represent interactions 
     between particles. For a free particle or a gas of non-interacting particles, 
     \autoref{eq:kinetic_energy_term} is sufficient to describe the entire system. 
 
@@ -375,8 +376,11 @@
     of reality. Perhaps the most common is the harmonic oscillator potential, which 
     in one dimension reads 
     \begin{equation}
-        \hat{V}(x) = \frac{1}{2}m\omega^2x^2.
+        \hat{V}(x) = \frac{1}{2}m\omega^2x^2,
     \end{equation}
+    where $m$ is the mass of the particles and $\omega$ is the (angular) frequency 
+    of oscillation.
+
     This is a very popular confining potential because virtually any oscillatory motion can 
     be approximated by it, if the amplitude of the oscillations is sufficiently small.
     This parabolic, harmonic
@@ -386,7 +390,7 @@
 
     \paragraph{Coulomb interactions}
 
-    Electrostatic interaction between particles in a molecule or atom is 
+    The electrostatic interaction between particles in a molecule or atom is 
     modelled by Coulomb terms in the Hamiltonian. 
     \begin{equation}
             \hat{H}_{\text{cou}} 
@@ -412,9 +416,9 @@
     kinetic energy of the particles, which we therefore include at first,
     \begin{equation}
         \hat{H}_\text{ef} 
-            \subset \frac{1}{2m}(\vb{p} + e \vb{A})^2 - e\phi
-            = \frac{\hat{\vb{p}}}{2m} + \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
-                + \frac{e^2}{2m}\vb{A}^2 - e\phi.
+            \subset \frac{1}{2m}( e \vb{A} - \vb{p})^2 + e\phi
+            = \frac{\hat{\vb{p}^2}}{2m} - \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
+                + \frac{e^2}{2m}\vb{A}^2 + e\phi.
     \end{equation}
     This Hamiltonian now describes a free particle subject to an external 
     electric field. Since we have already included a term for kinetic energy we 
@@ -422,44 +426,46 @@
     \begin{equation}
         \hat{H}_\text{ef} 
             = - \frac{e}{2m}(\vb{A}\cdot\hat{\vb{p}} + \hat{\vb{p}}\cdot\vb{A})
-                + \frac{e^2}{2m}\vb{A}^2 - e\phi.
+                + \frac{e^2}{2m}\vb{A}^2 + e\phi.
     \end{equation}
 
     We assume that the external field has sufficiently large wavelength compared to the 
     system, making the vector potential uniform in space $\vb{A}(\vb{r}, t) = \vb{A}(t)$.
     This approximation is very reasonable, considering visible light has a wavelength of 
-    $\lambda \sim 5000 \text{Å}$ and an atom is around $1 \text{Å}$. In the dipole 
+    $\lambda \sim 5000 \text{Å}$ and the diameter of an atom is around $1 \text{Å}$. In the dipole 
     approximation we can write the vector potential as 
     \begin{equation}
         \label{eq:photon_kill_create}
-        \vb{A}(t) = \vb{A}_0e^{-i \omega_k t} + \vb{A}_0^*e^{i\omega_k t}a,
+        \vb{A}(t) = \vb{A}_0e^{-i \omega_k t} + \vb{A}_0^*e^{i\omega_k t},
     \end{equation}
-    where $\vb{A}_0$ and $\vb{A}_0^*$ are photon creation and annihilation operators. 
-    These allow for spontaneous emission and absorption of photons without the presence 
+    where $\vb{A}_0$ and $\vb{A}_0^*$ are photon creation and annihilation operators,
+    and $\omega_k$ is the angular frequency of the field.
+    The photon creation and annihilation operators allow for spontaneous emission and absorption of photons without the presence 
     of a field, but we will disregard such phenomena and stick to a semi-classical 
-    description. We therefore rewrite the vector potential to 
+    description. We therefore rewrite the vector potential as 
     \begin{equation}
-        \vb{A}(t) = \epsilon A_0\sin(\omega_k t),
+        \vb{A}(t) = \boldsymbol{\epsilon} A_0\sin(\omega_k t),
     \end{equation}
-    which is the same as \autoref{eq:photon_kill_create} up to a phase. In the Coulomb gauge we have 
+    where $\boldsymbol{\epsilon}$ is the polarisation vector.
+    This expression is the same as \autoref{eq:photon_kill_create} up to a phase. In the Coulomb gauge we have 
     \begin{equation}
         \vb{E} = - \frac{d}{dt}\vb{A},
     \end{equation}
     which gives us an expression for the E-field 
     \begin{equation}
-        \vb{E}(t) = \epsilon \vb{E}_0 \cos(\omega_k t),
+        \vb{E}(t) = \boldsymbol{\epsilon} \vb{E}_0 \cos(\omega_k t),
     \end{equation}
     where $\vb{E}_0 = -\omega_k A_0$ and we can approximate the external
     field time-dependent electric field by 
     \begin{equation}
-        \hat{H}_\text{ef} = - \hat{\vb{d}} \cdot \epsilon \vb{E}_0 \cos{\omega_k t},
+        \hat{H}_\text{ef} = - \hat{\vb{d}} \cdot \boldsymbol{\epsilon} \vb{E}_0 \cos{\omega_k t},
     \end{equation}
     where $\hat{\vb{d}} = q\hat{\vb{r}}$, is the dipole operator, dictating the 
     allowed transitions.
 
     \subsection{Angular Momentum and Intrinsic Spin}
 
-    In general, modelling of interaction with magnetic fields necessitates the 
+    In general, modelling of interactions with magnetic fields necessitates the 
     use of operators for intrinsic angular momentum ($\hat{\vb{S}}$) and extrinsic 
     angular momentum ($\hat{\vb{L}}$). These are often referred to as \emph{spin} 
     and \emph{angular momentum}, respectively.
@@ -481,8 +487,8 @@
     and inserting the representation for the momentum operator in position space,
     $p_x \to i\hbar \partial / \partial x$.
 
-    The commutators of the angular momentum operators follows a nice cyclic permutation 
-    of indices rule:
+    The commutators of the angular momentum operators obey the following cyclic
+    permutation of indices rule,
     \begin{equation}
         [\hat{L}_x, \hat{L}_y] = i\hbar \hat{L}_z, \  
         [\hat{L}_y, \hat{L}_z] = i\hbar \hat{L}_x, \ 
@@ -565,7 +571,7 @@
     \subsubsection{Spin}
 
     In classical mechanics, intrinsic spin ($\vb{S} = I\omega$) is associated with
-    an objects motion about its centre of mass. A similar thing goes on in quantum 
+    an object's motion about its centre of mass. A similar thing goes on in quantum 
     mechanics, but it has nothing to do with motion in space. In quantum mechanics spin 
     is seen as a property that particles can carry, but is analoguous with its classical 
     counterpart only in name.
@@ -582,7 +588,7 @@
         \hat{S}^2\ket{s\ m_s} = \hbar^2 s(s + 1)\ket{s\ m_s}, \quad
         \hat{S}_z\ket{s\ m_s} = \hbar m \ket{s\ m_s}.
     \end{equation}
-    Here,$\ket{s\ m_s}$ is a eigenstate determined by the quantum numbers $s$ and $m_s$.
+    Here,$\ket{s\ m_s}$ is an eigenstate determined by the quantum numbers $s$ and $m_s$.
    
     Because the quantum mechanical spin has nothing to do with motion in space and 
     is independent of any coordinates $r$, $\theta$ or $\phi$, there is no reason to 
@@ -604,7 +610,7 @@
     \end{equation}
     This means that the Hilbert space $\mathcal{H}$ for spin-half particles has 
     two dimensions, and that any state can be expressed as a two-dimensional 
-    vectors called spinors,
+    vector called a spinor,
     \begin{equation}
         \ket{\chi} = \begin{pmatrix}
             a \\ b
@@ -633,7 +639,7 @@
         \hat{S}_y = \frac{\hbar}{2}\sigma_y, \quad 
         \hat{S}_z = \frac{\hbar}{2}\sigma_z,
     \end{equation}
-    where the Pauli matricies are given by, 
+    where the Pauli matrices are given by, 
     \begin{equation}
         \sigma_x = \begin{pmatrix} 0 &  1 \\ 1 & 0 \end{pmatrix} \quad 
         \sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad 
@@ -646,37 +652,31 @@
         in essence setting $\hbar = m_e = e = \dots = 1$. In this study we use atomic units, a
         form of such dimensionless units. To see how these units arise, consider
         the time-independent Schrödinger equation for a Hydrogen atom,
-
         \begin{equation}
             \left(-\frac{\hbar^2}{2m_e}\nabla^2 - \frac{e^2}{4\pi\epsilon_0 r} \right)
             \phi = E\phi,
         \end{equation}
-
         where $\hbar$ is the reduced Planck constant, equal to Planck's constant divided by 
-        $2\pi$; $m_e$ is the mass of the electron, $-e$ is the charge of the electron and 
-        $\epsilon_0$ is the permitivity of free space. We make this equation dimensionless by 
+        $2\pi$; $m_e$ is the mass of the electron, $-e$ is the charge of the electron, 
+        $\epsilon_0$ is the permitivity of free space and $\nabla$ is the many-dimensional 
+        differential operator. 
+        We make this equation dimensionless by 
         letting $r \to \lambda r'$,
-
         \begin{equation}
             \left(-\frac{\hbar^2}{2m_e\lambda^2}\nabla'^2 - \frac{e^2}{4\pi\epsilon_0\lambda r'} \right)
             \phi' = E\phi'.
         \end{equation}
-
         We can factor out the constants in front of the operators, if we choose $\lambda$ so that,
-
         \begin{equation}
             \frac{\hbar^2}{m_e\lambda^2} = \frac{e^2}{4\pi \epsilon_0 \lambda} = E_a
             \to \lambda \frac{4\pi\epsilon_0\hbar^2}{m_e e^2} = a_0
         \end{equation}
-
         where $E_a$ is the atomic unit of energy that chemists call Hartree. Incidentally,
         we see that $\lambda$ is just the Bohr radius, $a_0$. If we let $E' = E/E_a$, we 
         obtain the dimensionless Schrödinger equation,
-
         \begin{equation}
             \left(-\frac{1}{2}\nabla'^2 - \frac{1}{r'} \right) \phi' = E'\phi'.
         \end{equation}
-
         Some conversion factors between atomic units and SI units can be found in
         \autoref{tab:atomic_units_conversion}.
 
@@ -792,7 +792,7 @@
     and all particles with half-integer spin are fermions
     \cite{fierz1939relativistische,pauli1940connection}. This can be proved in relativistic
     quantum mechanics, but must be accepted as an axiom in nonrelativistic 
-    theory\cite{hilborn1995atoms}. Generally, the degeneracy of a state for a given 
+    theory \cite{hilborn1995atoms}. Generally, the degeneracy of a state for a given 
     energy $\epsilon$ is divided into three categories,
     \begin{equation}
         n(\epsilon) = \begin{cases}
@@ -806,7 +806,7 @@
     the Bose-Einstein distribution is for \emph{identical bosons}. Here, $T$ is the 
     temperature, $k_B$ is Boltzmann's constant and $\mu$ is the chemical potential.
 
-    To this day, particles with no other spin has been found, but norwegian physicists
+    To this day, particles with no other spin has been found, but the norwegian physicists
     Jon Magne Leinaas and Jan Myrheim discovered that in one- and two dimensions, more 
     general permutation symmetries are possible. They dubbed this third class of
     fundamental particles "anyons"\cite{leinaas1977theory}.
