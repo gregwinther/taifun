@@ -20,29 +20,45 @@ We define an \emph{orbital}\footnote{Sometimes also called a single-particle fun
 a single-particle orbital, a single-electron orbital or similar. There is a chance that 
 these terms will be used interchangably throughout this text without warning.} which is the
 wavefunction for a single particle, or more precicely a single electron. The wavefunction
-a larger group of electrons, for instance those electrons that surround an atom or molecule,
+for a larger group of electrons,
+for instance those electrons that surround an atom or molecule,
 we call the \emph{molecular orbital}. We also discriminate between 
-spatial orbitals which are functions of spatial coordinates; and spinorbitals, which 
+spatial orbitals which are functions of spatial coordinates; and spin-orbitals, which 
 are functions of the space and spin coordinates (typically a product of a spatial orbital
-and a spin function). A very complete description and thorough discussion of all things 
+and a spin function). A very complete description and thorough discussion of various aspects 
 concerning electronic sructure wavefunctions is given 
-by \citeauthor{szabo2012modern}\cite{szabo2012modern}.
+by \citeauthor{szabo2012modern} \cite{szabo2012modern}.
 
 The best description for a multiple-electron wavefunction, given by the independent-particle
 approximation is the Slater determinant,
 \begin{equation}
     \label{eq:general_slater_determinant}
-    \Phi = \frac{1}{\sqrt{N!}} \begin{vmatrix}
-        \phi_1(1) & \phi_2(1) & \dots & \phi_N(1) \\
-        \phi_1(2) & \phi_2(2) & \dots & \phi_N(2) \\
+    \begin{aligned}
+    \Phi(x_1, x_2, \dots x_N) &= \frac{1}{\sqrt{N!}} \begin{vmatrix}
+        \phi_1(x_1) & \phi_2(x_1) & \dots & \phi_N(x_1) \\
+        \phi_1(x_2) & \phi_2(x_2) & \dots & \phi_N(x_2) \\
         \vdots & \vdots & \ddots & \vdots \\
-        \phi_1(N) & \phi_2(N) & \dots & \phi_N(N)
-    \end{vmatrix}
-    = \mathcal{A}\phi_1 \phi_2 \dots \phi_N,
+        \phi_1(x_N) & \phi_2(x_N) & \dots & \phi_N(x_N)
+    \end{vmatrix} \\
+    &\equiv 
+    \braket{x_1,x_2,\dots x_N}{\phi_1,\phi_2,\dots \phi_N}
+    %= \mathcal{A}\phi_1 \phi_2 \dots \phi_N,
+    \end{aligned}
 \end{equation}
-where $\phi_i(\mu)$ is a spinorbital and $\mathcal{A}$ is the antisymmetriser. The
-spinorbitals, are single-particle functions in the proper two-dimensional 
+where $\phi_i(x_\mu)$ is a spinorbital indexed by $i$, at coordinates
+$x_\mu$. The
+spin-orbitals, are single-particle functions in the proper two-dimensional 
 Hilbert space and they are not necessarily orthonormal.
+The Slater determinant in \autoref{eq:general_slater_determinant}
+defines an $N$-electron system. Adding a column and a row to the
+determinant in \autoref{eq:general_slater_determinant} corresponds to 
+adding a particle to the system, and we obtain an $N+1$-electron Slater determinant.
+Similarly, removing a columns and a row 
+from the determinant corresponds to removing a particle from the system, and we 
+obtain an $N-1$ Slater determinant.
+In the final expression in \autoref{eq:general_slater_determinant},
+a compact notation is introduced. Here the normalisation constant and labels
+for the fermion coordinates are understood – only the wavefunctions are exhibited.
 
 To illustrate why this is a good approximation of the electronic wave function,
 consider first the two-electron case,
@@ -52,8 +68,8 @@ consider first the two-electron case,
 We see from this relatively simple expression that if the electrons were to occupy
 the same state the wavefunction would equal zero, in effect forbidding such a state.
 This ensures that the Pauli exclusion principle for 
-fermions is satisfied\cite{pauli1925zusammenhang}. Moreover, if we switch coordinates of any two 
-single-particle functions (spinorbitals), corresponding to the interchange of rows in
+fermions is satisfied \cite{pauli1925zusammenhang}. Moreover, if we switch coordinates of any two 
+single-particle functions (spin-orbitals), corresponding to the interchange of rows in
 \autoref{eq:general_slater_determinant}, the result is a change of sign. This attribute
 of a determinant accomodates the total anti-symmetry necessary for a fermionic wavefunction.
 Conversely, a bosonic wavefunction can be constructed as a \emph{permanent}.
@@ -68,7 +84,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 \section{Creation and Annihilation Operators}
    
     The introduction of creation- and annihilation operators are what establishes
-    the second quantisation formalism. As we will see, such operators makes the 
+    the second quantisation formalism. As we will see, such operators make the 
     construction of $N$-particle wavefunctions as symmetrised or anti-symmetrised
     products redundant, because these symmetry properties are encompassed in the 
     anticommutation properties of the operators. This is a great advantage of the 
@@ -88,9 +104,9 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
     \paragraph{The Creation Operator}
     For every single-particle index $q$,
     we define the creation operator
-    $a_q^\dagger$ acting on the vacuum state by
+    $a_i^\dagger$ acting on the vacuum state by
     \begin{equation}
-        \hat{a}_i^\dagger \ket{0} = \ket{q}.
+        \hat{a}_i^\dagger \ket{0} = \ket{i}.
     \end{equation}
     For any slater determinant with $N > 0$, the action is defined by
     \begin{align}
@@ -101,9 +117,9 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
     Slater determinant in \autoref{eq:general_slater_determinant}.
 
     \paragraph{The Annihilation Operator}
-    It i sufficient to state that the 
+    It is sufficient to state that the 
     annihilation operator $a_i$ is the hermitian adjoint of the creation operator
-    $\hat{a}_i$, but to specify we have
+    $\hat{a}_i$, but to be specific we need
     \begin{equation}
         \hat{a}_i\ket{0} = 0,
     \end{equation}
@@ -126,7 +142,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
     \begin{equation}
         \mathscr{F} = \bigoplus_{N=0}^\infty \mathcal{H}_N.
     \end{equation}
-    The creation- and annihilation operate on this Fock space.
+    The creation- and annihilation operators act on this Fock space.
 
     We can now build a Slater determinant as the result of successive operations of
     several creation operators $\hat{a}_q^\dagger$ on the vacuum state $\ket{0}$,
@@ -135,7 +151,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
         \hat{a}^\dagger_i \hat{a}^\dagger_j \hat{a}^\dagger_k \dots \hat{a}^\dagger_z
         \ket{0} = \ket{ijk \dots z}.
     \end{equation}
-    It is convenient to arrange the spinorbitals in a Slater determinant in
+    It is convenient to arrange the spin-orbitals in a Slater determinant in
     alphabetical order, as in \autoref{eq:creation_annihilation_slater}. This 
     makes it necessary to ascertain the effects a creation or annihilation
     operator will have on a Slater determinant when the affected orbital is
@@ -176,7 +192,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
                 \hat{a}_q^\dagger \hat{a}_p^\dagger = \hat{0}.
         \end{aligned}
     \end{equation}
-    Which is the first of three anti-commutator relations we are going to derive.
+    This is the first of three anti-commutator relations we are going to derive.
 
     The logical next step is to perform a similar operation with annihilation 
     operators,
@@ -211,7 +227,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
     been somewhere else in the interior of the Slater determinant. Any sign change
     as an effect of moving the orbital to the front of the string would be negated
     when the orbital is moved back to the original position. Exchanging the order
-    of the operators however,
+    of the operators however, gives
     \begin{equation}
         \hat{a}_q \hat{a}_p^\dagger \ket{qijk \dots} 
             = \hat{a}_q \ket{pqijk \dots} 
@@ -286,7 +302,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
        = \frac{1}{2} \sum_{ijkl} u^{pq}_{rs}
             \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k,
         = \frac{1}{4} \sum_{ijkl} \bra{ij}\hat{u}\ket{kl}_\text{AS} 
-            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k
+            \hat{a}_i^\dagger \hat{a}_j^\dagger \hat{a}_l \hat{a}_k,
     \end{equation}
     where 
     \begin{equation}
@@ -321,7 +337,8 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
     is a necessity to be able to compute vacuum expectation values 
     $\bra{-} \hat{A} \hat{B} \dots \ket{-}$ of products of creation- 
     and annihilation operators. Such expectation values are very important for 
-    several computational methods, see \citeauthor{harris1992algebraic}\cite{harris1992algebraic}.
+    several computational methods, see
+    \citeauthor{harris1992algebraic} \cite{harris1992algebraic}.
 
         \subsection{Normal ordering and contractions}
 
@@ -329,7 +346,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
         $\hat{A_3}$, $\dots$, is defined as the rearranged product of operators such 
         that all the creation operators are to the left of all the annihilation
         operators, including a phase factor corresponding to the parity of the
-        permutation, producing the rearrangent
+        permutation, producing the rearrangement
         \begin{equation} 
             \begin{aligned}
             n[\hat{A}_1\hat{A}_2 \dots \hat{A}_n ]
@@ -365,7 +382,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
         \begin{equation}
             \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \bra{-} \hat{A} \hat{B}\ket{-},
         \end{equation}
-        equivalently,
+        or equivalently,
         \begin{equation}
             \wick{\c {\hat{A}} \c {\hat{B}} } \equiv \hat{A}\hat{B} - n[\hat{A} \hat{B}].
         \end{equation}
@@ -392,10 +409,10 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
             \end{aligned}
         \end{equation}
         We see that all contractions between creation- and annihilation operators
-        are a number, most of them are zero and only those with a annihilation operator
+        are a number, most of them are zero and only those with an annihilation operator
         to the left and a creation operator to the right can be one.
        
-		Contractions inside a normal ordered product is definded as follows,
+		Contractions inside a normal ordered product is defined as follows,
 		\begin{equation}
 			n[\hat{A}\hat{B}\hat{C} \dots 
 			\wick{\c1{\hat{R}} \dots \c2{\hat{S}} \dots 
@@ -405,7 +422,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 		\end{equation}
 		where all contracted operator pairs are moved to the front of the normal ordered 
 		product, and $\sigma$ is the parity of the permutations required for this relocation.
-		The result will be zero, or plus or minus the normal ordred product without the
+		The result will be zero, or plus or minus the normal ordered product without the
 		contracted operator pairs.
 
 	\subsection{Wick's Theorem}
@@ -502,9 +519,10 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 		\end{align}
 		where equations \ref{eq:single_excitation}, \ref{eq:double_excitation}
 		\ref{eq:electron_removal} and \ref{eq:electron_attachment}
-		constitues a single excitation, a double excitation, an electorn removal and an
-		electron attachment, respectively. Note that these reference relative Slater 
-		determinants have the following properties,
+		constitute a single excitation, a double excitation, an electorn removal and an
+        electron attachment, respectively. Note that the reference state Slater
+        determinants excited relative to the Fermi vacuum have the following
+        properties,
 		\begin{equation}
 			\ket{\Phi^{ab}_{ij}} = \ket{\Phi^{ba}_{ji}}
 				= - \ket{\Phi^{ba}_{ij}} = - \ket{\Phi^{ab}_{ji}}.
@@ -526,9 +544,9 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 	\subsection{Wick's theorem relative to the Fermi vacuum}
 
 		Now we will modify the concepts of normal-ordering, contractions and Wick's 
-        theoreom so that the work better in conjunction with the freshly defined Fermi
-        vacuum, instead of the physical vacuum.
-		First we introduce pseudo-operators,
+        theoreom so that they relate to the reference state and the 
+        Fermi vacuum, instead of the physical vacuum.
+		First we introduce the pseudo-operators,
 		\begin{equation}
 			\begin{aligned}
 				\hat{b}_i = \hat{i}^\dagger, &\quad \hat{b}_i^\dagger = \hat{i} \\
@@ -565,7 +583,7 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 			\wick{\c{\hat{b}_a}\c{\hat{b}_b^\dagger}} =
 			\wick{\c{\hat{a}}\c{\hat{b}^\dagger}} = \delta_{ab}.
 		\end{equation}
-        Here we are also made aware the benefit of pseudo-operators, as we now 
+        Here we are also made aware of the benefit of pseudo-operators, as we now 
         have only have non-zero contributions from contractions that have a creation 
         operator to the right, and an annihilation operator to the left. More generally 
 		we have the anticommutator relations
@@ -574,4 +592,4 @@ now form a basis for an $N$-particle Hilbert space $\mathcal{H}_N$.
 			\{\hat{b}_p, \hat{b}_q\} = 0.
 		\end{equation}
 
-
+\clearemptydoublepage
