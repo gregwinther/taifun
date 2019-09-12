@@ -22,7 +22,7 @@ Sometimes it is convenient to write
     \hat{H} = \hat{H}_0 + \lambda\hat{V},
 \end{equation}
 where we have included an "order parameter" $\lambda$. This parameter is used to categorise
-the contributions of different order. 
+the contributions of different orders. 
 The exact solution is given by
 \begin{equation}
     \label{eq:perturbation_schrodinger}
@@ -37,7 +37,7 @@ while the solvable and simple zero order problem is given by
     \hat{H}_0 \Phi_n = E_n^{(0)} \Phi_n.
 \end{equation}
 The set $\{\Phi_n\}$ is assumed to be an orthonormal basis for the Hilbert space. The 
-excat wavefunction $\Psi_n$ is split into a zero-order part $\Phi_n$ and the 
+exact wavefunction $\Psi_n$ is split into a zero-order part $\Phi_n$ and the 
 perturbative part $\chi_n$.
 
 By projecting \autoref{eq:perturbation_schrodinger} with $\bra{\Phi_0}$ we get
@@ -59,9 +59,8 @@ where we have used that
 This is called the intermediate normalisation assumption.
 
 \subsection{Energy- and Wavefunction Expansion}
-
-We now have need for the order parameter from $\lambda$ \autoref{eq:schrodinger_w_order_param}
-as we expand the wavefunction and energy,
+To proceed further we expand the wavefunction and energy in the order parameter 
+$\lambda$ from \autoref{eq:schrodinger_w_order_param},
 \begin{equation}
     \begin{aligned}
         \Psi_n &= \Phi_n + \chi_n = \Psi_n^{(0)} + \lambda\Psi_n^{(1)} 
@@ -83,7 +82,7 @@ resulting in
         -\lambda^2 E_n^{(2)} - \dots)
     (\Psi_n^{(0)} + \lambda \Psi_n^{(1)} + \lambda \Psi_n^{(2)} + \dots) = 0.
 \end{equation}
-Now we gather the coefficients of different powers of $\lambda$,
+We gather the coefficients of different powers of $\lambda$ and obtain
 \begin{align}
     (\hat{H}_0 - E_n^{(0)})\Psi_n^{(0)} &= 0 \\
     \label{eq:perturbation_lambda_power_first}
@@ -93,9 +92,9 @@ Now we gather the coefficients of different powers of $\lambda$,
         &\dots \nonumber \\
     \label{eq:perturbation_lambda_power_mth}
     (\hat{H}_0 - E_n^{(0)})\Psi_n^{(m)} &= (E_n^{(1)} - \hat{V})\Psi_n^{(m-1)}
-        + \sum_{l=0}^{m-2} E_n^{(m-l)}\Psi_n^{(l)}.
+        + \sum_{l=0}^{m-2} E_n^{(m-l)}\Psi_n^{(l)},
 \end{align}
-Where the last line gives a general $m$th-order equation. This equation can be 
+where the last line gives a general $m$th-order equation. This equation can be 
 simplified somewhat,
 \begin{equation}
     (E_n^{(0)} - \hat{H}_0)\Psi_n^{(m)} = \hat{V}\Psi_n^{(m-1)} 
@@ -107,22 +106,23 @@ For $\lambda^1$ (\autoref{eq:perturbation_lambda_power_first}) we get,
 \begin{equation}
     \begin{gathered}
     \bra{\Phi_n} \hat{H}_0 - E_n^{(0)}\ket{\Psi_n^{(1)}}
-        = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
+        = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket*{\Phi_n} \\
     \bra{(\hat{H}_0 - E_n^{(0)})\Phi_n} \ket{\Psi_n^{(1)}}
         = \bra{\Phi_n} E_n^{(1)} - \hat{V}\ket{\Phi_n} \\
     \to E_n^{(1)} = \bra{\Phi_n} \hat{V} \ket{\Phi_n} = \hat{V}_{nn}.
     \end{gathered}
 \end{equation}
-Since we have an expression for $E_n^{(1)}$, we can solve the inhomogeneous 
-differential equation for $\Psi_n^{(1)}$, by also requiring the intermediate
-normalisation condition $\braket{\Phi_n}{\Psi_n^{(1)}} = 0$. For 
-the general $m$th-order expression (\autoref{eq:perturbation_lambda_power_mth}),
+Since we have an expression for $E_n^{(1)}$, we can solve the equation
+for $\Psi_n^{(1)}$, by also requiring the intermediate
+normalisation condition $\braket*{\Phi_n}{\Psi_n^{(1)}} = 0$. For 
+the general $m$th-order expression (\autoref{eq:perturbation_lambda_power_mth})
+we have,
 \begin{equation}
     \begin{gathered}
-        \bra{\Phi_n} E_n^{0} - \hat{H}_0\ket{\Psi_n^{(m)}}
-            = \bra{\Phi_n} \hat{V} \ket{\Psi_n^{(m-1)}}
+        \mel{\Phi_n} {E_e^{0} - \hat{H}_0}{\Psi_n^{(m)}}
+            = \mel{\Phi_n} {\hat{V}} {\Psi_n^{(m-1)}}
             - \sum_{l=0}^{m-1}E_n^{(m-l)}\braket{\Phi_n}{\Psi_n^{(l)}} \\
-        E_n^{(m)} = \bra{\Phi_n^{(m)}} = \bra{\Phi_n} \hat{V} \ket{\Psi_n^{(m-1)}}.
+        E_n^{(m)} = \bra{\Phi_n^{(m)}} = \mel{\Phi_n} {\hat{V}} {\Psi_n^{(m-1)}}.
     \end{gathered}
 \end{equation} 
 In principle, we can obtain every next-order energy contribution $E_n^{(m)}$ from 
@@ -137,7 +137,7 @@ zero-order wavefunctions,
         \hat{Q} &= \hat{1} - \hat{P} = \sum_{i=1}^N \ket{\Phi_i} \bra{\Phi_i}.
     \end{aligned}
 \end{equation}
-The projecton operators have the following convenient properties,
+The projection operators have the following convenient properties,
 \begin{equation}
     \begin{gathered}
     \hat{P}^2 =  \ket{\Phi_0}\bra{\Phi_0}\ket{\Phi_0}\bra{\Phi_0} 
@@ -182,7 +182,7 @@ Starting from a rearrangment of the Schrödinger equation,
     \end{gathered}
 \end{equation}
 we introduce a seemingly arbitrary parameter $\zeta$, the purpose of which will be 
-apperent later. This parameter is introduced by adding $\zeta\Phi$ to both sides,
+apparent later. This parameter is introduced by adding $\zeta\Phi$ to both sides,
 \begin{equation}
     (\zeta - \hat{H}_0)\Phi = (\hat{V} - E + \zeta)\Phi.
 \end{equation}
@@ -402,7 +402,7 @@ There will always be a leading term,
 with $n$ factors $\hat{V}$ and $n-1$ factors $\hat{R}$. But then we will have 
 terms that are on the form 
 \begin{equation}
-    E^{(j)}\braket{\Psi^{(n-1)}}{\Psi^{(n-j)}} 
+    E^{(j)}\braket*{\Psi^{(n-1)}}{\Psi^{(n-j)}} 
     = E^{(j)}\mel{\Phi_0}{\hat{V}\mathcal{M}(\hat{R}, \hat{V})\hat{V}}{\Phi_0},
 \end{equation}
 where $\mathcal{M}(\hat{R}, \hat{V})$ is the \emph{monomial} of in total 
@@ -440,7 +440,7 @@ one should take notice of the special form the second term in $E^{(3)}$
 becomes more and more prevalent as the series expansion continues. This is apparent from 
 the fourth-order energy term derived from the bracketing technique above. A very powerful theorem 
 called the \emph{linked-diagram theorem}, derived by
-\citeauthor{goldstone1957derivation}\cite{goldstone1957derivation}, states that the 
+\citeauthor{goldstone1957derivation} \cite{goldstone1957derivation}, states that the 
 energy and the wavefunctions can be expressed as a sum of \emph{linked} terms only (!),
 because all the 
 unlinked diagrams in a Rayleigh-Schrödinger perturbation series cancels against the 
@@ -448,7 +448,7 @@ renormalisation terms\footnote{Additional sums in the  wavefunction expression
 involving lower-order energies in RSPT,
 see \autoref{eq:recursive_relation_RSPT_wavefunction}}. Proving the linked-diagram 
 theorem requires a herculean effort, and we will refrain from doing so. The entirety 
-of chapter 6 in \citeauthor{shavitt2009many}\cite{shavitt2009many} is devoted to 
+of chapter 6 in \citeauthor{shavitt2009many} \cite{shavitt2009many} is devoted to 
 a proof of the linked-diagram theorem. What we will take with us is that the linked-diagram
 theorem forms the foundation for the 
 coupled cluster ``ansatz'' wavefunction, which we will introduce at the very beginning 
