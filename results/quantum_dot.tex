@@ -44,7 +44,7 @@ to make sure that we are far from the resonant frequency of the system, and we p
 relatively high laser frequency in order to enforce a more dynamic system. We use the 
 more standard time-dependent coupled cluster singles doubles (TDCCSD) method, for 
 these simulations, with the symplectic Gaussian integrator and a time step of
-$/Deltat=0.01$.
+$\Delta t=0.01$.
 The simulations are performed for an increasing number of electrons
 $n = \{2,4,6,8,10,12\}$. We have computed the energy and the time-dependent overlap,
 i.e. the time-dependent probability of being in the ground state, for each simulation.
@@ -56,7 +56,7 @@ in order to find convergent properties of the simulations as the number of spin-
     \includegraphics[width=0.75\textwidth]{results/figures/1D/n=2energy.png} 
     \caption{Time-dependent energy of a one-dimensional harmonic oscialltor 
         with $n=2$ electrons
-        under the influence of a laser field for different number of spinorbitals
+        under the influence of a laser field for different number of spin-orbitals
         $l\in\{6,8,10,12,20\}$.
     }
     \label{fig:1d_n2_E}
@@ -82,7 +82,7 @@ the ground state tends to return a lower value than for a higher number of spin-
     \includegraphics[width=0.75\textwidth]{results/figures/1D/n=2overlap.png} 
     \caption{Probability of being in the ground state $|\braket*{\Psi(0)}{\Psi(t)}|^2$
         for a one-dimensional quantum dot with $n=2$ electrons under 
-        the influence of a laser field for different number of spinorbitals 
+        the influence of a laser field for different number of spin-orbitals 
         $l\in\{6,8,10,12,20\}$.
     }
     \label{fig:1d_n2_overlap}
@@ -236,7 +236,7 @@ can handle, within the given basis set size.
     \includegraphics[width=0.75\textwidth]{results/figures/2D/n12_energy.png} 
     \caption{Time-dependent energy of a two-dimensional harmonic oscillator 
         with $n=12$ electrons under the influence of a laser field for different 
-        spinorbitals $l\in\{42,56,72\}$.
+        spin-orbitals $l\in\{42,56,72\}$.
     }
     \label{fig:n12_2d_energy}
 \end{figure}
@@ -246,7 +246,7 @@ can handle, within the given basis set size.
     \includegraphics[width=0.75\textwidth]{results/figures/2D/n12_overlap.png} 
     \caption{Ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$ for two-dimensional
         quantum dot with $n=12$ electrons under the influence of a laser field for 
-        different number of spinorbitals $l=\{42,56,72\}$. 
+        different number of spin-orbitals $l=\{42,56,72\}$. 
     }
     \label{fig:n12_2d_overlap}
 \end{figure}
@@ -308,7 +308,7 @@ sinusoidal envelope of the oscillating field.
 We have for the two-dimensional quantum dot computed the dipole spectrum for systems of 
 different size, like we did for the one-dimensional quantum dot. We did this for 
 quantum dots with oscillator frequencies $\Omega=1$ with $n\in\{2,6,12\}$ electrons.
-We used $l\in\{42,42,56\}$ as the number of spinorbitals for the respective systems.
+We used $l\in\{42,42,56\}$ as the number of spin-orbitals for the respective systems.
 In order to excite and disturb the systems from the intial ground state we applied 
 an oscillating field with a resonant frequency $\omega=\Omega=1$ and a somewhat low 
 maximum intensity $\vb{E}_\text{max}=0.1$, with a three-step linear envelope as 
@@ -320,7 +320,7 @@ harmonic potential theorem - the dipole freqcuencies of all the systems are the
 same, with an intensity that increases with the number of particles in the system.
 For the two larger systems with $n=6$ and $n=12$ electrons we see some slight 
 inccuracies. These are attributable to the time constraint of this study - 
-a simulation with larger number of spinorbitals would have remedied these 
+a simulation with larger number of spin-orbitals would have remedied these 
 inaccuracies, but would have needed more time to complete.
 
 \begin{figure}
@@ -441,7 +441,7 @@ of the one-body matrix produced by the system class \lstinline{TwoDimensionalDou
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/DW/dw_n2_n4_spectrum.png} 
     \caption{Dipole spectrum of two-dimensional double dot system with $n\in\{2,4\}$
-        electrons and $l\in\{20, 56\}$ spinorbitals. 
+        electrons and $l\in\{20, 56\}$ spin-orbitals. 
     }
     \label{fig:2d_dw_n2_n4_spectra}
 \end{figure}
@@ -698,8 +698,8 @@ is $\vb{E}_\text{max} = 0.1$. The Larmor frequency of the magnetic field that th
 quantum dots are subjected to is varied, $\omega_c\in\{0.25, 0.5, 0.75, 1.0\}$.
 For each of these simulations we compute the Fourier transform of the dipole in 
 the same direction as the polarisation of the laser field, $\ev{x} =\tr{\rho x}$.
-In the simulations with $n=2$ electrons we used $l=30$ spinorbitals,
-and in the simulations with $n=4$ spinorbitals we used $l=56$ spinorbitals.
+In the simulations with $n=2$ electrons we used $l=30$ spin-orbitals,
+and in the simulations with $n=4$ spin-orbitals we used $l=56$ spin-orbitals.
 We let the systems propagate for $T = 1000 \text{ au}$\footnote{With the notable 
 exception of the $n=4$ electron simulation for $\omega_c=0.25$, which was terminated 
 at $T=700$.}.
