@@ -3,7 +3,7 @@
 
 In the late 1950s Fritz Coester constructed a rigorous formal solution of the bound
 state Schrödinger equation as a set of single particle wave
-functions\cite{coester1958bound}. He wanted to find an expression for the wave operator 
+functions \cite{coester1958bound}. He wanted to find an expression for the wave operator 
 $\Omega$, which transforms a zero-order wavefunction to the exact wave function,
 \begin{equation}
     \Psi = \Omega \Phi_0.
@@ -16,37 +16,43 @@ given a ``linked-diagram expansion'',
     \Omega\ket{\Phi_0} = \ket{\Phi_0} 
     = \sum_{k=1}^\infty\left((\hat{R}_0\hat{V})^k \ket{{\Phi_0}} \right)_L.
 \end{equation}
-This is further underlined in discussions by John Hubbard\cite{hubbard1957description}
-and Nicolaas Marinus Hugenholtz\cite{hugenholtz1957perturbation}.
+This is further underlined in discussions by
+\citeauthor{hubbard1957description} \cite{hubbard1957description}
+and
+\citeauthor{hubbard1957description} \cite{hugenholtz1957perturbation}.
 
 Conveniently, $\Omega$ may be written quite generally as
 \begin{equation}
     \Omega = e^{\hat{T}}, \quad \Psi = e^{\hat{T}}\Phi_0.
 \end{equation}
-This exponential form has been come to be known as the Coupled Cluster ansatz, even 
+This exponential form is known as the Coupled Cluster ansatz, even 
 though it is much more than a simple guess for the form of the exact wavefunction.
 To underline this point we quote Herman Kümmel: ``Strange as it may be, in spite of
-the many successes of the coupled cluster method there is still a widspread belief
+the many successes of the coupled cluster method there is still a widespread belief
 that the underlying exponential structure is something artificial, accidental or 
 an approximation only. This is why I want to make it clear that this feature is 
 extremely natural - even necessary - on a very fundamental level, not necessarily
-connected with many-body theory''\cite{kummel1991origins}. 
+connected with many-body theory'' \cite{kummel1991origins}. 
 
 Throughout the 1950s and early 1960s, Coester and Kümmel developed the coupled cluster method together and 
-proposed using the exponential-form wave operator as coupling between the shell-model 
-state and the correct state vector for nuclear matter\cite{coester1960short}. At the time, 
-the method proved too computationally intensive. Specifically, the hard core potenatials 
-of nuclear physics leaves no freedom in truncating the set of coupled cluster equations.
+proposed using the exponential-form wave operator as a relation between the shell-model 
+state and the correct state vector for nuclear matter \cite{coester1960short}. At the time, 
+the method proved to be too computationally intensive.
+Specifically, the hard core potentials 
+of nuclear physics leave no freedom in truncating the set of coupled cluster equations.
 However, the method was picked up by 
 Ji\v{r}\'{i} \v{C}\'{i}\v{z}ek who 
-in 1966 reformulated the method for modelling of electron correlation in atoms and
-molecules\cite{vcivzek1966correlation}. Further development with Josef Paldus
-made the coupled cluster method one of the most succesfull\footnote{At least one of the
-most prevalent} methods in quantum chemistry. Together with Isaiah Shavitt,
-\v{C}\'{i}\v{z}ek and Paldus did the first \emph{ab initio} comutations with the method,
-which they called the coupled-pair many-electron-theory (MET)\cite{paldus1972correlation},
+in 1966 reformulated the method for studies of electron correlations in atoms and
+molecules \cite{vcivzek1966correlation}. Further development by Josef Paldus
+made the coupled cluster method one 
+of the most prevalent methods in quantum chemistry. Together with Isaiah Shavitt,
+\v{C}\'{i}\v{z}ek and Paldus did the first \emph{ab initio} computations with the method,
+which they called the coupled-pair many-electron-theory (MET) \cite{paldus1972correlation},
 as it can be intepreted as the perturbative variant of the many-electron-theory of 
-Oktay Sinano\v{g}lu\cite{sinanoglu1964many}.
+\citeauthor{sinanoglu1964many} \cite{sinanoglu1964many}. See
+\citeauthor{lowdin1995historical} \cite{lowdin1995historical}
+for a thorough historical development of the treatment of the electron correleation 
+problem.
 
 \section{The Cluster Operator}
 
@@ -58,7 +64,7 @@ we now take a closer look at the cluster operator, which is divided into sub-ope
 \begin{equation}
     \hat{T} = \hat{T}_1 +  \hat{T}_2 + \hat{T}_2 + \hat{T}_3 + \dots,
 \end{equation}
-where the one-, two- and three-body operators are defined thusly,
+where the one-, two- and three-body operators are defined,
 \begin{align}
     \hat{T}_1 &= \sum_{ai}t^a_i\{\hat{a}^\dagger \hat{i} \} \\
     \hat{T}_2 &= \frac{1}{(2!)^2}\sum_{ijab} t^{ab}_{ij} 
@@ -75,12 +81,12 @@ is given by
         t^{ab\dots}_{ij\dots} \{\hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} \dots\},
 \end{equation}
 which produces an $m$-fold excitation. It is not necessary to include cluster-operators
-up to a infinite-fold excitation. Logically, the maximum excitation order is dictated by the number 
+up to an infinite-fold excitation. Logically, the maximum excitation order is dictated by the number 
 of electrons in the system $n$, such that $n \geq m$. Any higher-order excitation operator
 would eventually annihilate an unoccupied orbital, resulting in a zero-contribution.
 The prefactor $1/(m!)^2$ accounts for the redundancy created by unrestricted summations,
 as a permutation of any of the $m$ hole or $m$ particle indices will not produce a 
-distinct contributions. Indeed, we have for example that
+distinct contribution. Indeed, we have for example that
 \begin{equation}
     \hat{a}^\dagger \hat{i} \hat{b}^\dagger \hat{j} 
     = - \hat{a}^\dagger \hat{j} \hat{b}^\dagger \hat{i}
@@ -116,7 +122,7 @@ operators, $\hat{T}_{m_1}^{\alpha}\hat{T}_{m_2}^{\beta}$, are called disconnecte
 cluster contributions.
 
 This inclusion of only single- and double excitations is called ``Coupled Cluster Singles 
-Doubles'', elucidating the subscript CCSD\cite{purvis1982full}.
+Doubles'', elucidating the subscript CCSD \cite{purvis1982full}.
 The most common approximation in coupled cluster theory is the CCSD model. Here, 
 the operator $\hat{T}_2$ describes the important electron-pair interaction and the 
 $\hat{T}_1$ operator carries out the orbital relaxations induced by the field set 
@@ -127,19 +133,19 @@ up by electron-pair interactions.
     colbacktitle={pink},
     coltitle={black}]
     The most important contribution to the wave-function in quantum chemistry is
-    undoubtedlty $\hat{T}_2$, because 
+    undoubtedly $\hat{T}_2$, because 
     of the two-electron nature of the Hamiltonian. It describes the most important 
     interaction of quantum chemistry, the electron-pair interaction. The inclusion 
     of $\hat{T}_1$ and its products are relatively insensitive to the choice of 
     basis set, as the operators $e^{\hat{T}_1}$ has the effect of transforming 
     the reference state $\ket{\Phi_0}$ to another Slater determinant. This is known 
-    as Thouless theorem\cite{thouless1960stability}. With very high electron-density,
+    as Thouless theorem \cite{thouless1960stability}. With very high electron-density,
     the three-particle operator $\hat{T}_3$ becomes important. Higher-order terms 
     are usually of less and decreasing importance, but they can be of concern in 
     special situations. For instance, the four-particle operator $\hat{T}_4$ is 
     very important in nuclear physics. See for instance 
-    \citeauthor{helgaker2014molecular}\cite{helgaker2014molecular} or 
-    \citeauthor{shavitt2009many}\cite{shavitt2009many} for further discussion on this
+    \citeauthor{helgaker2014molecular} \cite{helgaker2014molecular} or 
+    \citeauthor{shavitt2009many} \cite{shavitt2009many} for further discussions on this
     topic.
 \end{tcolorbox}
 
@@ -152,7 +158,7 @@ operator to
 \begin{equation}
     \hat{T}_{\text{CCD}} = \hat{T}_2,
 \end{equation}
-and completely derive the coupled cluster equations for this case.
+and derive the coupled cluster equations for this case.
 The CCD wave function includes all connected and disconnected clusters involving
 $\hat{T}_2$ only,
 \begin{equation}
@@ -167,9 +173,9 @@ employing second quantisation and Wick's theorem. As an alternative,
 in \autoref{app:conf_derivation_ccd}, we use the
 configuration-space technique and the Slater-Condon rules (\autoref{app:slater_condon}).
 A third way is with the aid of
-diagrams, which is done in \citeauthor{shavitt2009many}\cite{shavitt2009many}, for instance.
-Instead of deriving coupled cluster equations by hand it is often prudent to 
-do so with the aid of a symbolic calculater. For higher-order schemes we have used pythons 
+diagrams, which is done in \citeauthor{shavitt2009many} \cite{shavitt2009many}, for instance.
+Instead of deriving coupled cluster equations by hand it is often convenient to 
+do so with the aid of a symbolic calculator. For higher-order schemes we have used python's 
 \lstinline{SymPy} library.
 
 In this derivation we make great use of second quantisation formalism and Wick's 
@@ -198,8 +204,8 @@ First we want to find an expression for the energy,
         = \bra{0} \hat{H}_N \hat{T}_2 \ket{0},
 \end{equation}
 where only the vacuum expectation value of the product of the Hamiltonian and the 
-doubles cluster operators gives a contributions, because the vacuum expectation value
-of just the Hamiltonian is zero. Inserting for the operators,
+doubles cluster operators give contributions, because the vacuum expectation value
+of the Hamiltonian is zero. Inserting for the operators we get
 \begin{equation}
     \Delta E_{\text{CCD}} 
         = \sum_{\substack{i>j \\ a>b}}\bra{0}\left[ 
@@ -209,7 +215,7 @@ of just the Hamiltonian is zero. Inserting for the operators,
         \{\hat{a}^\dagger\hat{b}^\dagger\hat{j}\hat{i} \}
         \ket{0}t^{ab}_{ij}.
 \end{equation}
-Here the one-particle part will vanish as there is no manner one can contract all the
+Here the one-particle part will vanish as there are no ways one can contract all the
 operators in this term without using an internal contraction in the normal-ordered
 product. It is also useful to convert the first sum to an unrestricted sum,
 \begin{equation}
@@ -220,7 +226,7 @@ product. It is also useful to convert the first sum to an unrestricted sum,
            \{\hat{a}^\dagger\hat{b}^\dagger\hat{j}\hat{i} \}
            \ket{0} t^{ab}_{ij}.
 \end{equation}
-We contract the operators in the normal-ordered products,
+We contract the operators in the normal-ordered products using Wick's theorem,
 \begin{gather}
     \begin{aligned}
          \bra{0}
@@ -271,7 +277,7 @@ We compute this expression in steps, starting with the lone normal-ordred Hamilt
         \{\hat{p}^\dagger\hat{q}^\dagger\hat{s}\hat{r}\}
         \ket{0} u^{pq}_{rs},
 \end{equation}
-here we also have to compute a few contractions,
+here we also have to compute a few contractions. Using Wick's theorem we obtain,
 \begin{gather}
     \begin{aligned}
         \bra{0}
@@ -311,27 +317,28 @@ Now for the linear terms,
         \bra*{\phi^{ab}_{ij}} \hat{H}_N \hat{T}_2 \ket{0} 
             = &\sum_{\substack{k>l \\ c>d}} \bra*{\Phi^{an}_{ij}} \hat{H}_N
                 \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \} \ket{0}t^{cd}_{kl} \\
-            = \frac{1}{4} &\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N + \hat{W}_N\ket{\Phi^{cd}_{kl}}t^{cd}_{kl}
+            = \frac{1}{4} &\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N + \hat{W}_N\ket{\Phi^{cd}_{kl}}t^{cd}_{kl}.
     \end{aligned}
 \end{equation}
-Starting with the first term,
+Starting with the first term we obtain,
 \begin{equation}
     \begin{aligned}
-         L_1 &= \frac{1}{4}\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
+        \label{eq:ccd_first_linear_term}
+        L_1 &= \frac{1}{4}\sum_{klcd} \bra{\Phi^{ab}_{ij}} \hat{F}_N \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
             &= \frac{1}{4}\sum_{klcd} \sum_{pq} f_{pq} \bra{\Phi^{ab}_{ij}}
                 \{ \hat{p}^\dagger \hat{q}\} \ket{\Phi^{cd}_{kl}} t^{cd}_{kl} \\
             &= \frac{1}{4} \sum_{klcd}\sum_{pq} f_{pq} \bra{0}
                 \{\hat{i}^\dagger \hat{j}^\dagger \hat{b} \hat{a} \}
                 \{\hat{p}^\dagger \hat{q}\} 
                 \{\hat{c}^\dagger \hat{d}^\dagger \hat{l} \hat{k} \}
-            \ket{0} t^{cd}_{kl}
+            \ket{0} t^{cd}_{kl}.
     \end{aligned}
 \end{equation}
 The product of normal-ordered operators must be contracted in such a way that three and
 three operators in the first and last operator strings are contracted with one another,
-and the two operators in the middle string is contracted with one operator in the last
-and first one. This provides us with $3\times 3 \times 2 = 16$ possible contractions.
-Here are the first four contractions,
+and the two operators in the middle string are contracted with one operator in the last
+and first operator string. This provides us with a total of $4 \times 4 = 16$
+possible contractions. Here are the first four contractions,
 \begin{gather}
     \begin{aligned}
         &\wick{
@@ -362,8 +369,8 @@ Here are the first four contractions,
          -\delta_{iq}\delta_{pk}\delta_{jl}\delta_{bd}\delta_{ac}.
     \end{aligned}
 \end{gather}
-The last 12 contractions will be equivalent to these four, and thus we rid ourselves
-of the $\frac{1}{4}$-prefactor, yielding
+The last twelve contractions will be equivalent to these four, and thus we rid ourselves
+of the $\frac{1}{4}$-prefactor from \autoref{eq:ccd_first_linear_term}, yielding
 \begin{equation}
     L_1 = \sum_c(f_{bc} t^{ac}_{ij} - f_{ac} t^{bc}_{ij}) + \sum_k (f_{ik} t^{ab}_{jk} - f_{jk} t^{ab}_{ik}).
 \end{equation}
