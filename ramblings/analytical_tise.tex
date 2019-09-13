@@ -3,7 +3,7 @@
 
 Here we will illustrate how one can solve the time-independent Schrödinger
 equation analytically in three dimensions. By doing this exercise, we also see
-where the quantum numbers associated with the extra degree of freedom the
+where the quantum numbers associated with an extra degree of freedom the
 introduction of an additional dimension entails. Here we also provide some 
 motivation for the necessity of numerical approximations, as we introduce a 
 few simple systems. Lastly, we give the solutions to the quantum harmonic 
@@ -53,7 +53,7 @@ polar angle and azimuthal angle, respectively. Inserting
     =
     E \Psi.
 \end{equation}
-We look solutions to this equations of the form 
+We look for solutions to this equations of the form 
 \begin{equation}
     \Psi(r,\theta,\phi) = R(r) Y(\theta, \phi).
 \end{equation}
@@ -119,7 +119,7 @@ separation constant $l(l + 1)$,
 
 \subsection{The Angular Equation}
 
-Starting with \autoref{eq:the_angular_equation}, which dictates the dependence if
+Starting with \autoref{eq:the_angular_equation}, which dictates the dependence of
 $\Psi$ on $\theta$ and $\phi$,
 \begin{equation}
     \frac{1}{\sin\theta}\frac{\partial}{\theta} 
@@ -141,7 +141,7 @@ $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ and dividing by $\Theta\Phi$,
     +
     \frac{1}{\Phi} \frac{d^2\Phi}{d\phi} = 0,
 \end{equation}
-where again see that the variables have gathered in separate terms. We therefore 
+where see that the variables have gathered in separate terms again. We therefore 
 introduce the separation constant $m^2$,
 \begin{align}
     \label{eq:angular_1}
@@ -190,7 +190,7 @@ and $P_l$ is the $l$th Legendre polynomial given by the Rodrigues formula,
 \begin{equation}
     P_l(x) \equiv \frac{1}{2^l l!}\left(\frac{d}{dx} \right)^l(x^2 - l)^l.
 \end{equation}
-We see that for this function to be take a value, we must have $l > 0$. Moreover, 
+We see that for this function to take a value, we must have $l > 0$. Moreover, 
 we see that if $|m| > l$ then $P^m_l = 0$. For a given $l$, there must be 
 $2l + 1$ possible values for $m$,
 \begin{equation*}
@@ -200,7 +200,7 @@ A mathematician would at this point argue that because \autoref{eq:angular_1} is
 a second-order differential equation it should have two sets of solutions, not 
 just the solution in \autoref{eq:angular_1_solution}. Another set of solutions 
 exist but these are not sensible in the physical sense as they have singularities 
-at $\theta=0, \pi$.
+at $\theta=0$ and $\theta=\pi$.
 
 We would want to normalise the solutions we have found thus far. In spherical 
 coordinates the volume element is 
@@ -212,7 +212,7 @@ this gives,
     \int\int\int |\Psi|^2 r^2\sin\theta dr d\theta d\phi
     = \int |R|^2r^2 dr \int\int|Y|^2\sin\theta dr d\theta d\phi = 1.
 \end{equation}
-We can normalise these part separately,
+We can normalise these parts separately,
 \begin{equation}
     \int_0^\infty |R|^2 r^2 dr = 1, \quad 
     \int_0^{2\pi}\int_0^\pi |Y|^2 \sin\theta d\theta d\phi = 1.
@@ -241,7 +241,7 @@ which contains the potential $V$,
     =
     l(l + 1)R.
 \end{equation}
-To make our efforts less effortfull we make a variable change, $u(r) \equiv = r R(r)$,
+To make our efforts less effortfull we make a variable change, $u(r) \equiv r R(r)$,
 such that 
 \begin{equation*}
     R = \frac{u}{r}, \quad
@@ -272,7 +272,8 @@ This is as far we get without insertion of a potential.
 
 \section{Quantum Systems}
 
-There are several such potentials, some that constitute mere toy models, like 
+There are several potentials that can be inserted into \autoref{eq:radial_equation2}
+in order to define a system. Some of these constitute mere toy models, like 
 the ``particle-in-a-box'' potential, also called the infinite square well,
 \begin{equation}
     V(r) = \begin{cases}
@@ -280,13 +281,13 @@ the ``particle-in-a-box'' potential, also called the infinite square well,
         \infty  &\text{ if } r > a.
     \end{cases} 
  \end{equation}
-Other potentials are models nature more properly, like the potential that models
-the hydrogen atom.
+Other potentials can approximate a natural system more properly,
+like the potential for the hydrogen atom.
 
 The hydrogen atom consists of a heavy proton of charge $e$, together 
 with a much lighter electron of charge $-e$, that orbits around it. The proton is 
 essentially motionless, while the electron 
-in bound by the mutual attraction between opposite charges. The potential energy 
+in bound by the mutual attraction between the opposite charges. The potential energy 
 follows from Coulomb's law,
 \begin{equation}
     V(r) = - \frac{e^2}{4\pi \epsilon_0}\frac{1}{r}.
@@ -301,7 +302,7 @@ This gives a relatively simple radial equation,
     u = E_u.
 \end{equation}
 
-After Hydrogen, the simples atom is helium. The Hamiltonian,
+After Hydrogen, the next atom is helium. The Hamiltonian,
 \begin{equation}
     \hat{H} =
     \left\{
@@ -320,13 +321,14 @@ consists of two hydrogen-like Hamiltonians, one for electron $1$ and one for
 electron $2$, inside curly braces. The last term describes the repulsion between 
 the two electron, and causes trouble. If we ignore the last term, the Schrödinger
 equation separates, and we would get a ground state energy of $-109 \text{ eV}$,
-but the experimentally measured value of $-78.975 \text{ eV}$s.
+but the experimentally measured value is $-78.975 \text{ eV}$s. We miss horribly by 
+ignoring electron repulsion!
 
 \subsection{The Quantum Harmonic Oscillator}
 
 The quantum harmonic oscillator is the quantum mechanical analogue to the 
 classical harmonic oscillator. Any arbitrary potential can be closely 
-approximated as a harmonic potential about its equilibrium point, making the 
+approximated as a harmonic potential about the equilibrium point, making the 
 quantum harmonic oscillator one of the most important systems in quantum mechanics.
 
 \subsubsection{One Dimension}
@@ -382,9 +384,9 @@ into \autoref{eq:3d_ho_tise} and divide by $\xi\eta\zeta$,
 \begin{equation}
     -\frac{\hbar^2}{2m}\frac{1}{\xi}\frac{\partial \xi}{x}
     +\frac{1}{2}m\omega^2\hat{x}^2
-    -\frac{\hbar^2}{2m}\frac{1}{\eta}\frac{\partial \eta}{x}
+    -\frac{\hbar^2}{2m}\frac{1}{\eta}\frac{\partial \eta}{y}
     +\frac{1}{2}m\omega^2\hat{y}^2
-    -\frac{\hbar^2}{2m}\frac{1}{\zeta}\frac{\partial \zeta}{x}
+    -\frac{\hbar^2}{2m}\frac{1}{\zeta}\frac{\partial \zeta}{z}
     +\frac{1}{2}m\omega^2\hat{z}^2 = E.
 \end{equation}
 In this expressions we have two terms each of which depends on 
@@ -394,12 +396,13 @@ on its own, and we can conclude that the three-dimensional harmonic
 oscillator is equivalent to the sum of three one-dimensional 
 oscillators.
 
-The general energy expression of for a higher-dimensional 
+The general energy expression for a higher-dimensional 
 quantum harmonic oscillator reads,
 \begin{equation}
     E_n = \left(n + \frac{d}{2} \right)\hbar\omega,
 \end{equation}
-where $d$ is the number of dimensions.
+where $d$ is the number of dimensions. Unlike the one-dimensional quantum harmonic 
+oscillator, a higher-dimension system will have energy degeneracies.
 
 It is also possible to solve the harmonic-oscillator system in 
 spherical coordinates, by inserting the potential
@@ -431,14 +434,18 @@ $N_{nm}$ is a normalisation contant given by,
 \end{equation*}
 and
 \begin{equation}
-    \ref{eq:assoc_laguerre_app}
+    \label{eq:assoc_laguerre_app}
     L^p_{q-p}(x) \equiv (-1)^p \left(\frac{d}{dx} \right)^p L_q(x),
 \end{equation}
 is an associated Laguerre polynomial, where 
 \begin{equation}
     L_q(x) \equiv e^x \left(\frac{d}{dx} \right)^q (e^{-x}x^q),
 \end{equation}
-is the $q$th Laguerre polynomial.
+is the $q$th Laguerre polynomial. The corresponding energy eigenvalues in 
+two dimensions are 
+\begin{equation}
+    E_{nm} = \hbar\omega(2n + |m| + 1).
+\end{equation}
 
 In three dimensions the eigenfunctions are given by,
 \begin{equation}
@@ -449,3 +456,9 @@ In three dimensions the eigenfunctions are given by,
 where $N_{nl}$ is a normalisation constant, $L$ are the associated Laguerre 
 polynomials given by \autoref{eq:assoc_laguerre_app} and 
 $Y$ are the spherical harmonics given by \autoref{eq:spherical_harmonics_app}.
+The corresponding energy eigenvalues in three dimensions are,
+\begin{equation}
+    E_{nl} = \hbar\omega\left(2n + l + \frac{3}{2}\right).
+\end{equation}
+
+\clearemptydoublepage
