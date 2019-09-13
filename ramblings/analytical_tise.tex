@@ -1,0 +1,273 @@
+\chapter{Solving the Schrödinger Equation Analytically}
+\label{app:analytical_tise}
+
+Here we will illustrate how one would solve the time-independent Schrödinger
+equation analytically in three dimensions. This is not only a nice pedagogical exercise,
+but it illustrates the necessity of numerical methods in quantum mechanics. 
+Not only is numerical methods necessary because the equtions become extensive and 
+difficult for a human to handle, but also because of the relatively low number 
+of systems that we can tackle in this manner. Here we also provide the 
+solutions for the quantum harmonic oscillator, which is has been very important 
+in this thesis.
+
+\section{The Schrödinger Equation in Spherical Coordinates}
+
+Here we will solve the time-independent Schrödinger equation,
+\begin{equation}
+    \label{eq:tise}
+    -\frac{\hbar^2}{2m}\nabla^2\Psi + V\Psi = E\Psi,
+\end{equation}
+by separation of variables. In \autoref{eq:tise}, $m$ is the mass of the 
+particle in the system, $\hbar$ is Planck's reduced constant, $E$ is the eigenenergy,
+$\Psi$ the eigenstate of the system. The squared differential operator $\nabla^2$
+becomes the following in spherical coordinates,
+\begin{equation}
+    \label{eq:spherical_laplacian}
+    \nabla^2 = 
+        \frac{1}{r^2} \frac{\partial}{\partial r} 
+            \left(r^2 \frac{\partial}{\partial r}\right)
+        + 
+        \frac{1}{r^2\sin\theta} \frac{\partial}{\partial \theta}
+            \left(\sin\theta \frac{\partial}{\partial \theta} \right)
+        +
+        \frac{1}{r^2\sin\theta}
+            \left(\frac{\partial^2}{\partial\phi^2}\right),
+\end{equation}
+where we have used the coordinates $r$, $\theta$ and $\phi$ as the radius,
+polar angle and azimuthal angle, respectively. Inserting
+\autoref{eq:spherical_laplacian} into \autoref{eq:tise} yields,
+\begin{equation}
+    \label{eq:spherical_tise}
+    -\frac{\hbar^2}{2m}
+    \left[
+        \frac{1}{r^2}\frac{\partial}{\partial r} 
+            \left(r^2 \frac{\partial \Psi}{\partial r} \right)
+        +
+        \frac{1}{r^2\sin\theta} \frac{\partial}{\partial\theta}
+            \left(\sin\theta \frac{\partial \Psi}{\partial \theta} \right)
+        +
+        \frac{1}{r^2\sin\theta}
+            \left(\frac{\partial^2 \Psi}{\partial \phi^2} \right)
+    \right]
+    +
+    V \Psi
+    =
+    E \Psi.
+\end{equation}
+We look solutions to this equations of the form 
+\begin{equation}
+    \Psi(r,\theta,\phi) = R(r) Y(\theta, \phi).
+\end{equation}
+Inserting this into \autoref{eq:spherical_tise} gives,
+\begin{equation}
+   -\frac{\hbar^2}{2m}
+   \left[
+        \frac{Y}{r^2} \frac{d}{dr}
+            \left(r^2\frac{dR}{dr} \right)
+        +
+        \frac{R}{r^2\sin\theta}
+            \left(\sin\theta \frac{\partial Y}{\partial\theta} \right)
+        +
+        \frac{R}{r^2\sin^2\theta}
+            \left(\frac{\partial^2Y}{\partial\phi^2} \right)
+   \right] 
+    +
+    VRY
+    =
+    ERY,
+\end{equation}
+which we multiply by $-\frac{2mr^2}{RY\hbar^2}$,
+\begin{equation}
+    \begin{aligned}
+        &
+        \left\{ 
+            \frac{1}{R}\frac{d}{dr}
+                \left(r^2\frac{dR}{dr} \right)
+            -
+            \frac{2mr^2}{\hbar^2}
+                \left[V(r) - E \right]
+        \right\}
+        \\ + \frac{1}{Y} &
+        \left\{
+            \frac{1}{\sin\theta }\frac{\partial}{\partial\theta}
+                \left(\sin\theta \frac{\partial Y}{\partial\theta} \right)
+            +
+            \frac{1}{\sin\theta}\frac{\partial^2Y}{\partial\phi^2}
+        \right\}
+        = 0,
+    \end{aligned}
+\end{equation}
+where the first part is only dependent on $r$ and the second part is only
+dependent on $\theta$ and $\phi$. Notice that we have also assumed a spherical 
+symmetric potential, i.e. $V=V(r)$. Next, we introduce the cleverly chosen 
+separation constant $l(l + 1)$,
+\begin{align}
+    \label{eq:the_radial_equation}
+    \frac{1}{R}\frac{d}{dr}
+        \left(r^2\frac{dR}{dr}\right)
+    -
+    \frac{2mr^2}{\hbar^2}\left[V(r) - E \right] 
+    &= l (l + 1) \\
+    \label{eq:the_angular_equation}
+    \frac{1}{Y}\left\{ 
+        \frac{1}{\sin\theta}\frac{\partial}{\partial\theta}
+            \left(\sin\theta \frac{\partial Y}{\partial\theta} \right)
+        +
+        \frac{1}{\sin^2\theta}\frac{\partial^2 Y}{\partial \phi^2}
+    \right\} 
+    &= - l (l + 1).
+\end{align}
+
+\subsection{The Angular Equation}
+
+Starting with \autoref{eq:the_angular_equation}, which dictates the dependence if
+$\Psi$ on $\theta$ and $\phi$,
+\begin{equation}
+    \frac{1}{\sin\theta}\frac{\partial}{\theta} 
+        \left(\sin\theta\frac{\partial Y}{\partial \theta} \right)
+    +
+    \frac{1}{\sin^2\theta} \frac{\partial^2}{\partial\phi^2}
+    =
+    -l(l + 1)\sin^2\theta Y.
+\end{equation}
+We wish to make a further separation, by inserting
+$Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ and dividing by $\Theta\Phi$,
+\begin{equation}
+    \frac{1}{\Theta}
+    \left[
+        \sin\theta \frac{d}{d\theta}
+            \left(\sin\theta \frac{d\Theta}{d\theta} \right)
+    \right]
+    + l(l + 1) \sin\theta 
+    +
+    \frac{1}{\Phi} \frac{d^2\Phi}{d\phi} = 0,
+\end{equation}
+where again see that the variables have gathered in separate terms. We therefore 
+introduce the separation constant $m^2$,
+\begin{align}
+    \label{eq:angular_1}
+    \frac{1}{\Theta}
+    \left[
+        \sin\theta \frac{d}{d\theta}
+            \left(\sin\theta \frac{d\Theta}{d\theta} \right)
+    \right]
+    + l(l + 1)\sin\theta &= m^2 \\
+    \label{eq:angular_2}
+    \frac{1}{\Phi}\frac{d^2\Phi}{d\phi^2} &= -m^2.
+\end{align}
+Of these two \autoref{eq:angular_2} is instantly recognisable,
+\begin{equation}
+    \frac{d^2\Phi}{d\phi^2} = -m^2\Phi,
+\end{equation}
+with the general solution
+\begin{equation}
+    \Phi(\phi) = C_1e^{im\phi} + C_2 e^{-im\phi},
+\end{equation}
+but we will choose the more simpler solution 
+\begin{equation}
+    \Phi(\phi) = e^{im\theta}.
+\end{equation}
+We require periodicity, i.e. $\Phi(\phi + 2\pi) = \Phi(\phi)$, which means that 
+$m$ only takes integer values,
+\begin{equation*}
+    m = 0, \pm 1, \pm 2, \pm 3, \dots
+\end{equation*}
+
+The other angular equation, in \autoref{eq:angular_1}, is not so simple,
+\begin{equation}
+    \sin\theta\frac{d}{d\theta}\left(\sin\theta\frac{d\Theta}{d\theta} \right)
+    + \left[l(l + 1)\sin\theta - m^2 \right]\Theta = 0.
+\end{equation}
+It has the more complicated solutions,
+\begin{equation}
+    \label{eq:angular_1_solution}
+    \Theta(\theta) = A P^m_l(\cos\theta),
+\end{equation}
+where $P^m_l$ is the associated Legendre function,
+\begin{equation}
+    P^m_l(x) \equiv (1-x^2)^{|m|/2} \left(\frac{d}{dx}\right)^{|m|}P_l(x),
+\end{equation}
+and $P_l$ is the $l$th Legendre polynomial given by the Rodrigues formula,
+\begin{equation}
+    P_l(x) \equiv \frac{1}{2^l l!}\left(\frac{d}{dx} \right)^l(x^2 - l)^l.
+\end{equation}
+We see that for this function to be take a value, we must have $l > 0$. Moreover, 
+we see that if $|m| > l$ then $P^m_l = 0$. For a given $l$, there must be 
+$2l + 1$ possible values for $m$,
+\begin{equation*}
+    l = 0, 1, 2, \dots \quad m = l, -1 + 1, \dots - 1, 0, 1, \dots l-1, l.
+\end{equation*}
+A mathematician would at this point argue that because \autoref{eq:angular_1} is 
+a second-order differential equation it should have two sets of solutions, not 
+just the solution in \autoref{eq:angular_1_solution}. Another set of solutions 
+exist but these are not sensible in the physical sense as they have singularities 
+at $\theta=0, \pi$.
+
+We would want to normalise the solutions we have found thus far. In spherical 
+coordinates the volume element is 
+\begin{equation}
+    d^3\vb{r} = r^2 \sin\theta dr d\theta d\phi,
+\end{equation}
+this gives,
+\begin{equation}
+    \int\int\int |\Psi|^2 r^2\sin\theta dr d\theta d\phi
+    = \int |R|^2r^2 dr \int\int|Y|^2\sin\theta dr d\theta d\phi = 1.
+\end{equation}
+We can normalise these part separately,
+\begin{equation}
+    \int_0^\infty |R|^2 r^2 dr = 1, \quad 
+    \int_0^{2\pi}\int_0^\pi |Y|^2 \sin\theta d\theta d\phi = 1.
+\end{equation}
+It so happens that the normalised angular wave functions are the 
+spherical harmonics,
+\begin{equation}
+    Y^m_l(\theta, \phi) 
+    =
+    \epsilon\sqrt{\frac{2l + 1}{4\pi}\frac{(l - |m|)!}{(l + |m|)!}}
+    e^{im\phi} P^m_l(\cos\theta).
+\end{equation}
+A nice attribute of the spherical harmonics is that they are orthogonal.
+
+\subsection{The Radial Equation}
+
+For the type of spherical symmetric system we are dealing with, we have 
+saved the best part for last, namely \autoref{eq:the_radial_equation},
+which contains the potential $V$,
+\begin{equation}
+    \label{eq:radial_equation2}
+    \frac{d}{dr}\left(r^2\frac{dR}{dr} \right)
+    -
+    \frac{2mr^2}{\hbar^2} [V(r) - E]R
+    =
+    l(l + 1)R.
+\end{equation}
+To make our efforts less effortfull we make a variable change, $u(r) \equiv = r R(r)$,
+such that 
+\begin{equation*}
+    R = \frac{u}{r}, \quad
+    \frac{dR}{dr} = \frac{1}{r}\frac{du}{dr} - \frac{u}{r^2}, \quad 
+    \frac{d}{dr}\left(r^2 \frac{dR}{dr} \right)
+        = \frac{d^2u}{dr^2},
+\end{equation*}
+making \autoref{eq:radial_equation2},
+\begin{equation}
+    - \frac{\hbar^2}{2m}\frac{d^2u}{dr^2}
+    +
+    \left[
+        V + \frac{\hbar^2}{2m}\frac{l(l + 1)}{r^2} 
+    \right]
+    u = Eu,
+\end{equation}
+which is identical to one-dimensional Schrödinger equation, except for 
+a new \emph{effective} potential,
+\begin{equation}
+    V_\text{eff} = v + \frac{\hbar}{2m}\frac{l(l + 1)}{r^2}.
+\end{equation}
+For the radial equation with the substituted variable, we also require normalisation,
+\begin{equation} 
+    \int_0^\infty |u|^2 dr = 1.
+\end{equation}
+
+This is as far we get without insertion of a potential. There are a few potentials 
+to choose from that are analytically pleasant to deal with. First among them is the 
+harmonic oscillator potential.
