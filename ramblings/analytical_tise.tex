@@ -1,14 +1,13 @@
 \chapter{Solving the Schrödinger Equation Analytically}
 \label{app:analytical_tise}
 
-Here we will illustrate how one would solve the time-independent Schrödinger
-equation analytically in three dimensions. This is not only a nice pedagogical exercise,
-but it illustrates the necessity of numerical methods in quantum mechanics. 
-Not only is numerical methods necessary because the equtions become extensive and 
-difficult for a human to handle, but also because of the relatively low number 
-of systems that we can tackle in this manner. Here we also provide the 
-solutions for the quantum harmonic oscillator, which is has been very important 
-in this thesis.
+Here we will illustrate how one can solve the time-independent Schrödinger
+equation analytically in three dimensions. By doing this exercise, we also see
+where the quantum numbers associated with the extra degree of freedom the
+introduction of an additional dimension entails. Here we also provide some 
+motivation for the necessity of numerical approximations, as we introduce a 
+few simple systems. Lastly, we give the solutions to the quantum harmonic 
+oscillator, an importan system in this thesis.
 
 \section{The Schrödinger Equation in Spherical Coordinates}
 
@@ -221,6 +220,7 @@ We can normalise these part separately,
 It so happens that the normalised angular wave functions are the 
 spherical harmonics,
 \begin{equation}
+    \label{eq:spherical_harmonics_app}
     Y^m_l(\theta, \phi) 
     =
     \epsilon\sqrt{\frac{2l + 1}{4\pi}\frac{(l - |m|)!}{(l + |m|)!}}
@@ -261,13 +261,191 @@ making \autoref{eq:radial_equation2},
 which is identical to one-dimensional Schrödinger equation, except for 
 a new \emph{effective} potential,
 \begin{equation}
-    V_\text{eff} = v + \frac{\hbar}{2m}\frac{l(l + 1)}{r^2}.
+    V_\text{eff} = V + \frac{\hbar}{2m}\frac{l(l + 1)}{r^2}.
 \end{equation}
 For the radial equation with the substituted variable, we also require normalisation,
 \begin{equation} 
     \int_0^\infty |u|^2 dr = 1.
 \end{equation}
 
-This is as far we get without insertion of a potential. There are a few potentials 
-to choose from that are analytically pleasant to deal with. First among them is the 
-harmonic oscillator potential.
+This is as far we get without insertion of a potential. 
+
+\section{Quantum Systems}
+
+There are several such potentials, some that constitute mere toy models, like 
+the ``particle-in-a-box'' potential, also called the infinite square well,
+\begin{equation}
+    V(r) = \begin{cases}
+        0,      &\text{ if } r < a;\\
+        \infty  &\text{ if } r > a.
+    \end{cases} 
+ \end{equation}
+Other potentials are models nature more properly, like the potential that models
+the hydrogen atom.
+
+The hydrogen atom consists of a heavy proton of charge $e$, together 
+with a much lighter electron of charge $-e$, that orbits around it. The proton is 
+essentially motionless, while the electron 
+in bound by the mutual attraction between opposite charges. The potential energy 
+follows from Coulomb's law,
+\begin{equation}
+    V(r) = - \frac{e^2}{4\pi \epsilon_0}\frac{1}{r}.
+\end{equation}
+This gives a relatively simple radial equation,
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{d^2u}{dr^2}
+    + \left[
+        - \frac{e^2}{4\pi\epsilon_0}\frac{1}{r} 
+        + \frac{\hbar}{2m}\frac{l(l + 1)}{r^2}
+    \right]
+    u = E_u.
+\end{equation}
+
+After Hydrogen, the simples atom is helium. The Hamiltonian,
+\begin{equation}
+    \hat{H} =
+    \left\{
+        -\frac{\hbar^2}{2m}\nabla^2_i
+        -\frac{1}{4\pi\epsilon_0} \frac{2e^2}{r_1}
+    \right\}
+    +
+    \left\{
+        -\frac{\hbar^2}{2m}\nabla^2_i
+        -\frac{1}{4\pi\epsilon_0} \frac{2e^2}{r_2}
+    \right\}
+    +
+    \frac{1}{4\pi\epsilon_0}\frac{e^2}{|\vb{r}_1 - \vb{r}_2|},
+\end{equation}
+consists of two hydrogen-like Hamiltonians, one for electron $1$ and one for 
+electron $2$, inside curly braces. The last term describes the repulsion between 
+the two electron, and causes trouble. If we ignore the last term, the Schrödinger
+equation separates, and we would get a ground state energy of $-109 \text{ eV}$,
+but the experimentally measured value of $-78.975 \text{ eV}$s.
+
+\subsection{The Quantum Harmonic Oscillator}
+
+The quantum harmonic oscillator is the quantum mechanical analogue to the 
+classical harmonic oscillator. Any arbitrary potential can be closely 
+approximated as a harmonic potential about its equilibrium point, making the 
+quantum harmonic oscillator one of the most important systems in quantum mechanics.
+
+\subsubsection{One Dimension}
+
+The hamiltionian of a one-dimensional harmonic oscillator is
+\begin{equation}
+    \hat{H} = -\frac{\hbar^2}{2m} \nabla^2 + \frac{1}{2}m\omega^2\hat{x}^2,
+\end{equation}
+where the potential function is a rewritten form of Hooke's law,
+\begin{equation}
+    V(x) = \frac{1}{2}k \hat{x}^2 = \frac{1}{2}m\omega^2\hat{x}^2,
+\end{equation}
+such that 
+\begin{equation*}
+    \omega = \sqrt{\frac{k}{m}}.
+\end{equation*}
+The eigenstates of the one-dimensional harmonic oscillator is given by,
+\begin{equation}
+    \Psi_n(x) =
+        \frac{1}{\sqrt{2^n n!}} 
+        \left(\frac{m\omega}{\pi\hbar} \right) 
+        e^{-\frac{m\omega\hat{x}^2}{2\hbar}}
+        H_n\left(\sqrt{\frac{m\omega}{\hbar}} x \right),
+        \quad n=0,1,2,3,\dots,
+\end{equation}
+where the functions $H_n$ are the Hermite polynomials,
+\begin{equation}
+    H_n(z) = 
+    (-1)^n e^{x^2}
+    \left(\frac{d}{dz} \right)^n
+    \left(e^{-z^2} \right).
+\end{equation}
+The corresponding eigenenergies are,
+\begin{equation}
+    E_n = \hbar\omega\left(n + \frac{1}{2} \right).
+\end{equation}
+
+\subsubsection{Higher Dimensions}
+
+The three-dimensional harmonic oscillator can be solved in cartesian 
+coordinates by separation of variables. The time-dependent Schrödinger
+equation for this system is,
+\begin{equation}
+    \label{eq:3d_ho_tise}
+    -\frac{\hbar^2}{2m} \nabla^2\Psi
+    +\frac{1}{2}m\omega^2\hat{r}^2\Psi = E\Psi,
+\end{equation}
+where $\hat{r} = \sqrt{\hat{x}^2 + \hat{y}^2 + \hat{z}^2}$. We insert
+\begin{equation*}
+    \Psi(x, y, z) = \xi(x)\eta(y)\zeta(z)
+\end{equation*}
+into \autoref{eq:3d_ho_tise} and divide by $\xi\eta\zeta$,
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{1}{\xi}\frac{\partial \xi}{x}
+    +\frac{1}{2}m\omega^2\hat{x}^2
+    -\frac{\hbar^2}{2m}\frac{1}{\eta}\frac{\partial \eta}{x}
+    +\frac{1}{2}m\omega^2\hat{y}^2
+    -\frac{\hbar^2}{2m}\frac{1}{\zeta}\frac{\partial \zeta}{x}
+    +\frac{1}{2}m\omega^2\hat{z}^2 = E.
+\end{equation}
+In this expressions we have two terms each of which depends on 
+only one of the variables $x$, $y$ and $z$, the sum of which is 
+the constant $E$. Each of the three groups of terms must be constant 
+on its own, and we can conclude that the three-dimensional harmonic 
+oscillator is equivalent to the sum of three one-dimensional 
+oscillators.
+
+The general energy expression of for a higher-dimensional 
+quantum harmonic oscillator reads,
+\begin{equation}
+    E_n = \left(n + \frac{d}{2} \right)\hbar\omega,
+\end{equation}
+where $d$ is the number of dimensions.
+
+It is also possible to solve the harmonic-oscillator system in 
+spherical coordinates, by inserting the potential
+\begin{equation*}    
+    V(r) = \frac{1}{2}m \omega^2\hat{r}^2,
+\end{equation*}
+into the radial equation, specified in \autoref{eq:the_radial_equation},
+\begin{equation}
+    -\frac{\hbar^2}{2m}\frac{d^2u}{dr^2}
+    + \left(
+        \frac{1}{2}m\omega^2\hat{r}^2 
+        + \frac{\hbar^2}{2m}\frac{l(l + 1)}{r^2} 
+    \right)u = Eu.
+\end{equation}
+
+The solutions will be different, depending on the number of dimensions.
+In two dimensions we have eigenfunctions given by,
+\begin{equation}
+    \Psi_{nm} (r,\theta) 
+    = N_{nm}ae^{im\theta}(ar)^{|m|}L_n^{|m|}(a^2r^2)e^{-a^2r^2/2},
+\end{equation}
+where 
+\begin{equation*}
+    a \equiv \sqrt{\frac{m\omega}{\hbar}},
+\end{equation*}
+$N_{nm}$ is a normalisation contant given by,
+\begin{equation*}
+    N_{nm} \sqrt{\frac{n!}{\pi(n + |m|)!}},
+\end{equation*}
+and
+\begin{equation}
+    \ref{eq:assoc_laguerre_app}
+    L^p_{q-p}(x) \equiv (-1)^p \left(\frac{d}{dx} \right)^p L_q(x),
+\end{equation}
+is an associated Laguerre polynomial, where 
+\begin{equation}
+    L_q(x) \equiv e^x \left(\frac{d}{dx} \right)^q (e^{-x}x^q),
+\end{equation}
+is the $q$th Laguerre polynomial.
+
+In three dimensions the eigenfunctions are given by,
+\begin{equation}
+    \Psi_{nlm}(r,\theta,\phi)
+    =
+    N_{nl}r^l e^{-a^2r^2/2}L_n^{l + \frac{1}{2}}(a^2r^2)Y^m_l(\theta,\phi),
+\end{equation}
+where $N_{nl}$ is a normalisation constant, $L$ are the associated Laguerre 
+polynomials given by \autoref{eq:assoc_laguerre_app} and 
+$Y$ are the spherical harmonics given by \autoref{eq:spherical_harmonics_app}.
