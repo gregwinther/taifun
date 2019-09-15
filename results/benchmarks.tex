@@ -4,30 +4,32 @@
 Here we present a series of reproduced results from the scientific literature as 
 a validation of our computational implementation. We manage to reproduce the 
 instantaneous dipole results from the simulation of the 
-hydrogen molecule in \citeauthor{li2005time}\cite{li2005time},
+hydrogen molecule in \citeauthor{li2005time} \cite{li2005time},
 the time-dependent ground state probability of a quantum dot from 
-\citeauthor{Zanghellini04}\cite{Zanghellini04}
+\citeauthor{Zanghellini04} \cite{Zanghellini04}
 and the spectrum of Helium from
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}.
+Pedersen and Kvaal \cite{pedersen2019symplectic}.
 The simulation of the ionisation of beryllium 
-from \citeauthor{miyagi2013time}\cite{miyagi2013time},
+Miyagi and Madsen \cite{miyagi2013time},
 serves as an illustration of the advantage of
 adaptive orbitals versus static orbitals in a time-dependent coupled cluster method.
 For all time-dependent studies in this chapter we have employed the symplectic 
-\lstinline{GaussIntegrator} integrator class, as it has shown to be most stable in 
-preliminary studies.
+\lstinline{GaussIntegrator} integrator class.
 
 
 \section{Instantaneous dipole in $H_2$}
 
-\citeauthor{li2005time}\cite{li2005time} employ a time-dependent Hartree-Fock 
+\citeauthor{li2005time} \cite{li2005time} employ a time-dependent Hartree-Fock 
 apporach in order to study the electronic optical response of molecules 
 in intense fields. To be specific, they model the hydrogen molecule $H_2$ 
-with a \lstinline{6-311++G(d,p)} basis set, subject to an oscillating field 
+with a \lstinline{6-311++G(d,p)} basis 
+set\footnote{See basis set description in for instance
+\citeauthor{jensen2017introduction} \cite{jensen2017introduction}.}, subject to an oscillating field 
 of $1.72\times10^{13}\text{ W} \text{cm}^{-2}$ and $456\text{ nm}$. They find the time-dependent
 Hartree-Fock method to be nearly indistinguishable from calculations using the 
 full time-dependent Schrödinger equation. We have managed to replicate the 
-instantaneous dipole of this simulation of hydrogen.
+instantaneous dipole results of hydrogen from figure 5 in
+\citeauthor{li2005time} \cite{li2005time}.
 
 A \lstinline{6-311++G(d,p)} basis set corresponds to a \lstinline{6-311++Gss} 
 basis set in \lstinline{PySCF}, and we can extract it from here,
@@ -40,12 +42,7 @@ basis = "6-311++Gss"
 system = construct_pyscf_system_ao(molecule, basis=basis)
 \end{python}
 The bond length of the Hydrogen molecule is approximately $0.7354\text{ Å}$, converted 
-to multiples of Bohr radii here. As the naming suggests, the basis set is a split-valence 
-triple-zeta basis set, with one added s-type diffuse function and a set of p-type
-polarisation 
-functions for each Hydrogen atom\footnote{This would be obvious for a quantum chemist,
-but basis set configurations looks like incantantions from a spellbook to the 
-uninitiated physicist}.
+to multiples of Bohr radii here.
 
 In their simulations \citeauthor{li2005time} have used a linearly polarised and 
 spatially homogenous external field aligned along the $z$-axis, 
@@ -76,8 +73,8 @@ pulse. The entire simulation lasts for $T=225 \text{ au}$.
 The result of our simulation is shown in \autoref{fig:li_compare}, where we have 
 computed the instantaneous dipole over time using three different methods. The 
 time-dependent Hartre-Fock result is shown in the bottom sub-figure, and is expected 
-to be exactly the same as figure 4.a from \citeauthor{li2005time}\cite{li2005time},
-which it appear to be. For comparrison we have computed the result with both of 
+to be exactly the same as figure 4.a from \citeauthor{li2005time} \cite{li2005time},
+which it appear to be. For comparison we have computed the result with both of 
 our time-dependent coupled cluster methods. The result of the time-dependent 
 coupled cluster method with single and double excitations are showed in the top subfigure,
 and the result of the orbital-adaptive coupled cluster method with double excitations 
@@ -98,17 +95,18 @@ the results of the three methods.
 
 \section{Ground State Probability in 1D Quantum Dot}
 
-\citeauthor{Zanghellini04}\cite{Zanghellini04} calculate the time development of a 
+\citeauthor{Zanghellini04} \cite{Zanghellini04} calculate the time development of a 
 one-dimensional quantum dot with two electrons using the multi-configurational 
 time-dependent Hartree-Fock method (MCTDHF). This method yields excact results for 
-a very large number of configurations, $\eta \to \infty$. This study would provide a 
+a very large number of configurations $\eta \to \infty$. This study would provide a 
 proper benchmark for our implementation because the coupled cluster method with singles and 
-doubles excitations (CCSD) is excact for $n=2$ particles. 
+doubles excitations (CCSD) is exact for $n=2$ particles. 
 The harmonic oscillator potential applied in
 their study had a frequency of $\Omega=0.25$, used a strong laser-like field with 
-maximum intensity of $\vb{E} = 1$ and a laser frequency of $\omega = 8 \Omega = 2$.
+maximum intensity of $\vb{E}_\text{max} = 1$ and a laser frequency of
+$\omega = 8 \Omega = 2$.
 The oscillating field is described much more simply than in
-\citeauthor{li2005time}\cite{li2005time}, using a simple sine function,
+\citeauthor{li2005time} \cite{li2005time}, using a simple sine function,
 \begin{equation}
     \vb{e}(t) = \vb{E}\sin(\omega t),
 \end{equation}
@@ -116,8 +114,8 @@ where the envelope $\vb{E}$ does not vary in time.
 
 \citeauthor{Zanghellini04}\cite{Zanghellini04} find that their multi-configurational time-dependent
 Hartree-Fock scheme convergences as the number of configurations is 
-$\eta \geq15$, up to the resulotion of their figures.
-We are able to reproduce this result precisesly by employing the 
+$\eta \geq15$, up to the resolution of their figures.
+We are able to reproduce this result precisely by employing the 
 time-dependent coupled cluster method with singles and double excitations (TDCCSD).
 We have used our own one-dimensional quantum dot class, \lstinline{ODQD}, with 
 a harmonic potential and $l=20$ spin-orbitals
@@ -158,11 +156,11 @@ time-dependent Hartree-Fock (MCTDHF). This figure matches the convergent electro
 state as a function of time. Here we have included both a time-dependent Hartree-Fock
 computation, corresponding to a multi-configurational time-dependent 
 Hartree-Focke computation with $\eta=1$ configurations, and 
-a time-depenedent coupled cluster computation with single and double excitations.
+a time-dependent coupled cluster computation with single and double excitations.
 We see that our coupled cluster scheme corresponds to the multi-configurational Hartree-Fock 
 scheme employed by \citeauthor{Zanghellini04} when $\eta\to\infty$, as
 \autoref{fig:zanghellini_fig2} match figure 2 in
-\citeauthor{Zanghellini04}\cite{Zanghellini04} precisely.
+\citeauthor{Zanghellini04} \cite{Zanghellini04} precisely.
 
 
 \section{Dipole Spectrum of Helium}
@@ -181,9 +179,9 @@ He = "
 options = {"basis": "cc-pvdz", "scf_type": "pk", "e_convergence": 1e-8}
 system = construct_psi4_system(He, options)
 \end{python}
-The \lstinline{cc-pVDZ} basis set is a correlation consistent, polarised, valence-only 
-basis set with double zeta-functions. For hydrogen this basis set amounts to five 
-orbitals in total.
+For hydrogen this basis set amounts to five orbitals in total. See chapter 5 in
+\citeauthor{jensen2017introduction} \cite{jensen2017introduction}for a thorough
+overview of quantum chemistry basis sets.
 
 % \omega=2.8735643 \text{ au}
 In their study \citeauthor{pedersen2019symplectic} use an oscillating field with 
@@ -201,7 +199,7 @@ with a sinusoidal envelope
 \end{equation}
 where $H$ is the Heaviside step function designed to return zero when the field 
 has reached its designated halting time $t_d$. This envelope is similar in behaviour 
-to the one in the study by \citeauthor{li2005time}\cite{li2005time} - it 
+to the one in the study by \citeauthor{li2005time} \cite{li2005time} - it 
 increaes gradually at first, and then gradually decreases. 
 
 The oscillating field is only meant to ``disturb'' the ground state of the atom,
@@ -214,7 +212,7 @@ fourier transform of this signal will then yield the dipole spectrum of the
 atom. The time-development is performed with the orbital-adaptive time-dependent 
 coupled cluster method with double excitations. The result from this simulation is 
 depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figure 
-7 in \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}.
+7 in Pedersen and Kvall \cite{pedersen2019symplectic}.
 
 \begin{figure}
     \centering
@@ -229,10 +227,10 @@ depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figur
 \section{Ionisation of 1D Beryllium}
 \label{sec:miyagi_replication}
 
-\citeauthor{miyagi2013time}\cite{miyagi2013time} implement the time-dependent 
-restricted active space self consistent field singles (TD-RASSCF-S) method 
-and compare it with time-dependent configuration interaction singles (TDCIS) and 
-the multi-configurational time-dependent Hartree-Fock (MCTDHF) method. A simulation they 
+Miyagi and Madsen \cite{miyagi2013time} implement the Time-Dependent 
+Restricted Active Space Self Consistent Field Singles (TD-RASSCF-S) method 
+and compare it with Time-Dependent Configuration Interaction Singles (TDCIS) and 
+the Multi-Configurational Time-Dependent Hartree-Fock (MCTDHF) method. A simulation they 
 perform in this study is the simulation of the ionisation of beryllium. This 
 simulation is performed by applying an oscillating field defined by the following 
 vector potential,
@@ -264,10 +262,14 @@ a time step size of $\Delta t=0.01$. The maximum field strength is set to
 $\vb{E}_\text{max} = 0.0755 \text{ au}$ and the frequency of the laser field is set to
 $\omega = 0.057 \text{ au}$. This corresponds to a peak intensity of 
 $2.0 \times 10^{14} \text{ W cm}^{-2}$ and a laser wavelength of $800 \text{ nm}$.
+The total time of the simulation is $T=331 \text{ au}$. Both the unit for frequency and 
+time is dervied from the Hartree unit for energy $E_a$, which we derived in
+\autoref{sec:atomic_units}. The atomic units for time and frequency are $\hbar/E_a$ and
+$E_a/\hbar$, respectively.
 
 The idea behind the simulation is to compute the particle density over time, and see if 
-there is more than significantly high probability to see an electron very far away from the 
-nucleus. The total time of the simulation is $T=331 \text{ au}$, and the particle density 
+there is more than a significantly high probability to see an electron very far away from the 
+nucleus. The particle density 
 $\rho(x, t)$ is computed at the very beginning of the simulation, halfway through 
 and at the end of the simulation. We do this both with our time-dependent coupled 
 cluster singles doubles (TDCCSD) method with static orbitials and 
@@ -290,8 +292,9 @@ the system is developed in time, and the two methods are in good agreement. In
 the middle subfigure the simulation is halfway through its course and the two methods
 both appear to show the same effects, but with 
 slight discrepancies. In the bottom subfigure, we see that the OATDCCD method is doing
-fine, but the TDCCSD is absolutely non-sensible. We can conclude that the propagating 
-obitals in time enables us to get the same qualitative result as \citeauthor{miyagi2013time}
+fine, but the TDCCSD is absolutely non-sensible, with very high peaks that are periodically 
+greater than $1$. We can conclude that propagating 
+orbitals in time enable us to get the same qualitative result as \citeauthor{miyagi2013time}
 in figure 4 from their study. Keeping the orbitals static as in the TDCCSD method makes 
 us unable to model the same behaviour. We will delve a bit deeper to try to shed 
 some light on why the TDCCSD method fails.
@@ -310,8 +313,9 @@ the time-dependent coupled cluster singles doubles (TDCCSD) method, we get the
 result shown in \autoref{fig:miyagi_tddccsd_amplitude}. In essence, the amplitudes 
 in any coupled cluster computation provides a linear combination of orbitals 
 from the reference state $\ket{\Phi_0}$, in order to provide the best representation of the 
-exact state $\ket{\Psi}$. For this reason one would not expect the norm of the 
-amplitudes to be realtively low for an exact that is close to the reference state.
+exact state $\ket{\Psi}$. For this reason one would expect the norm of the 
+amplitudes to be realtively low for an exact state $\ket{\Psi}$ that is close to the
+reference state $\ket{\Phi_0}$.
 We encounter problems with the static orbitals because we are dealing with a system that
 moves very far 
 from its inital state. In \autoref{fig:miyagi_tddccsd_amplitude} we see
@@ -331,7 +335,7 @@ $0$ and $1$.
     \includegraphics[width=0.75\textwidth]{results/figures/miyagi/overlap_tdccsd.png}
     \caption{Probability of being in the ground state over time 
         $|\braket{\Psi(0)}{\Psi(t)}|$ in the 1D beryllium atom, computed with TDCCSD. 
-        We see impossibly unreasonable probabilities.
+        We see unreasonable probabilities.
     }
     \label{fig:miyagi_tdccsd_overlap}
 \end{figure}
@@ -346,19 +350,21 @@ space than the reference state, it stands to reason that it is very difficult, i
 not impossible to find a mapping between the two. This problem stems from the foundations 
 of the approximative nature of the coupled cluster method as it has a truncated basis set. 
 
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} provide a similar 
+Pedersen and Kvaal \cite{pedersen2019symplectic} provide a similar 
 deduction, highlighting there what appears to be a system-dependent upper limit for 
 the strength of the external field. They underline the improvement in the computations 
 by using a symplectic integrator instead of a standard fourth-order Runge-Kutta method.
-We use the exact same integrator as the one \citeauthor{pedersen2019symplectic} outline.
-\citeauthor{pedersen2019symplectic} argue that a large amplitude norm should make one 
+We use the exact same integrator as the one Pedersen and Kvaal outline.
+Pedersen and Kvaal argue that a large amplitude norm should make one 
 question the validity of the result. It is difficult to gauge what constitutes a ``large''
 amplitude norm, however.
 
-Lastly with regards to the ionisation study from \citeauthor{miyagi2013time}\cite{miyagi2013time},
-we would like to emphasise how well the orbital-adaptive time-dependent coupled cluster 
-doubles (OATDCCD) method performs. OATDCCD manages to replicate the desired results 
+Lastly with regards to the ionisation study from Miyagi and Madsen \cite{miyagi2013time},
+we would like to emphasise how well the Orbital-Adaptive Time-Dependent Coupled Cluster 
+Doubles (OATDCCD) method performs. The OATDCCD method manages to replicate the desired results 
 to a significant degree, giving relatively high values for the entire grid 
 of the particle density represented in \autoref{fig:miyagi_tdccsd_overlap}. This is 
-normally interpreted as a free praticle because one would expect the wavefunction of 
+normally interpreted as a free particle because one would expect the wavefunction of 
 a free particle to spread out in space as time progresses.
+
+\clearemptydoublepage
