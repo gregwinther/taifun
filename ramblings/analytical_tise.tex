@@ -3,11 +3,11 @@
 
 Here we will illustrate how one can solve the time-independent Schrödinger
 equation analytically in three dimensions. By doing this exercise, we also see
-where the quantum numbers associated with an extra degree of freedom the
+where the quantum numbers associated with an extra degree of freedom, that the
 introduction of an additional dimension entails. Here we also provide some 
 motivation for the necessity of numerical approximations, as we introduce a 
 few simple systems. Lastly, we give the solutions to the quantum harmonic 
-oscillator, an importan system in this thesis.
+oscillator, an important system in this thesis.
 
 \section{The Schrödinger Equation in Spherical Coordinates}
 
@@ -18,7 +18,7 @@ Here we will solve the time-independent Schrödinger equation,
 \end{equation}
 by separation of variables. In \autoref{eq:tise}, $m$ is the mass of the 
 particle in the system, $\hbar$ is Planck's reduced constant, $E$ is the eigenenergy,
-$\Psi$ the eigenstate of the system. The squared differential operator $\nabla^2$
+and $\Psi$ is the eigenstate of the system. The squared differential operator $\nabla^2$
 becomes the following in spherical coordinates,
 \begin{equation}
     \label{eq:spherical_laplacian}
@@ -141,8 +141,8 @@ $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ and dividing by $\Theta\Phi$,
     +
     \frac{1}{\Phi} \frac{d^2\Phi}{d\phi} = 0,
 \end{equation}
-where see that the variables have gathered in separate terms again. We therefore 
-introduce the separation constant $m^2$,
+where we see that the variables have gathered in separate terms again. We therefore 
+introduce the separation constant $m^2$, which has nothing to do with the particle mass,
 \begin{align}
     \label{eq:angular_1}
     \frac{1}{\Theta}
@@ -268,7 +268,7 @@ For the radial equation with the substituted variable, we also require normalisa
     \int_0^\infty |u|^2 dr = 1.
 \end{equation}
 
-This is as far we get without insertion of a potential. 
+This is as far we get without specifyine a potential. 
 
 \section{Quantum Systems}
 
@@ -321,7 +321,8 @@ consists of two hydrogen-like Hamiltonians, one for electron $1$ and one for
 electron $2$, inside curly braces. The last term describes the repulsion between 
 the two electron, and causes trouble. If we ignore the last term, the Schrödinger
 equation separates, and we would get a ground state energy of $-109 \text{ eV}$,
-but the experimentally measured value is $-78.975 \text{ eV}$s. We miss horribly by 
+but the experimentally measured value is
+$-78.975 \text{ eV}$s \cite{griffiths2018introduction}. We miss horribly by 
 ignoring electron repulsion!
 
 \subsection{The Quantum Harmonic Oscillator}
@@ -391,10 +392,10 @@ into \autoref{eq:3d_ho_tise} and divide by $\xi\eta\zeta$,
 \end{equation}
 In this expressions we have two terms each of which depends on 
 only one of the variables $x$, $y$ and $z$, the sum of which is 
-the constant $E$. Each of the three groups of terms must be constant 
-on its own, and we can conclude that the three-dimensional harmonic 
-oscillator is equivalent to the sum of three one-dimensional 
-oscillators.
+the constant $E$. In turn, each of the three groups of terms must be constant 
+on its own. We can conclude that one three-dimensional harmonic 
+oscillator is equivalent to three one-dimensional 
+oscillators, in cartesian coordinates.
 
 The general energy expression for a higher-dimensional 
 quantum harmonic oscillator reads,
@@ -460,5 +461,10 @@ The corresponding energy eigenvalues in three dimensions are,
 \begin{equation}
     E_{nl} = \hbar\omega\left(2n + l + \frac{3}{2}\right).
 \end{equation}
+
+Notice that in two dimensions there are only two quantum numbers, while in three 
+dimensions there are three quantum numbers. This derivation has completely disregared 
+spin and angular momentum, which would add further quantum numebers, because further
+degrees of freedom are introduced.
 
 \clearemptydoublepage
