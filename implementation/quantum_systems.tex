@@ -3,21 +3,21 @@
 
 In order to study a quantum system on the computer it is necessary to 
 make a distinction for what defines the system, and one must therefore undergo the
-mathematical procedure of contructing a finite basis sets that defines the system in 
-question. Here we present \lstinline{quantum_systems} python module, chiefly designed to 
+mathematical procedure of constructing a finite basis sets that defines the system in 
+question. Here we present the \lstinline{quantum_systems} python module, mainly designed to 
 provide basis sets for one- and two-dimensional quantum dots.
 
-For the one-dimensional quantum dot we provide several a wide selection of different
+For the one-dimensional quantum dot we provide a wide selection of different
 potentials. This is possible due to the relative computational ease associated with the 
 model. As for the two-dimensional 
-systems we have implemented each confining potential in separate clasees including
+systems we have implemented each confining potential in separate classes including
 the regular harmonic quantum dot, a 
 double quantum dot, as well as a quantum dot affected by a homogenous, static  magnetic 
 field.
 
 In order to achieve maximum usability, the \lstinline{quantum_systems} module
 includes a class for constructing custom systems, using basis sets imported from 
-somwhere else of that are defined by the user.
+somwhere else, or basis sets defined by the user.
 We have written functions that interface with popular quantum chemistry packages
 \lstinline{PySCF}\cite{PYSCF} 
 and \lstinline{Psi4}\cite{parrish2017psi4},
@@ -27,13 +27,15 @@ molecules.
 
 What is more, the \lstinline{quantum_systems} module also contains an implementation of 
 a plane wave or homogenous electron gas basis set, sometimes called the 
-jellium model. However, this implementation exists mainly as 
+jellium 
+model\footnote{See for instance Ch. 10 in Gross and Heinonen \cite{gross1986many}}.
+However, this implementation exists mainly as 
 a curiosity at the time of writing. In the future it can potentially
 be developed into something more useful,
 as the electron gas can serve as a first approximation to a metal or a semi-conductor.
 
 A complete diagrammatic class hierarchy of the \lstinline{quantum_systems} module 
-can be found in \autoref{app:class_diagram}. This diagram also illustrates how 
+can be found in \autoref{app:class_diagram}. This class hierarchy also illustrates how 
 the \lstinline{quantum_systems} modules fits into and works with the 
 \lstinline{coupled_cluster} module, to be presented in the next chapter.
 
@@ -62,7 +64,7 @@ Here we present the abstract base class that every system class in the
 \lstinline{quantum_systems} module is built upon. This base class forms the foundation 
 of any quantum system, in order to make a system specification work together with 
 solver from the \lstinline{coupled_cluster} module presented in the next chapter. The base class is 
-reasonably named \lstinline{QuantumSystem}.
+named \lstinline{QuantumSystem}.
 
 \begin{figure}[h]
 \input{implementation/doc/quantumsystem.tex}
@@ -94,12 +96,12 @@ The basis transformation is performed by multiplication with the coefficient mat
     \ket{\phi_p} = C^\alpha_p \ket{\chi_\alpha},
 \end{equation}
 where we go from a (naïve) basis $\ket{\chi_\alpha}$, to the much better Hartree-Fock basis 
-$\ket{\phi_p}$. The basis would be better suited to represent the system because is 
-already consitute an approximate ground state solution. The improvement in ground state 
+$\ket{\phi_p}$. The basis would be better suited to represent the system because it 
+already consitutes an approximate ground state solution. The improvement in ground state 
 energies by using the Hartree-Fock basis is well
 documented\cite{jorgensen2011many,lohne2010coupled}.
 
-The principal method that needs to be implemented in a subclass subclass of
+The principal method that needs to be implemented in a subclass of
 \lstinline{QuantumSystem} is
 \lstinline{setup_system()}, including special considerations for dipole computations.
 These factors will be discussed for each specific system we have implemented in the 
@@ -115,25 +117,29 @@ theoretical-experimental benefit has made quantum dots a popular area of study. 
 because of their wide area of applications.
 
 The possible applications of quantum dots are many. Coupled single-electron quantum dots 
-could potentially be used as hardware elements in quantum computers, i.e.
-qubits\cite{loss1998quantum}; quantum dots also promise to increase the efficiency of 
-photvoltaic solar cells; and they have already found use in cellular imaging in biology.
-\citeauthor{reimann2002electronic}\cite{reimann2002electronic} has written an outstandingly
+could potentially be used as hardware elements in quantum computers \cite{loss1998quantum}; quantum dots also promise to increase the efficiency of 
+photovoltaic solar cells; and they have already found use in cellular imaging in biology.
+Reimann and Manninen \cite{reimann2002electronic} has written a
 thorough review on quantum dots, covering their varied types of fabrication, theoretical
-methods common in their study and vast ocean of applications.
+methods common in their study and several applications.
 
-The usefulness and relative theoretical ease of modelling warrants the study of quantum dots.
-Herein, several classes have been implemented in order to construct basis sets modelling 
-quantum dots in both one and two dimensions. Most of these basis sets models \emph{bound} systems
+We find that the study of quantum dot systems is warranted because of their great usefulness.
+What is more, it is relatively easy to approximate such systems theoretically and 
+numerically. 
+Several classes have been implemented in the \lstinline{quantum_systems} module
+that constructs basis sets modelling 
+quantum dots in both one and two dimensions. Most of these basis sets model \emph{bound} systems
 with the characteristics of infinite quantum wells. 
 
 \subsection{One Dimension}
 
 The one-dimensional quantum harmonic oscillator is perhaps one of the simplest of
-all quantum mechanical models. It is studied ad nauseum in every introductory quantum 
-mechanics course. This is with good reason because the system is very analytically 
-manageable, and because most oscillatory systems are not far behaving exactly as a
-harmonic oscillator as long as the oscillations are small enough. One must bear in 
+all quantum mechanical models. It is studied thoroughly in every introductory quantum 
+mechanics course. This is with good reason because the system is analytically easy to
+manage, and because 
+any arbitrary potential can be approxiamted by a harmonic oscillator as long 
+as the oscillations are small enough.
+One must bear in 
 mind that the harmonic oscillator potential, sometimes also called the parabolic potential, 
 is one of many potentials that one can use in a quantum dot system.
 
@@ -193,18 +199,16 @@ and we have thus transformed the time-independent Schrödinger equation
 \end{equation}
 into a matrix equation which constitutes a better representation on 
 a computer. Here $n$ is 
-the number of points used to numerically represent the wavefunciton 
+the number of points used to numerically represent the wavefunction 
 and Hamiltonian matrix representation. This is done with some generic 
 eigenvalue solver, for instance \lstinline{numpy.linalg.eigh(...)}.
 The eigenfunctions $\ket{\phi}$ provide the foundation for the single-particle functions
 we need.
 
-Since we would like to model interaction between particles we need something more
+Since we would like to model interactions between particles we need something more
 than just a numerical representation of the one-body operator. We therefore need to 
-compute Coulomb interaction, in the form of an integral. The  Coulomb integral 
-constitutes the matrix elements of the two-body operator $u$ of our system.
-
-The Coulomb integral matrix elements is computed in
+compute Coulomb integrals. 
+The Coulomb integral matrix elements $u^{pq}_{rs}$ is computed in
 several steps, starting with an ``inner intergral'' over all all space 
 and two and two single-particle functions,
 \begin{equation}
@@ -233,7 +237,7 @@ def _compute_inner_integral(spf, l, num_grid_points, grid, alpha, a):
     return inner_integral
 \end{python}
 
-The inner orbital is subsequently used in the computation of the orbial integral,
+The inner orbital is subsequently used in the computation of the orbital integral,
 \begin{equation}
     u^{pq}_{rs} = \int \phi_p u^q_s \phi_r dx,
 \end{equation}
@@ -257,9 +261,9 @@ by
     \int_x^{x + \Delta x} f(x) dx \approx \Delta x \frac{f(x + \Delta x) - f(x)}{2}.
 \end{equation}
 
-Needless to say, computing the coulomb integrals is one of the more intensive tasks,
-and we therefore make great use of just-in-time compulation from the \lstinline{numba} 
-module for Python.
+Needless to say, computing the Coulomb integrals is one of the more intensive tasks,
+and we therefore make great use of one the fly compilation from the 
+\lstinline{numba} \cite{numba} module for Python.
 
 \begin{figure}
 \input{implementation/doc/one_dim_quantum_dot.tex}
@@ -268,10 +272,10 @@ module for Python.
 \subsubsection{One-dimensional potentials}
 \label{sec:1d_potentials}
 
-We have provided several one-dimensional potential classes (\autoref{tab:1d_potentials})
+We provide several one-dimensional potential classes (\autoref{tab:1d_potentials})
 that can be passed to 
 the \lstinline{setup_system(Potential)} method in the \lstinline{ODQD} class.
-All these potentials have been implemented as subclasses of the abstract 
+All these potentials are implemented as subclasses of the abstract 
 base class \lstinline{OneDimPotential}. The only thing necessary for an 
 inheriting class to implement is the primitive \lstinline{__call__} method which 
 takes position on the grid, $x$, as argument, and must return 
@@ -354,9 +358,9 @@ matrix elements of a harmonic oscillator is simply,
     \bra{\phi_p}\hat{h}\ket{\phi_q} = \hat{h}^p_q = \epsilon_p \delta^p_q.
 \end{equation}
 These matrix elements encompass both the kinetic energy operator matrix element and 
-potential energy matrix element. If we were dealing with completely non-interacting 
+potential energy matrix element. If we deal with completely non-interacting 
 particles not much more would be needed.
-We see, however, that this form of one-body matrix elements necessitates a mapping from 
+We see, however, that this form of one-body matrix elements necessitate a mapping from 
 the general coordinates $p,q$, as used above, and the quantum numbers $n,m$.
 
 \begin{figure}[h]
@@ -438,10 +442,10 @@ where $\sigma$ is the spin.
 Because the electrons we will be studying are interacting, we need
 two-body matrix elements $u^{pq}_{rs}$
 as well. The analytical formula for the Coulomb interaction integrals, provided by Anisimovas and 
-Matulis\cite{anisimovas1998energy} is
+Matulis \cite{anisimovas1998energy} is
 \begin{equation}
     \begin{aligned}
-        \langle \phi_1\phi_2| \hat{W} | \phi_3\phi_4 \rangle =& 
+        \langle \phi_1\phi_2| \hat{u} | \phi_3\phi_4 \rangle =& 
         \delta_{s_1, s_4} \delta_{s_2, s_3} \delta_{m_1 + m_2, m_3 + m_4}
         \left[\prod_{i=1}^4 \frac{n_i!}{(|m_i| + n_i)} \right]^{1/2}
         \sum_{(4)j=0}^n \frac{(-1)^{j_1+j_2+j_3+j_4}}{j_1!j_2!j_3!j_4!} \\
@@ -525,7 +529,7 @@ quantum dot Coulomb integral matrix elements, we refer the reader to \autoref{ap
 \subsubsection{Dipole Moments}
 For our implementation of time dependent Hamiltonians, outlined below, we make use of 
 a dipole approximation of an electric field. For this reason it is necessary to compute 
-dipole moments. The transitions rules of quantum mechanics stems from evaluting matrix
+dipole moments. The transitions rules of quantum mechanics stem from evaluating matrix
 elements of this kind,
 \begin{equation}
     \vb{d}^p_q = \bra{\phi_p} \hat{\vb{r}} \ket{\phi_q} 
@@ -584,7 +588,7 @@ Similarly,
    \end{gathered}
 \end{equation}
 This is a very nice result, as it conforms with the selection rule related to the 
-azimutal quantum number $m$.
+azimuthal quantum number $m$.
 
 \subsection{Two-Dimensional Double Well}
 \label{sec:2d_double_well}
@@ -592,7 +596,7 @@ azimutal quantum number $m$.
 The extension from a single two-dimensional quantum dot to a double 
 quantum dot is a relatively straight-forward procedure, as it is 
 a mere perturbation of the regular single dot. There are at least two ways to
-implement the potential of double well in two dimensions. One method 
+implement the potential of a double well in two dimensions. One method 
 is to add a fourth-degree polynomial potential along one cartesian axis, resulting 
 in a smooth ``bump'' dividing the two potential wells. We have opted for another 
 method, with the an absolute value function resulting in a sharp edge. The 
@@ -639,10 +643,9 @@ transformation, and the integral becomes
     drd\theta
 \end{equation}
 We see that the wavefunctions $\phi_{nm}$ are the same as for the unperturbed 
-two-dimensional quantum dot, and this directs us to the same kind of interals 
-as for the dipole calculations above. The radial interal is cumbersome, and
-therefore left for a symbolic solver, but for angular integral we can provide 
-the computer with some help, 
+two-dimensional quantum dot, and this directs us to the same kind of integrals 
+as for the dipole calculations above. The radial integral is cumbersome, and
+therefore left for a symbolic solver, but for the angular integral we have, 
 \begin{equation}
     \begin{aligned}
     \int_0^{2\pi} |\cos\theta| e^{i\bar{m}\theta} d\theta
@@ -673,7 +676,7 @@ to compute a special version of the Coulomb integral matrix elements for the
 double well. We do, however, need to transform the single-particle functions and 
 two-body elements from the regular harmonic oscillator basis to an approximate basis 
 for the double-well problem. This can be done via diagonalisation of the one-body 
-Hamiltonian in order to find a matrix of coefficients $\mathbf{C}$, that perform 
+Hamiltonian in order to find a matrix of coefficients $\mathbf{C}$, that performs
 this basis change,
 \begin{equation}
     \ket{\phi_q}_\text{DW} = \sum_p C_p \ket{\phi_p}_\text{HO},
@@ -708,20 +711,21 @@ where summation over same indices is assumed.
 \subsection{Two-Dimensional Magnetic Quantum dots}
 
 Extending the two-dimensional quantum dot to be under the influence of a 
-static, transverse magnetic field consitutes not much more than adding constant 
-terms to the one-body opertors. We are considering a system with 
-the following one-body hamiltonian, where an angular momentum term is added
+static, transverse magnetic field is only a matter of adding constant 
+terms to the one-body operators. We are now considering a system with 
+the following one-body hamiltonian, where an angular momentum term is added,
 \begin{equation}
     \label{eq:b_field_one_body}
     \hat{h} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\Omega^2\hat{r}^2 
         + \frac{\omega_c}{2}\hat{L}_z,   
 \end{equation}
 where $\Omega = \sqrt{\omega_0^2 + \frac{\omega_c^2}{4}}$ and $\omega_c$ is the 
-parameter dictating the strength of the magnetic field. We see that this Hamiltonian
+parameter dictating the strength of the magnetic field, the \emph{Larmor frequency}.
+We see that this Hamiltonian
 is the same as the normal two-dimensional quantum dot one-body Hamiltonian 
-(\autoref{eq:2d_ho_one_body_hamiltonian}) for $\omega_c = 0$ as $\Omega \to \omega_0$,
-which is the well potential frequency. Conversely, if the 
-magnetic field is infitinely strong we see that $\Omega \to \omega_c/2$ and 
+(\autoref{eq:2d_ho_one_body_hamiltonian}) for $\omega_c = 0$ as $\Omega \to \omega_0$.
+Conversely, if the 
+magnetic field is infinitely strong we see that $\Omega \to \omega_c/2$ and 
 \autoref{eq:b_field_one_body} becomes the one-body hamiltonian of a free electron in 
 a transverse magnetic field.
 
@@ -729,21 +733,22 @@ a transverse magnetic field.
 \input{implementation/doc/two_dim_dot_B.tex}
 \end{figure}
 
-The single-particle functions 
-(\autoref{eq:2d_ho_eigenstate}) with the adjusted Bohr radius $a=\sqrt{m\Omega/\hbar}$,
+The single-particle functions in
+\autoref{eq:2d_ho_eigenstate}, with the adjusted Bohr radius $a=\sqrt{m\Omega/\hbar}$,
 are also eigenfunctions of the angular momentum
-$L_z$ and the energy eigenvalues are simply
+$L_z$. The correspongin energy eigenvalues are simply
 \begin{equation}
     \label{eq:2d_b_eigenvalues}
     \epsilon_{nm} = \hbar\Omega(2n + |m| + 1) - \frac{\hbar\omega_c}{2}m.
 \end{equation}
 We see immediately that the energy undergoes a general shift due to the new $\Omega$
-which is dependent on $\omega_c$, but also that the energy shift of a particular shift 
-is dependent on the sign of the azimuthal quantum number $m$ for the given state. These 
+which is dependent on $\omega_c$, but also that the energy shift of a particular state 
+is dependent on the sign of the azimuthal quantum number $m$. These 
 factors will give different degeneracies, as illustrated in \autoref{fig:magnetic_spaghetti}.
 Such a plot of single-particle particle energies are sometimes referred to as the 
-Fock-Darwin spectrum\cite{fock1928bemerkung,darwin1931diamagnetism}.
-With this comes the challenge of sorting the one-body matrix elements correctly, 
+Fock-Darwin spectrum \cite{fock1928bemerkung,darwin1931diamagnetism}.
+With these new degeneracies that are depedenent on the Larmor frequency $\omega_c$,
+comes the challenge of sorting the one-body matrix elements correctly, 
 and ensuring that we keep a closed-shell structure.
 
 \begin{figure}
@@ -758,7 +763,7 @@ and ensuring that we keep a closed-shell structure.
 \end{figure}
 
 Notice in \autoref{fig:magnetic_spaghetti}, that there are lengthy intervals of 
-b-field strength were there is no degeneracy in the eigenenergies. Conversely, 
+$b$-field strength where there is no degeneracy in the eigenenergies. Conversely, 
 for certain specific field strengths there are very interesting shell structures with 
 diverse energies and new degeneracies. Such accidental bunching occurs 
 for $\omega_c/\omega=1/\sqrt{2}, 2/\sqrt{3}, 3/2, 4/\sqrt{5}\dots$.
