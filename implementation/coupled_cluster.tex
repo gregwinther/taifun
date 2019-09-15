@@ -21,11 +21,11 @@ dependent on its ground state counterpart, but the ground state solvers can be u
 independently.
 
 A complete diagrammatic class hierarchy of the \lstinline{coupled_cluster} module 
-can be found in \autoref{app:class_diagram}. This diagram also illustrates how 
-the \lstinline{coupled_cluster} modules fits into and works with the 
+can be found in \autoref{app:class_diagram}. This class hierarchy also illustrates how 
+the \lstinline{coupled_cluster} module fits into and works with the 
 \lstinline{quantum_systems} module.
 
-The \lstinline{coupled_cluster} module can be install from github via \lstinline{pip}
+The \lstinline{coupled_cluster} module can be installed from github via \lstinline{pip}
 by the following command,
 \begin{lstlisting}[language=bash]
 pip install git+https://github.com/Schoyen/coupled-cluster.git
@@ -57,7 +57,8 @@ can be found at \url{www.coupled-cluster.com}.
     state solvers necessary. We have implemented several ground state solvers; the
     \lstinline{CoupledClusterDoubles} and \lstinline{CoupledClusterSinglesDoubles} 
     are based on the theoretical framework from the Lagrangian formulation of Coupled 
-    Cluster, while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
+    Cluster theory (see \autoref{sec:lagrangian_cc}),
+    while \lstinline{OATDCCD} is a ground state version of an orbital-adaptive 
     ground state coupled cluster solver with double excitations. Moreover, we constructed 
     a data structure for the amplitudes in the \lstinline{AmplitudeContainer} class and 
     we have implemented two ``mixer'' classes that help with convergences of the ground
@@ -69,8 +70,9 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsection{Representation of Amplitudes}
 
-    The most central structure in any Coupled Cluster solver are the amplitudes. The 
-    amplitudes are what defines the true structure of the wavefunction as a linear 
+    The most central structure in any Coupled Cluster solver the way we represent
+    the amplitudes. The 
+    amplitudes are what define the true structure of the wavefunction as a linear 
     combination of single-particle functions contained in the reference state Slater 
     determinant. We have found it beneficial to implement a special container 
     class for the amplitudes, aptly called \lstinline{AmplitudeContainer}.
@@ -84,7 +86,9 @@ can be found at \url{www.coupled-cluster.com}.
     with scalars and vectors, and \lstinline{__iter__} is implemented to make 
     the class an iterable. In summary, the \lstinline{AmplitudeContainer} 
     functions as a fully operational data structure for amplitudes of coupled 
-    cluster solver, with both $\tau$ and $\lambda$ amplitudes.
+    cluster solver, with both $\tau$ and $\lambda$ amplitudes. The $\tau$-amplitudes
+    are first introduced in \ref{sec:cluster_operator} and the $\lambda$-amplitudes 
+    are introduced in \ref{sec:lagrangian_cc}. 
 
     \subsection{Coupled Cluster Base Class}
 
@@ -130,7 +134,7 @@ can be found at \url{www.coupled-cluster.com}.
     and \lstinline{compute_l_amplitudes}, which are supposed to contain the evaluation 
     of amplitude equations for a given coupled cluster truncation and scheme. 
 
-    With the hope that the functiunality of the rest of the methods 
+    With the hope that the functionality of the rest of the methods 
     in the abstract base class \lstinline{CoupledCluster} can be inferred from 
     name, and with the goal of brevity we proceed to a study of the simplest 
     ground state coupled cluster solver, namely CCD, implemented in the 
@@ -219,12 +223,14 @@ can be found at \url{www.coupled-cluster.com}.
         term -= term.swapaxes(2, 3)
         out += term
     \end{python}
-    This function particular computes the $D_{2e}$ diagram\footnote{After the labelling from 
-    \autoref{ch:coupled_cluster_theory} and Shavitt \& Bartlett\cite{shavitt2009many}}.
+    which is a function function for computing the $D_{2e}$ diagram\footnote{After the labelling from 
+    \autoref{ch:coupled_cluster_theory} and Shavitt and Bartlett\cite{shavitt2009many}}.
 
     Most of the rest of the methods in the \lstinline{CoupledClusterDoubles} class are there 
-    for the use of other methods, or for extracting observables. Moving to the next logical 
-    coupled cluster solver scheme.
+    for the use of other methods, or for extracting observables. We now proceed to the 
+    treatment of the logical expansion of the Coupled Cluster 
+    Doubles method, where we have included single excitations as well,
+    i.e. the Coupled Cluster Singles Doubles (CCSD) method.
 
     \subsection{Coupled Cluster Singles Doubles}
 
@@ -241,9 +247,10 @@ can be found at \url{www.coupled-cluster.com}.
     given here without specification of the methods as they are excactly the same. For testing 
     purposes, the \lstinline{CoupledClusterSingelsDoubles} class have the option 
     to only include double excitation at construction. The amplitude equations for 
-    the CCSD scheme is found by constructing the coupled cluster Lagrangian
+    the CCSD scheme are found by constructing the coupled cluster Lagrangian
     (\autoref{eq:cc_energy_lagrangian}) in \lstinline{sympy} and differentiating 
-    it symbolically. The resulting equations can be found in \autoref{app:ccsd_equations}.
+    it symbolically. These resulting equations written in full can be found
+    in \autoref{app:ccsd_equations}.
 
     \subsection{Orbital-Adaptive Coupled Cluster}
 
@@ -252,19 +259,20 @@ can be found at \url{www.coupled-cluster.com}.
     \end{figure}
 
     The algorithm applied when computing the ground state in the orbital-adaptive sphere 
-    is the nonorthogonal orbital-optimised coupled cluster (NOCC) method, developed by 
-    Myhre\cite{myhre2018demonstrating}. The NOCC scheme is shown to converge towards full
+    is the Non-orthogonal Orbital-optimised Coupled Cluster (NOCC) method, developed by 
+    Myhre \cite{myhre2018demonstrating}. The NOCC scheme is shown to converge towards full
     configuration interaction. Since the \lstinline{OACCD} class is acutally applying 
     NOCC it can be perceived as a misnomer, but as of yet there exist no ground state 
     equivalent of the time-dependent 
     orbital-adaptive coupled cluster (OACC) method. Such a method is in development, and there
-    is strong indication that NOCC would be equivalent to a OACC ground state solver. What is 
-    more, NOCC does vary the orbitals as well as iterate over amplitude, and we have therefore 
-    opted to call it OACC.
+    is strong indication that NOCC would be equivalent to a OACC ground state solver. 
+    What is more, in addition to solving some specialised amplitude equations iteratively in 
+    a way that is similar to a normal coupled cluster solver,
+    the NOCC method \emph{does} vary the orbitals, and we have therefore 
+    opted to call it the Orbital-Adaptive Coupled Cluster (OACC) method.
 
-    Our implementation of the NOCC ground state solver is inherited from code written by
-    \citeauthor{myhre2018demonstrating} and 
-    adapted to our 
+    Our implementation of the NOCC ground state solver is inherited from a code written by
+    Myhre \cite{myhre2018demonstrating} and adapted to our 
     framework. We supply a brief overview of the algorithm here. The starting point for the 
     NOCC model is the bivariational Lagrangian
     \begin{equation}
@@ -273,19 +281,19 @@ can be found at \url{www.coupled-cluster.com}.
             = \mel*{\tilde{\phi}}
                 {
                 (1 + \Lambda) e^{-\hat{T}}e^{-\kappa}\hat{H}e^{\kappa}e^{\hat{T}}
-                }{\phi}
+                }{\phi},
     \end{equation}
     which is very similar to the coupled cluster Lagrangian (\autoref{eq:cc_energy_lagrangian}),
     except for a biorthogonal basis and a transformation of the Hamiltonian, defined 
     as follows
     \begin{equation}
         \begin{aligned}
-            \tilde{c}_p^\dagger &= e^{-\kappa}\hat{c}_p^\dagger e^\kappa \\
-            c_p &= e^{-\kappa} \hat{c}_p^\dagger e^\kappa \\
-            \ket{\phi} &= e^{-\kappa}\ket*{\hat{\phi}}
+            \tilde{c}_p^\dagger &= e^{-\kappa}\hat{c}_p^\dagger e^\kappa, \\
+            c_p &= e^{-\kappa} \hat{c}_p^\dagger e^\kappa, \\
+            \ket{\phi} &= e^{-\kappa}\ket*{\hat{\phi}},
         \end{aligned}
     \end{equation}
-    where the orthogonal reference creation- and annihilation operators marked with a hat
+    where the orthogonal reference creation- and annihilation operators are marked with a hat
     ($\hat{\ }$), as is the reference state function. We require that $\kappa$ is antihermitian,
     \begin{equation}
         \kappa = \sum_{pq} \kappa_{pq}c^\dagger_p c_q, \quad \kappa^\dagger = -\kappa.
@@ -300,13 +308,15 @@ can be found at \url{www.coupled-cluster.com}.
     
     As in any many-body formulation that includes a Lagrangian, we would like to compute 
     the first-order conditions of the Lagrangian, in order to derive what would be the 
-    NOCC equation. The problem with this is that the result would be some extremely 
-    lengthy expressions, because $\kappa$ does not commute with $\hat{T}$ or $\Lambda$.
+    Non-orthogonal Orbital-optimised Coupled Cluster (NOCC) equation 
+    The problem with this is that the result would be some extremely 
+    lengthy expressions, because $\kappa$ does not commute with the cluster 
+    operators $\hat{T}$ and $\Lambda$.
     Therefore, we express the NOCC equations with an optimized basis where $\kappa=0$,
     where a solution would correspond to a stationary point of the Schrödinger equation.
     This is the same as expanding the exponentials in $\kappa$ and keeping only zero-order 
-    terms. This trick leads to an algorithm which iterates between orbital transformations 
-    and amplitudes until self-consistency.
+    terms. This trick leads to an algorithm which iterates over both orbital transformations 
+    and amplitude equations, switching between the two optimiser schemes, until self-consistency.
 
     At a particular stationary point the differential of the Lagrangian
     (\autoref{eq:nocc_lagrangian}) must be zero with respect to the four sets of 
@@ -336,7 +346,7 @@ can be found at \url{www.coupled-cluster.com}.
     \end{align}
     The first two equations, \autoref{eq:nocc_1} and \autoref{eq:nocc_2},
     are the Lagrangian Coupled Cluster stationary points, i.e. the $\tau$ 
-    amplitude equations and the $\lambda$ amplitude equations respectively. 
+    amplitude equations and the $\lambda$ amplitude equations, respectively. 
     The last two equations, \autoref{eq:nocc_3} and \autoref{eq:nocc_4},
     we call the $\kappa$ equations. These equations dictate the orbital rotations,
     and we have provided the full $\kappa$ equations for doubles excitations 
@@ -387,10 +397,10 @@ can be found at \url{www.coupled-cluster.com}.
     fuctionality for addition, multiplications and iteration. The \lstinline{OACCVector}
     class adds some components 
     that are very important to the orbital-adaptive Coupled Cluster schemes, namely 
-    the coefficient matrices that defines the orbital rotations, $\vb{C}$ for the 
+    the coefficient matrices that define the orbital rotations, $\vb{C}$ for the 
     ket-side state vectors and $\tilde{\vb{C}}$ for the bra-side state vectors. This class 
     would also function as a regular \lstinline{AmplitudeContainer} by setting the 
-    coefficient matrices equation to the unity operator.
+    coefficient matrices equation to equal the unity operator.
     
 \subsection{Mixing of Amplitude Vectors}
 
@@ -400,7 +410,7 @@ can be found at \url{www.coupled-cluster.com}.
     where generalisations of the variational theory dictate inifitesimal variations, which 
     is not always feasible to implement.
     Moreover, an iterative optimisation scheme may not always converge properly at all. 
-    Luckily, there exists numerous techniques both for controlling and accelerating 
+    Luckily, there are numerous techniques both for controlling and accelerating 
     convergence.
 
     \subsubsection{Alpha mixer}
@@ -410,7 +420,7 @@ can be found at \url{www.coupled-cluster.com}.
     \end{figure}
 
     The simplest way to ``massage'' convergence out of the coupled cluster ground state methods
-    to use a dampening, where one would include a part of the result from the previous 
+    is to use a dampening, where one would include a part of the result from the previous 
     iteration, here applied to the $\tau$ amplitudes,
     \begin{equation}
         \bar{\tau}^{(k+1)} = (1 - \theta)\tau^{(k+1)} + \theta\tau^{(k)},
@@ -429,10 +439,10 @@ can be found at \url{www.coupled-cluster.com}.
     \end{figure}
 
     A more sophisticated method to aid in convergence, and perhaps the most popular,
-    is by performing a direct inversion of iterative subspace (DIIS). The DIIS method 
-    is built to accelerate the quasi-Newton method, an we will necesarily outline the 
+    is by performing a direct inversion of the iterative subspace (DIIS). The DIIS method 
+    is built to accelerate the quasi-Newton method, and we will outline the 
     quasi-Newton before we examine DIIS, which is explained in Helgaker et 
-    al.\cite{helgaker2014molecular}.
+    al. \cite{helgaker2014molecular}.
 
     The commutator of Fock operator with the cluster operator is generally
     \begin{equation}
@@ -487,7 +497,7 @@ can be found at \url{www.coupled-cluster.com}.
     The quasi-Newton method is fairly robust, but the convergence may be improved 
     significantly by introducing DIIS.
 
-    In the DIIS framework\cite{pulay1980convergence}, the new amplitudes 
+    In the DIIS framework \cite{pulay1980convergence}, the new amplitudes 
     $\tau^{(n+1)}$ are obtained by a linear interpolation among the previous 
     estimates of the amplitudes,
     \begin{equation}
@@ -562,7 +572,7 @@ can be found at \url{www.coupled-cluster.com}.
     integrators separately in the next section.
 
     The bare minimum that a time-dependent coupled cluster scheme needs to implement 
-    in order to function is the methods \lstinline{rhs_t_amplitudes()} and 
+    in order to function are the methods \lstinline{rhs_t_amplitudes()} and 
     \lstinline{rhs_l_amplitudes()}, which should return the right-hand side of 
     the amplitude equations. These methods should be integrated as generators, to make 
     it possible to iterate over them, and should yield the amplitudes in order of 
@@ -614,7 +624,7 @@ can be found at \url{www.coupled-cluster.com}.
     solver. For the sake of brevity, we present only the TDCCSD here as their appearance 
     would be nearly identical. 
     The \lstinline{TDCCSD} class, a sub-class of \lstinline{TimeDependentCoupledCluster},
-    inheriting all methods from this super-class. It accepts the same parameter as the super-class, except the 
+    inherits all methods from this super-class. It accepts the same parameter as the super-class, except the 
     parameter that defines the ground state solver to be used - the \lstinline{CoupledCluster}
     class implementation. The ground state solver is already decided by the level of 
     excitation for the computation at hand. All parameters are passed to the constructor 
@@ -651,7 +661,7 @@ can be found at \url{www.coupled-cluster.com}.
             +  \braket*{\Psi(t')}{\tilde{\Psi}(t)}  \right)
     \end{equation}
     according to the definitions of the \emph{indefinite} innerproduct by
-    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}. 
+    Pedersen and Kvaal \cite{pedersen2019symplectic}. 
     Here we would set $t'=0$, because we are
     interested in the ground state overlap, translating to the state before developement 
     in time.
@@ -776,9 +786,10 @@ can be found at \url{www.coupled-cluster.com}.
 
     \subsubsection{Disappearing RHS of Q-space equations.}
 
-    A necessary additon to an orbital-adaptive time-dependent coupled cluster framework 
+    A necessary addition to an orbital-adaptive time-dependent coupled cluster framework 
     is the computation of $P$- and $Q$-space equations. The $Q$-space equations can 
-    be simplified substatially, because they equate to zero for an infinite basis. 
+    be simplified substantially, because almost all the terms disappear for an 
+    untruncated basis. 
     We will show this now, starting with \autoref{eq:oatdccd_q_1},
     \begin{equation}
         i\hbar\sum_q \rho^q_p Q \frac{\partial}{\partial t} \ket{\varphi_q} 
@@ -792,7 +803,7 @@ can be found at \url{www.coupled-cluster.com}.
         - \sum_{qrs} \rho^{qs}_{pr} W^r_s
             \sum_t \ket{\varphi_t}\braket{\tilde{\varphi}_t}{\varphi_q}.
     \end{equation}
-    If we assume an infinite orthogonal basis, we have 
+    If we assume a complete orthogonal basis, we have 
     \begin{equation*}
         \sum_t \dyad{\varphi_t}{\tilde{\varphi}_t}\ket{\varphi_q} = \hat{1},
     \end{equation*}
@@ -817,7 +828,7 @@ can be found at \url{www.coupled-cluster.com}.
         \dot{C}^\alpha_p &= \sum_s C^\alpha_s \eta^s_p,
         \end{aligned}
     \end{equation}
-    which we rewrite more nicely on einsten summation form,
+    which we rewrite more nicely using Einstein summation,
     \begin{equation}
         \dot{\vb{C}} = \vb{C}\eta^p_q.
     \end{equation}
@@ -825,22 +836,23 @@ can be found at \url{www.coupled-cluster.com}.
     \begin{equation}
        \dot{\tilde{\vb{C}}} = -\eta^p_q\tilde{\vb{C}}.
     \end{equation}
-    We see that the $Q$ space equation has provided us with equations that 
+    We see that the $Q$ space equations
     describe the time propagation of the orbitals through the coefficient 
     matrices $\vb{C}$ and $\tilde{\vb{C}}$. These equations are valid 
-    for all excitations levels of orbital-adaptive time-dependent coupled cluster
-    (OATDCC), and have been implemented 
+    for all excitation levels of the Orbital-Adaptive Time-Dependent Coupled Cluster
+    (OATDCC) method, and have been implemented 
     in the new abstract class \lstinline{OATDCC}.
 
     We see that $\eta^p_q$ is the only thing needed in order to compute the 
     coefficient matrices which dictate the orbital time propagation. We get $\eta^p_q$
     from the $P$-space equations. Since the $P$-space equations will be different for 
-    each level of sophistication we move onto a treatment of \lstinline{OATDCCD}.
+    each level of sophistication we move onto a treatment of 
+    the implementation of the \lstinline{OATDCCD} class.
 
     \subsubsection{P-space equations in OATDCCD} 
 
-    The P-space equations for the orbital-adaptive time-dependent coupled cluster 
-    doubles (OATDCCD) scheme are nothing more than a series of tensor contractions,
+    The P-space equations for the Orbital-Adaptive Time-Dependent Coupled Cluster 
+    Doubles (OATDCCD) scheme are nothing more than a series of tensor contractions,
     given by \autoref{eq:oatdccd_p_1} and \autoref{eq:oatdccd_p_2}, restated here.
     \begin{align*}
     i\hbar\sum_{bj}A^{ib}_{aj} \eta^j_b
@@ -861,13 +873,13 @@ can be found at \url{www.coupled-cluster.com}.
     Now we have everything we need in order to iterate over the OATDCCD equations of 
     motion.
 
-    In the outmost briefness, for each iteration, i.e. for each 
+    For each iteration, i.e. for each 
     \lstinline{Integrator.step()} advance, we 
     compute the right hand side of the OATDCCD equations, \autoref{eq:oatdccd_tau} 
     and \autoref{eq:oatdcc_lambda}, providing us with new amplitudes 
     $\lambda^{ij}_{ab}$ and $\tau^{ab}_{ij}$. These can be used to compute density 
     matrices, which in turn can be used to find $\eta^p_q$ from the $P$-space 
-    equations. These will gives us the time-development or the orbitals in 
+    equations. These will gives us the time-development of the orbitals in 
     the form of coefficient matrices $\vb{C}$ and $\tilde{\vb{C}}$, which are used 
     to update the one- and two-body parts of the Hamiltonian $\hat{h}$ and $\hat{u}$,
     respectively.
@@ -911,12 +923,12 @@ can be found at \url{www.coupled-cluster.com}.
             &\ + \text{six more terms}.
         \end{aligned}
     \end{equation}
-    With static orbital, only terms that have the same number of excitations and relaxations would 
+    With static orbitals, only terms that have the same number of excitations and relaxations would 
     give a contribution to the final result. Now, because the orbitals have evolved in time, 
     we don't have the same orthogonal properties that would cancel the other terms. Because we must 
     include \emph{everything} it becomes unfeasible to compute the time-dependent overlap in the 
     orbital-adaptive scheme. The computation cost would scale at the same level as direct diagonalisation 
-    methods does, i.e. full configuration interaction schemes.
+    methods does, i.e. Full Configuration Interaction (FCI) schemes.
 
 \subsection{Integrators and ODE Solvers}
 
@@ -925,8 +937,8 @@ can be found at \url{www.coupled-cluster.com}.
     \end{figure}
 
     Most, if not all, physical systems that evolve in time can be described 
-    as set of equations that we call the equations of motion. These can be usually 
-    be formulated as a single- or a set of ordinary differential equations written 
+    as set of equations that we call the equations of motion. These can 
+    be formulated as a single or a set of ordinary differential equations written 
     on the abstract form
     \begin{equation}
         \label{eq:general_ode}
@@ -946,13 +958,13 @@ can be found at \url{www.coupled-cluster.com}.
     which we have reformulated to be on the standard form as \autoref{eq:general_ode}.
  
     In any numerical scheme, the ODE defining our problem will be discretised, such 
-    that the inital value problem \autoref{eq:general_ode} becomes the following 
+    that the initial value problem \autoref{eq:general_ode} becomes the following 
     \begin{equation}
         u_{n+1} = u_n + hf(u_n, t_n), \quad u(t_0) = u_0,
     \end{equation}
     where $h$ is some small time step, $t_{n+1} = t_n + h$. We see that the equation(s) at 
-    hand is solve in steps and the most important method of an implementation of any integrator 
-    scheme will be the method defining how one would step from one point to the next. 
+    hand is (are) solved in \emph{steps}. The most important method of an implementation of any integrator 
+    scheme will be the method defining how one would \emph{step} from one point to the next. 
  
     We have already derived the equations of motions for several coupled 
     cluster frameworks\footnote{TDCC:\autoref{eq:tdcc_tau} and
@@ -1008,7 +1020,7 @@ can be found at \url{www.coupled-cluster.com}.
 
     We have implemented the fourth-order Runge-Kutta method in the class
     \lstinline{RungeKutta4}. This is the most common of the Runge-Kutta method, and is 
-    often sometimes referred to as simply ``the Runge-Kutta method''. 
+    often referred to as simply ``the Runge-Kutta method''. 
 
     A step of size $h$ in the fourth order Runge-Kutta method is defined by 
     \begin{equation}
@@ -1041,11 +1053,12 @@ can be found at \url{www.coupled-cluster.com}.
     \end{figure}
 
     The Runge-Kutta method, as described above, will be unstable for most systems
-    becuase of its inability to preserve structure and energy of the system. It is 
+    because of its inability to preserve the structure and the energy of the system.
+    It is 
     necessary to apply an integrator which is both structure-preserving and 
     symplectic.
-    We have inherited code used by 
-    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} and have 
+    We have inherited a code used by 
+    Pedersen and Kvaal \cite{pedersen2019symplectic} and have 
     adapted it to our framework. Nevertheless, we give a brief overview of 
     its inner mechanics here.
 
@@ -1056,7 +1069,7 @@ can be found at \url{www.coupled-cluster.com}.
     defining an equidistant grid of $N$ points on the interval $[a,b]$,
     where the grid points $x_n$ are given by 
     \begin{equation}
-        x_n = a + nh
+        x_n = a + nh,
     \end{equation}
     where $h = (b - a)/N$, with index $n\in[0, N]$. A quadrature rule is commonly stated 
     as a weighted sum of function values at specified points. 
@@ -1135,11 +1148,11 @@ can be found at \url{www.coupled-cluster.com}.
     \end{equation*}
     and $\omega(x)$ is the weight function. $\omega(x) = 1$ when Legendre polynomials
     are used in the Gauss quadrature. This efficient way of arriving at weights and 
-    nodes is called the Golub-Welsh algorithm\cite{golub1969calculation}.
+    nodes is called the Golub-Welsh algorithm \cite{golub1969calculation}.
    
     Generally, a quadrature method is not used to compute the solution to ODEs, but we 
     adapt it to a Runge-Kutta solver in the way explained in 
-    \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}. A general 
+    Pedersen and Kvall \cite{pedersen2019symplectic}. A general 
     implicit $s$-stage Runge-Kutta method is defined by 
     \begin{align}
         u_{n+1} = u_n + h\sum_{i=1}^s x_i f(u_n + Z_{ij}, t_n + w_i h), \\
@@ -1165,7 +1178,7 @@ can be found at \url{www.coupled-cluster.com}.
     \end{equation}
     The initial guess is crucial to the convergence speed of the method. We have 
     employed guess (A) scheme described in section VIII.6.1 of
-    Ref.\cite{hairer2006geometric}.
+    Ref. \cite{hairer2006geometric}.
 
     For the user of the Gauss integrator, the experience will be much more pleasant 
     than dealing with the derivations of the method, because its opeartion
