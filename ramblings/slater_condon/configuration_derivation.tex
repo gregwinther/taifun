@@ -23,12 +23,12 @@ from the coupled cluster ansatz,
         + \sum_{\substack{i>j \\ a>b}} \bra{ij} \ket{ab}t^{ab}_{ij}.
     \end{aligned}
 \end{equation}
-The energy expression will truncate here because no higher order terms will contribute.
+The energy expression will truncate here because no higher-order terms will contribute.
 It is common to substract $E_{\text{ref}}$ to get,
 \begin{equation}
     \hat{H}_N \Psi_{\text{CCD}} = \Delta E_{\text{CCD}} \Psi_{\text{CCD}},
 \end{equation}
-where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Here follows definitions of 
+where $\hat{H}_N = \hat{H} - E_{\text{ref}}$. Here follow the definitions of 
 all the operators we will be dealing with in this derivation,
 \begin{equation}
     \hat{H}_N = \hat{F} - \hat{U} + \hat{H}_2 - E_{\text{ref}}
@@ -55,9 +55,9 @@ Starting from the modified Schrödinger equation,
 \end{equation}
 We left project with a doubly-excited Slater determinant, and insert for the CC ansatz,
 \begin{gather}
-    \bra{\Phi^{ab}_{ij}} \hat{H}_N e^{\hat{T}_2} \ket{\Phi_0} 
-        = \Delta E_{\text{CCD}} \bra{\Phi^{ab}_{ij}} e^{\hat{T}_2} \ket{\Phi_0} \\
-    \bra{\Phi^{ab}_{ij}} 
+    \bra*{\Phi^{ab}_{ij}} \hat{H}_N e^{\hat{T}_2} \ket{\Phi_0} 
+        = \Delta E_{\text{CCD}} \bra*{\Phi^{ab}_{ij}} e^{\hat{T}_2} \ket{\Phi_0} \\
+    \bra*{\Phi^{ab}_{ij}} 
         \hat{H}_N \left(1 + \hat{T}_2 + \frac{1}{2}\hat{T}^2_2\right) \ket{\Phi_0}
         = \Delta E_{\text{CCD}} t^{ab}_{ij}. \label{eq:ccd_amplitude}
 \end{gather}
@@ -65,14 +65,14 @@ Here we have only expanded the exponential function up to the quadratic term. Th
 term in the series will triple-excite the bra Slater determinant, which will give a
 zero-contribution according to the Slater-Condon rules, because of two noncoincidences. Next we apply the Slater-Condon rules to the rest of the terms on the right-hand side, starting with just the normal-ordered Hamiltonian,
 \begin{equation}
-    \bra{\phi^{ab}_{ij}} \hat{H}_N \ket{\Phi_0} = \bra{ab} \ket{ij},
+    \bra*{\phi^{ab}_{ij}} \hat{H}_N \ket{\Phi_0} = \bra{ab} \ket{ij},
 \end{equation}
 where only $\hat{H}_2$ contributes.
 
 Next we look at the linear term,
 \begin{equation}
     \begin{aligned}
-    \bra{\Phi^{ab}_{ij}} &\hat{H}_N \hat{T}_2 \ket{\Phi_0} 
+    \bra*{\Phi^{ab}_{ij}} &\hat{H}_N \hat{T}_2 \ket{\Phi_0} 
         = \sum_{klcd} \bra{\phi^{ab}_{ij}} \hat{H}_N \ket{\phi^{cd}_{kl}} \\
     &= \bra{\Phi^{ab}_{ij}} \hat{H}_0 - E_{\text{ref}} \ket{\Phi^{ab}_{ij}}t^{ab}_{ij}
         + \sum_{\substack{k>l \\ c>d}} 
@@ -150,9 +150,9 @@ CID is the following extra quadratic terms,
         = \frac{1}{2} \sum_{\substack{k>l \\ c>d}} \sum_{\substack{m>n \\ e>f}}
             \bra{\phi^{ab}_{ij}} \hat{H}_N \ket{\Phi^{cdef}_{klmn}}t^{cd}_{kl}t^{ef}_{mn}.
 \end{equation}
-From this expression we will have a contrition only when four of the indices $k$, $l$,
-$m$, $n$, $c$, $d$, $e$, $f$ are equal to $i$, $j$, $a$, $b$, and only $\hat{H}_2$
-can contribute. After some algebraic acrobatics we'll find that this becomes
+From this expression we will have a contribution only when four of the indices $k$, $l$,
+$m$, $n$, $c$, $d$, $e$, $f$ are equal to $i$, $j$, $a$, $b$; and only $\hat{H}_2$
+can contribute. We will find that this becomes,
 \begin{equation}
     \label{eq:quad_term}
     \begin{aligned}
@@ -171,7 +171,7 @@ From \autoref{eq:ccd_energy} we see that
 \end{equation}
 and because the indices in \autoref{eq:quad_term} are dummy variables we see that
 the first term here cancels with the right-hand side of \autoref{eq:ccd_amplitude}.
-Some algebraic massage after the initial acrobatic exercises leads to,
+This leads to,
 \begin{equation}
     \begin{aligned}
     \varepsilon^{ab}_{ij}t^{ab}_{ij}
