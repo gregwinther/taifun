@@ -4,9 +4,9 @@
 The aim of this thesis was to develop and test numerical methods for 
 solving the time-dependent Schrödinger equation. In particular, we 
 wanted to develop the Orbital Adaptive Time-Dependent Coupled Cluster 
-(OATDCC) method introduced by \citeauthor{kvaal2012ab}\cite{kvaal2012ab}.
+(OATDCC) method introduced by \citeauthor{kvaal2012ab} \cite{kvaal2012ab}.
 
-We can with confidence say that this endevour has been succesful.
+We can with confidence say that this endeavour has been succesful.
 We have implemented both 
 a time-depedent Coupled Cluster Singles Doubles (TDCCSD) solver with 
 static orbitals and an \emph{Orbital Adaptive} Time-Dependent Coupled Cluster 
@@ -17,23 +17,23 @@ and \lstinline{coupled_cluster}.
 
 With these methods we have have managed to produce 
 many results found in the existing literature on time-dependent ab initio 
-many-body solvers. This includes a reproduction of the instantaneous dipole 
-of $H_2$ from \citeauthor{li2005time}\cite{li2005time}, the time-dependent 
+many-body solvers. This includes a reproduction of the instantaneous dipole moment
+of $H_2$ from \citeauthor{li2005time} \cite{li2005time}, the time-dependent 
 ground state probability of a one-dimensional quantum dot from 
-\citeauthor{Zanghellini04}\cite{Zanghellini04}, the dipole spectrum of 
-helium from \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}
+\citeauthor{Zanghellini04} \cite{Zanghellini04}, the dipole spectrum of 
+helium from Pedersen and Kvaal \cite{pedersen2019symplectic}
 and the ionisation of a one-dimensional model of beryllium from 
-\citeauthor{miyagi2013time}\cite{miyagi2013time}.
+Miyagi and Madsen \cite{miyagi2013time}.
 
 We have been able to compute the time-development 
 of a relatively high number of particles, up to $n=12$ electrons in one- and
-two-dimensional quantum dots. This stands as a testimony to the robustment 
+two-dimensional quantum dots. This stands as a testimony to the capabilities
 of our implementations. For ever-increasing basis set size we have produced 
 time-dependent results that converge, adding to the confidence in the results.
-The results relating to the quantum dots are in accordance with the 
+The results relating to quantum dots are in accordance with the 
 results one would expect from theory. Specifically, in both one-dimensional 
 and two-dimensional quantum dots we have shown that the harmonic potential 
-theorem\cite{kohn1961cyclotron} holds - the dipole spectrum of quantum 
+theorem \cite{kohn1961cyclotron} holds - the dipole spectrum of quantum 
 dots consists of only one line consistent with the oscillator frequency in 
 ordinary harmonic quantum dots. For the two-dimensional double dot system,
 we also see only one spectral line, but a shift in frequency. By adding a homogenous,
@@ -45,14 +45,15 @@ In assesment of the time-dependent coupled cluster method with static orbitals,
 we found that the solver struggles to correctly represent the current state if 
 the system progresses too far away from the inital reference state. As such the 
 method is not a method that one can trust blindly, as it returns
-inaccurate results in these situations. This phenomenon manisfests most clearly as 
-non-sensical ground state overlap values, but also as exceedingly high amplitude 
-values. The orbital-adaptive solver will remedy this problem, but has a drawback 
+inaccurate results in these situations. This phenomenon shows most clearly as 
+ground state overlap values that are clearly unreasonable, but also as exceedingly
+high amplitude values.
+The orbital-adaptive solver remedies this problem, but has a drawback 
 in that it cannot feasibly produce inner products of two states in time, and therefore 
 is unable to compute time-dependent ground state probabilities.
 
 This study, with the addition of the study by \citeauthor{islandwind2019}\cite{islandwind2019},
-have only scratched the surface with regards to the cornucopia of results that our 
+has only scratched the surface with regards to the cornucopia of results that our 
 code base is able to produce. The reason for this is for the most part attributed to 
 the time spent in development and the amount in wall clock time necessary to 
 produce the results herein. A challenge with time-dependent studies is the 
@@ -69,7 +70,13 @@ limit? We can for instance imagine that the orbital-adaptive scheme yields equiv
 results compared to the static-orbital method for a lower number of spin-orbitals,
 because of the automatic adaption to the current state that an orbital adaption 
 provides. A study is in preparation for publication which seeks to stress-test
-the orbital-adaptive method\cite{islandwind2019numerically}.
+the orbital-adaptive method \cite{islandwind2019numerically}.
+
+The inclusion of triples amplitudes in order to develop a Time-Dependent Coupled Cluster Singles 
+Doubles Triples (TDCCSDT) algorithm and an Orbital-Adaptive Time-Dependent Coupled Cluster 
+Doubles Triples (OATDCCDT) algororithm would be a logical step to take, and would be of 
+immense interest. Building an orbital-adaptive method with triples would be a tremendous 
+complication, at least to the orbital equations.
 
 As of now, the apparatus we have manufactured can easily be used to model 
 the time-dependent behaviour of additional systems. In fact, one could even 
@@ -77,30 +84,48 @@ easily argue that the complete investigation of the systems we have implemented
 ourselves in \lstinline{quantum_dots} is far from over. We have already begun
 the implementation of a smoother two-dimensional double well potential, as well as 
 more interesting well potentials such as the double double dot 
-from \citeauthor{nielsen2012configuration}\cite{nielsen2012configuration}. Another 
-idea is the construction of potential that are not circular-symmetric.
-That said, we regrattably only had time to study \emph{one} of the
+from \citeauthor{nielsen2012configuration} \cite{nielsen2012configuration}. Another 
+idea is the construction of potentials that are not circular-symmetric.
+That said, we regrettably only had time to study \emph{one} of the
 \emph{five} potentials we have implemented for the one-dimensional quantum dot.
 The addition of a three-dimensional quantum dot system would also be essential 
 in any further studies. Here, the integral elements provided by
-\citeauthor{vorrath2003electronic}\cite{vorrath2003electronic} would be useful.
+Vorrath and Blümel \cite{vorrath2003electronic} would be useful.
 
 We would also like to see the addition of more exotic terms to the Hamiltian in the 
-quantum dot systems. We think it would not be too difficult to add a spin-operator 
+quantum dot systems. We think it would not be too difficult to add spin-operator 
 terms $\hat{S}_x$, $\hat{S}_y$, $\hat{S}_z$, spin-spin coupling terms
 $\hat{S}\cdot\hat{S}$, and spin-orbit
-coupling terms $\hat{J}^2$, $\hat{L}\cdot\hat{S}$. We belive that these would provide 
-very interesting results and enables us to model more resplendent physical effects. We are 
+coupling terms $\hat{J}^2$, $\hat{L}\cdot\hat{S}$. We believe that these would provide 
+very interesting results and enables us to model richer and more interesting physical
+effects. We are 
 confident that the 
 mere addition of a $\hat{S}_z$ operator would enable us to see Zeeman splitting in 
 the dipole spectrum of quantum dots, for instance. Eventually, one could hope to 
 implement much more complicated operators, such as quantum logic gates, with the 
-hope of consequent simulation of quantum circuitry.
+hope of consequent simulations of quantum gates.
 
-Richer physics can also be modelled by the implementation of higher order 
-multi-pole terms for the oscillating laser field. Moving beyond the allowed transitions
-dictated by the dipole approximation could yield interesting results.
+In their seminal article, \citeauthor{loss1998quantum} \cite{loss1998quantum} propose 
+an implementation of a universal set of one- and two-quantum-bit gates for quantum
+computation using the spin states of coupled single-electron quantum dots. The framework 
+that we have built as part of this thesis together with \citeauthor{islandwind2019}, 
+can readily be adjusted to be able to simulate such systems in time.
 
-Currently, an article is in preparation for publication that rely on the 
+We should highlight the study of nuclear matter, which was the original area 
+of application for the coupled cluster method, as an area of great interest. With 
+a time-devependent coupled cluster method, as we have built, one could potentially be able
+to simulate  
+nuclear reactions such as fission and fusion processes, a feat that would be of 
+tremendous value.
+
+In this study we have implemented the dipole approximation of a laser field to function 
+as a time-development operator. 
+Richer physics can be modelled by the implementation of higher order 
+multi-pole terms for such an oscillating laser field. Moving beyond the allowed transitions
+dictated by the dipole approximation could potentially yield very interesting results.
+
+Currently, an article is in preparation for publication that relies on the 
 software we have developed and the results we have arrived at in this thesis;
-\citeauthor{kristiansen2019time}\cite{kristiansen2019time}.
+see \citeauthor{kristiansen2019time} \cite{kristiansen2019time}.
+
+\clearemptydoublepage
