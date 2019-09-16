@@ -22,6 +22,19 @@ units can be found in \autoref{sec:atomic_units}.
 
 \section{Instantaneous dipole in $H_2$}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/li_compare.png}
+    \caption{Instantaneous dipole for $H_2$ in an oscillating electric field
+        of intensity $E_\text{max} = 0.07 \text{ a.u.}$ 
+        and frequency $\omega=0.1 \text{ a.u.}$, corresponding to
+        $1.72\times10^14 \text{ W cm}^{-2}$ and $456\text{ nm}$, respectively.
+        The \lstinline{6-311++G(d,p)}
+        basis set has been used.
+    }
+    \label{fig:li_compare}
+\end{figure}
+
 \citeauthor{li2005time} \cite{li2005time} employ a time-dependent Hartree-Fock 
 approach in order to study the electronic optical response of molecules 
 in intense fields. To be specific, they model the hydrogen molecule $H_2$ 
@@ -91,47 +104,8 @@ and the result of the orbital-adaptive coupled cluster method with double excita
 are shown in the middle subfigure. We see that there is no perceptible difference between 
 the results of the three methods.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\textwidth]{results/figures/li_compare.png}
-    \caption{Instantaneous dipole for $H_2$ in an oscillating electric field
-        of intensity $E_\text{max} = 0.07 \text{ a.u.}$ 
-        and frequency $\omega=0.1 \text{ a.u.}$, corresponding to
-        $1.72\times10^14 \text{ W cm}^{-2}$ and $456\text{ nm}$, respectively.
-        The \lstinline{6-311++G(d,p)}
-        basis set has been used.
-    }
-    \label{fig:li_compare}
-\end{figure}
-
 
 \section{Ground State Probability in 1D Quantum Dot}
-
-\citeauthor{Zanghellini04} \cite{Zanghellini04} calculate the time development of a 
-one-dimensional quantum dot with two electrons using the Multi-Configuration 
-Time-Dependent Hartree-Fock method (MCTDHF). This method yields exact results for 
-a very large number of configurations $\eta$. This study would provide a 
-proper benchmark for our implementation because the coupled cluster method with singles and 
-doubles excitations (CCSD) is exact for $n=2$ particles. 
-The harmonic oscillator potential applied in
-their study had a frequency of $\Omega=0.25 \text{ a.u.}$, used a strong laser-like field with 
-maximum intensity of $\vb{E}_\text{max} = 1 \text{ a.u.}$ and a laser frequency of
-$\omega = 8 \Omega = 2 \text{ a.u.}$
-The oscillating field is described much more simply than in
-\citeauthor{li2005time} \cite{li2005time}, using a simple sine function,
-\begin{equation}
-    \vb{e}(t) = \vb{E}\sin(\omega t),
-\end{equation}
-where the envelope $\vb{E}$ does not vary in time.
-
-\citeauthor{Zanghellini04} \cite{Zanghellini04} find that their multi-configurational time-dependent
-Hartree-Fock scheme convergences as the number of configurations is 
-$\eta \geq15$, up to the resolution of their figures.
-We are able to reproduce this result precisely by employing the 
-time-dependent coupled cluster method with singles and double excitations (TDCCSD).
-We have used our own one-dimensional quantum dot class, \lstinline{ODQD}, with 
-a harmonic potential and $l=20$ spin-orbitals
-in the basis set for this simulation.
 
 \begin{figure}
     \centering
@@ -160,6 +134,32 @@ in the basis set for this simulation.
         figure 2 of \citeauthor{Zanghellini04} \cite{Zanghellini04}.
     }           
 \end{figure}
+
+\citeauthor{Zanghellini04} \cite{Zanghellini04} calculate the time development of a 
+one-dimensional quantum dot with two electrons using the Multi-Configuration 
+Time-Dependent Hartree-Fock method (MCTDHF). This method yields exact results for 
+a very large number of configurations $\eta$. This study would provide a 
+proper benchmark for our implementation because the coupled cluster method with singles and 
+doubles excitations (CCSD) is exact for $n=2$ particles. 
+The harmonic oscillator potential applied in
+their study had a frequency of $\Omega=0.25 \text{ a.u.}$, used a strong laser-like field with 
+maximum intensity of $\vb{E}_\text{max} = 1 \text{ a.u.}$ and a laser frequency of
+$\omega = 8 \Omega = 2 \text{ a.u.}$
+The oscillating field is described much more simply than in
+\citeauthor{li2005time} \cite{li2005time}, using a simple sine function,
+\begin{equation}
+    \vb{e}(t) = \vb{E}\sin(\omega t),
+\end{equation}
+where the envelope $\vb{E}$ does not vary in time.
+
+\citeauthor{Zanghellini04} \cite{Zanghellini04} find that their multi-configurational time-dependent
+Hartree-Fock scheme convergences as the number of configurations is 
+$\eta \geq15$, up to the resolution of their figures.
+We are able to reproduce this result precisely by employing the 
+time-dependent coupled cluster method with singles and double excitations (TDCCSD).
+We have used our own one-dimensional quantum dot class, \lstinline{ODQD}, with 
+a harmonic potential and $l=20$ spin-orbitals
+in the basis set for this simulation.
 
 In \autoref{fig:zanghellini_fig1} we see the ground state electron density for the 
 ground state wavefunction computed with CCSD. \citeauthor{Zanghellini04} computed the electron
@@ -198,6 +198,20 @@ For hydrogen this basis set amounts to five orbitals in total. See chapter 5 in
 \citeauthor{jensen2017introduction} \cite{jensen2017introduction}for a thorough
 overview of quantum chemistry basis sets.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
+    \caption{Dipole spectrum of helium computed with OATDCCD. The intensity of the 
+        spectral lines is in relative dimensionless units.
+        The ground state of the system is excited by 
+        an oscillating field with strength $E_\text{max} = 10\text{ a.u.}$ and 
+        frequency $\omega = 2.8736 \text{ a.u.}$ for $t_d = 5 \text{ a.u.}$ The
+        system is developed in time for a total of $T = 1500 \text{ a.u.}$
+        A \lstinline{cc-pVDZ} basis set has been used in the simulation. 
+    }
+    \label{fig:helium_spectrum}
+\end{figure}
+
 % \omega=2.8735643 \text{ au}
 In their study Pedersen and Kvaal \cite{pedersen2019symplectic} use an oscillating field with 
 frequency $\omega=2.8736 \text{ a.u.}$ and maximum intensity
@@ -216,20 +230,6 @@ where $H$ is the Heaviside step function designed to return zero when the field
 has reached its designated halting time $t_d$. This envelope is similar in behaviour 
 to the one in the study by \citeauthor{li2005time} \cite{li2005time} - it 
 increaes gradually at first, and then gradually decreases. 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
-    \caption{Dipole spectrum of helium computed with OATDCCD. The intensity of the 
-        spectral lines is in relative dimensionless units.
-        The ground state of the system is excited by 
-        an oscillating field with strength $E_\text{max} = 10\text{ a.u.}$ and 
-        frequency $\omega = 2.8736 \text{ a.u.}$ for $t_d = 5 \text{ a.u.}$ The
-        system is developed in time for a total of $T = 1500 \text{ a.u.}$
-        A \lstinline{cc-pVDZ} basis set has been used in the simulation. 
-    }
-    \label{fig:helium_spectrum}
-\end{figure}
 
 The oscillating field is only meant to ``disturb'' the ground state of the atom,
 as it is quickly 
@@ -299,16 +299,6 @@ coupled cluster doubles method (OATDCCD).
 The results of the simulations are shown in 
 \autoref{fig:miyagi_fig4}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{results/figures/miyagi/fig4_miqyagi.png} 
-    \caption{Snapshots of the dimensionless electron density $\rho(x, t)$ in the 1D beryllium atom 
-        at $t=0$, $t=T/2$ and $T$, where $T = 331 \text{ a.u.}$,
-        computed with TDCCSD and OATDCCD. 
-    }
-    \label{fig:miyagi_fig4}
-\end{figure}
-
 In the top subfigure in \autoref{fig:miyagi_fig4} we see the electron density before 
 the system is developed in time, and the two methods are in good agreement. In 
 the middle subfigure the simulation is halfway through its course and the two methods
@@ -323,11 +313,12 @@ some light on why the TDCCSD method fails.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{results/figures/miyagi/amplitude_norm_tdccsd.png} 
-    \caption{Norm of the amplitudes over time in the 1D beryllium atom, computed 
-        with TDCCSD. We see unreasonably high amplitude norms.
+    \includegraphics[width=\textwidth]{results/figures/miyagi/fig4_miqyagi.png} 
+    \caption{Snapshots of the dimensionless electron density $\rho(x, t)$ in the 1D beryllium atom 
+        at $t=0$, $t=T/2$ and $T$, where $T = 331 \text{ a.u.}$,
+        computed with TDCCSD and OATDCCD. 
     }
-    \label{fig:miyagi_tddccsd_amplitude}
+    \label{fig:miyagi_fig4}
 \end{figure}
 
 If we compute the norm of the amplitudes over the course of the simulation for 
@@ -351,17 +342,6 @@ shows the area of the figure with the highest value for the overlap, at a larger
 We see that the ground state probability reaches values of more than $300$, which is 
 most definitely unreasonable, because a probability like this should always be between 
 $0$ and $1$.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\textwidth]{results/figures/miyagi/overlap_tdccsd.png}
-    \caption{Probability of being in the ground state over time 
-        $|\braket{\Psi(0)}{\Psi(t)}|^2$, in dimensionless units, for the 1D beryllium atom,
-        computed with TDCCSD. 
-        We see unreasonable probabilities.
-    }
-    \label{fig:miyagi_tdccsd_overlap}
-\end{figure}
 
 It is difficult to draw a clear conclusion as to when the time-dependent coupled cluster 
 method with static orbitals breaks down and is unfeasible for use. However, we can 
@@ -389,5 +369,27 @@ to a significant degree, giving relatively high values for the entire grid
 of the particle density represented in \autoref{fig:miyagi_tdccsd_overlap}. This is 
 normally interpreted as a free particle because one would expect the wavefunction of 
 a free particle to spread out in space as time progresses.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{results/figures/miyagi/amplitude_norm_tdccsd.png} 
+    \caption{Norm of the amplitudes over time in the 1D beryllium atom, computed 
+        with TDCCSD. We see unreasonably high amplitude norms.
+    }
+    \label{fig:miyagi_tddccsd_amplitude}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/miyagi/overlap_tdccsd.png}
+    \caption{Probability of being in the ground state over time 
+        $|\braket{\Psi(0)}{\Psi(t)}|^2$, in dimensionless units, for the 1D beryllium atom,
+        computed with TDCCSD. 
+        We see unreasonable probabilities.
+    }
+    \label{fig:miyagi_tdccsd_overlap}
+\end{figure}
+
+
 
 \clearemptydoublepage
