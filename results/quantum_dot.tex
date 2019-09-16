@@ -10,17 +10,18 @@ two-dimensional double dot and a two-dimensional double dot under the influence 
 a homogenous, static magnetic field. We find that the \emph{harmonic potential theorem}
 holds for all simulations.
 
-The \emph{harmonic potential theorem}\cite{kohn1961cyclotron}
-states that electrons trapped in a parabolic quantum well shows behaviour as if it 
-was one large quantum oscillator, instead of consisting of many smaller parts. This 
-includes exhibiting only one frequency in the dipole spectrum of the system. If one 
-were to compute the Fourier transform of the dipole of an $n$-electron quantum dot with 
+The \emph{harmonic potential theorem} \cite{kohn1961cyclotron}
+states that electrons trapped in a parabolic quantum well behaves as if they were 
+one large quantum oscillator, instead of a system consisting of many smaller parts.
+This 
+includes exhibiting only one frequency in the dipole spectrum of the system. If 
+we compute the Fourier transform of the dipole of an $n$-electron quantum dot with 
 parabolic potential the result would be one line in the spectrum corresponding to the
-oscillator frequency of the spectrum. This means that in the dipole approximations,
- we can not detect many-body effects in a harmonic quantum dot with infra-red light.
+oscillator frequency of the system. This means that in the dipole approximations,
+we can not detect many-body effects in a harmonic quantum dot with infrared light.
 
-The harmonic potential theorem generalises to qunatum dots under the influence 
-of a magntic field\cite{brey1989optical,lai2016generalized}.
+The harmonic potential theorem generalises to quantum dots under the influence 
+of a magnetic field \cite{brey1989optical,lai2016generalized}.
 The revised theorem states that one would expect to see a shift,
 both up and down, creating two frequencies $\Omega_+$ and $\Omega_-$ in the dipole 
 spectrum. The resulting two frequencies would have a difference 
@@ -31,7 +32,7 @@ equalling the Larmor frequency $\omega_c = \Omega_+ - \Omega_-$.
 For the one-dimensional quantum dot with a harmonic potential we simulate a laser by 
 adding an oscillating 
 field with a sinusoidal envelope, similar to the one in
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic},
+Pedersen and Kvaal \cite{pedersen2019symplectic},
 \begin{equation}
     \label{eq:results_1d_field}
     \vb{e}(t) = \vb{E}_\text{max}\sin^2\left(\frac{t\pi}{T}\right)\cos(\omega t).
@@ -41,7 +42,7 @@ $T=20$, so that we have a field that at first will gradually increase, then decr
 The oscillator frequency for all simulations are set to $\Omega=1$, and at first we 
 set the frequency of the oscillating field to twice this, $\omega = 2$. We do this 
 to make sure that we are far from the resonant frequency of the system, and we pick 
-relatively high laser frequency in order to enforce a more dynamic system. We use the 
+a relatively high laser frequency in order to enforce a more dynamic system. We use the 
 more standard time-dependent coupled cluster singles doubles (TDCCSD) method, for 
 these simulations, with the symplectic Gaussian integrator and a time step of
 $\Delta t=0.01$.
@@ -111,13 +112,13 @@ We now turn to a somewhat different kind of simulation. We keep the
 base system the same, a one-dimensional quantum dot with harmonic potential and oscillator 
 frequency $\Omega=1$. We also apply an external oscillating field like in
 \autoref{eq:results_1d_field}, which will this time be resonant with the frequency of the 
-oscillator $\omega=\Omega=1$, to ensure population of excited states. In this simuation 
+oscillator $\omega=\Omega=1$, to ensure a population of excited states. In this simulation 
 we set the field to zero at $T_d = 5 \text{ au}$, by the use of a Heaviside function in a 
-similar manner as \citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}
+similar manner as Pedersen and Kvaal \cite{pedersen2019symplectic}
 in \autoref{eq:pedersen_2019_envelope}. After the field has been switched off we propagate 
 the system in time for a total of $T = 500 \text{ au}$ with a time step $\Delta t=0.01$.
 The same procedure is repeated for systems with $n=\{2,4,6,8,10,12\}$ electrons with 
-respective number of spin-orbitals $l=\{20,20,20,30,30,40\}$. These system and basis 
+respective number of spin-orbitals $l=\{20,20,20,30,30,40\}$. These systems and basis 
 sizes correspond to the ones used in \autoref{fig:1d_ground_state_prob_compare}.
 For each time step we collect the dipole, i.e. $\ev{\hat{x}(t)} = \tr{\rho(t) x}$, and compute the 
 Fourier transform of the entire collected array. The results are presented in 
@@ -147,7 +148,7 @@ In order to test the response of a quantum dot as the frequency of the oscillati
 field apporaches the oscillator frequency, we have run simulations for a selection 
 of laser frequencies $\omega$ with the field described by \autoref{eq:results_1d_field}.
 We chose frequencies $\omega\in\{1.0, 1.25, 1.5, 1.75, 2.0\}$ and set the 
-oscillator freqcuencies of the quantum dot systems to $\Omega=1$. The laser pulse 
+oscillator frequencies of the quantum dot systems to $\Omega=1$. The laser pulse 
 had a set period of $T_l=20 \text{ au}$, starting from $t=0$, while time-development 
 of the system was allowed to continue to $T=30 \text{ au}$. The results of these 
 simulations are shown for $n=2$ particles in \autoref{fig:n2_1d_resonance_energy}
@@ -200,7 +201,7 @@ resonant properties of a quantum dot, for $n=4,6,8,10$ electrons in a one-dimens
 quantum dots. Figures with the results from these simulations can be found in 
 \autoref{app:1d_qd}. In the ground state probability plots for these simulations, 
 one would notice non-sensible probabiliy values $|\braket{\Psi(0)}{\Psi(t)}|^2 > 1$.
-This is an issue we have adressed in the following sections, when reviewing the results 
+This is an issue we have addressed in the following sections, when reviewing the results 
 of the two-dimensional quantum dot results.
 
 
@@ -208,20 +209,20 @@ of the two-dimensional quantum dot results.
 
 The two-dimensional quantum dot arguably paints a somewhat more interesting picture 
 than the one-dimensional quantum dot, as we shall see. We construct several 
-harmonic potential systems using the  \lstinline{TwoDimensionalharmonicOscillator}.
+harmonic potential systems using the  \lstinline{TwoDimensionalharmonicOscillator} class.
 Similarly to the one-dimensional case, we simulate a laser by adding an 
 oscillation field of the kind used by
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic}, shown 
+Pedersen and Kvaal \cite{pedersen2019symplectic}, shown 
 in \autoref{eq:results_1d_field}. Because we have added a dimension, we must 
 choose a direction of polarisation. This choice is arbitrary because of the 
-symmertry of the quantum dots. We therefore arbitrarily pick the $x$-direction.
+symmetry of the quantum dots. We therefore arbitrarily pick the $x$-direction.
 Unlike the one-dimensional dot, we are restricted to only a certain selection of 
 systems, namely systems of $n\in\{2,6,12\}$ electrons, that ensure full shells.
 
 Like in our simulations of a one-dimensional harmonic quantum dot we have at first 
-sought to show that convergence in the computations by applying an oscillating 
+sought to show that we obtain convergence in the computations by applying an oscillating 
 field far from the resonant frequency of the system. We set the oscillator frequency 
-to $\Omega=1$ and the frequency of the eletric field to $\omega=2\Omega=2$. We 
+to $\Omega=1$ and the frequency of the electric field to $\omega=2\Omega=2$. We 
 perform a simulation over a period $T = 20 \text{ au}$, for an increasing 
 number of spin-orbitals $l$. The maximum intensity of the laser field is set to 
 $\vb{E}_\text{max} = 1 \text{ au}$. For these initial computations we use the 
@@ -244,7 +245,7 @@ can handle, within the given basis set size.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/2D/n12_overlap.png} 
-    \caption{Ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$ for two-dimensional
+    \caption{Ground state probability $|\braket{\Psi(0)}{\Psi(t)}|^2$ for a two-dimensional
         quantum dot with $n=12$ electrons under the influence of a laser field for 
         different number of spin-orbitals $l=\{42,56,72\}$. 
     }
@@ -261,37 +262,50 @@ energy to be close to the ground state energy after the laser-field has died dow
 
 In the same figure (\autoref{fig:n12_2d_energy}) we have also included
 the computed energy over time for the system using the
-orbital-adaptive time-dependent coupled cluster doubles (OATDCCD) method and the 
-same number if spin-orbitals.
+Orbital-Adaptive Time-Dependent Coupled Cluster Doubles (OATDCCD) method and the 
+same number of spin-orbitals.
 We see that the two methods dont't agree completely, and we are prone to trust 
 the OATDCCD method more than the TDCCSD method in this case, because the energy at 
 the end of the simulations is lower than the initial energy for the TDCCSD method.
-The reason for the problems the TDCCSD method shows are likely caused by our attempt 
-to represent a state with the basis functions contained in the reference,
-which is very dissimilar to said reference function. We will outline this problem 
-further as we study the time-dependent ground state probability of the simulation.
 
-The ground state probability of the same simulation with the TDDCCSD method 
+The reason for the problems the TDCCSD methods shows are likely caused by the 
+great difference between the exact state $\ket{\Psi}$ and the reference state 
+$\ket{\Phi}$. The coupled cluster method seeks to represent the exact state 
+$\ket{\Psi}$ by a linear combination, determined by the amplitudes, of basis functions 
+in the reference state $\ket{\Phi}$. When the exact state of the system is very 
+fram from the reference state, we are not able to approximate it with the basis that 
+is provided. We will outline this problem further as we study the time-dependent 
+ground state probability of the simulation.
+
+The ground state probability of the same simulation with the 
+Time-Dependent Coupled Cluster Singles Doubles (TDDCCSD) method 
 is shown in
 \autoref{fig:n12_2d_overlap}. We see immediately that the probability becomes 
-non-sensical at some time step after $t=6 \text{ au}$. This result is similar to
+unreasonable at some time step after $t=6 \text{ au}$. This result is similar to
 the sort of break-down that occured for the TDCCSD method in the attempt to 
-replicate the results of \citeauthor{miyagi2013time}\cite{miyagi2013time} in
+replicate the results of Miyagi and Madsen \cite{miyagi2013time} in
 \autoref{sec:miyagi_replication}.
 
-The probable cause of the non-sensible 
+The probable cause of the unreasonable 
 ground state probability is the need for the amplitudes of the system to acquire 
 relatively high values, in order to compensate for the inadequateness of the 
 reference state to describe the exact time-dependent state. This is underlined 
 by the norm of the amplitudes, displayed in \autoref{fig:n12_2d_amp_norms}. As 
-is apparent, the lambda amplitudes shows an upwards trend throughout the 
+is apparent, the lambda amplitudes show an upwards trend throughout the 
 simulation.
 This should be unnecessary because the system would revert back to a state 
 similar to the ground state at the end of the simulation. It appears that 
-some ``tipping point'' is reached halfway around $t=T/2$ when instabillty 
-increases. The $\tau$-amplitudes are more or less well-behaved, at least for 
+some ``tipping point'' is reached halfway around $t=T/2$ when the instabillty 
+starts to increase. The $\tau$-amplitudes are more or less well-behaved, at least for 
 the largest basis set, showing some correlation in amplitude with the
 sinusoidal envelope of the oscillating field.
+
+We have more trust in the Orbital-Adaptive Time-Dependent Coupled Cluster 
+Doubles (OATDCCD) than the Time-Dependent Coupled Cluster Singles Doubles (TDCCSD)
+method for this simulation. By developing the orbitals in time, as well as the 
+amplitudes, we are provided with a continuously improved basis set. It is easier
+to represent the exact state $\ket{\Psi(t)}$ with a reference state $\ket{\Phi(t)}$
+that is refreshed for each time step.
 
 \begin{figure}
     \centering
@@ -306,7 +320,7 @@ sinusoidal envelope of the oscillating field.
 \subsection{Dipole Spectrum}
 
 We have for the two-dimensional quantum dot computed the dipole spectrum for systems of 
-different size, like we did for the one-dimensional quantum dot. We did this for 
+different size, as we did for the one-dimensional quantum dot. We did this for 
 quantum dots with oscillator frequencies $\Omega=1$ with $n\in\{2,6,12\}$ electrons.
 We used $l\in\{42,42,56\}$ as the number of spin-orbitals for the respective systems.
 In order to excite and disturb the systems from the intial ground state we applied 
@@ -315,11 +329,11 @@ maximum intensity $\vb{E}_\text{max}=0.1$, with a three-step linear envelope as
 in \autoref{eq:li_laser}. The systems were allowed to develop in time for 
 $T = 500 \text{ au}$. The results of computing the Fourier transform of the 
 dipole $\ev{x(t)} = \tr{\rho(t) x}$ is depicted in \autoref{fig:2d_dipole_spectra}. 
-In this figure we see that the result is qualtitatively in accordance with the 
+In this figure we see that the result is qualitatively in accordance with the 
 harmonic potential theorem - the dipole freqcuencies of all the systems are the 
 same, with an intensity that increases with the number of particles in the system.
 For the two larger systems with $n=6$ and $n=12$ electrons we see some slight 
-inccuracies. These are attributable to the time constraint of this study - 
+inaccuracies. These are attributable to the time constraint of this study - 
 a simulation with larger number of spin-orbitals would have remedied these 
 inaccuracies, but would have needed more time to complete.
 
@@ -346,17 +360,19 @@ different frequencies $\omega\in\{1.0,1.25,1.5,1.75,2.0\}$ and a maximum intensi
 $\vb{E}_\text{max}=0.25$. The simulations were done with the time-dependent coupled 
 cluster doubles (TDCCSD) method with static orbitals.
 
-Like in the one-dimensional analysis we see that the systems are much more prone to 
-excitation as the frequency of the laser field approaches that of the quantum harmonic 
+As in the one-dimensional analysis we see that the systems are much more prone to 
+excitations as the frequency of the laser field approaches that of the quantum harmonic 
 oscillator. This is apparent both for the energy of the quantum dot systems and the 
 ground state probabilites displayed in the left and right subfigures of
 \autoref{fig:2d_resonance_n2} and \autoref{fig:2d_resonance_n6}, respectively. In the 
 six-particle case we again see the problems with the TDCCSD method when computing the 
 ground state overlap, as the amplitudes acquire higher and higher values, resulting 
-in non-sensical probability values. In this case we do believe the 
-energy plots to be correct for $\omega\in\{1.5, 1.75,2.0\}$. The energies for the last 
-two oscillating field frequencies, $\omega\in\{1.0,1.25\}$, we have less trust in because 
-of the non-sensical time-dependent ground state probabilities.
+in probability values that are unreasonable. In this case we do believe the 
+energy plots to be correct for $\omega\in\{1.5, 1.75,2.0\}$. 
+We have less trust in the results from the last two simulations where the oscillating 
+field had frequencies $\omega\in\{1.0, 1.25\}$. Here we see the same illogical time-dependent 
+ground state probabilities as we did in \autoref{fig:n12_2d_overlap}, as the 
+TDCCSD method breaks down.
 
 \begin{figure}
     \centering
@@ -417,8 +433,8 @@ compute the dipole spectrum of both systems. The time-propagation is done using 
 orbital-adaptive time-dependent coupled cluster doubles (OATDCCD) method, as it has shown 
 the best stability of our time-dependent methods. Both systems are under the influence of an 
 oscillating field with a linearly decreasing- and increasing envelope of the type used by 
-\citeauthor{li2005time}\cite{li2005time} (\autoref{fig:li_compare}). We have chosen a 
-frequency of this field that corresponds to the resonant of the first transition energy 
+\citeauthor{li2005time} \cite{li2005time} (\autoref{fig:li_compare}). We have chosen a 
+frequency of this field that corresponds to the resonant frequency of the first transition energy 
 of the system $\omega = 0.43 \text{ au}$, and an intensity yielding a maximum amplitude
 $\vb{E}_\text{max} = 0.1 \text{ au}$. The resonant frequency was found by direct diagonalisation 
 of the one-body matrix produced by the system class \lstinline{TwoDimensionalDoubleWell}.
@@ -446,29 +462,30 @@ of the one-body matrix produced by the system class \lstinline{TwoDimensionalDou
     \label{fig:2d_dw_n2_n4_spectra}
 \end{figure}
 
-The system is allowed to develop in time for $T = 100 \text{ au}$ and then we compute the Fourier 
+The system is allowed to develop in time for $T = 100 \text{ au}$. We compute the Fourier 
 transform of the dipole moment $\ev{\hat{x}(t)} = \tr{\rho(t) x}$, the results of which are shown 
 in \autoref{fig:2d_dw_n2_n4_spectra}. We immediately see that there is only one frequency 
 apparent in the spectra for each of the systems, meaning that the quantum double dots
-have a position operators that behave as if it was the centre of mass of the system. We 
-see that the larger system has a somewhat higher value for the one frequency in the spectrum 
+have a position operator that behaves as if it was the centre of mass of the system. We 
+see that the larger system has a relavtively higher dipole frequency 
 compared with the smaller system. We also see that the larger system has lower intensity compared
 with the smaller 
 system.
 
-This difference in frequency of the two systmes may be caused by the increased Coulomb force
-creates a higher effective potential that contrains the electrons to the two wells.
+This difference in frequency of the two systems may be caused by the increased Coulomb
+force, which
+creates a higher effective potential and constrains the electrons more firmly to the wells.
 The lower intensity of the larger system may also be explained by the same higher-potential effect 
 of the Coulomb force, but can also be attributed to the fact that there is more mass to move with 
 the same intensitivity of the external field. We find this decrease in intensity somewhat puzzling,
-as the same laser field applied to a larger system would yield an increase for the the single-well 
+as the same laser field applied to a larger system would yield an increase for the single-well 
 potential.
 
 We may have seen more many-body effects in the form of more spectral lines if we were to increase 
 the intensity of the oscillating laser field, decrease the barrier strength of the double well potential,
 or both. This may have made it more likely to tunnel through the barrier, i.e. increase transition 
 probabilities of higher energy quantum leaps. With the methods at hand we have had problems with 
-convergence of our solvers for very large field strenght, however. We sought to remedy this by 
+convergence of our solvers for very large field strength, however. We sought to remedy this by 
 implementing a smoother double well potential, but had to abandon this effort due to the time 
 restriction of this thesis.
 
@@ -492,7 +509,7 @@ of a magnetic field.
 
 Before going straight to the results, we study the shell structure and allowed transitions of 
 our two systems. The left part of \autoref{fig:shell_structure_yes_no_b} presents the 
-shell structure of a the regular two-dimensional quantum dot. The states have all been assigned
+shell structure of the regular two-dimensional quantum dot. The states have all been assigned
 a number for easier examination. This shell structure is 
 identical to the one presented in \autoref{fig:2d_basis_states}. Additionally, here we have added
 coloured double arrows to illustrate the allowed transitions in the quantum dot. These 
@@ -624,10 +641,10 @@ When we apply apply a magnetic field of strength $\omega_c/\omega = \sqrt{2}/2$ 
 obtain the shell structure represented to the right in 
 \autoref{fig:shell_structure_yes_no_b}, where the allowed transitions correpsond to the 
 transition matrix in \autoref{fig:transition_yes_b}. The chosen magnetic field strength 
-was not chosen arbitrarily, as these accidental degenracies occur only rarely as 
+was not chosen arbitrarily, as these accidental degeneracies occur only rarely as 
 a function of magnetic field strength\footnote{Hence the term ``accidental''.}.
-For succinctness we repeat the function for energy eigenvalues for two-dimensional 
-quantum dot influenced by a magnetic field (\autoref{eq:2d_b_eigenvalues}),
+For succinctness we repeat the function from \autoref{eq:2d_b_eigenvalues} for energy eigenvalues for two-dimensional 
+quantum dot influenced by a magnetic field,
 \begin{equation}
     \epsilon_{nm} = \hbar\Omega(2n + |m| + 1) - \frac{\hbar\omega_c}{2}m,
 \end{equation}
@@ -640,11 +657,13 @@ undergone a relative shift upwards, whilst the states with positive $m$ have bee
 shifted downwards, relative to the other states. The ground state, labelled 0, 
 remains relatively stationary, the states labelled 2 ($m=1$) and 4 ($m=2$) have been 
 shifted downwards and the states labelled 1 ($m=-1$) and 5 ($m=-2$) have been shifted 
-upwards. State number 5 so much that it has disappeared from the shell structure, with a 
-new state 6 ($=3$) appearing. This is due to our restriction to include only the six
-lowest-energy orbitals. We see that the possible remaining allowed transitions remain the 
-same, with the exception of transitioning between state 1 and 5, because state 5 is no more,
-and the addition of a possible transition between state 4 and 6.
+upwards. State number 5 has been shifted upwards in energy so much that it has disappeared
+from the shell structure, with a 
+new state 6 ($m=3$) appearing in its place. This is due to our restriction to include only the six
+lowest-energy orbitals. We see that the possible allowed transitions remain the 
+same, except for the transition between state 1 and 5, because state 5 has been shifted 
+out of our truncated shell structure. We also see a new possible possible transition between
+state 4 and state 6.
 
 \begin{figure}
     \begin{center}
@@ -656,7 +675,7 @@ and the addition of a possible transition between state 4 and 6.
     \end{minipage}
     \begin{minipage}{0.4\textwidth}
         \includegraphics[width=\textwidth]{results/figures/dipole_yes_b.png}
-        \caption{transition matrix for a 2D quantum dot when a magnetic field
+        \caption{Transition matrix for a 2D quantum dot when a magnetic field
             is applied.}
         \label{fig:transition_yes_b}
     \end{minipage}        
@@ -691,13 +710,15 @@ that occurs by introducing a magnetic field, we will not run into any multi-refe
 problems for the $n=4$ electron case.
 
 The quantum dot systems are each excited by a laser pulse with the linearly increasing 
-and decreasing envelope, as defined by \citeauthor{li2005time}\cite{li2005time}, in 
+and decreasing envelope, as defined by \citeauthor{li2005time} \cite{li2005time}, in 
 equation \autoref{eq:li_laser}. The laser of this oscillating field is set to the 
 same frequency as the system $\omega=\omega_0=1$ and the maximum intensity of the field 
 is $\vb{E}_\text{max} = 0.1$. The Larmor frequency of the magnetic field that the 
 quantum dots are subjected to is varied, $\omega_c\in\{0.25, 0.5, 0.75, 1.0\}$.
-For each of these simulations we compute the Fourier transform of the dipole in 
-the same direction as the polarisation of the laser field, $\ev{x} =\tr{\rho x}$.
+For each of these simulations we compute the Fourier transform of the expectation 
+value of the position operator,
+$\ev{\hat{x}} =\tr{\rho(t) \hat{x}}$, in 
+the same direction as the polarisation of the laser field.
 In the simulations with $n=2$ electrons we used $l=30$ spin-orbitals,
 and in the simulations with $n=4$ spin-orbitals we used $l=56$ spin-orbitals.
 We let the systems propagate for $T = 1000 \text{ au}$\footnote{With the notable 
@@ -727,8 +748,10 @@ $n=2$ and $n=4$ electrons, shown in figure \autoref{fig:b_n2_omc025}
 and \autoref{fig:b_n4_omc025}, respectively.
 The results for 
 the rest of the different Larmor frequencies are consigned to \autoref{app:b_field}.
-All results of these simualtions conform with the harmonic potential theorem. The 
+All results of these simulations conform with the harmonic potential theorem. The 
 distance between the two lines of the spectrum is approximately equal to the 
 Larmor frequency. What little error is seen can be attributed to numerical errors,
 most likely caused by basis set truncations or premature termination of the
 time-propagation.
+
+\clearemptydoublepage
