@@ -326,7 +326,7 @@ The benefit of the Roothan-Hall equations (\autoref{eq:roothan_hall_exp}), is th
 are represented by matrices, and therefore easy to implement on a computer. The
 Roothan-Hall equations are solved iteratively, starting from an initial guess for $C$. 
 This guess can be used to compute the density matrix, 
-$D^{(k)} = C^{(k)}(C^{(k)})^H$, where $k$ denotes the $k$th iteration. The density 
+$D^{(k)} = C^{(k)}(C^{(k)})^\dagger$, where $k$ denotes the $k$th iteration. The density 
 matrix is used to compute the Fock matrix. This provides us with a general eigenvalue 
 problem, from which a new $C$ and $\epsilon$ can be found. This formula is then repeated
 until the iterations converge. At this point we say that we have reached self-consistency 
