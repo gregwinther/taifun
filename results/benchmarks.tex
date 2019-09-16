@@ -10,7 +10,7 @@ the time-dependent ground state probability of a quantum dot from
 and the spectrum of Helium from
 Pedersen and Kvaal \cite{pedersen2019symplectic}.
 The simulation of the ionisation of beryllium 
-Miyagi and Madsen \cite{miyagi2013time},
+by Miyagi and Madsen \cite{miyagi2013time},
 serves as an illustration of the advantage of
 adaptive orbitals versus static orbitals in a time-dependent coupled cluster method.
 For all time-dependent studies in this chapter we have employed the symplectic 
@@ -23,15 +23,15 @@ units can be found in \autoref{sec:atomic_units}.
 \section{Instantaneous dipole in $H_2$}
 
 \citeauthor{li2005time} \cite{li2005time} employ a time-dependent Hartree-Fock 
-apporach in order to study the electronic optical response of molecules 
+approach in order to study the electronic optical response of molecules 
 in intense fields. To be specific, they model the hydrogen molecule $H_2$ 
 with a \lstinline{6-311++G(d,p)} basis 
-set\footnote{In quantum chemistry, there exists several specialised basis sets. For a
+set\footnote{In quantum chemistry, there are several specialised basis sets. For a
 thorough overview of basis sets, see for instance
 \citeauthor{jensen2017introduction} \cite{jensen2017introduction}.}, subject to an oscillating field 
 of $1.72\times10^{13}\text{ W cm}^{-2}$ and $456\text{ nm}$ wavelength. 
 In atomic units, this corresponds to an intensity of $E_\text{max} = 0.07 \text{ a.u.}$ and
-a frequency of $\omega=0.1 \text{ a.u.}$.
+a frequency of $\omega=0.1 \text{ a.u.}$
 They find the time-dependent
 Hartree-Fock method to be nearly indistinguishable from calculations using the 
 full time-dependent Schrödinger equation. We have managed to replicate the 
@@ -73,17 +73,20 @@ for one cycle and then decreases linearly to zero by the end of the next cycle,
     \end{aligned}
 \end{equation}
 where the maximum field intensity if $1.72\times10^{14} \text{ W cm}^{-2}$ 
-($E_\text{max} = 0.07 \text{ a.u.}$). \citeauthor{li2005time} also run a simulation 
-for a lower intensity, but we are conecerned only with this relatively more intensive 
-pulse. The entire simulation lasts for $T=225 \text{ a.u.}$.
+($E_\text{max} = 0.07 \text{ a.u.}$). \citeauthor{li2005time} also ran a simulation 
+for a lower intensity, but we are concerned only with this relatively more intensive 
+pulse. The entire simulation lasts for $T=225 \text{ a.u.}$
 
 The result of our simulation is shown in \autoref{fig:li_compare}, where we have 
-computed the instantaneous dipole over time using three different methods. The 
-time-dependent Hartre-Fock result is shown in the bottom sub-figure, and is expected 
-to be exactly the same as figure 4.a from \citeauthor{li2005time} \cite{li2005time},
-which it appear to be. For comparison we have computed the result with both of 
+computed the instantaneous dipole $\ev{\hat{x}(t)} = \tr{\rho(t)x}$ over time using
+three different methods\footnote{The dipole moment normally includes a charge,
+$d = q\ev{\hat{x}}$ but in 
+the atomic units that we use the charge is $1$ and unitless.}. The 
+time-dependent Hartre-Fock result is shown in the bottom sub-figure, and
+is exactly the same as figure 4.a from \citeauthor{li2005time} \cite{li2005time}.
+For comparison we have computed the result with both of 
 our time-dependent coupled cluster methods. The result of the time-dependent 
-coupled cluster method with single and double excitations are showed in the top subfigure,
+coupled cluster method with single and double excitations are shown in the top subfigure,
 and the result of the orbital-adaptive coupled cluster method with double excitations 
 are shown in the middle subfigure. We see that there is no perceptible difference between 
 the results of the three methods.
@@ -105,15 +108,15 @@ the results of the three methods.
 \section{Ground State Probability in 1D Quantum Dot}
 
 \citeauthor{Zanghellini04} \cite{Zanghellini04} calculate the time development of a 
-one-dimensional quantum dot with two electrons using the multi-configurational 
-time-dependent Hartree-Fock method (MCTDHF). This method yields excact results for 
-a very large number of configurations $\eta \to \infty$. This study would provide a 
+one-dimensional quantum dot with two electrons using the Multi-Configuration 
+Time-Dependent Hartree-Fock method (MCTDHF). This method yields exact results for 
+a very large number of configurations $\eta$. This study would provide a 
 proper benchmark for our implementation because the coupled cluster method with singles and 
 doubles excitations (CCSD) is exact for $n=2$ particles. 
 The harmonic oscillator potential applied in
-their study had a frequency of $\Omega=0.25$, used a strong laser-like field with 
-maximum intensity of $\vb{E}_\text{max} = 1$ and a laser frequency of
-$\omega = 8 \Omega = 2$.
+their study had a frequency of $\Omega=0.25 \text{ a.u.}$, used a strong laser-like field with 
+maximum intensity of $\vb{E}_\text{max} = 1 \text{ a.u.}$ and a laser frequency of
+$\omega = 8 \Omega = 2 \text{ a.u.}$
 The oscillating field is described much more simply than in
 \citeauthor{li2005time} \cite{li2005time}, using a simple sine function,
 \begin{equation}
@@ -121,7 +124,7 @@ The oscillating field is described much more simply than in
 \end{equation}
 where the envelope $\vb{E}$ does not vary in time.
 
-\citeauthor{Zanghellini04}\cite{Zanghellini04} find that their multi-configurational time-dependent
+\citeauthor{Zanghellini04} \cite{Zanghellini04} find that their multi-configurational time-dependent
 Hartree-Fock scheme convergences as the number of configurations is 
 $\eta \geq15$, up to the resolution of their figures.
 We are able to reproduce this result precisely by employing the 
@@ -135,12 +138,12 @@ in the basis set for this simulation.
     \includegraphics[width=0.75\textwidth]{results/figures/zanghellini_fig1.png}
     \caption{
         \label{fig:zanghellini_fig1}
-        Electron density in dimensionless units for the ground state wavefunction of
+        Electron density $\rho(x)$ in dimensionless units for the ground state wavefunction of
         a quantum dot with 
         $n=2$ eletrons and $l=20$ spin-orbitals in the basis set computed with
         CCSD. This plot 
-        corresponds precisely with figure 1 in
-        \citeauthor{Zanghellini04}\cite{Zanghellini04}.
+        corresponds precisely to figure 1 of
+        \citeauthor{Zanghellini04} \cite{Zanghellini04}.
     }
 \end{figure}
 
@@ -153,15 +156,15 @@ in the basis set for this simulation.
         using both TDHF and TDCCSD, for a one-dimensional quantum dot with $n=2$
         particles and $l=20$ spin-orbitals. The ground state probability
         and the derived frequency units $\omega t/(2\pi)$ are dimensionless.
-        This plot corresponds precisely with 
-        figure 2 in \citeauthor{Zanghellini04}\cite{Zanghellini04}.
+        This plot corresponds precisely to 
+        figure 2 of \citeauthor{Zanghellini04} \cite{Zanghellini04}.
     }           
 \end{figure}
 
 In \autoref{fig:zanghellini_fig1} we see the ground state electron density for the 
 ground state wavefunction computed with CCSD. \citeauthor{Zanghellini04} computed the electron
-density for an increasing number of configurations $\eta$ using multi-configurational
-time-dependent Hartree-Fock (MCTDHF). This figure matches the convergent electron density found by
+density for an increasing number of configurations $\eta$ using Multi-Configuration
+Time-Dependent Hartree-Fock (MCTDHF). This figure matches the convergent electron density found by
 \citeauthor{Zanghellini04} as $\eta \to \infty$, in figure 1 from their article. 
 
 \autoref{fig:zanghellini_fig2} depicts the probability for the system being in the ground 
@@ -178,10 +181,10 @@ scheme employed by \citeauthor{Zanghellini04} when $\eta\to\infty$, as
 \section{Dipole Spectrum of Helium}
 
 In their comparison study of symplectic and regular Runge-Kutta type integrators, 
-\citeauthor{pedersen2019symplectic}\cite{pedersen2019symplectic} produce a dipole 
+Pedersen and Kvaal \cite{pedersen2019symplectic} present a dipole 
 spectrum of helium. 
 
-The basis set employed by \citeauthor{pedersen2019symplectic} is a cc-pVDZ 
+The basis set employed by Pedersen and Kvaal is a cc-pVDZ 
 basis set which we extract from \lstinline{Psi4},
 \begin{python}
 He = "
@@ -198,7 +201,7 @@ overview of quantum chemistry basis sets.
 % \omega=2.8735643 \text{ au}
 In their study Pedersen and Kvaal \cite{pedersen2019symplectic} use an oscillating field with 
 frequency $\omega=2.8736 \text{ a.u.}$ and maximum intensity
-$E_\text{max} = 10 \text{ a.u.}$. This frequency corresponds to the lowest-lying 
+$E_\text{max} = 10 \text{ a.u.}$ This frequency corresponds to the lowest-lying 
 electric-dipole allowed transition from the ground state of helium. The oscillating 
 field can be described as 
 \begin{equation}
@@ -221,8 +224,8 @@ increaes gradually at first, and then gradually decreases.
         spectral lines is in relative dimensionless units.
         The ground state of the system is excited by 
         an oscillating field with strength $E_\text{max} = 10\text{ a.u.}$ and 
-        frequency $\omega = 2.8736 \text{ a.u.}$ for $t_d = 5 \text{ a.u.}$. The
-        system is developed in time for a total of $T = 1500 \text{ a.u.}$.
+        frequency $\omega = 2.8736 \text{ a.u.}$ for $t_d = 5 \text{ a.u.}$ The
+        system is developed in time for a total of $T = 1500 \text{ a.u.}$
         A \lstinline{cc-pVDZ} basis set has been used in the simulation. 
     }
     \label{fig:helium_spectrum}
@@ -232,7 +235,7 @@ The oscillating field is only meant to ``disturb'' the ground state of the atom,
 as it is quickly 
 switched off at $t_d=5$. Then the system is allowed to propagate in time for 
 a long period. In our reproduction of the system, we have let the system 
-evolve for a total time $T=1500 \text{ a.u.}$. For each time step we compute the 
+evolve for a total time $T=1500 \text{ a.u.}$ For each time step we compute the 
 dipole in the same direction as the polarisation of the oscillating field. The 
 fourier transform of this signal will then yield the dipole spectrum of the 
 atom. The time-development is performed with the orbital-adaptive time-dependent 
@@ -246,7 +249,7 @@ depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figur
 Miyagi and Madsen \cite{miyagi2013time} implement the Time-Dependent 
 Restricted Active Space Self Consistent Field Singles (TD-RASSCF-S) method 
 and compare it with Time-Dependent Configuration Interaction Singles (TDCIS) and 
-the Multi-Configurational Time-Dependent Hartree-Fock (MCTDHF) method. A simulation they 
+the Multi-Configuration Time-Dependent Hartree-Fock (MCTDHF) method. A simulation they 
 perform in this study is the simulation of the ionisation of beryllium. This 
 simulation is performed by applying an oscillating field defined by the following 
 vector potential,
@@ -276,12 +279,12 @@ where \lstinline{Z} are the number of protons, \lstinline{n} is the number of el
 \lstinline{l} is the number of spinorbitals, \lstinline{c} is the position of the nucleus,
 \lstinline{a} is the Coulomb screening parameter and \lstinline{alpha} is the strength of the 
 Coulomb interaction. We pick a wide grid of $300 \text{ a.u.}$, with $5001$ points, and 
-a time step size of $\Delta t=0.01$. The maximum field strength is set to
+a time step size of $\Delta t=0.01 \text{ a.u.}$ The maximum field strength is set to
 $E_\text{max} = 0.0755 \text{ a.u.}$ and the frequency of the laser field is set to
-$\omega = 0.057 \text{ a.u.}$. This corresponds to a peak intensity of 
+$\omega = 0.057 \text{ a.u.}$ This corresponds to a peak intensity of 
 $2.0 \times 10^{14} \text{ W cm}^{-2}$ and a laser wavelength of $800 \text{ nm}$.
-The total time of the simulation is $T=331 \text{ a.u.}$. Both the unit for frequency and 
-time is dervied from the Hartree unit for energy $E_a$, which we derived in
+The total time of the simulation is $T=331 \text{ a.u.}$ Both the unit for frequency and 
+time is derived from the Hartree unit for energy $E_a$, which we derived in
 \autoref{sec:atomic_units}. The atomic units for time and frequency are $\hbar/E_a$ and
 $E_a/\hbar$, respectively.
 
@@ -299,8 +302,9 @@ The results of the simulations are shown in
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{results/figures/miyagi/fig4_miqyagi.png} 
-    \caption{Snapshots of the electron density $\rho(x, t)$ in the 1D beryllium atom 
-        at $t=0$, $t=T/2$ and $T$, computed with TDCCSD and OATDCCD. 
+    \caption{Snapshots of the dimensionless electron density $\rho(x, t)$ in the 1D beryllium atom 
+        at $t=0$, $t=T/2$ and $T$, where $T = 331 \text{ a.u.}$,
+        computed with TDCCSD and OATDCCD. 
     }
     \label{fig:miyagi_fig4}
 \end{figure}
@@ -312,7 +316,7 @@ both appear to show the same effects, but with
 slight discrepancies. In the bottom subfigure, we see that the OATDCCD method is doing
 fine, but the TDCCSD is absolutely non-sensible, with very high peaks that are periodically 
 greater than $1$. We can conclude that propagating 
-orbitals in time enable us to get the same qualitative result as \citeauthor{miyagi2013time}
+orbitals in time enables us to get the same qualitative result as \citeauthor{miyagi2013time}
 in figure 4 from their study. Keeping the orbitals static as in the TDCCSD method makes 
 us unable to model the same behaviour. We will delve a bit deeper to try to shed 
 some light on why the TDCCSD method fails.
@@ -361,9 +365,9 @@ $0$ and $1$.
 
 It is difficult to draw a clear conclusion as to when the time-dependent coupled cluster 
 method with static orbitals breaks down and is unfeasible for use. However, we can 
-draw some broader, qualitative strokes towards a diagnosis of the problem. Any coupled 
+draw some broader, qualitative strokes towards a dis of the problem. Any coupled 
 cluster method is supposed to provide the best representation of a system's exact 
-wavefunction by picking fitting parts of the basis set contained in the reference 
+wavefunction by picking parts of the basis set contained in the reference 
 state for that system. If the exact wavefunction exists in a very different basis 
 space than the reference state, it stands to reason that it is very difficult, if 
 not impossible to find a mapping between the two. This problem stems from the foundations 
@@ -373,7 +377,7 @@ Pedersen and Kvaal \cite{pedersen2019symplectic} provide a similar
 deduction, highlighting there what appears to be a system-dependent upper limit for 
 the strength of the external field. They underline the improvement in the computations 
 by using a symplectic integrator instead of a standard fourth-order Runge-Kutta method.
-We use the exact same integrator as the one Pedersen and Kvaal outline.
+We use the same integrator as the one Pedersen and Kvaal outline.
 Pedersen and Kvaal argue that a large amplitude norm should make one 
 question the validity of the result. It is difficult to gauge what constitutes a ``large''
 amplitude norm, however.
