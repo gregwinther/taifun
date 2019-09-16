@@ -16,6 +16,9 @@ adaptive orbitals versus static orbitals in a time-dependent coupled cluster met
 For all time-dependent studies in this chapter we have employed the symplectic 
 \lstinline{GaussIntegrator} integrator class.
 
+We present all results in Hartree atomic units (abbreviated a.u.). The derivation of these
+units can be found in \autoref{sec:atomic_units}.
+
 
 \section{Instantaneous dipole in $H_2$}
 
@@ -23,9 +26,13 @@ For all time-dependent studies in this chapter we have employed the symplectic
 apporach in order to study the electronic optical response of molecules 
 in intense fields. To be specific, they model the hydrogen molecule $H_2$ 
 with a \lstinline{6-311++G(d,p)} basis 
-set\footnote{See basis set description in for instance
+set\footnote{In quantum chemistry, there exists several specialised basis sets. For a
+thorough overview of basis sets, see for instance
 \citeauthor{jensen2017introduction} \cite{jensen2017introduction}.}, subject to an oscillating field 
-of $1.72\times10^{13}\text{ W} \text{cm}^{-2}$ and $456\text{ nm}$. They find the time-dependent
+of $1.72\times10^{13}\text{ W cm}^{-2}$ and $456\text{ nm}$ wavelength. 
+In atomic units, this corresponds to an intensity of $E_\text{max} = 0.07 \text{ a.u.}$ and
+a frequency of $\omega=0.1 \text{ a.u.}$.
+They find the time-dependent
 Hartree-Fock method to be nearly indistinguishable from calculations using the 
 full time-dependent Schrödinger equation. We have managed to replicate the 
 instantaneous dipole results of hydrogen from figure 5 in
@@ -42,7 +49,7 @@ basis = "6-311++Gss"
 system = construct_pyscf_system_ao(molecule, basis=basis)
 \end{python}
 The bond length of the Hydrogen molecule is approximately $0.7354\text{ Å}$, converted 
-to multiples of Bohr radii here.
+to multiples of the Bohr radius here, the atomic unit for length.
 
 In their simulations \citeauthor{li2005time} have used a linearly polarised and 
 spatially homogenous external field aligned along the $z$-axis, 
@@ -65,10 +72,10 @@ for one cycle and then decreases linearly to zero by the end of the next cycle,
             t < 0 \text{ and } t > 6\pi / \omega,
     \end{aligned}
 \end{equation}
-where the maximum field intensity if $1.72\times10^{14} \text{ W} \text{cm}^{-2}$ 
-($E_\text{max} = 0.07 \text{ au}$). \citeauthor{li2005time} also run a simulation 
+where the maximum field intensity if $1.72\times10^{14} \text{ W cm}^{-2}$ 
+($E_\text{max} = 0.07 \text{ a.u.}$). \citeauthor{li2005time} also run a simulation 
 for a lower intensity, but we are conecerned only with this relatively more intensive 
-pulse. The entire simulation lasts for $T=225 \text{ au}$.
+pulse. The entire simulation lasts for $T=225 \text{ a.u.}$.
 
 The result of our simulation is shown in \autoref{fig:li_compare}, where we have 
 computed the instantaneous dipole over time using three different methods. The 
@@ -85,9 +92,11 @@ the results of the three methods.
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/li_compare.png}
     \caption{Instantaneous dipole for $H_2$ in an oscillating electric field
-        $E_\text{max} = 0.07 \text{ au}$ ($1.72\times10^14 \text{ W} \text{cm}^{-2}$)
-        and $\omega=0.1 \text{ au}$ ($456\text{ nm}$) using a \lstinline{6-311++G(d,p)}
-        basis set.
+        of intensity $E_\text{max} = 0.07 \text{ a.u.}$ 
+        and frequency $\omega=0.1 \text{ a.u.}$, corresponding to
+        $1.72\times10^14 \text{ W cm}^{-2}$ and $456\text{ nm}$, respectively.
+        The \lstinline{6-311++G(d,p)}
+        basis set has been used.
     }
     \label{fig:li_compare}
 \end{figure}
@@ -126,7 +135,8 @@ in the basis set for this simulation.
     \includegraphics[width=0.75\textwidth]{results/figures/zanghellini_fig1.png}
     \caption{
         \label{fig:zanghellini_fig1}
-        Electron density for the ground state wavefunction of a quantum dot with 
+        Electron density in dimensionless units for the ground state wavefunction of
+        a quantum dot with 
         $n=2$ eletrons and $l=20$ spin-orbitals in the basis set computed with
         CCSD. This plot 
         corresponds precisely with figure 1 in
@@ -139,9 +149,11 @@ in the basis set for this simulation.
     \includegraphics[width=0.75\textwidth]{results/figures/zanghellini_fig2.png}
     \caption{
         \label{fig:zanghellini_fig2}
-        Probability of being in the ground state $|\braket{\Psi(0)}{\Psi(t)}|$
+        Probability of being in the ground state $|\braket{\Psi(0)}{\Psi(t)}|^2$
         using both TDHF and TDCCSD, for a one-dimensional quantum dot with $n=2$
-        particles and $l=20$ spin-orbitals. This plot corresponds precisely with 
+        particles and $l=20$ spin-orbitals. The ground state probability
+        and the derived frequency units $\omega t/(2\pi)$ are dimensionless.
+        This plot corresponds precisely with 
         figure 2 in \citeauthor{Zanghellini04}\cite{Zanghellini04}.
     }           
 \end{figure}
@@ -184,9 +196,9 @@ For hydrogen this basis set amounts to five orbitals in total. See chapter 5 in
 overview of quantum chemistry basis sets.
 
 % \omega=2.8735643 \text{ au}
-In their study \citeauthor{pedersen2019symplectic} use an oscillating field with 
-frequency $\omega=2.8736 \text{ au}$ and maximum intensity
-$\vb{E}_\text{max} = 10 \text{ au}$. This frequency corresponds to the lowest-lying 
+In their study Pedersen and Kvaal \cite{pedersen2019symplectic} use an oscillating field with 
+frequency $\omega=2.8736 \text{ a.u.}$ and maximum intensity
+$E_\text{max} = 10 \text{ a.u.}$. This frequency corresponds to the lowest-lying 
 electric-dipole allowed transition from the ground state of helium. The oscillating 
 field can be described as 
 \begin{equation}
@@ -195,34 +207,38 @@ field can be described as
 with a sinusoidal envelope
 \begin{equation}
     \label{eq:pedersen_2019_envelope}
-    \vb{E}(t) = \vb{E}_\text{max}\sin^2\left(\frac{\pi t}{t_d}\right) H(t_d - t),
+    \vb{E}(t) = \boldsymbol{\epsilon} E_\text{max}\sin^2\left(\frac{\pi t}{t_d}\right) H(t_d - t),
 \end{equation}
 where $H$ is the Heaviside step function designed to return zero when the field 
 has reached its designated halting time $t_d$. This envelope is similar in behaviour 
 to the one in the study by \citeauthor{li2005time} \cite{li2005time} - it 
 increaes gradually at first, and then gradually decreases. 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
+    \caption{Dipole spectrum of helium computed with OATDCCD. The intensity of the 
+        spectral lines is in relative dimensionless units.
+        The ground state of the system is excited by 
+        an oscillating field with strength $E_\text{max} = 10\text{ a.u.}$ and 
+        frequency $\omega = 2.8736 \text{ a.u.}$ for $t_d = 5 \text{ a.u.}$. The
+        system is developed in time for a total of $T = 1500 \text{ a.u.}$.
+        A \lstinline{cc-pVDZ} basis set has been used in the simulation. 
+    }
+    \label{fig:helium_spectrum}
+\end{figure}
+
 The oscillating field is only meant to ``disturb'' the ground state of the atom,
 as it is quickly 
 switched off at $t_d=5$. Then the system is allowed to propagate in time for 
 a long period. In our reproduction of the system, we have let the system 
-evolve for a total time $T=1500 \text{ au}$. For each time step we compute the 
+evolve for a total time $T=1500 \text{ a.u.}$. For each time step we compute the 
 dipole in the same direction as the polarisation of the oscillating field. The 
 fourier transform of this signal will then yield the dipole spectrum of the 
 atom. The time-development is performed with the orbital-adaptive time-dependent 
 coupled cluster method with double excitations. The result from this simulation is 
 depicted in \autoref{fig:helium_spectrum}, which is qualitatively equal to figure 
-7 in Pedersen and Kvall \cite{pedersen2019symplectic}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\textwidth]{results/figures/helium_spectrum.png} 
-    \caption{Dipole spectrum of He at field strength $10\text{ au}$ using 
-        OATDCCD and a \lstinline{cc-pVDZ} basis set.      
-    }
-    \label{fig:helium_spectrum}
-\end{figure}
-
+7 in Pedersen and Kvaal \cite{pedersen2019symplectic}.
 
 \section{Ionisation of 1D Beryllium}
 \label{sec:miyagi_replication}
@@ -243,8 +259,10 @@ giving the following field
     \left[
         \frac{2\pi}{T\omega} \cos\left(\frac{\pi t}{T} \right) \sin\left(\omega t \right)
         + \sin\left(\frac{\pi t}{T} \right) \cos(\omega t)
-    \right].
+    \right],
 \end{equation}
+where $\vb{E}_\text{max} = \boldsymbol{\epsilon}E_\text{max}$, where
+$\boldsymbol{\epsilon}$ is the polarisation vector.
 We reproduce the one-dimensional beryllium model with our \lstinline{AtomicPotential}
 class, which can be passed as a potential to the \lstinline{ODQD}
 (one-dimensional quantum dot) class when setting up the system,
@@ -257,12 +275,12 @@ odbe.setup_system(potential=potential)
 where \lstinline{Z} are the number of protons, \lstinline{n} is the number of electrons,
 \lstinline{l} is the number of spinorbitals, \lstinline{c} is the position of the nucleus,
 \lstinline{a} is the Coulomb screening parameter and \lstinline{alpha} is the strength of the 
-Coulomb interaction. We pick a wide grid of $300 \text{ au}$, with $5001$ points, and 
+Coulomb interaction. We pick a wide grid of $300 \text{ a.u.}$, with $5001$ points, and 
 a time step size of $\Delta t=0.01$. The maximum field strength is set to
-$\vb{E}_\text{max} = 0.0755 \text{ au}$ and the frequency of the laser field is set to
-$\omega = 0.057 \text{ au}$. This corresponds to a peak intensity of 
+$E_\text{max} = 0.0755 \text{ a.u.}$ and the frequency of the laser field is set to
+$\omega = 0.057 \text{ a.u.}$. This corresponds to a peak intensity of 
 $2.0 \times 10^{14} \text{ W cm}^{-2}$ and a laser wavelength of $800 \text{ nm}$.
-The total time of the simulation is $T=331 \text{ au}$. Both the unit for frequency and 
+The total time of the simulation is $T=331 \text{ a.u.}$. Both the unit for frequency and 
 time is dervied from the Hartree unit for energy $E_a$, which we derived in
 \autoref{sec:atomic_units}. The atomic units for time and frequency are $\hbar/E_a$ and
 $E_a/\hbar$, respectively.
@@ -334,7 +352,8 @@ $0$ and $1$.
     \centering
     \includegraphics[width=0.75\textwidth]{results/figures/miyagi/overlap_tdccsd.png}
     \caption{Probability of being in the ground state over time 
-        $|\braket{\Psi(0)}{\Psi(t)}|$ in the 1D beryllium atom, computed with TDCCSD. 
+        $|\braket{\Psi(0)}{\Psi(t)}|^2$, in dimensionless units, for the 1D beryllium atom,
+        computed with TDCCSD. 
         We see unreasonable probabilities.
     }
     \label{fig:miyagi_tdccsd_overlap}
