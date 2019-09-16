@@ -21,9 +21,19 @@ dependent on its ground state counterpart, but the ground state solvers can be u
 independently.
 
 A complete diagrammatic class hierarchy of the \lstinline{coupled_cluster} module 
-can be found in \autoref{app:class_diagram}. This class hierarchy also illustrates how 
+can be found in \autoref{fig:class_diagram_coupled_cluster}. This class hierarchy also illustrates how 
 the \lstinline{coupled_cluster} module fits into and works with the 
-\lstinline{quantum_systems} module.
+\lstinline{quantum_systems} module. This figure is the same figure as the one shown in 
+\autoref{fig:class_diagram_quantum_systems}, but inserting the class diagram 
+here as well should make this chapter easier to read.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{implementation/figures/taifun_class_diagram.png}
+    \caption{Class hierarchy of the two Python modules, \lstinline{coupled_cluster}
+    and \lstinline{quantum_systems}.}
+    \label{fig:class_diagram_coupled_cluster}
+\end{figure}
 
 The \lstinline{coupled_cluster} module can be installed from github via \lstinline{pip}
 by the following command,
