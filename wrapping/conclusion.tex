@@ -8,7 +8,7 @@ wanted to develop the Orbital Adaptive Time-Dependent Coupled Cluster
 
 We can with confidence say that this endeavour has been succesful.
 We have implemented both 
-a time-depedent Coupled Cluster Singles Doubles (TDCCSD) solver with 
+a time-dependent Coupled Cluster Singles Doubles (TDCCSD) solver with 
 static orbitals and an \emph{Orbital Adaptive} Time-Dependent Coupled Cluster 
 Doubles (OATDCCD) solver, as well as several quantum systems and an interface 
 to quantum chemistry software which enables extraction of further basis sets.
@@ -52,7 +52,7 @@ The orbital-adaptive solver remedies this problem, but has a drawback
 in that it cannot feasibly produce inner products of two states in time, and therefore 
 is unable to compute time-dependent ground state probabilities.
 
-This study, with the addition of the study by \citeauthor{islandwind2019}\cite{islandwind2019},
+This study, with the addition of the study by \citeauthor{islandwind2019} \cite{islandwind2019},
 has only scratched the surface with regards to the cornucopia of results that our 
 code base is able to produce. The reason for this is for the most part attributed to 
 the time spent in development and the amount in wall clock time necessary to 
@@ -62,9 +62,9 @@ on $t_{n-1}$.
 
 \section{Further Studies}
 
-By study of the results we have produced, we think that a comparison study 
+Based on the results we have produced, we think that a comparative study 
 of the method with static orbitals and the one with adaptive orbitals is warranted.
-One would assume that the two methods yields identical results within a reasonable 
+One would assume that the two methods yield identical results within a reasonable 
 upper limit in basis set size, but under what conditions do we get close to this
 limit? We can for instance imagine that the orbital-adaptive scheme yields equivalent
 results compared to the static-orbital method for a lower number of spin-orbitals,
@@ -74,8 +74,8 @@ the orbital-adaptive method \cite{islandwind2019numerically}.
 
 The inclusion of triples amplitudes in order to develop a Time-Dependent Coupled Cluster Singles 
 Doubles Triples (TDCCSDT) algorithm and an Orbital-Adaptive Time-Dependent Coupled Cluster 
-Doubles Triples (OATDCCDT) algororithm would be a logical step to take, and would be of 
-immense interest. Building an orbital-adaptive method with triples would be a tremendous 
+Doubles Triples (OATDCCDT) algororithm would be a logical step to take, and is of 
+great interest. Building an orbital-adaptive method with triples would be a tremendous 
 complication, at least to the orbital equations.
 
 As of now, the apparatus we have manufactured can easily be used to model 
@@ -105,7 +105,7 @@ the dipole spectrum of quantum dots, for instance. Eventually, one could hope to
 implement much more complicated operators, such as quantum logic gates, with the 
 hope of consequent simulations of quantum gates.
 
-In their seminal article, \citeauthor{loss1998quantum} \cite{loss1998quantum} propose 
+In their seminal article, Loss and DiVincenzo \cite{loss1998quantum} propose 
 an implementation of a universal set of one- and two-quantum-bit gates for quantum
 computation using the spin states of coupled single-electron quantum dots. The framework 
 that we have built as part of this thesis together with \citeauthor{islandwind2019}, 
