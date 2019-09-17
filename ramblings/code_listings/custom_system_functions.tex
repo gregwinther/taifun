@@ -1,6 +1,14 @@
 \section{Function for constructing system from Psi4}
 \label{sec:custom_system_psi4}
 
+This function extracts a basis set from Psi4 \cite{parrish2017psi4}, specified 
+by the \lstinline{molecule} argument. Psi4 also allows for several \lstinline{options}
+in construction of a basis set. Please consult the Psi4 documentation on 
+\url{https://psicode.org}, for a guide on how to create such a specification.
+The return object of this function is an instance of the
+\lstinline{QuantumSystem} class, specified in
+\autoref{ch:impl_quantum_systems}.
+
 \begin{python}
 def construct_psi4_system(
     molecule, options, np=None, add_spin=True, anti_symmetrize=True
@@ -51,6 +59,14 @@ def construct_psi4_system(
 
 \section{Function for constructing system from PySCF}
 \label{sec:custom_system_pyscf}
+
+This function extracts a basis set from PySCF \cite{PYSCF}, specified 
+by the \lstinline{molecule} and \lstinline{basis} arguments.
+Please consult the PySCF documentation on 
+\url{https://pyscf.github.io}, for a guide on how to create such a specification.
+The return object of this function is an instance of the
+\lstinline{QuantumSystem} class, specified in
+\autoref{ch:impl_quantum_systems}.
 
 \begin{python}
 def construct_pyscf_system(molecule, basis="cc-pvdz", np, verbose=False):

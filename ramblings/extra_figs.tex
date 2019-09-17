@@ -2,12 +2,12 @@
 
 Here we present supplementary data that completes the results presented in 
 \autoref{ch:quantum_dots} on quantum dot simulations in time. In this appendix we 
-show how the time-dependent coupled cluster methods 
+show how the time-dependent coupled cluster method 
 converges for an increasing basis. These simulations are done for quantum dots in both
 one and two dimensions.
 Additionally, we provide the results from simulations constructed to show the response 
 of quantum dots subjected to oscillating fields of different frequencies.
-Lastly, we show how quantum dots in two
+Lastly, we show how a quantum dot in two
 dimensions, subject to a magnetic field, leads to a splitting in the dipole spectrum 
 of the system.
 
@@ -295,7 +295,7 @@ Cluster Singled Doubles (TDCCSD) method.
         and $n=6$ electrons under the influence of a oscillating electric field 
         of frequency $\omega = 2 \Omega = 2 \text{ a.u.}$ and field strength
         $E_\text{max}=1 \text{ a.u.}$,
-        for different number of spin-orbitals $l=\{6,12,20,30\}$.
+        for different number of spin-orbitals $l=\{12,20,30,42,56\}$.
     }
     \label{fig:2d_n6_qd}
 \end{figure}
@@ -311,14 +311,16 @@ Time-Dependent Coupled Cluster Doubles (OATDCCD) method.
 
 \begin{figure}[!h]
     \centering
-    \begin{minipage}{0.49\textwidth}
+    \makebox[\textwidth][c]{
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=2em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=2/b_spectrum_omc050.png}
     \end{minipage}\hfill 
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=0em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=4/b_spectrum_n=4_omc=050.png}
     \end{minipage}
+    }
     \caption{Dipole spectrum of a quantum dot with $n=2$ (left), and $n=4$ electron 
     subjected to a magnetic field with Larmor frequency $\omega_c=0.50 \text{ a.u.}$.
     Both systems have base oscillator frequency $\omega_0=1 \text{ a.u.}$ and 
@@ -331,14 +333,16 @@ Time-Dependent Coupled Cluster Doubles (OATDCCD) method.
 
 \begin{figure}[!h]
     \centering
-    \begin{minipage}{0.49\textwidth}
+    \makebox[\textwidth][c]{
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=2em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=2/b_spectrum_omc075.png}
     \end{minipage}\hfill 
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=0em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=4/b_spectrum_n=4_omc=075.png}
     \end{minipage}
+    }
     \caption{Dipole spectrum of a quantum dot with $n=2$ (left), and $n=4$ electron 
     subjected to a magnetic field with Larmor frequency $\omega_c=0.75 \text{ a.u.}$.
     Both systems have base oscillator frequency $\omega_0=1 \text{ a.u.}$ and 
@@ -351,14 +355,16 @@ Time-Dependent Coupled Cluster Doubles (OATDCCD) method.
 
 \begin{figure}[!h]
     \centering
-    \begin{minipage}{0.49\textwidth}
+    \makebox[\textwidth][c]{
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=2em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=2/b_spectrum_omc100.png}
     \end{minipage}\hfill 
-    \begin{minipage}{0.49\textwidth}
+    \begin{minipage}{0.6\textwidth}
         \includegraphics[clip=0em 0em 10em 0em, width=\textwidth]
         {results/figures/B_field/n=4/b_spectrum_n=4_omc=100.png}
     \end{minipage}
+    }
     \caption{Dipole spectrum of a quantum dot with $n=2$ (left), and $n=4$ electron 
     subjected to a magnetic field with Larmor frequency $\omega_c=1.0 \text{ a.u.}$.
     Both systems have base oscillator frequency $\omega_0=1 \text{ a.u.}$ and 
@@ -368,5 +374,8 @@ Time-Dependent Coupled Cluster Doubles (OATDCCD) method.
     of $T = 1000 \text{ a.u.}$.}
     \label{fig:b_omc100}
 \end{figure}
+
+\vfill
+\pagebreak
 
 \clearemptydoublepage
